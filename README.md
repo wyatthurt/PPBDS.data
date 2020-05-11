@@ -1,2 +1,1 @@
-# PPBDS.data
-Data for Preceptor's Primer for Bayesian Data Science
+# Data for Preceptor's Primer for Bayesian Data Science
