@@ -1,0 +1,37 @@
+## Overview
+
+Write scripts which create our data sets and adds them to our PPBDS.data package. Writes associated help files. Skiims [*R Packages*](https://r-pkgs.org/), but reads closely the [data section](https://r-pkgs.org/data.html). Examines [covdata package](https://kjhealy.github.io/covdata/). Uses **usethis** and **pkgdown** packages.
+
+Follow the conventions with the train data: make_train.R, train.rda, train.R. Note how the name of the tibble appears in the file name of each of the three key things? Main workflow is that, unless too big, raw data is placed in the data-raw/ directory. It is read and cleaned in the make_name-of-tibble.R script, the last step of which is to create the name-of-tibble.rda file, using `usethis::use_data(name-of-tibble, overwrite = TRUE)`. The make_name-of-tibble.R has lots and lots of documentation, including the details of where the original data came from. (At some point, we might turn this into a function, as Healy does, but not right now.)
+
+Data sets to include:
+
+### Debi
+
+* Something from [this experiment](https://gking.harvard.edu/category/research-interests/applications/mexican-health-care-evaluation) in Mexico. Also related: https://gking.harvard.edu/publications/do-nonpartisan-programmatic-policies-have-partisan-electoral-effects-evidence-two
+
+### Beau
+
+* [National Election Survey](https://electionstudies.org/) data, similar to what we have been working with in 1006. Beau
+
+### TBA
+
+Don't spend more than a few hours on any of these without stopping and then having a conversation with me about them. Not all of them can work! Don't pound your head against the wall.
+
+* New Q-Guide data. Original format is as a database, so some wizardry is required. It --- info.db --- has been placed in data-raw/. Credit Aurash Vatan '23 for providing the data in the help page..
+
+* CCES. See example from the *Primer* chapter 14. We will build off of Shiro's work [here](https://github.com/kuriwaki/cces_cumulative). You can just get the cleaned up data form here: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/II2DB6. Download it by hand. You can leave it zipped and then unzip and read it in. We will not keep all the variables. But which ones should we keep? And should we clean up the values for category variables, for example?
+
+* Something about the results of US congressional elections. 538? Really want this to include some measure of campaign spending so we can discuss a (potential) causal effect.
+
+* Need something from voting experiments. Maybe: https://isps.yale.edu/sites/default/files/publication/2012/12/ISPS08-001.pdf and data is in the Dataverse?
+
+* [Open police data](https://openpolicing.stanford.edu/data/). Something with millions of rows and, ideally, geographic coordinates.
+
+* Need something from Matt Blackwell's work on slavery.
+
+* Maybe [GSS](http://gss.norc.org/). Isn't there already an R package?
+
+* FEC data. This is complex and important enough that it might become a stand-alone package. See [DIME](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/O5PX0B&version=2.2).
+
+* Shiro: I also have a clean large dataset of satellite lights in Africa from this period using this paper: https://www.aeaweb.org/articles?id=10.1257/aer.20161385
