@@ -4,7 +4,7 @@
 library(tidyverse)
 library(usethis)
 
-x <- read_csv("pnas_data.csv",
+x <- read_csv("data-raw/pnas_data.csv",
                   col_types = cols(
                     .default = col_double(),
                     male = col_integer(),
