@@ -18,13 +18,19 @@ Data sets to include:
 
 Don't spend more than a few hours on any of these without stopping and then having a conversation with me about them. Not all of them can work! Don't pound your head against the wall.
 
-* New Q-Guide data. Original format is as a database, so some wizardry is required. It --- info.db --- has been placed in data-raw/. Credit Aurash Vatan '23 for providing the data in the help page..
+* Called `qscore` New Q-Guide data. Original format is as a database, so some wizardry is required. It --- info.db --- has been placed in data-raw/. Credit Aurash Vatan '23 for providing the data in the help page. From him: The important table is called "classes" with the following format:
 
-* CCES. See example from the *Primer* chapter 14. We will build off of Shiro's work [here](https://github.com/kuriwaki/cces_cumulative). You can just get the cleaned up data form here: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/II2DB6. Download it by hand. You can leave it zipped and then unzip and read it in. We will not keep all the variables. But which ones should we keep? And should we clean up the values for category variables, for example?
+id | name | enrollment | overall | workload | department | term | course_number
 
-* Something about the results of US congressional elections. 538? Really want this to include some measure of campaign spending so we can discuss a (potential) causal effect.
+99 | AFRAMER 100Y: Introduction to Black Poetry | 49 | 4.2 | 2.6 | AFRAMER | 2019S | 100Y
 
-* Need something from voting experiments. Maybe: https://isps.yale.edu/sites/default/files/publication/2012/12/ISPS08-001.pdf and data is in the Dataverse?
+Three other potentially useful tables: "reviews" has the text of all the reviews in "classes", and "people" and "professors" together store the names of professors and which classes they taught. Some of the names that I have used for columns may be slightly ambiguous, but hopefully that contributes some useful messiness to the data! There are a few more tables in the file, but they were purely for the functioning of the website and so are irrelevant.
+
+* Called `cces`. See how we use it in the *Primer* chapter 14. Mention Shiro's work [here](https://github.com/kuriwaki/cces_cumulative) in the help page. You can just get the cleaned up data form here: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/II2DB6. Download it by hand. (I did this already, but you should document the details. I am not sure if we can automate it, or at least make it a part of the script.) We will not keep all the variables. But which ones should we keep? And should we clean up the values for category variables, for example? Maybe we would be better off getting the dta and then using the **haven** to magically set the levels correctly, which is something which Stata makes easier for factor variables.
+
+* Something about the results of US congressional elections over several election cycles. 538? Really want this to include some measure of campaign spending so we can discuss a (potential) causal effect. Didn't they have a model which they used for the 2018 election? If they estimated a model, they must have some data.
+
+* Need something from voting experiments. Maybe: https://isps.yale.edu/sites/default/files/publication/2012/12/ISPS08-001.pdf and data is in the Dataverse? Or maybe Electoral Administration in Fledgling Democracies: Experimental Evidence from Kenya at https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/UT25HQ. Kenya better because it is international, and we can use Erin's code!
 
 * [Open police data](https://openpolicing.stanford.edu/data/). Something with millions of rows and, ideally, geographic coordinates.
 
@@ -35,3 +41,9 @@ Don't spend more than a few hours on any of these without stopping and then havi
 * FEC data. This is complex and important enough that it might become a stand-alone package. See [DIME](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/O5PX0B&version=2.2).
 
 * Shiro: I also have a clean large dataset of satellite lights in Africa from this period using this paper: https://www.aeaweb.org/articles?id=10.1257/aer.20161385
+
+* Maybe that demography data we used on the last day of 1005 this semester? Or is that too big?
+
+### Other Stuff
+
+* There is much more detail which belongs in make_train.R. I will provide it later.
