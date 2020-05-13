@@ -18,7 +18,7 @@ Data sets to include:
 
 Don't spend more than a few hours on any of these without stopping and then having a conversation with me about them. Not all of them can work! Don't pound your head against the wall.
 
-* Called `qscore` New Q-Guide data. Original format is as a database, so some wizardry is required. It --- info.db --- has been placed in data-raw/. Credit Aurash Vatan '23 for providing the data in the help page. From him: The important table is called "classes" with the following format:
+* Called `qscores` New Q-Guide data. Original format is as a database, so some wizardry is required. It --- info.db --- has been placed in data-raw/. Looks like the **RSQLite** package is the best approach. Credit Aurash Vatan '23 for providing the data in the help page. From him: The important table is called "classes" with the following format:
 
 id | name | enrollment | overall | workload | department | term | course_number
 
