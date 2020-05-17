@@ -1,8 +1,8 @@
 ## Overview
 
-Write scripts which create our data sets and adds them to our PPBDS.data package. Writes associated help files. Skiims [*R Packages*](https://r-pkgs.org/), but reads closely the [data section](https://r-pkgs.org/data.html). Examines [covdata package](https://kjhealy.github.io/covdata/). Uses **usethis** and **pkgdown** packages.
+Write scripts which create our data sets and adds them to our PPBDS.data package. Writes associated help files. Skims [*R Packages*](https://r-pkgs.org/), but reads closely the [data section](https://r-pkgs.org/data.html). Examines [covdata package](https://kjhealy.github.io/covdata/). Uses **usethis** and **pkgdown** packages.
 
-Follow the conventions with the train data: make_train.R, train.rda, train.R. Note how the name of the tibble appears in the file name of each of the three key things? Main workflow is that, unless too big, raw data is placed in the data-raw/ directory. It is read and cleaned in the make_name-of-tibble.R script, the last step of which is to create the name-of-tibble.rda file, using `usethis::use_data(name-of-tibble, overwrite = TRUE)`. The make_name-of-tibble.R has lots and lots of documentation, including the details of where the original data came from. (At some point, we might turn this into a function, as Healy does, but not right now.)
+Follow the conventions with the train data: make_train.R (in data-raw/), train.rda (in data/), train.R (in R/). Note how the name of the tibble appears in the file name of each of the three key things? Main workflow is that, unless too big, raw data is placed in the data-raw/ directory. It is read and cleaned in the make_name-of-tibble.R script, the last step of which is to create the name-of-tibble.rda file, using `usethis::use_data(name-of-tibble, overwrite = TRUE)`. The make_name-of-tibble.R has lots and lots of documentation, including the details of where the original data came from. (At some point, we might turn this into a function, as Healy does, but not right now.)
 
 Data sets to include:
 
@@ -12,11 +12,9 @@ Data sets to include:
 
 ### Beau
 
-* [National Election Survey](https://electionstudies.org/) data, similar to what we have been working with in 1006. Beau
+* Called `nes`. [National Election Survey](https://electionstudies.org/) data, similar to what we have been working with in 1006. Beau
 
-### TBA
-
-Don't spend more than a few hours on any of these without stopping and then having a conversation with me about them. Not all of them can work! Don't pound your head against the wall.
+### Andy
 
 * Called `qscores` New Q-Guide data. Original format is as a database, so some wizardry is required. It --- info.db --- has been placed in data-raw/. Looks like the **RSQLite** package is the best approach. Credit Aurash Vatan '23 for providing the data in the help page. From him: The important table is called "classes" with the following format:
 
@@ -26,7 +24,14 @@ id | name | enrollment | overall | workload | department | term | course_number
 
 Three other potentially useful tables: "reviews" has the text of all the reviews in "classes", and "people" and "professors" together store the names of professors and which classes they taught. Some of the names that I have used for columns may be slightly ambiguous, but hopefully that contributes some useful messiness to the data! There are a few more tables in the file, but they were purely for the functioning of the website and so are irrelevant.
 
-* Called `cces`. See how we use it in the *Primer* chapter 14. Mention Shiro's work [here](https://github.com/kuriwaki/cces_cumulative) in the help page. You can just get the cleaned up data form here: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/II2DB6. Download it by hand. (I did this already, but you should document the details. I am not sure if we can automate it, or at least make it a part of the script.) We will not keep all the variables. But which ones should we keep? And should we clean up the values for category variables, for example? Maybe we would be better off getting the dta and then using the **haven** to magically set the levels correctly, which is something which Stata makes easier for factor variables.
+
+### TBA
+
+Don't spend more than a few hours on any of these without stopping and then having a conversation with me about them. Not all of them can work! Don't pound your head against the wall.
+
+
+
+* Called `cces`. See how we use it in the *Primer* chapter 14. Mention Shiro's work [here](https://github.com/kuriwaki/cces_cumulative) in the help page. You can just get the cleaned up data form here: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/II2DB6. Download it by hand. (I did this already, but you should document the details. I am not sure if we can automate it, or at least make it a part of the script.) We will not keep all the variables. But which ones should we keep? And should we clean up the values for category variables, for example? Maybe we would be better off getting the dta and then using the **haven** to magically set the levels correctly, which is something which Stata makes easier for factor variables. Read the associated PDF. Perhaps the variables should be simple characters? Only other reasonable choice is factors. It is stupid to use "1" to mean "Democrat."
 
 * Something about the results of US congressional elections over several election cycles. 538? Really want this to include some measure of campaign spending so we can discuss a (potential) causal effect. Didn't they have a model which they used for the 2018 election? If they estimated a model, they must have some data.
 
