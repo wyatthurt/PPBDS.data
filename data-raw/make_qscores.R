@@ -65,7 +65,8 @@ qscores <- qscores %>%
   # workload associated
 
   filter(!is.na(term)) %>%
-  filter(workload != 0)
+  filter(workload != 0) %>%
+  as_tibble()
 
 
 # saving data
