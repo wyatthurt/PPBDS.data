@@ -33,3 +33,30 @@ x <- read_dta("data-raw/mexicanhealthcare.dta") %>%
 # recorded to 0, 1, and NA.
 
 
+  rename(gov_resp_diff_rich_poor = p12d13,
+         
+         # Do you agree that: The government should try to reduce differences
+         # between rich and poor?
+         
+         priv_industry_efficiency = p12d14,
+         
+         # Do you agree that: We should privatize the electricity industry to
+         # make it more efficient?
+         
+         ideology = p12d20,
+         
+         # To which of the following political positions do you identify
+         # yourself the most?
+         
+         ec_better = p12d21,
+         
+         # Compared to five years ago, do you think Mexico is better or worse
+         # today economically?
+         
+         pol_better = p12d22
+         
+         # Compared to five years ago, do you think Mexico is better or worse
+         # today politically?
+         
+         )
+
