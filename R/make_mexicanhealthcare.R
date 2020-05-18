@@ -60,3 +60,5 @@ x <- read_dta("data-raw/mexicanhealthcare.dta") %>%
          
          )
 
+mexicanhealthcare <- x
+usethis::use_data(mexicanhealthcare, overwrite = TRUE)
