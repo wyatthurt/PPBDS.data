@@ -65,5 +65,11 @@ x <- read_dta("data-raw/mexicanhealthcare.dta") %>%
          
          )
 
+# Note that for the "_better" questions the responses seem to have been recorded
+# 1 = Better = 1, 2 = Worse = -1, 3 = Same = 0, 8 = Don’t answer = NA, 9 = Don’t
+# know = NA. This is my interpretation, but I am still trying to figure out if
+# this is the actual recoding the authors used.
+
+
 mexicanhealthcare <- x
 usethis::use_data(mexicanhealthcare, overwrite = TRUE)
