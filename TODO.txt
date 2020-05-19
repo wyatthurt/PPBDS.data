@@ -1,14 +1,14 @@
 ## Overview
 
-Write scripts which create our data sets and adds them to our PPBDS.data package. Writes associated help files. Skims [*R Packages*](https://r-pkgs.org/), but reads closely the [data section](https://r-pkgs.org/data.html). Examines [covdata package](https://kjhealy.github.io/covdata/). Uses **usethis** and **pkgdown** packages.
+Write scripts which create our data sets and adds them to our PPBDS.data package. Write associated help files. Skim [*R Packages*](https://r-pkgs.org/), but read closely the [data section](https://r-pkgs.org/data.html). Examine [covdata package](https://kjhealy.github.io/covdata/). Use **usethis** and **pkgdown** packages.
 
-Follow the conventions with the train data: make_train.R (in data-raw/), train.rda (in data/), train.R (in R/). Note how the name of the tibble appears in the file name of each of the three key things? Main workflow is that, unless too big, raw data is placed in the data-raw/ directory. It is read and cleaned in the make_name-of-tibble.R script, the last step of which is to create the name-of-tibble.rda file, using `usethis::use_data(name-of-tibble, overwrite = TRUE)`. The make_name-of-tibble.R has lots and lots of documentation, including the details of where the original data came from. (At some point, we might turn this into a function, as Healy does, but not right now.)
+Follow the conventions with the train data: make_train.R (in data-raw/), train.rda (in data/), train.R (in R/). Note how the name of the tibble appears in the file name of each of the three key things? Main workflow is that, unless too big, raw data is placed in the data-raw/ directory. It is read and cleaned in the make_name-of-tibble.R script, the last step of which is to create the name-of-tibble.rda file, using `usethis::use_data(name-of-tibble, overwrite = TRUE)`. The make_name-of-tibble.R has lots and lots of documentation, including the details of where the original data came from. (At some point, we might turn this into a function, as Healy does, but not right now.) name-of-tibble.R has the information for R to create the help file. You can save this until we decide on the variables that we want.
 
 Data sets to include:
 
 ### Debi
 
-* Something from [this experiment](https://gking.harvard.edu/category/research-interests/applications/mexican-health-care-evaluation) in Mexico. Also related: https://gking.harvard.edu/publications/do-nonpartisan-programmatic-policies-have-partisan-electoral-effects-evidence-two
+* Called `progressa` or `sps`. Don't think we can use data from both. Want some continuous variables. Something from [this experiment](https://gking.harvard.edu/category/research-interests/applications/mexican-health-care-evaluation) in Mexico. Also related: https://gking.harvard.edu/publications/do-nonpartisan-programmatic-policies-have-partisan-electoral-effects-evidence-two
 
 ### Beau
 
