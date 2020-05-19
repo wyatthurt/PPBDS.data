@@ -1,5 +1,6 @@
 # Script which cleans up the raw data from Enos (2016). This is mostly taken
-# from Exam 2 in Fall 2019.
+# from Exam 2 in Fall 2019. I should consider adding a bunch more detail from my
+# own train repo.
 
 library(tidyverse)
 library(usethis)
@@ -72,6 +73,6 @@ x <- read_csv("data-raw/pnas_data.csv",
 
 # Code for saving object
 
-train <- x
-usethis::use_data(train, overwrite = TRUE)
+trains <- x
+usethis::use_data(trains, overwrite = TRUE)
 

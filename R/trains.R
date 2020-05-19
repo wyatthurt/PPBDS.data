@@ -19,4 +19,4 @@
 #' }
 #' @source \url{https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/DOP4UB}
 #'
-"train"
+"trains"
