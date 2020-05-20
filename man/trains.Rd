@@ -4,7 +4,7 @@
 \name{trains}
 \alias{trains}
 \title{Attitude changes toward immigration.}
-\format{A tibble with 115 observations and 9 variables:
+\format{A tibble with 115 observations and 8 variables:
 \describe{
 \item{gender}{character variable with values "Male" and "Female"}
 \item{liberal}{logical variable with TRUE meaning liberal}
@@ -24,10 +24,12 @@ with higher numbers meaning more conservative}
 trains
 }
 \description{
-Data for starting and ending attitudes toward immigration-related policies
-after exposure to Spanish-speakers on a Boston commuter train, from
+Data for attitudes toward immigration-related policies, both before and after
+an experiment which randomly exposed a treated group to Spanish-speakers on a
+Boston commuter train See
 \href{https://scholar.harvard.edu/files/renos/files/enostrains.pdf}{Enos
-(2016)}. Individuals with a treatment value of "Treated" were exposed to two
-Spanish-speakers on their regular commute. "Control" individuals were not.
+(2016)} for background and details. Individuals with a treatment value of
+"Treated" were exposed to two Spanish-speakers on their regular commute.
+"Control" individuals were not.
 }
 \keyword{datasets}
