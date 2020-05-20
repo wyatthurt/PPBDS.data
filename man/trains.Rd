@@ -10,7 +10,7 @@
 \item{liberal}{logical variable with TRUE meaning liberal}
 \item{party}{character variable with values "Democrat" and "Republican"}
 \item{age}{integer variable for age in years}
-\item{income}{numeric variable for  family income in dollars}
+\item{income}{numeric variable for family income in dollars}
 \item{treatment}{factor variable with two levels: "Treated" and "Control"}
 \item{att_start}{Starting attitude toward immigration issues. Uses a 3 to 15 scale,
 with higher numbers meaning more conservative}
@@ -26,10 +26,14 @@ trains
 \description{
 Data for attitudes toward immigration-related policies, both before and after
 an experiment which randomly exposed a treated group to Spanish-speakers on a
-Boston commuter train See
+Boston commuter train platform. See
 \href{https://scholar.harvard.edu/files/renos/files/enostrains.pdf}{Enos
 (2016)} for background and details. Individuals with a treatment value of
 "Treated" were exposed to two Spanish-speakers on their regular commute.
 "Control" individuals were not.
+}
+\details{
+"Causal effect of intergroup contact on attitudes," by Ryan D. Enos,
+Proceedings of the National Academy of Sciences, Mar 2014, 111 (10).
 }
 \keyword{datasets}
