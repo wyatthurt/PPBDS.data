@@ -1,6 +1,4 @@
 # script to include data from qscore database, credits to Aurash Vatan '23
-
-
 # include required packages
 
 library(dbplyr)
@@ -28,6 +26,10 @@ raw <- dbFetch(res)
 dbClearResult(res)
 dbDisconnect(con)
 
+
+qscores <- raw %>%
+  rename()
+
 # Next four steps should be handled in the main pipe. Also, I am not sure that
 # replacing NA with zero is a good idea . . . It is highly unlikely that these
 # courses really have zero workload . . .
@@ -39,10 +41,12 @@ colnames(raw)[12] <- "prof_name"
 
 # setting null values
 
-raw$workload[is.na(raw$workload)] <- 0
-raw$overall[is.na(raw$overall)] <- 0
+# raw$workload[is.na(raw$workload)] <- 0
+# raw$overall[is.na(raw$overall)] <- 0
 
 qscores <- raw %>%
+  
+  rename()
 
   # removing janky names from course_names
 
