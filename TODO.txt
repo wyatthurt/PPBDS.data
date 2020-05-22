@@ -43,6 +43,9 @@ id | name | enrollment | overall | workload | department | term | course_number
 
 Three other potentially useful tables: "reviews" has the text of all the reviews in "classes", and "people" and "professors" together store the names of professors and which classes they taught. Some of the names that I have used for columns may be slightly ambiguous, but hopefully that contributes some useful messiness to the data! There are a few more tables in the file, but they were purely for the functioning of the website and so are irrelevant.
 
+### Ishan
+
+Exploratory work with cces (Preceptor told me to try this one out).
 
 ### TBA
 
