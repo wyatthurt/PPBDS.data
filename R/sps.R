@@ -1,0 +1,29 @@
+#' A Randomised Assessment of the Mexican Universal Health Insurance Programme.
+#' (2009)
+#'
+#' Data for a randomised assessment of the Mexican universal health insurance
+#' programme, both before and after a natural experiment which randomly assigned
+#' treatment within 74 matched pairs of health clusters —representing 118 569
+#' households in seven Mexican states. See
+#' \href{https://gking.harvard.edu/files/gking/files/pubpolforpoor.pdf}{King et
+#' al. (2009)} for background and details. measured outcomes in a 2005 baseline
+#' survey (August, 2005, to September, 2005) and follow-up survey 10 months
+#' later (July, 2006, to August, 2006) in 50 pairs (n=32 515)
+#'
+#'
+#' @format A tibble with 115 observations and 8 variables: \describe{
+#'   \item{gender}{character variable with values "Male" and "Female"}
+#'   \item{liberal}{logical variable with TRUE meaning liberal}
+#'   \item{party}{character variable with values "Democrat" and "Republican"}
+#'   \item{age}{integer variable for age in years} \item{income}{numeric
+#'   variable for family income in dollars} \item{treatment}{factor variable
+#'   with two levels: "Treated" and "Control"} \item{att_start}{Starting
+#'   attitude toward immigration issues. Uses a 3 to 15 scale, with higher
+#'   numbers meaning more conservative} \item{att_end}{Ending attitude toward
+#'   immigration issues. Uses a 3 to 15 scale, with higher numbers meaning more
+#'   conservative} }
+#' @source
+#' \url{https://qualitativedatarepository.github.io/dataverse-previewers/previewers/SpreadsheetPreview.html?fileid=1412235&siteUrl=https://dataverse.harvard.edu&datasetid=53150&datasetversion=6.2}
+#'
+#' 
+"sps"

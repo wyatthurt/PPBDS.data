@@ -3,7 +3,7 @@ library(haven)
 library(janitor)
 
 
-x <- read_dta("data-raw/mexicanhealthcare.dta") %>% 
+x <- read_dta("data-raw/sps.dta") %>% 
   clean_names() %>% 
   
   # This data file covers 647 variables from a pre- and pos-treament survey.
@@ -71,5 +71,5 @@ x <- read_dta("data-raw/mexicanhealthcare.dta") %>%
 # this is the actual recoding the authors used.
 
 
-mexicanhealthcare <- x
-usethis::use_data(mexicanhealthcare, overwrite = TRUE)
+sps <- x
+usethis::use_data(sps, overwrite = TRUE)
