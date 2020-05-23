@@ -14,6 +14,8 @@ We are creating an R package, PPBDS.data, which will contain a collection of int
 
 * Even though I only did this a few weeks ago, I have already forgotten the key steps. Weak! Document better!
 
+*
+
 ### git-lfs
 
 Note that you need to have git-lfs installed to work with our repo because we use some big data sets. See [here](https://git-lfs.github.com/) for instructions. Note that the current Mac OS (Catalina) will give you a bit of a problem. To solve it, I did:
