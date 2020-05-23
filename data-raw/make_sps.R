@@ -10,6 +10,23 @@ library(janitor)
 # funds to improve health facilities and to provide medications for services in
 # treated clusters.
 
+# The outcome variables:
+
+# Catastrophic expenditures decreased w/ treatment
+# Effect in poor households was 3·0% points -- 30%
+# Effect in experimental compliers was 6·5% points -- 59%
+
+
+#  intention-to-treat effect on health spending in poor households was 426
+#  pesos (39–812), and the complier average causal eff ect was 915 pesos
+#  (147–1684)
+
+
+
+# P03D11 Health care costs, excluding travel expenses related to seeking health
+# care and any reimbursement of health insurance? (of the past month)
+
+
 x <- read_dta("data-raw/sps.dta") %>% 
   clean_names() %>% 
   
@@ -17,8 +34,7 @@ x <- read_dta("data-raw/sps.dta") %>%
   # Althought the dataverse readme says there is a Spanish and English codebook,
   # only the Spanish version is available on the site. 
   
-  select(cluster, id_hogar, age, age_t2, treatment, urbrur, 
-         urbrur_t2, sex, educ, p12d13, p12d13_t2, p12d14, p12d14_t2, 
+  select(age, treatment, urbrur, sex, educ, p12d13, p12d13_t2, p12d14, p12d14_t2, 
          p12d20, p12d20_t2,p12d21, p12d21_t2, p12d22, p12d22_t2) %>% 
   
 
