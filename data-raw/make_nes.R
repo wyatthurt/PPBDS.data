@@ -94,6 +94,8 @@ x <- data %>%
   select(-VCF0004) %>% 
   
 # race/ethn. cleaning (factors)
+  # currently they display in alphabetical order, ordered factors would be needed if you wish them to be 
+  # in their original / any other order
   
   mutate(VCF0105a = as.character(as_factor(VCF0105a))) %>% 
   
