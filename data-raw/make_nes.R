@@ -87,12 +87,43 @@ x <- data %>%
   
   mutate(income = as.ordered(income)) %>%
   
-  # year cleaning 
+# year cleaning 
   
   mutate(year = as.numeric(VCF0004)) %>% 
   
-  select(-VCF0004)
+  select(-VCF0004) %>% 
+  
+# race/ethn. cleaning (factors)
+  
+  mutate(VCF0105a = as.character(as_factor(VCF0105a))) %>% 
+  
+  # I elected to use str_extract as the conditional test here because I was getting an error where
+  # 'case_when()' would not allow a T/F test on the LHS of the equation. I'm still looking into a 
+  # workaround for this, but this method does the job for now. 
+  
+  mutate(race = as.factor(case_when(
+    str_extract(VCF0105a, pattern = "White") == "White" ~ "white",
+    str_extract(VCF0105a, pattern = "Black") == "Black" ~ "black",
+    str_extract(VCF0105a, pattern = "Asian") == "Asian" ~ "asian/p.i.",
+    str_extract(VCF0105a, pattern = "Indian") == "Indian" ~ "native am.",
+    
+    # I had to account for the 'non-hispanic' clause in the other labels, hence the 
+    # extra code in this case
+    
+    ((str_extract(VCF0105a, pattern = "Hispanic") == "Hispanic") &
+       str_detect(VCF0105a, pattern = "non-") == F) ~ "hispanic",
+    str_extract(VCF0105a, pattern = "Other") == "Other" ~ "other",
+    str_extract(VCF0105a, pattern = "Non-white") == "Non-white" ~ "non white, black",
+    TRUE ~ "NA"
+  ))) %>% 
+  
+  select(-VCF0105a)
 
+
+nes <- x
+
+
+# usethis::use_data(nes, overwrite = T)
 
 
 
