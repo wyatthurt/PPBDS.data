@@ -1,5 +1,8 @@
 ## Overview
 
+We are creating an R package, PPBDS.data, which will contain a collection of interesting tibbles, with a focus on political science and designed for classroom use. Their main use will be for Gov 50 and for Preceptor's Primer. Each tibble will have a small number of variables, about as many as will fit across the screen when the tibble is printed. (There may be exceptions to this, but probably not. Tibbles need to be simple since we don't want to overwhelm readers. The focus should be on the code and the models, not on the data.)
+
+### Instructions
 
 * Write scripts which create our data sets and adds them to our PPBDS.data package. Write associated help files. Skim [*R Packages*](https://r-pkgs.org/), but read closely the [data section](https://r-pkgs.org/data.html). Examine [covdata package](https://kjhealy.github.io/covdata/). Use **usethis** and **pkgdown** packages.
 
