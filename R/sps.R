@@ -23,7 +23,6 @@
 #'   immigration issues. Uses a 3 to 15 scale, with higher numbers meaning more
 #'   conservative} }
 #' @source
-#' \url{https://qualitativedatarepository.github.io/dataverse-previewers/previewers/SpreadsheetPreview.html?fileid=1412235&siteUrl=https://dataverse.harvard.edu&datasetid=53150&datasetversion=6.2}
-#'
+#' \url{https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/P6NC0M}
 #' 
 "sps"
