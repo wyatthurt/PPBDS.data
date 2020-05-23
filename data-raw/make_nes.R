@@ -85,7 +85,13 @@ x <- data %>%
   separate(VCF0114, into = c(NA, "income"),
            sep = "[.]") %>% 
   
-  mutate(income = as.ordered(income))
+  mutate(income = as.ordered(income)) %>%
+  
+  # year cleaning 
+  
+  mutate(year = as.numeric(VCF0004)) %>% 
+  
+  select(-VCF0004)
 
 
 
