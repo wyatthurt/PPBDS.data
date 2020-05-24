@@ -1,0 +1,21 @@
+#' American National Survey Data
+#'
+#' Data from the American National Election Survey cumulative data file complete through 2016. See
+#' \href{https://electionstudies.org/data-center/anes-time-series-cumulative-data-file/}{NES CDF 2016} 
+#' for background and details. First study conducted in 1948, see appendices for variations in questions
+#' and other metrics over time. Current as of 05/24/2020. 
+#'
+#' @format A tibble with 39,220 observations and 8 variables:
+#' \describe{
+#'   \item{gender}{character variable with values "Male" and "Female"}
+#'   \item{income}{ordered factor of bracketed national income percentile values}
+#'   \item{real_ideo}{factor variable of 7 party identification bins}
+#'   \item{year}{numeric variable for year of study}
+#'   \item{race}{factor variable for race / ethnicity respondent identification}
+#'   \item{educ_01}{factor variable with a 7 tier delineation of educational achievement}
+#'   \item{educ_02}{factor variable with a 6 tier delineation of educational achievement}
+#'   \item{educ_03}{factor variable with a 4 tier delineation of educational achievement}
+#' }
+#' @source \url{https://electionstudies.org/data-center/anes-time-series-cumulative-data-file/}
+#'
+"nes"
