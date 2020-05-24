@@ -151,7 +151,25 @@ x <- data %>%
     real_ideo == " Weak Republican" ~ "weak Rep.",
     real_ideo == " Strong Republican" ~ "Rep.",
     TRUE ~ "NA"
-  )))
+  ))) %>% 
+
+# education cleaning
+
+  mutate(VCF0140a = as.character(as_factor(VCF0140a))) %>% 
+    
+    mutate(educ. = as.factor(case_when(
+      str_extract(VCF0140a, pattern = "1. ") == "1. " ~ "elementary",
+      str_extract(VCF0140a, pattern = "2. ") == "2. " ~ "some h.s",
+      str_extract(VCF0140a, pattern = "3. ") == "3. " ~ "h.s. diploma",
+      str_extract(VCF0140a, pattern = "4. ") == "4. " ~ "h.s. diploma +",
+      
+      # this indicates diploma / equivalent "plus non-academic", looking into the meaning of this
+      
+      str_extract(VCF0140a, pattern = "5. ") == "5. " ~ "some college",
+      str_extract(VCF0140a, pattern = "6. ") == "6. " ~ "college degree",
+      str_extract(VCF0140a, pattern = "7. ") == "7. " ~ "advanced degree",
+      TRUE ~ "NA"))) %>% 
+    select(-VCF0140a)
 
 
 nes <- x
