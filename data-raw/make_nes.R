@@ -152,27 +152,71 @@ x <- data %>%
     real_ideo == " Strong Republican" ~ "Rep.",
     TRUE ~ "NA"
   ))) %>% 
-
-# education cleaning
-
+  
+  # education cleaning 'educ_01'(7 - category option)
+  
   mutate(VCF0140a = as.character(as_factor(VCF0140a))) %>% 
+  
+  mutate(educ_01 = as.factor(case_when(
+    str_extract(VCF0140a, pattern = "1. ") == "1. " ~ "elementary",
+    str_extract(VCF0140a, pattern = "2. ") == "2. " ~ "some h.s",
+    str_extract(VCF0140a, pattern = "3. ") == "3. " ~ "h.s. diploma",
+    str_extract(VCF0140a, pattern = "4. ") == "4. " ~ "h.s. diploma +",
     
-    mutate(educ. = as.factor(case_when(
-      str_extract(VCF0140a, pattern = "1. ") == "1. " ~ "elementary",
-      str_extract(VCF0140a, pattern = "2. ") == "2. " ~ "some h.s",
-      str_extract(VCF0140a, pattern = "3. ") == "3. " ~ "h.s. diploma",
-      str_extract(VCF0140a, pattern = "4. ") == "4. " ~ "h.s. diploma +",
-      
-      # this indicates diploma / equivalent "plus non-academic", looking into the meaning of this
-      
-      str_extract(VCF0140a, pattern = "5. ") == "5. " ~ "some college",
-      str_extract(VCF0140a, pattern = "6. ") == "6. " ~ "college degree",
-      str_extract(VCF0140a, pattern = "7. ") == "7. " ~ "advanced degree",
-      TRUE ~ "NA"))) %>% 
-    select(-VCF0140a)
-
+    # this indicates diploma / equivalent "plus non-academic", looking into the meaning of this
+    
+    str_extract(VCF0140a, pattern = "5. ") == "5. " ~ "some college",
+    str_extract(VCF0140a, pattern = "6. ") == "6. " ~ "college degree",
+    str_extract(VCF0140a, pattern = "7. ") == "7. " ~ "advanced degree",
+    TRUE ~ "NA"))) %>% 
+  
+  select(-VCF0140a) %>% 
+  
+  # education cleaning educ_02 option
+  
+  mutate(VCF0140 = as.character(as_factor(VCF0140))) %>% 
+  
+  mutate(educ_02 = as.factor(case_when(
+    str_extract(VCF0140, pattern = "1. ") == "1. " ~ "elementary",
+    str_extract(VCF0140, pattern = "2. ") == "2. " ~ "some h.s.",
+    str_extract(VCF0140, pattern = "3. ") == "3. " ~ "h.s. diploma",
+    str_extract(VCF0140, pattern = "4. ") == "4. " ~ "h.s. diploma +",
+    str_extract(VCF0140, pattern = "5. ") == "5. " ~ "some college",
+    
+    # 6 includes degrees >= undergrad completion
+    
+    str_extract(VCF0140, pattern = "6. ") == "6. " ~ "college degree",
+    TRUE ~ "NA"
+    
+  ))) %>% 
+  
+  select(-VCF0140) %>% 
+  
+  # education cleaning educ_03
+  
+  mutate(VCF0110 = as.character(as_factor(VCF0110))) %>% 
+  
+  mutate(educ_03 = as.factor(case_when(
+    str_extract(VCF0110, pattern = "1. ") == "1. " ~ "elementary",
+    
+    # no degree implication? strange
+    
+    str_extract(VCF0110, pattern = "2. ") == "2. " ~ "high school",
+    str_extract(VCF0110, pattern = "3. ") == "3. " ~ "some college",
+    str_extract(VCF0110, pattern = "4. ") == "4. " ~ "college degree"
+  ))) %>% 
+  
+  select(-VCF0110)
 
 nes <- x
+
+# todo: 
+  # address "(Other)" presence in summary(nes) output
+  # implement a regex method of parsing away the numbering in order to rid workflow of 
+    # case_when where applicable
+  # choose an educ_* variable to keep
+  # discuss any more variables to implement
+
 
 
 # usethis::use_data(nes, overwrite = T)
