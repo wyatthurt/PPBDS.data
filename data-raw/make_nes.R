@@ -78,14 +78,20 @@ x <- data %>%
   separate(VCF0104, into = c(NA, "gender"), 
            sep = " ") %>% 
   
-# income cleaning
+# income cleaning (income percentile brackets)
   
   mutate(VCF0114 = as.character(as_factor(VCF0114)))  %>% 
   
   separate(VCF0114, into = c(NA, "income"),
-           sep = "[.]") %>% 
+           sep = "[.]") %>%
   
-  mutate(income = as.ordered(income)) %>%
+  mutate(income = as.ordered(case_when(
+    income == " 0 to 16 percentile" ~ "0-16",
+    income == " 17 to 33 percentile" ~ "17 - 33",
+    income == " 34 to 67 percentile" ~ "34 - 67",
+    income == " 68 to 95 percentile" ~ "68 - 95",
+    income == " 96 to 100 percentile" ~ "96-100"
+  ))) %>% 
   
 # year cleaning 
   
@@ -106,8 +112,8 @@ x <- data %>%
   mutate(race = as.factor(case_when(
     str_extract(VCF0105a, pattern = "White") == "White" ~ "white",
     str_extract(VCF0105a, pattern = "Black") == "Black" ~ "black",
-    str_extract(VCF0105a, pattern = "Asian") == "Asian" ~ "asian/p.i.",
-    str_extract(VCF0105a, pattern = "Indian") == "Indian" ~ "native am.",
+    str_extract(VCF0105a, pattern = "Asian") == "Asian" ~ "asian",
+    str_extract(VCF0105a, pattern = "Indian") == "Indian" ~ "native",
     
     # I had to account for the 'non-hispanic' clause in the other labels, hence the 
     # extra code in this case
