@@ -86,11 +86,11 @@ x <- data %>%
            sep = "[.]") %>%
   
   mutate(income = as.ordered(case_when(
-    income == " 0 to 16 percentile" ~ "0-16",
+    income == " 0 to 16 percentile" ~ "0 - 16",
     income == " 17 to 33 percentile" ~ "17 - 33",
     income == " 34 to 67 percentile" ~ "34 - 67",
     income == " 68 to 95 percentile" ~ "68 - 95",
-    income == " 96 to 100 percentile" ~ "96-100"
+    income == " 96 to 100 percentile" ~ "96 - 100"
   ))) %>% 
   
 # year cleaning 
@@ -109,6 +109,9 @@ x <- data %>%
   # 'case_when()' would not allow a T/F test on the LHS of the equation. I'm still looking into a 
   # workaround for this, but this method does the job for now. 
   
+  # I am unsure if these are the correct / acceptable abbreviations. I know brevity is the goal here, 
+  # always open to suggestion
+  
   mutate(race = as.factor(case_when(
     str_extract(VCF0105a, pattern = "White") == "White" ~ "white",
     str_extract(VCF0105a, pattern = "Black") == "Black" ~ "black",
@@ -121,11 +124,34 @@ x <- data %>%
     ((str_extract(VCF0105a, pattern = "Hispanic") == "Hispanic") &
        str_detect(VCF0105a, pattern = "non-") == F) ~ "hispanic",
     str_extract(VCF0105a, pattern = "Other") == "Other" ~ "other",
-    str_extract(VCF0105a, pattern = "Non-white") == "Non-white" ~ "non white, black",
+    
+    # 
+    # it may be prudent to combine this with other or NA
+    
+    str_extract(VCF0105a, pattern = "Non-white") == "Non-white" ~ "non white,black",
     TRUE ~ "NA"
+    
   ))) %>% 
   
-  select(-VCF0105a)
+  select(-VCF0105a) %>% 
+  
+# party affiliation / real_ideo cleaning
+  
+  mutate(VCF0301 = as_factor(VCF0301)) %>% 
+  
+  separate(VCF0301, into = c(NA, "real_ideo"),
+           sep = "[.]") %>% 
+  
+  mutate(real_ideo = as.factor(case_when(
+    real_ideo == " Strong Democrat" ~ "Dem.",
+    real_ideo == " Weak Democrat" ~ "weak Dem.",
+    real_ideo == " Independent - Democrat" ~ "ind. Dem.",
+    real_ideo == " Independent - Independent" ~ "Ind.",
+    real_ideo == " Independent - Republican" ~ "ind. Rep.",
+    real_ideo == " Weak Republican" ~ "weak Rep.",
+    real_ideo == " Strong Republican" ~ "Rep.",
+    TRUE ~ "NA"
+  )))
 
 
 nes <- x
