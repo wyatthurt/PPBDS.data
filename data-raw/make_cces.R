@@ -15,7 +15,8 @@ x <- readRDS("data-raw/cumulative_2006_2018.rds") %>%
   select(year,
 
     # Case_id is pretty useless but necessary to see repeated
-    # samples, so I kept it.
+    # samples, so I kept it. Update: did not keep it because of
+    # instructions from preceptor.
 
     case_id,
     state,
@@ -35,9 +36,6 @@ x <- readRDS("data-raw/cumulative_2006_2018.rds") %>%
     news = newsint,
     econ = economy_retro,
     approval_pres,
-    approval_rep,
-    approval_sen1,
-    approval_sen2,
     approval_gov
   ) %>%
 
@@ -51,7 +49,8 @@ x <- readRDS("data-raw/cumulative_2006_2018.rds") %>%
 
   # The third is the approval ratings for senate officials, representatives, and governors.
   # It would be interesting to see if they correlate with approval of the president
-  # in some manner.
+  # in some manner. Update: removed approval for Congressmen, just kept presidential
+  # and governor.
 
   # Below, I convert some of the numerical representations of the data into
   # consistent character variables.
