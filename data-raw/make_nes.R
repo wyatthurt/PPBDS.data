@@ -112,7 +112,7 @@ x <- data %>%
   # I am unsure if these are the correct / acceptable abbreviations. I know brevity is the goal here, 
   # always open to suggestion
   
-  mutate(race = as.factor(case_when(
+  mutate(race = as.character(case_when(
     str_extract(VCF0105a, pattern = "White") == "White" ~ "white",
     str_extract(VCF0105a, pattern = "Black") == "Black" ~ "black",
     str_extract(VCF0105a, pattern = "Asian") == "Asian" ~ "asian",
@@ -142,7 +142,7 @@ x <- data %>%
   separate(VCF0301, into = c(NA, "real_ideo"),
            sep = "[.]") %>% 
   
-  mutate(real_ideo = as.factor(case_when(
+  mutate(real_ideo = as.character(case_when(
     real_ideo == " Strong Democrat" ~ "Dem.",
     real_ideo == " Weak Democrat" ~ "weak Dem.",
     real_ideo == " Independent - Democrat" ~ "ind. Dem.",
@@ -153,60 +153,30 @@ x <- data %>%
     TRUE ~ "NA"
   ))) %>% 
   
-  # education cleaning 'educ_01'(7 - category option)
+# education cleaning 'educ'
   
   mutate(VCF0140a = as.character(as_factor(VCF0140a))) %>% 
   
-  mutate(educ_01 = as.factor(case_when(
-    str_extract(VCF0140a, pattern = "1. ") == "1. " ~ "elementary",
-    str_extract(VCF0140a, pattern = "2. ") == "2. " ~ "some h.s",
-    str_extract(VCF0140a, pattern = "3. ") == "3. " ~ "h.s. diploma",
-    str_extract(VCF0140a, pattern = "4. ") == "4. " ~ "h.s. diploma +",
-    
-    # this indicates diploma / equivalent "plus non-academic", looking into the meaning of this
-    
-    str_extract(VCF0140a, pattern = "5. ") == "5. " ~ "some college",
-    str_extract(VCF0140a, pattern = "6. ") == "6. " ~ "college degree",
-    str_extract(VCF0140a, pattern = "7. ") == "7. " ~ "advanced degree",
-    TRUE ~ "NA"))) %>% 
+  mutate(educ = as.character(
+    case_when(
+      str_extract(VCF0140a, pattern = "1. ") == "1. " ~ "elementary",
+      str_extract(VCF0140a, pattern = "2. ") == "2. " ~ "some h.s",
+      str_extract(VCF0140a, pattern = "3. ") == "3. " ~ "h.s. diploma",
+      str_extract(VCF0140a, pattern = "4. ") == "4. " ~ "h.s. diploma +",
+      
+      # this indicates diploma / equivalent "plus non-academic", looking into the meaning of this
+      
+      str_extract(VCF0140a, pattern = "5. ") == "5. " ~ "some college",
+      str_extract(VCF0140a, pattern = "6. ") == "6. " ~ "college degree",
+      str_extract(VCF0140a, pattern = "7. ") == "7. " ~ "advanced degree",
+      TRUE ~ "NA"))) %>%
   
-  select(-VCF0140a) %>% 
+  mutate(educ = factor(educ,
+                       levels = c("elementary", "some h.s.", "h.s. diploma", "h.s. diploma +",
+                                  "some college", "college degree", "advanced degree"),
+                       ordered = T)) %>% 
   
-  # education cleaning educ_02 option
-  
-  mutate(VCF0140 = as.character(as_factor(VCF0140))) %>% 
-  
-  mutate(educ_02 = as.factor(case_when(
-    str_extract(VCF0140, pattern = "1. ") == "1. " ~ "elementary",
-    str_extract(VCF0140, pattern = "2. ") == "2. " ~ "some h.s.",
-    str_extract(VCF0140, pattern = "3. ") == "3. " ~ "h.s. diploma",
-    str_extract(VCF0140, pattern = "4. ") == "4. " ~ "h.s. diploma +",
-    str_extract(VCF0140, pattern = "5. ") == "5. " ~ "some college",
-    
-    # 6 includes degrees >= undergrad completion
-    
-    str_extract(VCF0140, pattern = "6. ") == "6. " ~ "college degree",
-    TRUE ~ "NA"
-    
-  ))) %>% 
-  
-  select(-VCF0140) %>% 
-  
-  # education cleaning educ_03
-  
-  mutate(VCF0110 = as.character(as_factor(VCF0110))) %>% 
-  
-  mutate(educ_03 = as.factor(case_when(
-    str_extract(VCF0110, pattern = "1. ") == "1. " ~ "elementary",
-    
-    # no degree implication? strange
-    
-    str_extract(VCF0110, pattern = "2. ") == "2. " ~ "high school",
-    str_extract(VCF0110, pattern = "3. ") == "3. " ~ "some college",
-    str_extract(VCF0110, pattern = "4. ") == "4. " ~ "college degree"
-  ))) %>% 
-  
-  select(-VCF0110)
+  select(-VCF0140a, -VCF0140, -VCF0110)
 
 nes <- x
 
@@ -214,10 +184,12 @@ nes <- x
   # address "(Other)" presence in summary(nes) output
   # implement a regex method of parsing away the numbering in order to rid workflow of 
     # case_when where applicable
-  # choose an educ_* variable to keep
-  # discuss any more variables to implement
+
+# notes: 
+  # VCF0900 (congress voting district) could be a state workaround of geographic region is insufficient 
 
 
+# this is commented out as a fail-safe in the workflow, it is run when the *.rda file needs updating
 
 # usethis::use_data(nes, overwrite = T)
 
