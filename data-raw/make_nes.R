@@ -49,22 +49,18 @@ x <- data %>%
     
     VCF0301, # 1281 NA's
     
-    # I'm debating which of these is preferred
-    
     # education (7 tier) Q: 1978-1984: Do you have a college degree? (IF YES:) What is the highest
     # degree that you have earned? 1986 AND LATER: What is the highest degree that you have earned?
     
     VCF0140a, # 1059 NA's
     
-    # 6 tier. Q: 1978-1984: Do you have a college degree? (IF YES:) What is the highest degree that
-    # you have earned? 1986 AND LATER: What is the highest degree that you have earned? 
+    # state FIPS code, to be matched to K. Healy's file to convert to 2-letter state abbreviation
     
-    VCF0140, 
+    VCF0901a, 
     
-    # education (4 tier) Q: What is the highest level of school you have completed or 
-    # the  highest degree you have received?
+    # did R vote in the national election(s)
     
-    VCF0110 
+    VCF0702 
     
   ) %>% 
   
@@ -176,17 +172,72 @@ x <- data %>%
                                   "some college", "college degree", "advanced degree"),
                        ordered = T)) %>% 
   
-  select(-VCF0140a, -VCF0140, -VCF0110)
+  select(-VCF0140a) %>% 
 
-nes <- x
+# state variable coercion
+  
+  # Going from a haven_labelled object to an integer is fun. If you fail to pass through <chr>
+  # state before going to integer, the integrity of the values is lost for a presently unknown
+  # reason. I recalled this as a workaround from a previous project and it worked, I tested for 
+  # coherence throughout and this was the first method I arrived at that results in accurate data
+  
+  mutate(fips = as.integer(as.character(as_factor(VCF0901a)))) %>% 
+  
+  select(-VCF0901a)
+
+  # Many thanks to K. Healy for making this state FIPS key file available
+  # see more at: https://github.com/kjhealy/fips-codes. Relevant .csv file included in `data-raw`
+
+fips_key <- read.csv("data-raw/state_fips_master.csv") %>% 
+  
+  select(fips, state_abbr)
+
+  # match the key dataframe to the NES data if possible while keeping all NES data
+  # based on FIPS indication
+
+  # there is no code for DC, Guam, etc. so I may need to use one of the other files from Healy, 
+  # but this works for now and I will look into the other options. 
+
+z <- left_join(x = x, y = fips_key, by = "fips") %>% 
+  
+  mutate(state = state_abbr) %>% 
+  
+  select(-fips, -state_abbr) %>% 
+  
+  # did R vote cleaning: 1 = yes, 0 = no
+  
+  mutate(voted = as_factor(VCF0702)) %>% 
+  
+  separate(col = voted, into = c("voted", NA),
+           sep = "[.]") %>% 
+  
+  mutate(voted = as.integer(as.numeric(voted) - 1)) %>% 
+  
+  # if factors are desired, uncomment: change name accordingly, plug and play and
+  # also uncomment the exclusion of 'v2'
+  
+  # mutate(vote_02 = as.factor(case_when(
+  #            str_extract(v2, pattern = "voted") == "voted" ~ "yes",
+  #            str_extract(v2, pattern = "not") == "not" ~ "no",
+  #            TRUE ~ "NA"
+  #          )))
+  
+  select(-VCF0702,
+         #v2
+  )
+
+
+nes <- z
 
 # todo: 
   # address "(Other)" presence in summary(nes) output
   # implement a regex method of parsing away the numbering in order to rid workflow of 
-    # case_when where applicable
+  # case_when where applicable
 
 # notes: 
-  # VCF0900 (congress voting district) could be a state workaround of geographic region is insufficient 
+  # check if <chr> vs. <int> vote status is preferred
+  # look into presedential/(and candidate?) approval var
+ 
 
 
 # this is commented out as a fail-safe in the workflow, it is run when the *.rda file needs updating
