@@ -123,7 +123,7 @@ qscores <- raw %>%
 
   # https://registrar.fas.harvard.edu/faculty-staff/courses/enrollment/archived-course-enrollment-reports
 
-  select(course_name, department, course_number, department, enrollment, workload, overall, prof_name) %>%
+  select(course_name, department, course_number, term, department, enrollment, workload, overall, prof_name) %>%
   as_tibble()
 
 
