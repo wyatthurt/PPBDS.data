@@ -12,21 +12,22 @@
 #' @format A tibble with 452755 observations and 16 variables:
 #' \describe{
 #'   \item{year}{integer variable for year of survey}
-#'   \item{case_id}{integer variable for id of observation}
 #'   \item{state}{character variable for state of residence for observation}
 #'   \item{gender}{charcater variable of "Female" and "Male"}
 #'   \item{age}{integer variable for age in years}
-#'   \item{educ}{character variable for level of education}
+#'   \item{educ}{factor variable for level of education - takes values of "No HS",
+#'   "High School Graduate", "Some College", "2-Year", "4-Year", and "Post-Grad"}
 #'   \item{race}{character variable for racial identity}
 #'   \item{marstat}{character variable for marriage status}
-#'   \item{ideology}{character variable for self-reported ideology}
+#'   \item{ideology}{factor variable for self-reported ideology - takes values of "Very Liberal",
+#'   "Liberal", "Moderate", "Conservative", "Very Conservative", and "Not Sure"}
 #'   \item{news}{character variable for level news/current events interest}
 #'   \item{econ}{character variable for retrospective report on the past year's economy}
-#'   \item{approval_pres}{character variable of approval of president}
-#'   \item{approval_rep}{character variable of approval of representative}
-#'   \item{approval_sen1}{character variable of approval of first senator}
-#'   \item{approval_sen2}{character variable of approval of second senator}
-#'   \item{approval_gov}{character variable of approval of state governor}
+#'   \item{approval_pres}{factor variable of approval of president - takes values of 
+#'   "Strongly Approve", "Approve / Somewhat Approve", "Disapprove / Somewhat Disapprove",
+#'   "Never Heard / Not Sure", "Neither Approve Nor Disapprove"}
+#'   \item{approval_gov}{factor variable of approval of state governor - takes same values
+#'   approval_pres}
 #' }
 #' @source \url{https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/II2DB6}
 #'

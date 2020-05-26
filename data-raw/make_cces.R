@@ -124,7 +124,26 @@ x <- readRDS("data-raw/cumulative_2006_2018.rds") %>%
                                            "Some College",
                                            "2-Year",
                                            "4-Year",
-                                           "Post-Grad")))
+                                           "Post-Grad"))) %>%
+
+# Make approval variables ordered factors.
+  
+  mutate(approval_pres = factor(approval_pres, levels = c("Strongly Approve", 
+                                                          "Approve / Somewhat Approve",
+                                                          "Disapprove / Somewhat Disapprove",
+                                                          "Strongly Disapprove",
+                                                          "Never Heard / Not Sure",
+                                                          "Neither Approve Nor Disapprove"
+  ))) %>%
+  mutate(approval_gov = factor(approval_gov, levels = c("Strongly Approve", 
+                                                          "Approve / Somewhat Approve",
+                                                          "Disapprove / Somewhat Disapprove",
+                                                          "Strongly Disapprove",
+                                                          "Never Heard / Not Sure",
+                                                          "Neither Approve Nor Disapprove"
+  )))
+
+
 
 # Save the data.
 
