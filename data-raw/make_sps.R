@@ -106,6 +106,10 @@ x <- read_dta("data-raw/sps.dta") %>%
                           educ == 5 ~ "Normal",
                           educ == 6 ~ "Technical or Commercial",
                           educ == 7 ~ "College"),
+         
+         # I'm not sure what the authors mean by "normal" but it was one of
+         # their education categories.
+         
          ideology = case_when(ideology == 1 ~ "Left",
                               ideology == 2 ~ "Center-left",
                               ideology == 3 ~ "Center",
