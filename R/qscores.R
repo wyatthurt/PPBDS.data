@@ -1,29 +1,31 @@
-#' Attitude changes toward immigration.
+#' Harvard student feedback on courses
 #'
-#' Data for attitudes toward immigration-related policies, both before and after
-#' an experiment which randomly exposed a treated group to Spanish-speakers on a
-#' Boston commuter train platform. See
-#' \href{https://scholar.harvard.edu/files/renos/files/enostrains.pdf}{Enos
-#' (2016)} for background and details. Individuals with a treatment value of
-#' "Treated" were exposed to two Spanish-speakers on their regular commute.
-#' "Control" individuals were not.
+#' Data for student feedback on Harvard courses. After each semester, the office
+#' of the Registrar at Harvard sends all students the
+#' \href{https://q.fas.harvard.edu/}{so-called Q Guide}, where students submit
+#' both quantitative and qualitative data about their courses. The primary
+#' observations of our data set are the overall rating of the course, as well as
+#' the workload.
+#' 
+#' The data source — skimmed from the Q Guide web app — does not support data
+#' for courses that are primarily taught in individual sections. As such, large
+#' courses like freshman Expository Writing (taught in 15-person sections) do
+#' not have data available. The data set has also been filtered to only include
+#' courses with more than 15 registered students.
+#' 
+#' The data for this tibble was generously provided by Aurash Vatan '23.
 #'
-#' "Causal effect of intergroup contact on attitudes," by Ryan D. Enos,
-#' Proceedings of the National Academy of Sciences, Mar 2014, 111 (10).
-#'
-#' @format A tibble with 115 observations and 8 variables:
+#' @format A tibble with 748 observations and 8 variables:
 #' \describe{
-#'   \item{gender}{character variable with values "Male" and "Female"}
-#'   \item{liberal}{logical variable with TRUE meaning liberal}
-#'   \item{party}{character variable with values "Democrat" and "Republican"}
-#'   \item{age}{integer variable for age in years}
-#'   \item{income}{numeric variable for family income in dollars}
-#'   \item{treatment}{factor variable with two levels: "Treated" and "Control"}
-#'   \item{att_start}{Starting attitude toward immigration issues. Uses a 3 to 15 scale,
-#'                    with higher numbers meaning more conservative}
-#'   \item{att_end}{Ending attitude toward immigration issues. Uses a 3 to 15 scale,
-#'                  with higher numbers meaning more conservative}
+#'   \item{course_name}{character variable with name of course}
+#'   \item{department}{character variable representing department of course}
+#'   \item{course_nunber}{character variable representing department course name listing}
+#'   \item{term}{character variable with values "2018F" and "2019S"}
+#'   \item{enrollment}{numeric variable for enrollment in course}
+#'   \item{workload}{numeric variable representing hours per week of workload}
+#'   \item{overall}{numeric variable representing average of students' rating of course (1 to 5 scale)}
+#'   \item{prof_name}{character variable representing name of professor}
 #' }
-#' @source \url{https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/DOP4UB}
 #'
 "qscores"
+
