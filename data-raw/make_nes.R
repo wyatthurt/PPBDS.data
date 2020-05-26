@@ -49,8 +49,6 @@ x <- data %>%
     
     VCF0301, # 1281 NA's
     
-    # I'm debating which of these is preferred
-    
     # education (7 tier) Q: 1978-1984: Do you have a college degree? (IF YES:) What is the highest
     # degree that you have earned? 1986 AND LATER: What is the highest degree that you have earned?
     
@@ -58,7 +56,11 @@ x <- data %>%
     
     # state FIPS code, to be matched to K. Healy's file to convert to 2-letter state abbreviation
     
-    VCF0901a
+    VCF0901a, 
+    
+    # did R vote in the national election(s)
+    
+    VCF0702 
     
   ) %>% 
   
@@ -200,8 +202,29 @@ z <- left_join(x = x, y = fips_key, by = "fips") %>%
   
   mutate(state = state_abbr) %>% 
   
-  select(-fips, -state_abbr)
-
+  select(-fips, -state_abbr) %>% 
+  
+  # did R vote cleaning: 1 = yes, 0 = no
+  
+  mutate(voted = as_factor(VCF0702)) %>% 
+  
+  separate(col = voted, into = c("voted", NA),
+           sep = "[.]") %>% 
+  
+  mutate(voted = as.integer(as.numeric(voted) - 1)) %>% 
+  
+  # if factors are desired, uncomment: change name accordingly, plug and play and
+  # also uncomment the exclusion of 'v2'
+  
+  # mutate(vote_02 = as.factor(case_when(
+  #            str_extract(v2, pattern = "voted") == "voted" ~ "yes",
+  #            str_extract(v2, pattern = "not") == "not" ~ "no",
+  #            TRUE ~ "NA"
+  #          )))
+  
+  select(-VCF0702,
+         #v2
+  )
 
 
 nes <- z
@@ -209,10 +232,12 @@ nes <- z
 # todo: 
   # address "(Other)" presence in summary(nes) output
   # implement a regex method of parsing away the numbering in order to rid workflow of 
-    # case_when where applicable
+  # case_when where applicable
 
 # notes: 
-  # state of interview: var name 'VCF0901a'
+  # check if <chr> vs. <int> vote status is preferred
+  # look into presedential/(and candidate?) approval var
+ 
 
 
 # this is commented out as a fail-safe in the workflow, it is run when the *.rda file needs updating
