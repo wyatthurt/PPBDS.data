@@ -1,5 +1,8 @@
-# script to include data from qscore database, credits to Aurash Vatan '23
-# include required packages
+# script to include data from qscore database, credits to Aurash Vatan '23. The
+# goal here is to get nicely accesible data on course names and their subsequent
+# popularity. There's also maybe a few other variables we can look at.
+
+# required packages
 
 library(dbplyr)
 library(RSQLite)
@@ -14,39 +17,47 @@ con <- DBI::dbConnect(RSQLite::SQLite(), "data-raw/info.db")
 # Handy to have this data saved as a "raw" dataset so that we don't have to
 # re-download each time we change the wrangling in the main code block.
 
+# the data is a little bit limited in the fact that courses with sections only
+# have the main section displayed.
+
 res <- dbSendQuery(
   con,
-  "SELECT * FROM classes
-            JOIN professors
-            ON classes.id = class_id
-            JOIN people
-            on person_id = people.id")
+  "Select
+   * 
+  FROM
+   (
+      SELECT
+         f.class_id,
+         e.prof_name 
+      FROM
+         people e 
+         JOIN
+            professors f 
+            ON e.id = f.person_id
+   )
+   JOIN
+      classes 
+      ON class_id = classes.id"
+)
 
+# get raw data and then disconnect
 raw <- dbFetch(res)
 dbClearResult(res)
 dbDisconnect(con)
 
+# editing to create new tibble
 
 qscores <- raw %>%
-  rename()
 
-# Next four steps should be handled in the main pipe. Also, I am not sure that
-# replacing NA with zero is a good idea . . . It is highly unlikely that these
-# courses really have zero workload . . .
-
-# rename columns with duplicate names from SQL
-
-colnames(raw)[1:2] <- c("course_id", "course_name")
-colnames(raw)[12] <- "prof_name"
-
-# setting null values
-
-# raw$workload[is.na(raw$workload)] <- 0
-# raw$overall[is.na(raw$overall)] <- 0
-
-qscores <- raw %>%
+  # I removed all courses without a workload: the majority are dissertations or
+  # workshops of some nature or another. None has an enrollment above 25. I also
+  # removed all workloads that are listed as "N/A". None of them can be useful
+  # to us.
   
-  rename()
+  filter(workload != "",
+         workload != "N/A")
+
+
 
   # removing janky names from course_names
 
@@ -75,8 +86,8 @@ qscores <- raw %>%
   # Remove garbage courses. These are courses that are not like a "normal"
   # course.
 
-  filter(! str_detect(course_name, "Direction of Doctoral")) %>%
-  filter(! str_detect(course_name, "ECON 3000: TIME")) %>%
+  filter(!str_detect(course_name, "Direction of Doctoral")) %>%
+  filter(!str_detect(course_name, "ECON 3000: TIME")) %>%
 
   # DK. I am concerned that we have incorrectly "multiplied" out courses with
   # the merge above with professors. Consider EXPOS 40: Public Speaking
