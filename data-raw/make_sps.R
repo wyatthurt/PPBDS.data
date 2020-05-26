@@ -80,7 +80,7 @@ x <- read_dta("data-raw/sps.dta") %>%
   # this is the actual recoding the authors used.
   
   select(age, sex, educ, treatment, ideology, t2_ideology, ec_better, t2_ec_better, pol_better, t2_pol_better, 
-         health_exp_3m, t2_health_exp_3m, health_exp_1m, t2_health_exp_1m)
+         health_exp_3m, t2_health_exp_3m, health_exp_1m, t2_health_exp_1m) %>% 
   
 
 # From the readme on dataverse: A codebook for the survey questionnaire appears
@@ -97,5 +97,38 @@ x <- read_dta("data-raw/sps.dta") %>%
 # certainly change to fit the needs and interests of the class.
 
 
+  drop_na() %>% 
+  mutate(sex = if_else(sex == 0, "m", "f"),
+         educ = case_when(educ == 1 ~ "Preschool",
+                          educ == 2 ~ "Primary",
+                          educ == 3 ~ "Secondary",
+                          educ == 4 ~ "HS or Vocational",
+                          educ == 5 ~ "Normal",
+                          educ == 6 ~ "Technical or Commercial",
+                          educ == 7 ~ "College"),
+         
+         # I'm not sure what the authors mean by "normal" but it was one of
+         # their education categories.
+         
+         ideology = case_when(ideology == 1 ~ "Left",
+                              ideology == 2 ~ "Center-left",
+                              ideology == 3 ~ "Center",
+                              ideology == 4 ~ "Center-right",
+                              ideology == 5 ~ "Right"),
+         t2_ideology = case_when(t2_ideology == 1 ~ "Left",
+                                 t2_ideology == 2 ~ "Center-left",
+                                 t2_ideology == 3 ~ "Center",
+                                 t2_ideology == 4 ~ "Center-right",
+                                 t2_ideology == 5 ~ "Right"),
+         ec_better = case_when(ec_better == -1 ~ "Worse",
+                               ec_better == 0 ~ "Same",
+                               ec_better == 1 ~ "Better"),
+         pol_better = case_when(pol_better == -1 ~ "Worse",
+                                pol_better == 0 ~ "Same",
+                                pol_better == 1 ~ "Better"))
+
+# I'm debating whether to use a nnumeric or factor variable for ideology and
+# "_better" variables.
+  
 sps <- x
 usethis::use_data(sps, overwrite = TRUE)
