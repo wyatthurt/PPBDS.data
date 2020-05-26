@@ -18,7 +18,9 @@ con <- DBI::dbConnect(RSQLite::SQLite(), "data-raw/info.db")
 # re-download each time we change the wrangling in the main code block.
 
 # the data is a little bit limited in the fact that courses with sections only
-# have the main section displayed.
+# have the main section displayed. This makes courses like Expos impossible to
+# see section-level data -- and aggregate data isn't in this dataset across the
+# sections.
 
 res <- dbSendQuery(
   con,
@@ -54,12 +56,14 @@ qscores <- raw %>%
   # removed all workloads that are listed as "N/A". None of them can be useful
   # to us.
   
+  # I also got rid of all courses that don't have a term listed.
+  
   filter(workload != "",
-         workload != "N/A")
+         workload != "N/A",
+         !is.na(term)) %>%
 
-
-
-  # removing janky names from course_names
+  # removing janky names from course_names (i.e. any name that appears after
+  # Department ##: )
 
   mutate(
     course_number = as.character(map(
@@ -71,16 +75,16 @@ qscores <- raw %>%
 
   # we only need columns not for internal sql use
 
-  select(-course_id, -class_id, -person_id, -id) %>%
+  select(-class_id, -id) %>%
 
   # setting the columns to right variable types
 
   mutate(
-    enrollment = as.numeric(enrollment),
+    enrollment = as.integer(enrollment),
     overall = as.numeric(overall),
     workload = as.numeric(workload),
-    department = as.factor(department),
-    term = as.factor(term)
+    department = as.character(department),
+    term = as.character(term)
   ) %>%
 
   # Remove garbage courses. These are courses that are not like a "normal"
@@ -88,38 +92,37 @@ qscores <- raw %>%
 
   filter(!str_detect(course_name, "Direction of Doctoral")) %>%
   filter(!str_detect(course_name, "ECON 3000: TIME")) %>%
+    
+  # only have one row for each course
+    
+  distinct(course_name, term, .keep_all = T) %>%
+  
+  # I kept department and number as separate variables, because I think it might
+  # be interesting to see how Q scores vary across departments.
+  
+  # However, I removed the department and number from the name.
 
-  # DK. I am concerned that we have incorrectly "multiplied" out courses with
-  # the merge above with professors. Consider EXPOS 40: Public Speaking
-  # Practicum. I think that we only, truly, have one set of data for this
-  # course. But (maybe!), there were four faculty involved. So, when we do the
-  # merge, we now have 4 rows for this course, all with the same enrollment,
-  # workload and so on. We only want one row for a course for which we have one
-  # row of data.
-
-  # You see the same problem with ECON 10A and 10B. We can only have one row for
-  # each of these. Ideally, the prof_name would be the name of the professor
-  # most in charge of the course, but maybe that isn't possible.
-
-  # Why no row for EXPOS 10 or 20?
-
-  # I think we want one variable "name" which has "Principles of Economics", for
-  # example. And one column called "number" which is "ECON 10A".
-
-  # Should we merge in data from the Registrar?
+  mutate(
+    course_name = as.character(map(
+      map(
+        course_name, ~ unlist(strsplit(., ":"))
+      ), ~ .[2]
+    ))
+  ) %>%
+  
+  # setting minimum threshold "N" for courses to show up & for us to only have
+  # "lecture" style courses. I set this threshold at 15 for now.
+  
+  filter(enrollment > 15) %>%
+  
+  # AW: I don't know how much more helpful data from the Registrar would be.
+  # Only additional information is enrollment breakdown by school, as well as
+  # what the overarching department is.
+  
+  # DK: Should we merge in data from the Registrar?
 
   # https://registrar.fas.harvard.edu/faculty-staff/courses/enrollment/archived-course-enrollment-reports
 
-  # There is some number "N" such that the course is too small to be considered
-  # normal. I guess that we don't want all courses. We want all "lecture"
-  # courses. n is at least 5. Maybe 10? Or 20?
-
-
-  # removing courses that are not listed under a certain term and/or have no
-  # workload associated
-
-  filter(!is.na(term)) %>%
-  filter(workload != 0) %>%
   as_tibble()
 
 
