@@ -3,17 +3,17 @@
 \docType{data}
 \name{nes}
 \alias{nes}
-\title{American National Survey Data}
+\title{American National Election Survey Data}
 \format{A tibble with 39,220 observations and 8 variables:
 \describe{
 \item{gender}{character variable with values "Male" and "Female"}
 \item{income}{ordered factor of bracketed national income percentile values}
-\item{real_ideo}{factor variable of 7 party identification bins}
+\item{real_ideo}{character variable of 7 party identification bins}
 \item{year}{numeric variable for year of study}
-\item{race}{factor variable for race / ethnicity respondent identification}
-\item{educ_01}{factor variable with a 7 tier delineation of educational achievement}
-\item{educ_02}{factor variable with a 6 tier delineation of educational achievement}
-\item{educ_03}{factor variable with a 4 tier delineation of educational achievement}
+\item{race}{character variable for race / ethnicity respondent identification}
+\item{educ}{ordered factor variable with a 7 tier delineation of educational achievement}
+\item{state}{character variable for the 2-letter abbreviation of the state of the interview of a respondent}
+\item{voted}{integer variable indicating whether respondent voted in the national elections 1 = yes, 0 = no}
 }}
 \source{
 \url{https://electionstudies.org/data-center/anes-time-series-cumulative-data-file/}
