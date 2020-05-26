@@ -1,20 +1,27 @@
 ## Overview
 
-We are creating an R package, PPBDS.data, which will contain a collection of interesting tibbles, with a focus on political science and designed for classroom use. Their main use will be for Gov 50 and for Preceptor's Primer. Each tibble will have a small number of variables, about as many as will fit across the screen when the tibble is printed. (There may be exceptions to this, but probably not. Tibbles need to be simple since we don't want to overwhelm readers. The focus should be on the code and the models, not on the data.)
+We are creating an R package, PPBDS.data, which will contain a collection of interesting tibbles, with a focus on political science and designed for classroom use. Their main use will be for Gov 50 and for Preceptor's Primer. Each tibble will have a small number of variables, about as many as will fit across the screen when the tibble is printed. (There may be exceptions to this, but probably not. Tibbles need to be simple since we don't want to overwhelm readers. The focus should be on the code and the models, not on the data.) See below for instructions on installing git-lfs.
 
 ### Instructions
 
 * Write scripts which create our data sets and adds them to our PPBDS.data package. Write associated help files. Skim [*R Packages*](https://r-pkgs.org/), but read closely the [data section](https://r-pkgs.org/data.html). Examine [covdata package](https://kjhealy.github.io/covdata/). Use **usethis** and **pkgdown** packages.
 
-* Follow the conventions with the train data: make_trains.R (in data-raw/), trains.rda (in data/), trains.R (in R/). Note how the name of the tibble appears in the file name of each of the three key things? Main workflow is that, unless too big, raw data is placed in the data-raw/ directory. It is read and cleaned in the make_name-of-tibble.R script, the last step of which is to create the name-of-tibble.rda file, using `usethis::use_data(name-of-tibble, overwrite = TRUE)`. The make_name-of-tibble.R has lots and lots of documentation, including the details of where the original data came from. (At some point, we might turn this into a function, as Healy does, but not right now.) name-of-tibble.R has the information for R to create the help file. You can save this until we decide on the variables that we want.
+* Follow the conventions with the train data: make_trains.R (in data-raw/), trains.rda (in data/), trains.R (in R/). Note how the name of the tibble appears in the file name of each of the three key things?
+
+* Main workflow is that raw data is placed in the data-raw/ directory. It is read and cleaned in the make_name-of-tibble.R script, the last step of which is to create the name-of-tibble.rda file, using `usethis::use_data(name-of-tibble, overwrite = TRUE)`. The make_name-of-tibble.R has lots and lots of documentation, including the details of where the original data came from. (At some point, we might turn this into a function, as Healy does, but not right now.) name-of-tibble.R provides the information for R to create the help file. It includes at least a paragraph or two of background on the data source itself.
+
+* Think hard about variable type. Don't make something a factor unless you have a reason to. If something has a natural order, then perhaps it should be an ordered factor. Document your reasoning in your make_name-of-tibble.R script. Examine the choices made in make_trains.R.
+
+
 
 ### pkgdown
 
-* We are currently using pkgdown to make our website. But it is confusing and a bit fragile. Nor have I done a good job of documenting my lessons. You need to use build_site() to create the site after you have made some changes.
+* We are currently using pkgdown to make our website. But it is confusing and a bit fragile. Nor have I done a good job of documenting my lessons. Start [here](https://pkgdown.r-lib.org/articles/pkgdown.html). I had to run `usethis::use_pkgdown()` once, and hen do some fussing to get the automated push stuff to work. Even though I only did this a few weeks ago, I have already forgotten the key steps. Weak! Document better!
 
-* Even though I only did this a few weeks ago, I have already forgotten the key steps. Weak! Document better!
+* You need to use `pkgdown::build_site()` to create the site after you have made some changes.
 
-*
+* Need to make the home page nicer. Follow [these instructions](https://pkgdown.r-lib.org/reference/build_home.html).
+
 
 ### git-lfs
 
@@ -25,7 +32,7 @@ xattr -d com.apple.quarantine /usr/local/bin/git-lfs
 
 The first command is just a standard way of installing things on the Mac. The second step was necessary because Apple has tighted the safety checks on downloaded programs. At some point, only the first step will be necessary. But, for now, you need to do the second to confirm to Apple that git-lfs is safe.
 
-Once you have done this, all your standard git commands will work as usual. However, do we really want to distribute such huge files with the package? Probably not. Users don't want all that junk. They just want the cleaned up data. Ahh! Which is why data-raw/ in in .Rbuildignore, so that directory is not included in the distributed package. Cool!
+Once you have done this, all your standard git commands will work as usual. Note that data-raw/ in in .Rbuildignore, so that directory is not included in the distributed package. That is cool since we don't want the package to force people to download hundreds of megs of raw data.
 
 
 ### Data Sets
@@ -50,19 +57,15 @@ Three other potentially useful tables: "reviews" has the text of all the reviews
 
 ### Ishan
 
-Exploratory work with cces (Preceptor told me to try this one out).
+* Called `cces`. See how we use it in the *Primer* chapter 14. Mention Shiro's work [here](https://github.com/kuriwaki/cces_cumulative) in the help page. You can just get the cleaned up data form here: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/II2DB6. Download it by hand. (I did this already, but you should document the details. I am not sure if we can automate it, or at least make it a part of the script.) We will not keep all the variables. But which ones should we keep? And should we clean up the values for category variables, for example? Maybe we would be better off getting the dta and then using the **haven** to magically set the levels correctly, which is something which Stata makes easier for factor variables. Read the associated PDF. Perhaps the variables should be simple characters? Only other reasonable choice is factors. It is stupid to use "1" to mean "Democrat."
 
 ### TBA
 
 Don't spend more than a few hours on any of these without stopping and then having a conversation with me about them. Not all of them can work! Don't pound your head against the wall.
 
-
-
-* Called `cces`. See how we use it in the *Primer* chapter 14. Mention Shiro's work [here](https://github.com/kuriwaki/cces_cumulative) in the help page. You can just get the cleaned up data form here: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/II2DB6. Download it by hand. (I did this already, but you should document the details. I am not sure if we can automate it, or at least make it a part of the script.) We will not keep all the variables. But which ones should we keep? And should we clean up the values for category variables, for example? Maybe we would be better off getting the dta and then using the **haven** to magically set the levels correctly, which is something which Stata makes easier for factor variables. Read the associated PDF. Perhaps the variables should be simple characters? Only other reasonable choice is factors. It is stupid to use "1" to mean "Democrat."
+* Called `shaming`, if we use this https://isps.yale.edu/sites/default/files/publication/2012/12/ISPS08-001.pdf and data is in the Dataverse. Read the useful discussion in chapter 2 of QSS.
 
 * Called `congress`. Something about the results of US congressional elections over several election cycles. 538? Really want this to include some measure of campaign spending so we can discuss a (potential) causal effect. Didn't they have a model which they used for the 2018 election? If they estimated a model, they must have some data.
-
-* Called `shaming`, if we use this https://isps.yale.edu/sites/default/files/publication/2012/12/ISPS08-001.pdf and data is in the Dataverse. Useful discussion in chapter 2 of QSS.
 
 * Or maybe a better voting experiment would be Electoral Administration in Fledgling Democracies: Experimental Evidence from Kenya at https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/UT25HQ. Kenya better because it is international, and we can use Erin's code!
 
