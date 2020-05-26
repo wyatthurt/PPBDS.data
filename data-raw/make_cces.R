@@ -115,7 +115,16 @@ x <- readRDS("data-raw/cumulative_2006_2018.rds") %>%
     marstat == 4 ~ "Widowed",
     marstat == 5 ~ "Single / Never Married",
     marstat == 6 ~ "Domestic Partnership"
-  ))
+  )) %>%
+
+# Making educ an ordered factor.  
+  
+  mutate(educ = factor(educ, levels = c("No HS", 
+                                           "High School Graduate",
+                                           "Some College",
+                                           "2-Year",
+                                           "4-Year",
+                                           "Post-Grad")))
 
 # Save the data.
 
