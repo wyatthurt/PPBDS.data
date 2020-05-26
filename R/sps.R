@@ -13,17 +13,17 @@
 #'
 #' @format A tibble with 16733 observations and 14 variables: \describe{
 #'   \item{age}{numerical variable with raw age values of respondents}
-#'   \item{sex}{logical variable with TRUE meaning liberal}
-#'   \item{educ}{character variable with values "Democrat" and "Republican"}
-#'   \item{treatment}{integer variable for age in years} \item{ideology}{numeric
-#'   variable for family income in dollars} \item{ec_better}{factor variable
-#'   with two levels: "Treated" and "Control"} \item{pol_better}{Starting
-#'   attitude toward immigration issues. Uses a 3 to 15 scale, with higher
-#'   numbers meaning more conservative} \item{health_exp_m3}{Ending attitude toward
-#'   immigration issues. Uses a 3 to 15 scale, with higher numbers meaning more
-#'   conservative} \item{health_exp_m1}{Ending attitude toward
-#'   immigration issues. Uses a 3 to 15 scale, with higher numbers meaning more
-#'   conservative}}
+#'   \item{sex}{character variable with values "m" and "f"}
+#'   \item{educ}{character variable with values "Preschool", "Primary",
+#'   "Secondary", "HS or Vocational", "Normal", "Technical or Commercial", and
+#'   "College"} \item{treatment}{binary numerical variable for treatment: 1 =
+#'   Treated and 0 = Control} \item{ideology}{character variable with values
+#'   "Right", "Center-right", "Center", "Center-left", and "Left"}
+#'   \item{ec_better}{factor variable with three levels: "Better", "Same", and "Worse"}
+#'   \item{pol_better}{factor variable with three levels: "Better", "Same", and "Worse"}
+#'   \item{health_exp_m3}{numerical variable for health-related expenses in the
+#'   last 3 month in pesos} \item{health_exp_m1}{numerical variable for
+#'   health-related expenses in the last month in pesos}}
 #' @source
 #' \url{https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/P6NC0M}
 #' 
