@@ -127,21 +127,22 @@ for background and details. Raw code available at Kuriwaki's
 
     <p>A tibble with 452755 observations and 16 variables:</p><dl>
 <dt>year</dt><dd><p>integer variable for year of survey</p></dd>
-<dt>case_id</dt><dd><p>integer variable for id of observation</p></dd>
 <dt>state</dt><dd><p>character variable for state of residence for observation</p></dd>
 <dt>gender</dt><dd><p>charcater variable of "Female" and "Male"</p></dd>
 <dt>age</dt><dd><p>integer variable for age in years</p></dd>
-<dt>educ</dt><dd><p>character variable for level of education</p></dd>
+<dt>educ</dt><dd><p>factor variable for level of education - takes values of "No HS",
+"High School Graduate", "Some College", "2-Year", "4-Year", and "Post-Grad"</p></dd>
 <dt>race</dt><dd><p>character variable for racial identity</p></dd>
 <dt>marstat</dt><dd><p>character variable for marriage status</p></dd>
-<dt>ideology</dt><dd><p>character variable for self-reported ideology</p></dd>
+<dt>ideology</dt><dd><p>factor variable for self-reported ideology - takes values of "Very Liberal",
+"Liberal", "Moderate", "Conservative", "Very Conservative", and "Not Sure"</p></dd>
 <dt>news</dt><dd><p>character variable for level news/current events interest</p></dd>
 <dt>econ</dt><dd><p>character variable for retrospective report on the past year's economy</p></dd>
-<dt>approval_pres</dt><dd><p>character variable of approval of president</p></dd>
-<dt>approval_rep</dt><dd><p>character variable of approval of representative</p></dd>
-<dt>approval_sen1</dt><dd><p>character variable of approval of first senator</p></dd>
-<dt>approval_sen2</dt><dd><p>character variable of approval of second senator</p></dd>
-<dt>approval_gov</dt><dd><p>character variable of approval of state governor</p></dd>
+<dt>approval_pres</dt><dd><p>factor variable of approval of president - takes values of
+"Strongly Approve", "Approve / Somewhat Approve", "Disapprove / Somewhat Disapprove",
+"Never Heard / Not Sure", "Neither Approve Nor Disapprove"</p></dd>
+<dt>approval_gov</dt><dd><p>factor variable of approval of state governor - takes same values
+approval_pres</p></dd>
 
 </dl>
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
