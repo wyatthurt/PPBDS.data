@@ -60,7 +60,11 @@ x <- data %>%
     
     # did R vote in the national election(s)
     
-    VCF0702 
+    VCF0702 ,
+    
+    # age
+    
+    VCF0101
     
   ) %>% 
   
@@ -243,6 +247,7 @@ nes <- z
   # case_when where applicable
 
 # notes: 
+  # age var name: VCF0101, working on parsing it, it's being troublesome
   # look into presedential/(and candidate?) approval var
  
 
