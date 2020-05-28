@@ -227,7 +227,12 @@ z <- left_join(x = x, y = fips_key, by = "fips") %>%
   
   select(-VCF0702,
          -v2
-  )
+  ) %>% 
+  
+  # rearranging the variable order in the df
+  
+  select(year, state, gender, income, 
+         education, race, ideology, voted)
 
 
 nes <- z
