@@ -259,7 +259,6 @@ nes <- z
   # case_when where applicable
 
 # notes:
-  # check if <chr> vs. <int> vote status is preferred
   # look into presedential/(and candidate?) approval var
 
 
