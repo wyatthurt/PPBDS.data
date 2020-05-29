@@ -64,7 +64,11 @@ x <- data %>%
     
     # respondent age group
     
-    VCF0102
+    VCF0102, 
+    
+    # presidential (incumbent) approval
+    
+    VCF0450
 
   ) %>%
 
@@ -129,6 +133,10 @@ x <- data %>%
     # it may be prudent to combine this with other or NA
 
     str_extract(VCF0105a, pattern = "Non-white") == "Non-white" ~ "Other",
+    
+    # this seems to be the proper way to include a case for NA values in their true 
+    # non-character format
+    
     TRUE ~ NA_character_
 
   ))) %>%
@@ -211,7 +219,7 @@ z <- left_join(x = x, y = fips_key, by = "fips") %>%
 
   select(-fips, -state_abbr) %>%
 
-  # did R vote cleaning: 1 = yes, 0 = no
+# did R vote cleaning: 1 = yes, 0 = no
 
   mutate(voted = as_factor(VCF0702)) %>%
 
@@ -227,6 +235,8 @@ z <- left_join(x = x, y = fips_key, by = "fips") %>%
   select(-VCF0702, -v2
   ) %>% 
   
+# R age group cleaning
+  
   mutate(age = as_factor(VCF0102)) %>% 
   mutate(age = as.ordered(case_when(
     str_detect(age, "1. ") == T ~ "17 - 24",
@@ -240,16 +250,27 @@ z <- left_join(x = x, y = fips_key, by = "fips") %>%
     
   ))) %>% 
   
-  select(-VCF0102) %>% 
+# R presidential approval cleaning
+  
+  mutate(pres_appr = as_factor(VCF0450)) %>% 
+  mutate(pres_appr = as.character(case_when(
+    str_detect(pres_appr, "1. ") == T ~ "Approve",
+    str_detect(pres_appr, "2. ") == T ~ "Disapprove",
+    str_detect(pres_appr, "8. ") == T ~ "Unsure",
+    T ~ NA_character_
+  ))) %>% 
+  
+  select(-VCF0102, -VCF0450) %>% 
   
   select(year, state, gender, income, age,
-         education, race, ideology, voted)
+         education, race, ideology, pres_appr, voted)
 
 
 stopifnot(nrow(z) > 32000)
 stopifnot(length(levels(z$education)) == 7)
 stopifnot(is.integer(z$year))
-stopifnot(ncol(z) == 9)
+stopifnot(ncol(z) == 10)
+stopifnot(dim(table(nes$income)) == 5)
 
 nes <- z
 
@@ -259,7 +280,9 @@ nes <- z
   # case_when where applicable
 
 # notes:
-  # look into presedential/(and candidate?) approval var
+  # current prez approval var: VCF0450 (strength of this: VCF0451)
+  # there doesn't seem to be one for pres. candidates, though there are vaguely relevant ones
+  # there are also pres. approval vars topically, e.g. health spending, economy behavior etc. 
 
 
 
