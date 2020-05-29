@@ -115,7 +115,35 @@ x <- readRDS("data-raw/cumulative_2006_2018.rds") %>%
     marstat == 4 ~ "Widowed",
     marstat == 5 ~ "Single / Never Married",
     marstat == 6 ~ "Domestic Partnership"
-  ))
+  )) %>%
+
+# Making educ an ordered factor.  
+  
+  mutate(educ = factor(educ, levels = c("No HS", 
+                                           "High School Graduate",
+                                           "Some College",
+                                           "2-Year",
+                                           "4-Year",
+                                           "Post-Grad"))) %>%
+
+# Make approval variables ordered factors.
+  
+  mutate(approval_pres = factor(approval_pres, levels = c("Strongly Approve", 
+                                                          "Approve / Somewhat Approve",
+                                                          "Disapprove / Somewhat Disapprove",
+                                                          "Strongly Disapprove",
+                                                          "Never Heard / Not Sure",
+                                                          "Neither Approve Nor Disapprove"
+  ))) %>%
+  mutate(approval_gov = factor(approval_gov, levels = c("Strongly Approve", 
+                                                          "Approve / Somewhat Approve",
+                                                          "Disapprove / Somewhat Disapprove",
+                                                          "Strongly Disapprove",
+                                                          "Never Heard / Not Sure",
+                                                          "Neither Approve Nor Disapprove"
+  )))
+
+
 
 # Save the data.
 
