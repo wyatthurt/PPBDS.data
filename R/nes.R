@@ -5,7 +5,7 @@
 #' for background and details. First study conducted in 1948, see appendices for variations in questions
 #' and other metrics over time. Current as of 05/24/2020. 
 #'
-#' @format A tibble with 39,220 observations and 9 variables:
+#' @format A tibble with 39,220 observations and  10 variables:
 #' \describe{
 #'   \item{gender}{character variable with values "Male" and "Female"}
 #'   \item{income}{ordered factor of bracketed national income percentile values}
@@ -16,6 +16,7 @@
 #'   \item{state}{character variable for the 2-letter abbreviation of the state of the interview of a respondent}
 #'   \item{voted}{character variable indicating whether the respondent voted in the national elections}
 #'   \item{age}{ordered factor of respondents' age ranges, 75+ is accurate except for year 1954}
+#'   \item{pres_appr}{character variable of respondents' self - reported approval of the sitting president}
 #' }
 #' @source \url{https://electionstudies.org/data-center/anes-time-series-cumulative-data-file/}
 #'
