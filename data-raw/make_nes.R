@@ -19,125 +19,125 @@ data <- read_dta("data-raw/anes_timeseries_cdf.dta")
 
 pres_years <- seq(1948, max(data$VCF0004), by = 4)
 
-x <- data %>% 
-  
+x <- data %>%
+
   # retain only studies in years of presedential elections
-  
-  filter(VCF0004 %in% pres_years) %>% 
-  
+
+  filter(VCF0004 %in% pres_years) %>%
+
   # retain only the variables relevant to the course(s)
-  
+
   select(
-    
+
     # gender
-    
+
     VCF0104,
-    
+
     # income
-    
-    VCF0114, 
-    
+
+    VCF0114,
+
     # year
-    
+
     VCF0004,
-    
+
     # race
-    
-    VCF0105a, 
-    
+
+    VCF0105a,
+
     # party identification
-    
+
     VCF0301, # 1281 NA's
-    
+
     # education (7 tier) Q: 1978-1984: Do you have a college degree? (IF YES:) What is the highest
     # degree that you have earned? 1986 AND LATER: What is the highest degree that you have earned?
-    
+
     VCF0140a, # 1059 NA's
-    
+
     # state FIPS code, to be matched to K. Healy's file to convert to 2-letter state abbreviation
-    
-    VCF0901a, 
-    
+
+    VCF0901a,
+
     # did R vote in the national election(s)
-    
-    VCF0702 
-    
-  ) %>% 
-  
+
+    VCF0702
+
+  ) %>%
+
 # gender cleaning
-  
-  mutate(VCF0104 = as.character(as_factor(VCF0104))) %>% 
-  
-  # (there is a year component that is discarded in 11 cases, not relevant to gender 
+
+  mutate(VCF0104 = as.character(as_factor(VCF0104))) %>%
+
+  # (there is a year component that is discarded in 11 cases, not relevant to gender
   #  determination but relevant to different question asked in that year)
-  
-  separate(VCF0104, into = c(NA, "gender"), 
-           sep = " ") %>% 
-  
+
+  separate(VCF0104, into = c(NA, "gender"),
+           sep = " ") %>%
+
 # income cleaning (income percentile brackets)
-  
-  mutate(VCF0114 = as.character(as_factor(VCF0114)))  %>% 
-  
+
+  mutate(VCF0114 = as.character(as_factor(VCF0114)))  %>%
+
   separate(VCF0114, into = c(NA, "income"),
            sep = "[.]") %>%
-  
+
   mutate(income = as.ordered(case_when(
     income == " 0 to 16 percentile" ~ "0 - 16",
     income == " 17 to 33 percentile" ~ "17 - 33",
     income == " 34 to 67 percentile" ~ "34 - 67",
     income == " 68 to 95 percentile" ~ "68 - 95",
     income == " 96 to 100 percentile" ~ "96 - 100"
-  ))) %>% 
-  
-# year cleaning 
-  
-  mutate(year = as.numeric(VCF0004)) %>% 
-  
-  select(-VCF0004) %>% 
-  
+  ))) %>%
+
+# year cleaning
+
+  mutate(year = as.numeric(VCF0004)) %>%
+
+  select(-VCF0004) %>%
+
 # race/ethn. cleaning (factors)
-  # currently they display in alphabetical order, ordered factors would be needed if you wish them to be 
+  # currently they display in alphabetical order, ordered factors would be needed if you wish them to be
   # in their original / any other order
-  
-  mutate(VCF0105a = as.character(as_factor(VCF0105a))) %>% 
-  
+
+  mutate(VCF0105a = as.character(as_factor(VCF0105a))) %>%
+
   # I elected to use str_extract as the conditional test here because I was getting an error where
-  # 'case_when()' would not allow a T/F test on the LHS of the equation. I'm still looking into a 
-  # workaround for this, but this method does the job for now. 
-  
-  # I am unsure if these are the correct / acceptable abbreviations. I know brevity is the goal here, 
+  # 'case_when()' would not allow a T/F test on the LHS of the equation. I'm still looking into a
+  # workaround for this, but this method does the job for now.
+
+  # I am unsure if these are the correct / acceptable abbreviations. I know brevity is the goal here,
   # always open to suggestion
-  
+
   mutate(race = as.character(case_when(
     str_extract(VCF0105a, pattern = "White") == "White" ~ "white",
     str_extract(VCF0105a, pattern = "Black") == "Black" ~ "black",
     str_extract(VCF0105a, pattern = "Asian") == "Asian" ~ "asian",
     str_extract(VCF0105a, pattern = "Indian") == "Indian" ~ "native",
-    
-    # I had to account for the 'non-hispanic' clause in the other labels, hence the 
+
+    # I had to account for the 'non-hispanic' clause in the other labels, hence the
     # extra code in this case
-    
+
     ((str_extract(VCF0105a, pattern = "Hispanic") == "Hispanic") &
        str_detect(VCF0105a, pattern = "non-") == F) ~ "hispanic",
     str_extract(VCF0105a, pattern = "Other") == "Other" ~ "other",
-    
-    # 
+
+    #
     # it may be prudent to combine this with other or NA
-    
+
     str_extract(VCF0105a, pattern = "Non-white") == "Non-white" ~ "non white,black",
     TRUE ~ "NA"
-    
-  ))) %>% 
-  
-  select(-VCF0105a) %>% 
-  
+
+  ))) %>%
+
+  select(-VCF0105a) %>%
+
 # party affiliation / real_ideo cleaning
-  
-  mutate(VCF0301 = as_factor(VCF0301)) %>% 
-  
+
+  mutate(VCF0301 = as_factor(VCF0301)) %>%
+
   separate(VCF0301, into = c(NA, "real_ideo"),
-           sep = "[.]") %>% 
-  
+           sep = "[.]") %>%
+
   mutate(real_ideo = as.character(case_when(
     real_ideo == " Strong Democrat" ~ "Dem.",
     real_ideo == " Weak Democrat" ~ "weak Dem.",
@@ -147,97 +147,100 @@ x <- data %>%
     real_ideo == " Weak Republican" ~ "weak Rep.",
     real_ideo == " Strong Republican" ~ "Rep.",
     TRUE ~ "NA"
-  ))) %>% 
-  
+  ))) %>%
+
 # education cleaning 'educ'
-  
-  mutate(VCF0140a = as.character(as_factor(VCF0140a))) %>% 
-  
+
+  mutate(VCF0140a = as.character(as_factor(VCF0140a))) %>%
+
   mutate(educ = as.character(
     case_when(
       str_extract(VCF0140a, pattern = "1. ") == "1. " ~ "elementary",
       str_extract(VCF0140a, pattern = "2. ") == "2. " ~ "some h.s",
       str_extract(VCF0140a, pattern = "3. ") == "3. " ~ "h.s. diploma",
       str_extract(VCF0140a, pattern = "4. ") == "4. " ~ "h.s. diploma +",
-      
+
       # this indicates diploma / equivalent "plus non-academic", looking into the meaning of this
-      
+
       str_extract(VCF0140a, pattern = "5. ") == "5. " ~ "some college",
       str_extract(VCF0140a, pattern = "6. ") == "6. " ~ "college degree",
       str_extract(VCF0140a, pattern = "7. ") == "7. " ~ "advanced degree",
       TRUE ~ "NA"))) %>%
-  
+
   mutate(educ = factor(educ,
                        levels = c("elementary", "some h.s.", "h.s. diploma", "h.s. diploma +",
                                   "some college", "college degree", "advanced degree"),
-                       ordered = T)) %>% 
-  
-  select(-VCF0140a) %>% 
+                       ordered = T)) %>%
+
+  select(-VCF0140a) %>%
 
 # state variable coercion
-  
+
   # Going from a haven_labelled object to an integer is fun. If you fail to pass through <chr>
   # state before going to integer, the integrity of the values is lost for a presently unknown
-  # reason. I recalled this as a workaround from a previous project and it worked, I tested for 
+  # reason. I recalled this as a workaround from a previous project and it worked, I tested for
   # coherence throughout and this was the first method I arrived at that results in accurate data
-  
-  mutate(fips = as.integer(as.character(as_factor(VCF0901a)))) %>% 
-  
+
+  mutate(fips = as.integer(as.character(as_factor(VCF0901a)))) %>%
+
   select(-VCF0901a)
 
   # Many thanks to K. Healy for making this state FIPS key file available
   # see more at: https://github.com/kjhealy/fips-codes. Relevant .csv file included in `data-raw`
 
-fips_key <- read.csv("data-raw/state_fips_master.csv") %>% 
-  
+fips_key <- read.csv("data-raw/state_fips_master.csv") %>%
+
   select(fips, state_abbr)
 
   # match the key dataframe to the NES data if possible while keeping all NES data
   # based on FIPS indication
 
-  # there is no code for DC, Guam, etc. so I may need to use one of the other files from Healy, 
-  # but this works for now and I will look into the other options. 
+  # there is no code for DC, Guam, etc. so I may need to use one of the other files from Healy,
+  # but this works for now and I will look into the other options.
 
-z <- left_join(x = x, y = fips_key, by = "fips") %>% 
-  
-  mutate(state = state_abbr) %>% 
-  
-  select(-fips, -state_abbr) %>% 
-  
+z <- left_join(x = x, y = fips_key, by = "fips") %>%
+
+  mutate(state = state_abbr) %>%
+
+  select(-fips, -state_abbr) %>%
+
   # did R vote cleaning: 1 = yes, 0 = no
-  
-  mutate(voted = as_factor(VCF0702)) %>% 
-  
+
+  mutate(voted = as_factor(VCF0702)) %>%
+
   separate(col = voted, into = c("voted", NA),
-           sep = "[.]") %>% 
-  
-  mutate(voted = as.integer(as.numeric(voted) - 1)) %>% 
-  
+           sep = "[.]") %>%
+
+  mutate(voted = as.integer(as.numeric(voted) - 1)) %>%
+
   # if factors are desired, uncomment: change name accordingly, plug and play and
   # also uncomment the exclusion of 'v2'
-  
+
   # mutate(vote_02 = as.factor(case_when(
   #            str_extract(v2, pattern = "voted") == "voted" ~ "yes",
   #            str_extract(v2, pattern = "not") == "not" ~ "no",
   #            TRUE ~ "NA"
   #          )))
-  
+
   select(-VCF0702,
          #v2
   )
 
+stopifnot(nrow(z) > 69000)
+stopifnot(length(levels(z$educ)) == 7)
+stopifnot(is.integer(z$year))
 
 nes <- z
 
-# todo: 
+# todo:
   # address "(Other)" presence in summary(nes) output
-  # implement a regex method of parsing away the numbering in order to rid workflow of 
+  # implement a regex method of parsing away the numbering in order to rid workflow of
   # case_when where applicable
 
-# notes: 
+# notes:
   # check if <chr> vs. <int> vote status is preferred
   # look into presedential/(and candidate?) approval var
- 
+
 
 
 # this is commented out as a fail-safe in the workflow, it is run when the *.rda file needs updating

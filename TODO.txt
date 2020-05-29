@@ -63,7 +63,9 @@ Three other potentially useful tables: "reviews" has the text of all the reviews
 
 Don't spend more than a few hours on any of these without stopping and then having a conversation with me about them. Not all of them can work! Don't pound your head against the wall.
 
-* Called `shaming`, if we use this https://isps.yale.edu/sites/default/files/publication/2012/12/ISPS08-001.pdf and data is in the Dataverse. Read the useful discussion in chapter 2 of QSS.
+* Called `shaming`. We use this https://isps.yale.edu/sites/default/files/publication/2012/12/ISPS08-001.pdf and data is in the Dataverse. Read the useful discussion in chapter 2 of QSS.
+
+* Need something from Matt Blackwell's work on slavery. Ultimate use may just be in making an example for the maps appendix, which should be longer.
 
 * Called `congress`. Something about the results of US congressional elections over several election cycles. 538? Really want this to include some measure of campaign spending so we can discuss a (potential) causal effect. Didn't they have a model which they used for the 2018 election? If they estimated a model, they must have some data.
 
@@ -71,7 +73,7 @@ Don't spend more than a few hours on any of these without stopping and then havi
 
 * [Open police data](https://openpolicing.stanford.edu/data/). Something with millions of rows and, ideally, geographic coordinates.
 
-* Need something from Matt Blackwell's work on slavery. Ultimate use may just be in making an example for the maps appendix, which should be longer.
+
 
 * Maybe [GSS](http://gss.norc.org/). Isn't there already an R package?
 
