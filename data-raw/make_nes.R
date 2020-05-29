@@ -60,7 +60,11 @@ x <- data %>%
 
     # did R vote in the national election(s)
 
-    VCF0702
+    VCF0702, 
+    
+    # respondent age group
+    
+    VCF0102
 
   ) %>%
 
@@ -91,7 +95,7 @@ x <- data %>%
 
 # year cleaning
 
-  mutate(year = as.numeric(VCF0004)) %>%
+  mutate(year = as.integer(VCF0004)) %>%
 
   select(-VCF0004) %>%
 
@@ -109,67 +113,67 @@ x <- data %>%
   # always open to suggestion
 
   mutate(race = as.character(case_when(
-    str_extract(VCF0105a, pattern = "White") == "White" ~ "white",
-    str_extract(VCF0105a, pattern = "Black") == "Black" ~ "black",
-    str_extract(VCF0105a, pattern = "Asian") == "Asian" ~ "asian",
-    str_extract(VCF0105a, pattern = "Indian") == "Indian" ~ "native",
+    str_extract(VCF0105a, pattern = "White") == "White" ~ "White",
+    str_extract(VCF0105a, pattern = "Black") == "Black" ~ "Black",
+    str_extract(VCF0105a, pattern = "Asian") == "Asian" ~ "Asian",
+    str_extract(VCF0105a, pattern = "Indian") == "Indian" ~ "Native",
 
     # I had to account for the 'non-hispanic' clause in the other labels, hence the
     # extra code in this case
 
     ((str_extract(VCF0105a, pattern = "Hispanic") == "Hispanic") &
-       str_detect(VCF0105a, pattern = "non-") == F) ~ "hispanic",
-    str_extract(VCF0105a, pattern = "Other") == "Other" ~ "other",
+       str_detect(VCF0105a, pattern = "non-") == F) ~ "Hispanic",
+    str_extract(VCF0105a, pattern = "Other") == "Other" ~ "Other",
 
     #
     # it may be prudent to combine this with other or NA
 
-    str_extract(VCF0105a, pattern = "Non-white") == "Non-white" ~ "non white,black",
-    TRUE ~ "NA"
+    str_extract(VCF0105a, pattern = "Non-white") == "Non-white" ~ "Other",
+    TRUE ~ NA_character_
 
   ))) %>%
 
   select(-VCF0105a) %>%
 
-# party affiliation / real_ideo cleaning
+# party affiliation / ideology cleaning
 
   mutate(VCF0301 = as_factor(VCF0301)) %>%
 
-  separate(VCF0301, into = c(NA, "real_ideo"),
+  separate(VCF0301, into = c(NA, "ideology"),
            sep = "[.]") %>%
 
-  mutate(real_ideo = as.character(case_when(
-    real_ideo == " Strong Democrat" ~ "Dem.",
-    real_ideo == " Weak Democrat" ~ "weak Dem.",
-    real_ideo == " Independent - Democrat" ~ "ind. Dem.",
-    real_ideo == " Independent - Independent" ~ "Ind.",
-    real_ideo == " Independent - Republican" ~ "ind. Rep.",
-    real_ideo == " Weak Republican" ~ "weak Rep.",
-    real_ideo == " Strong Republican" ~ "Rep.",
+  mutate(ideology = as.character(case_when(
+    ideology == " Strong Democrat" ~ "Dem.",
+    ideology == " Weak Democrat" ~ "weak Dem.",
+    ideology == " Independent - Democrat" ~ "ind. Dem.",
+    ideology == " Independent - Independent" ~ "Ind.",
+    ideology == " Independent - Republican" ~ "ind. Rep.",
+    ideology == " Weak Republican" ~ "weak Rep.",
+    ideology == " Strong Republican" ~ "Rep.",
     TRUE ~ "NA"
   ))) %>%
 
-# education cleaning 'educ'
+# education cleaning 'education'
 
   mutate(VCF0140a = as.character(as_factor(VCF0140a))) %>%
 
-  mutate(educ = as.character(
+  mutate(education = as.character(
     case_when(
       str_extract(VCF0140a, pattern = "1. ") == "1. " ~ "elementary",
-      str_extract(VCF0140a, pattern = "2. ") == "2. " ~ "some h.s",
-      str_extract(VCF0140a, pattern = "3. ") == "3. " ~ "h.s. diploma",
-      str_extract(VCF0140a, pattern = "4. ") == "4. " ~ "h.s. diploma +",
+      str_extract(VCF0140a, pattern = "2. ") == "2. " ~ "some hs",
+      str_extract(VCF0140a, pattern = "3. ") == "3. " ~ "hs diploma",
+      str_extract(VCF0140a, pattern = "4. ") == "4. " ~ "hs diploma +",
 
       # this indicates diploma / equivalent "plus non-academic", looking into the meaning of this
 
       str_extract(VCF0140a, pattern = "5. ") == "5. " ~ "some college",
       str_extract(VCF0140a, pattern = "6. ") == "6. " ~ "college degree",
-      str_extract(VCF0140a, pattern = "7. ") == "7. " ~ "advanced degree",
+      str_extract(VCF0140a, pattern = "7. ") == "7. " ~ "adv. degree",
       TRUE ~ "NA"))) %>%
 
-  mutate(educ = factor(educ,
-                       levels = c("elementary", "some h.s.", "h.s. diploma", "h.s. diploma +",
-                                  "some college", "college degree", "advanced degree"),
+  mutate(education = factor(education,
+                       levels = c("elementary", "some hs", "hs diploma", "hs diploma +",
+                                  "some college", "college degree", "adv. degree"),
                        ordered = T)) %>%
 
   select(-VCF0140a) %>%
@@ -185,14 +189,17 @@ x <- data %>%
 
   select(-VCF0901a)
 
-  # Many thanks to K. Healy for making this state FIPS key file available
+  
+# Many thanks to K. Healy for making this state FIPS key file available
   # see more at: https://github.com/kjhealy/fips-codes. Relevant .csv file included in `data-raw`
 
 fips_key <- read.csv("data-raw/state_fips_master.csv") %>%
 
   select(fips, state_abbr)
 
-  # match the key dataframe to the NES data if possible while keeping all NES data
+  
+
+# match the key dataframe to the NES data if possible while keeping all NES data
   # based on FIPS indication
 
   # there is no code for DC, Guam, etc. so I may need to use one of the other files from Healy,
@@ -208,27 +215,41 @@ z <- left_join(x = x, y = fips_key, by = "fips") %>%
 
   mutate(voted = as_factor(VCF0702)) %>%
 
-  separate(col = voted, into = c("voted", NA),
+  separate(col = voted, into = c("voted", "v2"),
            sep = "[.]") %>%
 
-  mutate(voted = as.integer(as.numeric(voted) - 1)) %>%
+  mutate(voted = as.character(case_when(
+             str_extract(v2, pattern = "voted") == "voted" ~ "yes",
+             str_extract(v2, pattern = "not") == "not" ~ "no",
+             TRUE ~ NA_character_
+           ))) %>% 
 
-  # if factors are desired, uncomment: change name accordingly, plug and play and
-  # also uncomment the exclusion of 'v2'
+  select(-VCF0702, -v2
+  ) %>% 
+  
+  mutate(age = as_factor(VCF0102)) %>% 
+  mutate(age = as.ordered(case_when(
+    str_detect(age, "1. ") == T ~ "17 - 24",
+    str_detect(age, "2. ") == T ~ "25 - 34",
+    str_detect(age, "3. ") == T ~ "35 - 44",
+    str_detect(age, "4. ") == T ~ "45 - 54",
+    str_detect(age, "5. ") == T ~ "55 - 64",
+    str_detect(age, "6. ") == T ~ "65 - 74",
+    str_detect(age, "7. ") == T ~ "75 +",
+    T ~ NA_character_
+    
+  ))) %>% 
+  
+  select(-VCF0102) %>% 
+  
+  select(year, state, gender, income, age,
+         education, race, ideology, voted)
 
-  # mutate(vote_02 = as.factor(case_when(
-  #            str_extract(v2, pattern = "voted") == "voted" ~ "yes",
-  #            str_extract(v2, pattern = "not") == "not" ~ "no",
-  #            TRUE ~ "NA"
-  #          )))
 
-  select(-VCF0702,
-         #v2
-  )
-
-stopifnot(nrow(z) > 69000)
-stopifnot(length(levels(z$educ)) == 7)
+stopifnot(nrow(z) > 32000)
+stopifnot(length(levels(z$education)) == 7)
 stopifnot(is.integer(z$year))
+stopifnot(ncol(z) == 9)
 
 nes <- z
 
