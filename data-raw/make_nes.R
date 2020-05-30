@@ -60,14 +60,14 @@ x <- data %>%
 
     # did R vote in the national election(s)
 
-    VCF0702, 
-    
+    VCF0702,
+
     # respondent age group
-    
-    VCF0102, 
-    
+
+    VCF0102,
+
     # presidential (incumbent) approval
-    
+
     VCF0450
 
   ) %>%
@@ -133,10 +133,10 @@ x <- data %>%
     # it may be prudent to combine this with other or NA
 
     str_extract(VCF0105a, pattern = "Non-white") == "Non-white" ~ "Other",
-    
-    # this seems to be the proper way to include a case for NA values in their true 
+
+    # this seems to be the proper way to include a case for NA values in their true
     # non-character format
-    
+
     TRUE ~ NA_character_
 
   ))) %>%
@@ -197,7 +197,7 @@ x <- data %>%
 
   select(-VCF0901a)
 
-  
+
 # Many thanks to K. Healy for making this state FIPS key file available
   # see more at: https://github.com/kjhealy/fips-codes. Relevant .csv file included in `data-raw`
 
@@ -205,7 +205,7 @@ fips_key <- read.csv("data-raw/state_fips_master.csv") %>%
 
   select(fips, state_abbr)
 
-  
+
 
 # match the key dataframe to the NES data if possible while keeping all NES data
   # based on FIPS indication
@@ -230,14 +230,14 @@ z <- left_join(x = x, y = fips_key, by = "fips") %>%
              str_extract(v2, pattern = "voted") == "voted" ~ "yes",
              str_extract(v2, pattern = "not") == "not" ~ "no",
              TRUE ~ NA_character_
-           ))) %>% 
+           ))) %>%
 
   select(-VCF0702, -v2
-  ) %>% 
-  
+  ) %>%
+
 # R age group cleaning
-  
-  mutate(age = as_factor(VCF0102)) %>% 
+
+  mutate(age = as_factor(VCF0102)) %>%
   mutate(age = as.ordered(case_when(
     str_detect(age, "1. ") == T ~ "17 - 24",
     str_detect(age, "2. ") == T ~ "25 - 34",
@@ -247,32 +247,26 @@ z <- left_join(x = x, y = fips_key, by = "fips") %>%
     str_detect(age, "6. ") == T ~ "65 - 74",
     str_detect(age, "7. ") == T ~ "75 +",
     T ~ NA_character_
-    
-  ))) %>% 
-  
+
+  ))) %>%
+
 # R presidential approval cleaning
-  
-  mutate(pres_appr = as_factor(VCF0450)) %>% 
+
+  mutate(pres_appr = as_factor(VCF0450)) %>%
   mutate(pres_appr = as.character(case_when(
     str_detect(pres_appr, "1. ") == T ~ "Approve",
     str_detect(pres_appr, "2. ") == T ~ "Disapprove",
     str_detect(pres_appr, "8. ") == T ~ "Unsure",
     T ~ NA_character_
-  ))) %>% 
-  
-  select(-VCF0102, -VCF0450) %>% 
-  
+  ))) %>%
+
+  select(-VCF0102, -VCF0450) %>%
+
   select(year, state, gender, income, age,
          education, race, ideology, pres_appr, voted)
 
 
-stopifnot(nrow(z) > 32000)
-stopifnot(length(levels(z$education)) == 7)
-stopifnot(is.integer(z$year))
-stopifnot(ncol(z) == 10)
-stopifnot(dim(table(nes$income)) == 5)
 
-nes <- z
 
 # todo:
   # address "(Other)" presence in summary(nes) output
@@ -282,11 +276,19 @@ nes <- z
 # notes:
   # current prez approval var: VCF0450 (strength of this: VCF0451)
   # there doesn't seem to be one for pres. candidates, though there are vaguely relevant ones
-  # there are also pres. approval vars topically, e.g. health spending, economy behavior etc. 
+  # there are also pres. approval vars topically, e.g. health spending, economy behavior etc.
 
 
 
 # this is commented out as a fail-safe in the workflow, it is run when the *.rda file needs updating
+
+# stopifnot(nrow(z) > 32000)
+# stopifnot(length(levels(z$education)) == 7)
+# stopifnot(is.integer(z$year))
+# stopifnot(ncol(z) == 10)
+# stopifnot(dim(table(nes$income)) == 5)
+#
+# nes <- z
 
 # usethis::use_data(nes, overwrite = T)
 

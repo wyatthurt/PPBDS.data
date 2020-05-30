@@ -9,11 +9,11 @@
 \item{gender}{character variable with values "Male" and "Female"}
 \item{income}{ordered factor of bracketed national income percentile values}
 \item{real_ideo}{character variable of 7 party identification bins}
-\item{year}{numeric variable for year of study}
+\item{year}{integer variable for year of study}
 \item{race}{character variable for race / ethnicity respondent identification}
 \item{educ}{ordered factor variable with a 7 tier delineation of educational achievement}
 \item{state}{character variable for the 2-letter abbreviation of the state of the interview of a respondent}
-\item{voted}{integer variable indicating whether respondent voted in the national elections 1 = yes, 0 = no}
+\item{voted}{character variable indicating whether the respondent voted in the national elections}
 }}
 \source{
 \url{https://electionstudies.org/data-center/anes-time-series-cumulative-data-file/}

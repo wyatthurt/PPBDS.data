@@ -1,17 +1,16 @@
 ## Overview
 
-We are creating an R package, PPBDS.data, which will contain a collection of interesting tibbles, with a focus on political science and designed for classroom use. Their main use will be for Gov 50 and for Preceptor's Primer. Each tibble will have a small number of variables, about as many as will fit across the screen when the tibble is printed. (There may be exceptions to this, but probably not. Tibbles need to be simple since we don't want to overwhelm readers. The focus should be on the code and the models, not on the data.) See below for instructions on installing git-lfs.
+We are creating an R package, PPBDS.data, which will contain a collection of interesting tibbles, with a focus on political science and designed for classroom use. Their main use will be for Gov 50 and for Preceptor's Primer. Each tibble will have a small number of variables, about as many as will fit across the screen when the tibble is printed. (Tibbles need to be simple since we don't want to overwhelm readers. The focus should be on the code and the models, not on the data.) See below for instructions on installing git-lfs. We might have one very "wide" tibble, just to have an example to work with when we want to try a model with lots of variables.
 
 ### Instructions
 
 * Write scripts which create our data sets and adds them to our PPBDS.data package. Write associated help files. Skim [*R Packages*](https://r-pkgs.org/), but read closely the [data section](https://r-pkgs.org/data.html). Examine [covdata package](https://kjhealy.github.io/covdata/). Use **usethis** and **pkgdown** packages.
 
-* Follow the conventions with the train data: make_trains.R (in data-raw/), trains.rda (in data/), trains.R (in R/). Note how the name of the tibble appears in the file name of each of the three key things?
+* Follow the conventions with the train data: make_trains.R (in data-raw/), trains.rda (in data/), trains.R (in R/). Note that the name of the tibble -- "trains" -- appears in the file name of each of the three key things you are creating.
 
-* Main workflow is that raw data is placed in the data-raw/ directory. It is read and cleaned in the make_name-of-tibble.R script, the last step of which is to create the name-of-tibble.rda file, using `usethis::use_data(name-of-tibble, overwrite = TRUE)`. The make_name-of-tibble.R has lots and lots of documentation, including the details of where the original data came from. (At some point, we might turn this into a function, as Healy does, but not right now.) name-of-tibble.R provides the information for R to create the help file. It includes at least a paragraph or two of background on the data source itself.
+* Main workflow is that raw data is placed in the data-raw/ directory. It is read and cleaned in the make_name-of-tibble.R script, the last step of which is to create the name-of-tibble.rda file, using `usethis::use_data(name-of-tibble, overwrite = TRUE)`. The make_name-of-tibble.R has lots and lots of documentation, including the details of where the original data came from, and instructions on how to download it, if necessary. (At some point, we might turn this into a function, as Healy does, but not right now.) name-of-tibble.R provides the information for R to create the help file. It includes at least two paragraphs of background on the data source itself, ideally to include a key academic paper.
 
 * Think hard about variable type. Don't make something a factor unless you have a reason to. If something has a natural order, then perhaps it should be an ordered factor. Document your reasoning in your make_name-of-tibble.R script. Examine the choices made in make_trains.R.
-
 
 
 ### pkgdown
@@ -37,9 +36,6 @@ Once you have done this, all your standard git commands will work as usual. Note
 
 ### Data Sets
 
-### Debi
-
-* Called `sps`. Want some continuous variables. Something from [this experiment](https://gking.harvard.edu/category/research-interests/applications/mexican-health-care-evaluation) in Mexico. Connect closely to the Lancet paper.
 
 ### Beau
 
@@ -65,15 +61,15 @@ Don't spend more than a few hours on any of these without stopping and then havi
 
 * Called `shaming`. We use this https://isps.yale.edu/sites/default/files/publication/2012/12/ISPS08-001.pdf and data is in the Dataverse. Read the useful discussion in chapter 2 of QSS.
 
-* Need something from Matt Blackwell's work on slavery. Ultimate use may just be in making an example for the maps appendix, which should be longer.
+* Called `nominate`. DW NOMINATE from VoteView project.
 
-* Called `congress`. Something about the results of US congressional elections over several election cycles. 538? Really want this to include some measure of campaign spending so we can discuss a (potential) causal effect. Didn't they have a model which they used for the 2018 election? If they estimated a model, they must have some data.
+* Need something from Matt Blackwell's work on slavery. Ultimate use may just be in making an example for the maps appendix, which should be longer.
 
 * Or maybe a better voting experiment would be Electoral Administration in Fledgling Democracies: Experimental Evidence from Kenya at https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/UT25HQ. Kenya better because it is international, and we can use Erin's code!
 
+* Called `congress`. Something about the results of US congressional elections over several election cycles. 538? Really want this to include some measure of campaign spending so we can discuss a (potential) causal effect. Didn't they have a model which they used for the 2018 election? If they estimated a model, they must have some data.
+
 * [Open police data](https://openpolicing.stanford.edu/data/). Something with millions of rows and, ideally, geographic coordinates.
-
-
 
 * Maybe [GSS](http://gss.norc.org/). Isn't there already an R package?
 
