@@ -4,7 +4,8 @@
 \name{qscores}
 \alias{qscores}
 \title{Harvard student feedback on courses}
-\format{A tibble with 748 observations and 8 variables:
+\format{
+A tibble with 748 observations and 8 variables:
 \describe{
 \item{course_name}{character variable with name of course}
 \item{department}{character variable representing department of course}
@@ -14,7 +15,8 @@
 \item{workload}{numeric variable representing hours per week of workload}
 \item{overall}{numeric variable representing average of students' rating of course (1 to 5 scale)}
 \item{prof_name}{character variable representing name of professor}
-}}
+}
+}
 \usage{
 qscores
 }

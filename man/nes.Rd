@@ -4,7 +4,8 @@
 \name{nes}
 \alias{nes}
 \title{American National Election Survey Data}
-\format{A tibble with 39,220 observations and 8 variables:
+\format{
+A tibble with 39,220 observations and  10 variables:
 \describe{
 \item{gender}{character variable with values "Male" and "Female"}
 \item{income}{ordered factor of bracketed national income percentile values}
@@ -14,7 +15,10 @@
 \item{educ}{ordered factor variable with a 7 tier delineation of educational achievement}
 \item{state}{character variable for the 2-letter abbreviation of the state of the interview of a respondent}
 \item{voted}{character variable indicating whether the respondent voted in the national elections}
-}}
+\item{age}{ordered factor of respondents' age ranges, 75+ is accurate except for year 1954}
+\item{pres_appr}{character variable of respondents' self - reported approval of the sitting president}
+}
+}
 \source{
 \url{https://electionstudies.org/data-center/anes-time-series-cumulative-data-file/}
 }

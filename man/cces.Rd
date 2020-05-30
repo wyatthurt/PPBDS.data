@@ -4,7 +4,8 @@
 \name{cces}
 \alias{cces}
 \title{Polling data from the Cooperative Congressional Election Study.}
-\format{A tibble with 452755 observations and 16 variables:
+\format{
+A tibble with 452755 observations and 16 variables:
 \describe{
 \item{year}{integer variable for year of survey}
 \item{state}{character variable for state of residence for observation}
@@ -23,7 +24,8 @@
 "Never Heard / Not Sure", "Neither Approve Nor Disapprove"}
 \item{approval_gov}{factor variable of approval of state governor - takes same values
 approval_pres}
-}}
+}
+}
 \source{
 \url{https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/II2DB6}
 }

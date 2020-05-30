@@ -5,7 +5,8 @@
 \alias{sps}
 \title{A Randomised Assessment of the Mexican Universal Health Insurance Programme.
 (2009)}
-\format{A tibble with 16733 observations and 14 variables: \describe{
+\format{
+A tibble with 16733 observations and 14 variables: \describe{
 \item{age}{numerical variable with raw age values of respondents}
 \item{sex}{character variable with values "m" and "f"}
 \item{educ}{character variable with values "Preschool", "Primary",
@@ -17,7 +18,8 @@ Treated and 0 = Control} \item{ideology}{character variable with values
 \item{pol_better}{factor variable with three levels: "Better", "Same", and "Worse"}
 \item{health_exp_m3}{numerical variable for health-related expenses in the
 last 3 month in pesos} \item{health_exp_m1}{numerical variable for
-health-related expenses in the last month in pesos}}}
+health-related expenses in the last month in pesos}}
+}
 \source{
 \url{https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/P6NC0M}
 }
