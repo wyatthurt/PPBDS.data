@@ -99,7 +99,8 @@ x <- read_dta("data-raw/sps.dta") %>%
 
   drop_na() %>% 
   mutate(sex = if_else(sex == 0, "m", "f"),
-         educ = case_when(educ == 1 ~ "Preschool",
+         educ = case_when(educ == 0 ~ "None",
+                          educ == 1 ~ "Preschool",
                           educ == 2 ~ "Primary",
                           educ == 3 ~ "Secondary",
                           educ == 4 ~ "HS or Vocational",
