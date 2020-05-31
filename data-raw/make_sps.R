@@ -140,10 +140,6 @@ x <- read_dta("data-raw/sps.dta") %>%
 
   drop_na()
 
-
-
-
-
   
 
 
