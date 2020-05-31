@@ -79,38 +79,21 @@ x <- read_dta("data-raw/sps.dta") %>%
   # know = NA. This is my interpretation, but I am still trying to figure out if
   # this is the actual recoding the authors used.
   
-  select(age, sex, educ, treatment, ideology, t2_ideology, ec_better, t2_ec_better, pol_better, t2_pol_better, 
-         health_exp_3m, t2_health_exp_3m, health_exp_1m, t2_health_exp_1m) %>% 
-  
-
-# From the readme on dataverse: A codebook for the survey questionnaire appears
-# in both Spanish and English. The survey question codes appear in the
-# questionnaire exactly as they appear in the dataset.  (Note, however, that on
-# the English form the questions above Section 7 should be labeled one section
-# higher; e.g., the code for Question 7.1 is P08D01, not P07D01). 
-
-# I was a bit confused on the note about the difference in code for the English
-# and Spanish version because it is not clear which codebook the data file uses.
-# What I did: I identified that the questionnaire is divided into sections. P is
-# the section and 'd' is the question itself. Using the english questionnaire, I
-# identified some variables I thought were interesting. These variables can
-# certainly change to fit the needs and interests of the class.
-
-
-  drop_na() %>% 
-  mutate(sex = if_else(sex == 0, "m", "f"),
-         educ = case_when(educ == 0 ~ "None",
-                          educ == 1 ~ "Preschool",
-                          educ == 2 ~ "Primary",
-                          educ == 3 ~ "Secondary",
-                          educ == 4 ~ "High School",
-                          educ == 5 ~ "Normal",
-                          educ == 6 ~ "Technical or Commercial",
-                          educ == 7 ~ "College"),
+  mutate(sex = if_else(sex == 0, "Male", "Female"),
+         education = case_when(educ == 0 ~ "None",
+                               educ == 1 ~ "Preschool",
+                               educ == 2 ~ "Primary",
+                               educ == 3 ~ "Secondary",
+                               educ == 4 ~ "High School",
+                               educ %in% c(5,7) ~ "College",
+                               educ == 6 ~ "Technical",
+                               educ == 8 ~ "Post-Grad"),
          
          # Secondary equates to middle school. Normal is the equivalent of a
          # bachelor's degree, but only for teaching. Normal, Technical or
-         # college are all potential paths post high school graduation.
+         # college are all potential paths post high school graduation. I
+         # decided to put normal and college together because they are both
+         # bachelor's degrees.
          
          ideology = case_when(ideology == 1 ~ "Left",
                               ideology == 2 ~ "Center-left",
@@ -127,10 +110,42 @@ x <- read_dta("data-raw/sps.dta") %>%
                                ec_better == 1 ~ "Better"),
          pol_better = case_when(pol_better == -1 ~ "Worse",
                                 pol_better == 0 ~ "Same",
-                                pol_better == 1 ~ "Better"))
-
-# I'm debating whether to use a nnumeric or factor variable for ideology and
-# "_better" variables.
+                                pol_better == 1 ~ "Better")) %>% 
   
+  
+  
+  # These variables (ideology, t2_ideology, ec_better, t2_ec_better, pol_better,
+  # t2_pol_better) are not in the paper's abstract, but may provide interesting
+  # insights into how SPS affected people politics and their political opinions.
+
+  # I'm debating whether to use a numeric or factor variable for ideology and
+  # "_better" variables.
+
+
+  select(age, sex, education, treatment, health_exp_3m, t2_health_exp_3m, health_exp_1m, t2_health_exp_1m) %>% 
+
+# From the readme on dataverse: A codebook for the survey questionnaire appears
+# in both Spanish and English. The survey question codes appear in the
+# questionnaire exactly as they appear in the dataset.  (Note, however, that on
+# the English form the questions above Section 7 should be labeled one section
+# higher; e.g., the code for Question 7.1 is P08D01, not P07D01). 
+
+# I was a bit confused on the note about the difference in code for the English
+# and Spanish version because it is not clear which codebook the data file uses.
+# What I did: I identified that the questionnaire is divided into sections. P is
+# the section and 'd' is the question itself. Using the english questionnaire, I
+# identified some variables I thought were interesting. These variables can
+# certainly change to fit the needs and interests of the class.
+
+
+  drop_na()
+
+
+
+
+
+  
+
+
 sps <- x
 usethis::use_data(sps, overwrite = TRUE)
