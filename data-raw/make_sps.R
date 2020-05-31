@@ -103,13 +103,14 @@ x <- read_dta("data-raw/sps.dta") %>%
                           educ == 1 ~ "Preschool",
                           educ == 2 ~ "Primary",
                           educ == 3 ~ "Secondary",
-                          educ == 4 ~ "HS or Vocational",
+                          educ == 4 ~ "High School",
                           educ == 5 ~ "Normal",
                           educ == 6 ~ "Technical or Commercial",
                           educ == 7 ~ "College"),
          
-         # I'm not sure what the authors mean by "normal" but it was one of
-         # their education categories.
+         # Secondary equates to middle school. Normal is the equivalent of a
+         # bachelor's degree, but only for teaching. Normal, Technical or
+         # college are all potential paths post high school graduation.
          
          ideology = case_when(ideology == 1 ~ "Left",
                               ideology == 2 ~ "Center-left",
