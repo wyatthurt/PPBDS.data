@@ -109,3 +109,19 @@ qscores %>%
 ```
 
 <img src="man/README-quick.plot-1.png" width="100%" />
+
+    #> -- Installing package into temporary library ------------------------
+    #> Warning: package 'PPBDS.data' is in use and will not be installed
+    #> == Building pkgdown site ============================================
+    #> Reading from: 'C:/Users/beaum/Desktop/PPBDS.data'
+    #> Writing to:   'C:/Users/beaum/Desktop/PPBDS.data/docs'
+    #> -- Initialising site ------------------------------------------------
+    #> -- Building home ----------------------------------------------------
+    #> Reading 'LICENSE.md'
+    #> -- Building function reference --------------------------------------
+    #> Reading 'man/cces.Rd'
+    #> Reading 'man/nes.Rd'
+    #> Reading 'man/qscores.Rd'
+    #> Reading 'man/sps.Rd'
+    #> Reading 'man/trains.Rd'
+    #> == DONE =============================================================

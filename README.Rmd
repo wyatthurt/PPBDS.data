@@ -84,6 +84,12 @@ qscores %>%
 
 ```
 
+```{r build.site, include=F, message=F}
+
+pkgdown::build_site()
+
+```
+
 
 
 
