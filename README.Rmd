@@ -68,7 +68,7 @@ qscores
 
 Once the library is loaded and you have confirmed that it can be accessed in your local environment, the data sets can be called as objects and used like any other data you would otherwise read in and assign to an object manually. See the following example of a plot using `PPBDS.data::qscores`. 
 
-```{r quick.plot}
+```{r quick.plot, eval=F}
 
 library(ggplot2)
 
@@ -84,9 +84,13 @@ qscores %>%
 
 ```
 
+<img src= "man/figures/README-quick.plot-1.png" align="center" width="600">
+
 ```{r build.site, include=F, message=F}
 
-pkgdown::build_site()
+# pkgdown::build_site()
+
+pkgdown::build_home()
 
 ```
 
