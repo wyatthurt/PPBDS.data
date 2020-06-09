@@ -1,0 +1,101 @@
+---
+output: github_document
+---
+
+<!-- README is generated from README.Rmd, edit ONLY that file if needed-->
+
+```{r, include = FALSE}
+
+knitr::opts_chunk$set(
+  collapse = T,
+  comment = "#>",
+  fig.path = "man/README-",
+  out.width = "100%"
+)
+
+# still working on sidebar information, the solutions are evasive at present. 
+
+```
+
+# Data for Preceptor's Primer for Bayesian Data Science
+
+## About:
+
+`PPBDS.data` provides the data used in *[Preceptor's Primer for Bayesian Data Science](https://davidkane9.github.io/PPBDS/)*, the textbook used in [Gov 50: Data](https://www.davidkane.info/files/gov_50_fall_2020.html) at Harvard University.There are currently 5 different data sets to choose from that span topics from a social experiment in the Boston, MA *"T"* stations to an insurance plan in Mexico. 
+
+<!-- unsure if badges are available for use yet here -->
+
+### CCES Data:  
+- Sourced from [Kuriwaki (2018)](https://doi.org/10.7910/DVN/II2DB6).
+- Features ideological, demographic, educational, and other information from the *Cooperative Congressional Election Study*. 
+
+### NES Data: 
+- Cleaned subset of data from the [National Election Survey](https://electionstudies.org/data-center/anes-time-series-cumulative-data-file/).
+- Features ideological, demographic, educational, and other information from respondents. See [Codebooks](https://electionstudies.org/data-center/anes-time-series-cumulative-data-file/) for questionnaire and other details. 
+
+### QSCORES Data:
+- Data from Harvard's own student [course reviews](https://q.fas.harvard.edu/).
+- Students answer multiple choice and free response questions about their courses upon completion, and this is a subset of their responses. 
+
+### SPS Data:
+- Survey data from a randomized healthcare experiment done in several states in Mexico.
+- Sourced from [King et. al. (2009)](https://gking.harvard.edu/files/gking/files/pubpolforpoor.pdf). 
+
+### TRAINS Data: 
+- Data from a study by [Enos (2016)](https://scholar.harvard.edu/files/renos/files/enostrains.pdf) who addressed exclusionary attitudes and cultural exposures.
+
+## Installation: 
+
+As this package is not relaesed on CRAN, you can download it directly from GitHub!
+
+```r
+remotes::install_github("davidkane9/PPBDS.data")
+
+```
+
+## Loading Preceptor's Data:
+After remote-installing the package, it loads as any package should.
+
+```{r loading, message=F}
+library(tidyverse) # the tidyverse is your new best friend
+library(PPBDS.data)
+
+qscores
+
+```
+
+## Using the data
+
+Once the library is loaded and you have confirmed that it can be accessed in your local environment, the data sets can be called as objects and used like any other data you would otherwise read in and assign to an object manually. See the following example of a plot using `PPBDS.data::qscores`. 
+
+```{r quick.plot}
+
+library(ggplot2)
+
+qscores %>%
+  filter(department == "GOV") %>%
+  ggplot(aes(y = workload, x = enrollment)) + 
+  geom_point(aes(color = term)) + 
+  labs(
+    title = "Rudimentary Graphic to Test Function",
+    subtitle = "Better graphic, potentially from 1005 work coming",
+    caption = "Never forget to cite"
+  )
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
