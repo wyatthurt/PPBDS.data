@@ -62,7 +62,98 @@
 <div id="data-for-preceptors-primer-for-bayesian-data-science" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#data-for-preceptors-primer-for-bayesian-data-science" class="anchor"></a>Data for Preceptor’s Primer for Bayesian Data Science</h1></div>
-<p>PPBDS.data provides the data used in <em><a href="https://davidkane9.github.io/PPBDS/">Preceptor’s Primer for Bayesian Data Science</a></em>, the textbook used in <a href="https://www.davidkane.info/files/gov_50_fall_2020.html">Gov 50: Data</a> at Harvard University.</p>
+<div id="about" class="section level2">
+<h2 class="hasAnchor">
+<a href="#about" class="anchor"></a>About:</h2>
+<p><code>PPBDS.data</code> provides the data used in <em><a href="https://davidkane9.github.io/PPBDS/">Preceptor’s Primer for Bayesian Data Science</a></em>, the textbook used in <a href="https://www.davidkane.info/files/gov_50_fall_2020.html">Gov 50: Data</a> at Harvard University.There are currently 5 different data sets to choose from that span topics from a social experiment in the Boston, MA <em>“T”</em> stations to an insurance plan in Mexico.</p>
+<!-- unsure if badges are available for use yet here -->
+<div id="cces-data" class="section level3">
+<h3 class="hasAnchor">
+<a href="#cces-data" class="anchor"></a>CCES Data:</h3>
+<ul>
+<li>Sourced from <a href="https://doi.org/10.7910/DVN/II2DB6">Kuriwaki (2018)</a>.</li>
+<li>Features ideological, demographic, educational, and other information from the <em>Cooperative Congressional Election Study</em>.</li>
+</ul>
+</div>
+<div id="nes-data" class="section level3">
+<h3 class="hasAnchor">
+<a href="#nes-data" class="anchor"></a>NES Data:</h3>
+<ul>
+<li>Cleaned subset of data from the <a href="https://electionstudies.org/data-center/anes-time-series-cumulative-data-file/">National Election Survey</a>.</li>
+<li>Features ideological, demographic, educational, and other information from respondents. See <a href="https://electionstudies.org/data-center/anes-time-series-cumulative-data-file/">Codebooks</a> for questionnaire and other details.</li>
+</ul>
+</div>
+<div id="qscores-data" class="section level3">
+<h3 class="hasAnchor">
+<a href="#qscores-data" class="anchor"></a>QSCORES Data:</h3>
+<ul>
+<li>Data from Harvard’s own student <a href="https://q.fas.harvard.edu/">course reviews</a>.</li>
+<li>Students answer multiple choice and free response questions about their courses upon completion, and this is a subset of their responses.</li>
+</ul>
+</div>
+<div id="sps-data" class="section level3">
+<h3 class="hasAnchor">
+<a href="#sps-data" class="anchor"></a>SPS Data:</h3>
+<ul>
+<li>Survey data from a randomized healthcare experiment done in several states in Mexico.</li>
+<li>Sourced from <a href="https://gking.harvard.edu/files/gking/files/pubpolforpoor.pdf">King et. al. (2009)</a>.</li>
+</ul>
+</div>
+<div id="trains-data" class="section level3">
+<h3 class="hasAnchor">
+<a href="#trains-data" class="anchor"></a>TRAINS Data:</h3>
+<ul>
+<li>Data from a study by <a href="https://scholar.harvard.edu/files/renos/files/enostrains.pdf">Enos (2016)</a> who addressed exclusionary attitudes and cultural exposures.</li>
+</ul>
+</div>
+</div>
+<div id="installation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#installation" class="anchor"></a>Installation:</h2>
+<p>As this package is not relaesed on CRAN, you can download it directly from GitHub!</p>
+<div class="sourceCode" id="cb1"><pre class="r"><span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"davidkane9/PPBDS.data"</span>)</pre></div>
+</div>
+<div id="loading-preceptors-data" class="section level2">
+<h2 class="hasAnchor">
+<a href="#loading-preceptors-data" class="anchor"></a>Loading Preceptor’s Data:</h2>
+<p>After remote-installing the package, it loads as any package should.</p>
+<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyverse</span>) <span class="co"># the tidyverse is your new best friend</span>
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">PPBDS.data</span>)
+
+<span class="no">qscores</span>
+<span class="co">#&gt; # A tibble: 748 x 8</span>
+<span class="co">#&gt;    course_name department course_number term  enrollment workload overall</span>
+<span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;         &lt;chr&gt;      &lt;int&gt;    &lt;dbl&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 " Introduc~ AFRAMER    100Y          2019S         49      2.6     4.2</span>
+<span class="co">#&gt;  2 " American~ AFRAMER    123Z          2019S         49      3.6     4.4</span>
+<span class="co">#&gt;  3 " Urban In~ AFRAMER    125X          2019S         40      5.2     4.5</span>
+<span class="co">#&gt;  4 " Richard ~ AFRAMER    130X          2019S         23      7.2     4.4</span>
+<span class="co">#&gt;  5 " 19th cen~ AFRAMER    131Y          2019S         20      3.5     4.9</span>
+<span class="co">#&gt;  6 " Social R~ AFRAMER    199X          2019S         19      7.2     4.8</span>
+<span class="co">#&gt;  7 " Martin L~ AFRAMER    199Y          2019S         40      4.2     4.7</span>
+<span class="co">#&gt;  8 " Elementa~ AFRIKAAN   AB            2019S         22      2.9     4.9</span>
+<span class="co">#&gt;  9 " Elementa~ JAMAICAN   AB            2019S         18      1.5     4.9</span>
+<span class="co">#&gt; 10 " Elementa~ WSTAFRCN   AB            2019S         29      2.6     4  </span>
+<span class="co">#&gt; # ... with 738 more rows, and 1 more variable: prof_name &lt;chr&gt;</span></pre></div>
+</div>
+<div id="using-the-data" class="section level2">
+<h2 class="hasAnchor">
+<a href="#using-the-data" class="anchor"></a>Using the data</h2>
+<p>Once the library is loaded and you have confirmed that it can be accessed in your local environment, the data sets can be called as objects and used like any other data you would otherwise read in and assign to an object manually. See the following example of a plot using <code><a href="reference/qscores.html">PPBDS.data::qscores</a></code>.</p>
+<div class="sourceCode" id="cb3"><pre class="r">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ggplot2</span>)
+
+<span class="no">qscores</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="no">department</span> <span class="kw">==</span> <span class="st">"GOV"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="kw">y</span> <span class="kw">=</span> <span class="no">workload</span>, <span class="kw">x</span> <span class="kw">=</span> <span class="no">enrollment</span>)) +
+  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="kw">color</span> <span class="kw">=</span> <span class="no">term</span>)) +
+  <span class="fu">labs</span>(
+    <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Rudimentary Graphic to Test Function"</span>,
+    <span class="kw">subtitle</span> <span class="kw">=</span> <span class="st">"Better graphic, potentially from 1005 work coming"</span>,
+    <span class="kw">caption</span> <span class="kw">=</span> <span class="st">"Never forget to cite"</span>
+  )</pre></div>
+<p><img src="man/README-quick.plot-1.png" width="100%"></p>
+</div>
 </div>
   </div>
 
