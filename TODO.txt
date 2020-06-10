@@ -45,17 +45,6 @@ Once you have done this, all your standard git commands will work as usual. Note
 ### Data Sets
 
 
-
-### Andy
-
-* Called `qscores` New Q-Guide data. Original format is as a database, so some wizardry is required. It --- info.db --- has been placed in data-raw/. Looks like the **RSQLite** package is the best approach. Credit Aurash Vatan '23 for providing the data in the help page. From him: The important table is called "classes" with the following format:
-
-id | name | enrollment | overall | workload | department | term | course_number
-
-99 | AFRAMER 100Y: Introduction to Black Poetry | 49 | 4.2 | 2.6 | AFRAMER | 2019S | 100Y
-
-Three other potentially useful tables: "reviews" has the text of all the reviews in "classes", and "people" and "professors" together store the names of professors and which classes they taught. Some of the names that I have used for columns may be slightly ambiguous, but hopefully that contributes some useful messiness to the data! There are a few more tables in the file, but they were purely for the functioning of the website and so are irrelevant.
-
 ### Ishan
 
 * Called `cces`. See how we use it in the *Primer* chapter 14. Mention Shiro's work [here](https://github.com/kuriwaki/cces_cumulative) in the help page. You can just get the cleaned up data form here: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/II2DB6. Download it by hand. (I did this already, but you should document the details. I am not sure if we can automate it, or at least make it a part of the script.) We will not keep all the variables. But which ones should we keep? And should we clean up the values for category variables, for example? Maybe we would be better off getting the dta and then using the **haven** to magically set the levels correctly, which is something which Stata makes easier for factor variables. Read the associated PDF. Perhaps the variables should be simple characters? Only other reasonable choice is factors. It is stupid to use "1" to mean "Democrat."
@@ -63,10 +52,6 @@ Three other potentially useful tables: "reviews" has the text of all the reviews
 ### TBA
 
 Don't spend more than a few hours on any of these without stopping and then having a conversation with me about them. Not all of them can work! Don't pound your head against the wall.
-
-*
-
-
 
 * Need something from Matt Blackwell's work on slavery. Ultimate use may just be in making an example for the maps appendix, which should be longer.
 

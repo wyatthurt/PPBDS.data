@@ -2,6 +2,13 @@
 # goal here is to get nicely accesible data on course names and their subsequent
 # popularity. There's also maybe a few other variables we can look at.
 
+# Three other potentially useful tables: "reviews" has the text of all the
+# reviews in "classes", and "people" and "professors" together store the names
+# of professors and which classes they taught. Some of the names used for
+# columns may be slightly ambiguous, but hopefully that contributes some useful
+# messiness to the data! There are a few more tables in the file, but they were
+# purely for the functioning of the website and so are irrelevant.
+
 # required packages
 
 library(dbplyr)
@@ -25,20 +32,20 @@ con <- DBI::dbConnect(RSQLite::SQLite(), "data-raw/info.db")
 res <- dbSendQuery(
   con,
   "Select
-   * 
+   *
   FROM
    (
       SELECT
          f.class_id,
-         e.prof_name 
+         e.prof_name
       FROM
-         people e 
+         people e
          JOIN
-            professors f 
+            professors f
             ON e.id = f.person_id
    )
    JOIN
-      classes 
+      classes
       ON class_id = classes.id"
 )
 
@@ -55,9 +62,9 @@ qscores <- raw %>%
   # workshops of some nature or another. None has an enrollment above 25. I also
   # removed all workloads that are listed as "N/A". None of them can be useful
   # to us.
-  
+
   # I also got rid of all courses that don't have a term listed.
-  
+
   filter(workload != "",
          workload != "N/A",
          !is.na(term)) %>%
@@ -92,14 +99,14 @@ qscores <- raw %>%
 
   filter(!str_detect(course_name, "Direction of Doctoral")) %>%
   filter(!str_detect(course_name, "ECON 3000: TIME")) %>%
-    
+
   # only have one row for each course
-    
+
   distinct(course_name, term, .keep_all = T) %>%
-  
+
   # I kept department and number as separate variables, because I think it might
   # be interesting to see how Q scores vary across departments.
-  
+
   # However, I removed the department and number from the name.
 
   mutate(
@@ -109,16 +116,16 @@ qscores <- raw %>%
       ), ~ .[2]
     ))
   ) %>%
-  
+
   # setting minimum threshold "N" for courses to show up & for us to only have
   # "lecture" style courses. I set this threshold at 15 for now.
-  
+
   filter(enrollment > 15) %>%
-  
+
   # AW: I don't know how much more helpful data from the Registrar would be.
   # Only additional information is enrollment breakdown by school, as well as
   # what the overarching department is.
-  
+
   # DK: Should we merge in data from the Registrar?
 
   # https://registrar.fas.harvard.edu/faculty-staff/courses/enrollment/archived-course-enrollment-reports
