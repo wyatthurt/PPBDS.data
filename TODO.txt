@@ -1,3 +1,11 @@
+## Priorities
+
+* Called `shaming`. We use this https://isps.yale.edu/sites/default/files/publication/2012/12/ISPS08-001.pdf and data is in the Dataverse. Read the useful discussion in chapter 2 of QSS.
+
+* pkgdown
+
+* Called `nominate`. DW NOMINATE from VoteView project.
+
 ## Overview
 
 We are creating an R package, PPBDS.data, which will contain a collection of interesting tibbles, with a focus on political science and designed for classroom use. Their main use will be for Gov 50 and for Preceptor's Primer. Each tibble will have a small number of variables, about as many as will fit across the screen when the tibble is printed. (Tibbles need to be simple since we don't want to overwhelm readers. The focus should be on the code and the models, not on the data.) See below for instructions on installing git-lfs. We might have one very "wide" tibble, just to have an example to work with when we want to try a model with lots of variables.
@@ -37,9 +45,6 @@ Once you have done this, all your standard git commands will work as usual. Note
 ### Data Sets
 
 
-### Beau
-
-* Called `nes`. [National Election Survey](https://electionstudies.org/) data, similar to what we have been working with in 1006.
 
 ### Andy
 
@@ -59,9 +64,9 @@ Three other potentially useful tables: "reviews" has the text of all the reviews
 
 Don't spend more than a few hours on any of these without stopping and then having a conversation with me about them. Not all of them can work! Don't pound your head against the wall.
 
-* Called `shaming`. We use this https://isps.yale.edu/sites/default/files/publication/2012/12/ISPS08-001.pdf and data is in the Dataverse. Read the useful discussion in chapter 2 of QSS.
+*
 
-* Called `nominate`. DW NOMINATE from VoteView project.
+
 
 * Need something from Matt Blackwell's work on slavery. Ultimate use may just be in making an example for the maps appendix, which should be longer.
 
