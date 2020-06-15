@@ -1,8 +1,10 @@
 # work in progress preparing the NES cumulative survey data from 1948 to 2016
 # current as of 05/23/2020
 
-# CDF source can be located at: https://electionstudies.org/data-center/anes-time-series-cumulative-data-file/
-# effective date same as above
+# CDF source can be located at:
+# https://electionstudies.org/data-center/anes-time-series-cumulative-data-file/
+# effective date same as above. The raw data file is too big to include in the
+# repo, which is why it is excluded in the .gitignore.
 
 library(tidyverse)
 library(haven)
