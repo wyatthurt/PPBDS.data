@@ -6,6 +6,8 @@
 
 * Called `nominate`. DW NOMINATE from VoteView project.
 
+* Do something about this note from checking the package: "Note: found 2 marked UTF-8 strings""
+
 ## Overview
 
 We are creating an R package, PPBDS.data, which will contain a collection of interesting tibbles, with a focus on political science and designed for classroom use. Their main use will be for Gov 50 and for Preceptor's Primer. Each tibble will have a small number of variables, about as many as will fit across the screen when the tibble is printed. (Tibbles need to be simple since we don't want to overwhelm readers. The focus should be on the code and the models, not on the data.) See below for instructions on installing git-lfs. We might have one very "wide" tibble, just to have an example to work with when we want to try a model with lots of variables.
