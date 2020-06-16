@@ -1,7 +1,4 @@
 library(tidyverse)
-library(naniar)
-
-
 
 x <- read_csv("data-raw/social.csv") %>%
   mutate(gender = as.character(case_when(
@@ -12,7 +9,7 @@ x <- read_csv("data-raw/social.csv") %>%
 
   mutate(birth_yr = as.integer(yearofbirth)) %>%
 
-  mutate(treatment = as.factor(messages)) %>%
+  mutate(treatment = parse_factor(messages)) %>%
 
   # this doesn't change the # of
   # records... this data is suspiciously clean
@@ -26,10 +23,9 @@ x <- read_csv("data-raw/social.csv") %>%
          - primary2004, -primary2006)
 
 
-stopifnot(naniar::pct_miss(x) == 0)
+stopifnot(x %>% drop_na() %>% nrow() == 305866)
 
 shaming <- x
-
 
 usethis::use_data(shaming, overwrite = T)
 

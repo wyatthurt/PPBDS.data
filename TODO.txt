@@ -1,12 +1,14 @@
 ## Priorities
 
-* Called `shaming`. We use this https://isps.yale.edu/sites/default/files/publication/2012/12/ISPS08-001.pdf and data is in the Dataverse. Read the useful discussion in chapter 2 of QSS.
+* Called `shaming`. Add a lot more documentation to both make_ and .R files (treatment levels).
 
-* pkgdown
+* pkgdown. Make look more like Healy, especially sidebar and citation.
 
-* Called `nominate`. DW NOMINATE from VoteView project.
+* Figure out this note from checking the package: "Note: found 2 marked UTF-8 strings"
 
-* Do something about this note from checking the package: "Note: found 2 marked UTF-8 strings""
+* Called `nominate`. DW NOMINATE from VoteView project: https://www.voteview.com/data
+
+* Nicer graphics on home page.
 
 ## Overview
 
