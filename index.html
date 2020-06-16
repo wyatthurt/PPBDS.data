@@ -111,16 +111,19 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation:</h2>
 <p>As this package is not relaesed on CRAN, you can download it directly from GitHub!</p>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"davidkane9/PPBDS.data"</span>)</pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="kw">remotes</span>::<span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"davidkane9/PPBDS.data"</span>)
+</pre></div>
 </div>
 <div id="loading-preceptors-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#loading-preceptors-data" class="anchor"></a>Loading Preceptor’s Data:</h2>
 <p>After remote-installing the package, it loads as any package should.</p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyverse</span>) <span class="co"># the tidyverse is your new best friend</span>
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">PPBDS.data</span>)
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw">tidyverse</span>) <span class="co"># the tidyverse is your new best friend</span>
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw">PPBDS.data</span>)
 
-<span class="no">qscores</span>
+<span class="kw">qscores</span>
 <span class="co">#&gt; # A tibble: 748 x 8</span>
 <span class="co">#&gt;    course_name department course_number term  enrollment workload overall</span>
 <span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;         &lt;chr&gt;      &lt;int&gt;    &lt;dbl&gt;   &lt;dbl&gt;</span>
@@ -134,24 +137,27 @@
 <span class="co">#&gt;  8 " Elementa~ AFRIKAAN   AB            2019S         22      2.9     4.9</span>
 <span class="co">#&gt;  9 " Elementa~ JAMAICAN   AB            2019S         18      1.5     4.9</span>
 <span class="co">#&gt; 10 " Elementa~ WSTAFRCN   AB            2019S         29      2.6     4  </span>
-<span class="co">#&gt; # ... with 738 more rows, and 1 more variable: prof_name &lt;chr&gt;</span></pre></div>
+<span class="co">#&gt; # ... with 738 more rows, and 1 more variable: prof_name &lt;chr&gt;</span>
+</pre></div>
 </div>
 <div id="using-the-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#using-the-data" class="anchor"></a>Using the data</h2>
 <p>Once the library is loaded and you have confirmed that it can be accessed in your local environment, the data sets can be called as objects and used like any other data you would otherwise read in and assign to an object manually. See the following example of a plot using <code><a href="reference/qscores.html">PPBDS.data::qscores</a></code>.</p>
-<div class="sourceCode" id="cb3"><pre class="r">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ggplot2</span>)
+<div class="sourceCode" id="cb3"><pre class="downlit">
 
-<span class="no">qscores</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="no">department</span> <span class="kw">==</span> <span class="st">"GOV"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="kw">y</span> <span class="kw">=</span> <span class="no">workload</span>, <span class="kw">x</span> <span class="kw">=</span> <span class="no">enrollment</span>)) +
-  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="kw">color</span> <span class="kw">=</span> <span class="no">term</span>)) +
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw">ggplot2</span>)
+
+<span class="kw">qscores</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="kw">department</span> <span class="op">==</span> <span class="st">"GOV"</span>) <span class="op">%&gt;%</span>
+  <span class="fu">ggplot</span>(<span class="fu">aes</span>(y = <span class="kw">workload</span>, x = <span class="kw">enrollment</span>)) <span class="op">+</span> 
+  <span class="fu">geom_point</span>(<span class="fu">aes</span>(color = <span class="kw">term</span>)) <span class="op">+</span> 
   <span class="fu">labs</span>(
-    <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Rudimentary Graphic to Test Function"</span>,
-    <span class="kw">subtitle</span> <span class="kw">=</span> <span class="st">"Better graphic, potentially from 1005 work coming"</span>,
-    <span class="kw">caption</span> <span class="kw">=</span> <span class="st">"Never forget to cite"</span>
-  )</pre></div>
+    title = <span class="st">"Rudimentary Graphic to Test Function"</span>,
+    subtitle = <span class="st">"Better graphic, potentially from 1005 work coming"</span>,
+    caption = <span class="st">"Never forget to cite"</span>
+  )
+</pre></div>
 <p><img src="reference/figures/README-quick.plot-1.png" align="center" width="600"></p>
 </div>
 </div>
