@@ -9,7 +9,7 @@
 Data Science](https://davidkane9.github.io/PPBDS/)*, the textbook used
 in [Gov 50:
 Data](https://www.davidkane.info/files/gov_50_fall_2020.html) at Harvard
-University.There are currently 5 different data sets to choose from that
+University.There are currently 6 different data sets to choose from that
 span topics from a social experiment in the Boston, MA *“T”* stations to
 an insurance plan in Mexico.
 
