@@ -1,9 +1,9 @@
 
-<!-- README is generated from README.Rmd, edit ONLY that file if needed-->
+<!-- README is generated from README.Rmd, edit ONLY this file if needed-->
 
 # Data for Preceptor’s Primer for Bayesian Data Science
 
-## About:
+## About
 
 `PPBDS.data` provides the data used in *[Preceptor’s Primer for Bayesian
 Data Science](https://davidkane9.github.io/PPBDS/)*, the textbook used
@@ -15,13 +15,15 @@ an insurance plan in Mexico.
 
 <!-- unsure if badges are available for use yet here -->
 
-### CCES Data:
+## Data Sets
+
+### `cces`
 
   - Sourced from [Kuriwaki (2018)](https://doi.org/10.7910/DVN/II2DB6).
   - Features ideological, demographic, educational, and other
     information from the *Cooperative Congressional Election Study*.
 
-### NES Data:
+### `nes`
 
   - Cleaned subset of data from the [National Election
     Survey](https://electionstudies.org/data-center/anes-time-series-cumulative-data-file/).
@@ -30,7 +32,7 @@ an insurance plan in Mexico.
     [Codebooks](https://electionstudies.org/data-center/anes-time-series-cumulative-data-file/)
     for questionnaire and other details.
 
-### QSCORES Data:
+### `qscores`
 
   - Data from Harvard’s own student [course
     reviews](https://q.fas.harvard.edu/).
@@ -38,20 +40,27 @@ an insurance plan in Mexico.
     their courses upon completion, and this is a subset of their
     responses.
 
-### SPS Data:
+### `sps`
 
   - Survey data from a randomized healthcare experiment done in several
     states in Mexico.
   - Sourced from [King et.
     al. (2009)](https://gking.harvard.edu/files/gking/files/pubpolforpoor.pdf).
 
-### TRAINS Data:
+### `trains`
 
   - Data from a study by [Enos
     (2016)](https://scholar.harvard.edu/files/renos/files/enostrains.pdf)
     who addressed exclusionary attitudes and cultural exposures.
 
-## Installation:
+### `shaming`
+
+  - Data from [Gerber, Green, and Larimer
+    (2008)](https://doi.org/10.1017/S000305540808009X) regarding
+    potential voter response to varying degrees external pressures to
+    vote.
+
+## Installation
 
 As this package is not relaesed on CRAN, you can download it directly
 from GitHub\!
@@ -60,7 +69,7 @@ from GitHub\!
 remotes::install_github("davidkane9/PPBDS.data")
 ```
 
-## Loading Preceptor’s Data:
+## Loading Preceptor’s Data
 
 After remote-installing the package, it loads as any package should.
 
@@ -109,3 +118,24 @@ qscores %>%
 ```
 
 <img src= "man/figures/README-quick.plot-1.png" align="center" width="600">
+
+## Citing PPBDS.data
+
+``` r
+
+citation("PPBDS.data")
+#> 
+#> To cite package 'PPBDS.data' in publications use:
+#> 
+#>   David Kane (2020). PPBDS.data: Data for Preceptor's Primer for
+#>   Bayesian Data Science. R package version 0.0.0.9000.
+#> 
+#> A BibTeX entry for LaTeX users is
+#> 
+#>   @Manual{,
+#>     title = {PPBDS.data: Data for Preceptor's Primer for Bayesian Data Science},
+#>     author = {David Kane},
+#>     year = {2020},
+#>     note = {R package version 0.0.0.9000},
+#>   }
+```
