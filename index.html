@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Data for Preceptor's Primer for Bayesian Data Science">
-<meta property="og:description" content="What the package does (one paragraph).">
+<meta property="og:description" content="Data for David Kane's Gov 50: Data course at Harvard.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -47,7 +47,14 @@
   <a href="reference/index.html">Reference</a>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://github.com/davidkane9/PPBDS.data/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -64,52 +71,69 @@
 <a href="#data-for-preceptors-primer-for-bayesian-data-science" class="anchor"></a>Data for Preceptor’s Primer for Bayesian Data Science</h1></div>
 <div id="about" class="section level2">
 <h2 class="hasAnchor">
-<a href="#about" class="anchor"></a>About:</h2>
-<p><code>PPBDS.data</code> provides the data used in <em><a href="https://davidkane9.github.io/PPBDS/">Preceptor’s Primer for Bayesian Data Science</a></em>, the textbook used in <a href="https://www.davidkane.info/files/gov_50_fall_2020.html">Gov 50: Data</a> at Harvard University.There are currently 5 different data sets to choose from that span topics from a social experiment in the Boston, MA <em>“T”</em> stations to an insurance plan in Mexico.</p>
+<a href="#about" class="anchor"></a>About</h2>
+<p><code>PPBDS.data</code> provides the data used in <em><a href="https://davidkane9.github.io/PPBDS/">Preceptor’s Primer for Bayesian Data Science</a></em>, the textbook used in <a href="https://www.davidkane.info/files/gov_50_fall_2020.html">Gov 50: Data</a> at Harvard University.There are currently 6 different data sets to choose from that span topics from a social experiment in the Boston, MA <em>“T”</em> stations to an insurance plan in Mexico.</p>
 <!-- unsure if badges are available for use yet here -->
-<div id="cces-data" class="section level3">
+</div>
+<div id="data-sets" class="section level2">
+<h2 class="hasAnchor">
+<a href="#data-sets" class="anchor"></a>Data Sets</h2>
+<div id="cces" class="section level3">
 <h3 class="hasAnchor">
-<a href="#cces-data" class="anchor"></a>CCES Data:</h3>
+<a href="#cces" class="anchor"></a><code>cces</code>
+</h3>
 <ul>
 <li>Sourced from <a href="https://doi.org/10.7910/DVN/II2DB6">Kuriwaki (2018)</a>.</li>
 <li>Features ideological, demographic, educational, and other information from the <em>Cooperative Congressional Election Study</em>.</li>
 </ul>
 </div>
-<div id="nes-data" class="section level3">
+<div id="nes" class="section level3">
 <h3 class="hasAnchor">
-<a href="#nes-data" class="anchor"></a>NES Data:</h3>
+<a href="#nes" class="anchor"></a><code>nes</code>
+</h3>
 <ul>
 <li>Cleaned subset of data from the <a href="https://electionstudies.org/data-center/anes-time-series-cumulative-data-file/">National Election Survey</a>.</li>
 <li>Features ideological, demographic, educational, and other information from respondents. See <a href="https://electionstudies.org/data-center/anes-time-series-cumulative-data-file/">Codebooks</a> for questionnaire and other details.</li>
 </ul>
 </div>
-<div id="qscores-data" class="section level3">
+<div id="qscores" class="section level3">
 <h3 class="hasAnchor">
-<a href="#qscores-data" class="anchor"></a>QSCORES Data:</h3>
+<a href="#qscores" class="anchor"></a><code>qscores</code>
+</h3>
 <ul>
 <li>Data from Harvard’s own student <a href="https://q.fas.harvard.edu/">course reviews</a>.</li>
 <li>Students answer multiple choice and free response questions about their courses upon completion, and this is a subset of their responses.</li>
 </ul>
 </div>
-<div id="sps-data" class="section level3">
+<div id="sps" class="section level3">
 <h3 class="hasAnchor">
-<a href="#sps-data" class="anchor"></a>SPS Data:</h3>
+<a href="#sps" class="anchor"></a><code>sps</code>
+</h3>
 <ul>
 <li>Survey data from a randomized healthcare experiment done in several states in Mexico.</li>
 <li>Sourced from <a href="https://gking.harvard.edu/files/gking/files/pubpolforpoor.pdf">King et. al. (2009)</a>.</li>
 </ul>
 </div>
-<div id="trains-data" class="section level3">
+<div id="trains" class="section level3">
 <h3 class="hasAnchor">
-<a href="#trains-data" class="anchor"></a>TRAINS Data:</h3>
+<a href="#trains" class="anchor"></a><code>trains</code>
+</h3>
 <ul>
 <li>Data from a study by <a href="https://scholar.harvard.edu/files/renos/files/enostrains.pdf">Enos (2016)</a> who addressed exclusionary attitudes and cultural exposures.</li>
+</ul>
+</div>
+<div id="shaming" class="section level3">
+<h3 class="hasAnchor">
+<a href="#shaming" class="anchor"></a><code>shaming</code>
+</h3>
+<ul>
+<li>Data from <a href="https://doi.org/10.1017/S000305540808009X">Gerber, Green, and Larimer (2008)</a> regarding potential voter response to varying degrees external pressures to vote.</li>
 </ul>
 </div>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation:</h2>
+<a href="#installation" class="anchor"></a>Installation</h2>
 <p>As this package is not relaesed on CRAN, you can download it directly from GitHub!</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
 <span class="kw">remotes</span>::<span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"davidkane9/PPBDS.data"</span>)
@@ -117,7 +141,7 @@
 </div>
 <div id="loading-preceptors-data" class="section level2">
 <h2 class="hasAnchor">
-<a href="#loading-preceptors-data" class="anchor"></a>Loading Preceptor’s Data:</h2>
+<a href="#loading-preceptors-data" class="anchor"></a>Loading Preceptor’s Data</h2>
 <p>After remote-installing the package, it loads as any package should.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw">tidyverse</span>) <span class="co"># the tidyverse is your new best friend</span>
@@ -160,15 +184,52 @@
 </pre></div>
 <p><img src="reference/figures/README-quick.plot-1.png" align="center" width="600"></p>
 </div>
+<div id="citing-ppbdsdata" class="section level2">
+<h2 class="hasAnchor">
+<a href="#citing-ppbdsdata" class="anchor"></a>Citing PPBDS.data</h2>
+<div class="sourceCode" id="cb4"><pre class="downlit">
+
+<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"PPBDS.data"</span>)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; To cite package 'PPBDS.data' in publications use:</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;   David Kane (2020). PPBDS.data: Data for Preceptor's Primer for</span>
+<span class="co">#&gt;   Bayesian Data Science. R package version 0.0.0.9000.</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; A BibTeX entry for LaTeX users is</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;   @Manual{,</span>
+<span class="co">#&gt;     title = {PPBDS.data: Data for Preceptor's Primer for Bayesian Data Science},</span>
+<span class="co">#&gt;     author = {David Kane},</span>
+<span class="co">#&gt;     year = {2020},</span>
+<span class="co">#&gt;     note = {R package version 0.0.0.9000},</span>
+<span class="co">#&gt;   }</span>
+</pre></div>
+</div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <div class="license">
+    <div class="links">
+<h2>Links</h2>
+<ul class="list-unstyled">
+<li>Browse source code at <br><a href="https://github.com/davidkane9/PPBDS.data/">https://​github.com/​davidkane9/​PPBDS.data/​</a>
+</li>
+<li>Report a bug at <br><a href="https://github.com/davidkane9/PPBDS.data/issues">https://​github.com/​davidkane9/​PPBDS.data/​issues</a>
+</li>
+</ul>
+</div>
+<div class="license">
 <h2>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
 <li><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
+</ul>
+</div>
+<div class="citation">
+<h2>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html">Citing PPBDS.data</a></li>
 </ul>
 </div>
 <div class="developers">
