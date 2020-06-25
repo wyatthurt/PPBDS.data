@@ -1,12 +1,18 @@
 ## Priorities
 
-* Called `shaming`. Add a lot more documentation to both make_ and .R files (treatment levels).
+* Add pkgdown bullet points to this file with Beau's help.
+
+* Investigate (with Beau's help) the original shaming data. Add comments to make_shaming.R about your efforts.
+
+* Called `nominate`. DW NOMINATE from VoteView project: https://www.voteview.com/data. Talk with Beau.
+
+
+----
+
 
 * pkgdown. Make look more like Healy, especially sidebar and citation.
 
 * Figure out this note from checking the package: "Note: found 2 marked UTF-8 strings"
-
-* Called `nominate`. DW NOMINATE from VoteView project: https://www.voteview.com/data
 
 * Nicer graphics on home page.
 
@@ -38,6 +44,10 @@ We are creating an R package, PPBDS.data, which will contain a collection of int
 * You need to use `pkgdown::build_site()` to create the site after you have made some changes.
 
 * Need to make the home page nicer. Follow [these instructions](https://pkgdown.r-lib.org/reference/build_home.html).
+
+*
+
+*
 
 
 ### git-lfs
