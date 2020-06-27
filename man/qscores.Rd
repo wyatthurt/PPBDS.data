@@ -12,8 +12,9 @@ A tibble with 748 observations and 8 variables:
 \item{course_nunber}{character variable representing department course name listing}
 \item{term}{character variable with values "2018F" and "2019S"}
 \item{enrollment}{numeric variable for enrollment in course}
-\item{workload}{numeric variable representing hours per week of workload}
-\item{overall}{numeric variable representing average of students' rating of course (1 to 5 scale)}
+\item{hours}{numeric variable representing hours per week of workload, outside of class time}
+\item{rating}{numeric variable representing average of students' rating of course
+(1 to 5 scale), with higher numbers indicating a higher rating}
 \item{prof_name}{character variable representing name of professor}
 }
 }

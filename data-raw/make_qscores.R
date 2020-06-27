@@ -56,7 +56,7 @@ dbDisconnect(con)
 
 # editing to create new tibble
 
-qscores <- raw %>%
+x <- raw %>%
 
   # I removed all courses without a workload: the majority are dissertations or
   # workshops of some nature or another. None has an enrollment above 25. I also
@@ -122,6 +122,9 @@ qscores <- raw %>%
 
   filter(enrollment > 15) %>%
 
+  rename(rating = overall,
+         hours = workload) %>%
+
   # AW: I don't know how much more helpful data from the Registrar would be.
   # Only additional information is enrollment breakdown by school, as well as
   # what the overarching department is.
@@ -130,11 +133,13 @@ qscores <- raw %>%
 
   # https://registrar.fas.harvard.edu/faculty-staff/courses/enrollment/archived-course-enrollment-reports
 
-  select(course_name, department, course_number, term, department, enrollment, workload, overall, prof_name) %>%
+  select(course_name, department, course_number, term, department, enrollment, workload, rating, prof_name) %>%
   as_tibble()
 
 
 # saving data
+
+qscores <- x
 
 usethis::use_data(qscores, overwrite = TRUE)
 
