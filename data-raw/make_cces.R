@@ -11,33 +11,24 @@
 library(tidyverse)
 library(usethis)
 
-x <- readRDS("data-raw/cumulative_2006_2018.rds") %>%
-  select(year,
+x <- read_rds("data-raw/cumulative_2006_2018.rds") %>%
+  select(year, state, gender,
 
-    # Case_id is pretty useless but necessary to see repeated
-    # samples, so I kept it. Update: did not keep it because of
-    # instructions from preceptor.
+    # I kept age instead of birth year because it records the age when they took
+    # the survey, which is most relevant. Not sure if I should keep all these
+    # variables. Are we using this data for the heavy machine learning stuff in
+    # chapters 11 and 12? If not this data, then what data?
 
-    case_id,
-    state,
-    gender,
-
-    # I kept age instead of birth year because it records the
-    # age when they took the survey, which is most relevant.
-
-    age,
-    educ,
-    race,
-    marstat,
+    age, race, marstat,
 
     # I've renamed ideo5 to ideology because I've removed every other
     # ideology based question.
+
     ideology = ideo5,
+    education = educ,
     news = newsint,
     econ = economy_retro,
-    approval_pres,
-    approval_gov
-  ) %>%
+    approval_ch = approval_pres) %>%
 
   # I've kept three sort of groups of variables. The first is ideology and
   # news interest - I'm curious to see if there's a relationship between
@@ -47,57 +38,46 @@ x <- readRDS("data-raw/cumulative_2006_2018.rds") %>%
   # been doing this past year?) with the approval of the current president. That's probably
   # correlated?
 
-  # The third is the approval ratings for senate officials, representatives, and governors.
-  # It would be interesting to see if they correlate with approval of the president
-  # in some manner. Update: removed approval for Congressmen, just kept presidential
-  # and governor.
-
   # Below, I convert some of the numerical representations of the data into
   # consistent character variables.
 
-  mutate(approval_pres = case_when(
-    approval_pres == 1 ~ "Strongly Approve",
-    approval_pres == 2 ~ "Approve / Somewhat Approve",
-    approval_pres == 3 ~ "Disapprove / Somewhat Disapprove",
-    approval_pres == 4 ~ "Strongly Disapprove",
-    approval_pres == 5 ~ "Never Heard / Not Sure",
-    approval_pres == 6 ~ "Neither Approve Nor Disapprove"
-  )) %>%
-  mutate(approval_gov = case_when(
-    approval_gov == 1 ~ "Strongly Approve",
-    approval_gov == 2 ~ "Approve / Somewhat Approve",
-    approval_gov == 3 ~ "Disapprove / Somewhat Disapprove",
-    approval_gov == 4 ~ "Strongly Disapprove",
-    approval_gov == 5 ~ "Never Heard / Not Sure",
-    approval_gov == 6 ~ "Neither Approve Nor Disapprove"
-  )) %>%
+  mutate(approval = case_when(
+    approval_ch == 1 ~ 5,
+    approval_ch == 2 ~ 4,
+    approval_ch == 3 ~ 2,
+    approval_ch == 4 ~ 1,
+    approval_ch == 5 ~ NA_real_,
+    approval_ch == 6 ~ 3)) %>%
+  mutate(approval_ch = case_when(
+    approval_ch == 1 ~ "Strongly Approve",
+    approval_ch == 2 ~ "Approve / Somewhat Approve",
+    approval_ch == 3 ~ "Disapprove / Somewhat Disapprove",
+    approval_ch == 4 ~ "Strongly Disapprove",
+    approval_ch == 5 ~ "Never Heard / Not Sure",
+    approval_ch == 6 ~ "Neither Approve Nor Disapprove")) %>%
   mutate(econ = case_when(
     econ == 1 ~ "Gotten Much Better",
     econ == 2 ~ "Gotten Better / Somewhat Better",
     econ == 3 ~ "Stayed About The Same",
     econ == 4 ~ "Gotten Worse / Somewhat Worse",
     econ == 5 ~ "Gotten Much Worse",
-    econ == 6 ~ "Not Sure"
-  )) %>%
+    econ == 6 ~ "Not Sure")) %>%
   mutate(news = case_when(
     news == 1 ~ "Most Of The Time",
     news == 2 ~ "Some Of The Time",
     news == 3 ~ "Only Now And Then",
     news == 4 ~ "Hardly At All",
-    news == 7 ~ "Don't Know"
-  )) %>%
+    news == 7 ~ "Don't Know")) %>%
   mutate(gender = case_when(
     gender == 1 ~ "Male",
-    gender == 2 ~ "Female"
-  )) %>%
-  mutate(educ = case_when(
-    educ == 1 ~ "No HS",
-    educ == 2 ~ "High School Graduate",
-    educ == 3 ~ "Some College",
-    educ == 4 ~ "2-Year",
-    educ == 5 ~ "4-Year",
-    educ == 6 ~ "Post-Grad"
-  )) %>%
+    gender == 2 ~ "Female")) %>%
+  mutate(education = case_when(
+    education == 1 ~ "No HS",
+    education == 2 ~ "High School Graduate",
+    education == 3 ~ "Some College",
+    education == 4 ~ "2-Year",
+    education == 5 ~ "4-Year",
+    education == 6 ~ "Post-Grad")) %>%
   mutate(race = case_when(
     race == 1 ~ "White",
     race == 2 ~ "Black",
@@ -106,42 +86,27 @@ x <- readRDS("data-raw/cumulative_2006_2018.rds") %>%
     race == 5 ~ "Native American",
     race == 6 ~ "Mixed",
     race == 7 ~ "Other",
-    race == 8 ~ "Middle Eastern"
-  )) %>%
+    race == 8 ~ "Middle Eastern")) %>%
   mutate(marstat = case_when(
     marstat == 1 ~ "Married",
     marstat == 2 ~ "Separated",
     marstat == 3 ~ "Divorced",
     marstat == 4 ~ "Widowed",
     marstat == 5 ~ "Single / Never Married",
-    marstat == 6 ~ "Domestic Partnership"
-  )) %>%
+    marstat == 6 ~ "Domestic Partnership")) %>%
 
-# Making educ an ordered factor.  
-  
-  mutate(educ = factor(educ, levels = c("No HS", 
+  # Making education an ordered factor.
+
+  # I am a little confused about how ideology ends up as a factor. Should clean
+  # this up.
+
+  mutate(education = factor(education, levels = c("No HS",
                                            "High School Graduate",
                                            "Some College",
                                            "2-Year",
                                            "4-Year",
-                                           "Post-Grad"))) %>%
+                                           "Post-Grad")))
 
-# Make approval variables ordered factors.
-  
-  mutate(approval_pres = factor(approval_pres, levels = c("Strongly Approve", 
-                                                          "Approve / Somewhat Approve",
-                                                          "Disapprove / Somewhat Disapprove",
-                                                          "Strongly Disapprove",
-                                                          "Never Heard / Not Sure",
-                                                          "Neither Approve Nor Disapprove"
-  ))) %>%
-  mutate(approval_gov = factor(approval_gov, levels = c("Strongly Approve", 
-                                                          "Approve / Somewhat Approve",
-                                                          "Disapprove / Somewhat Disapprove",
-                                                          "Strongly Disapprove",
-                                                          "Never Heard / Not Sure",
-                                                          "Neither Approve Nor Disapprove"
-  )))
 
 
 

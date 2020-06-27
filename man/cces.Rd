@@ -19,11 +19,11 @@ A tibble with 452755 observations and 16 variables:
 "Liberal", "Moderate", "Conservative", "Very Conservative", and "Not Sure"}
 \item{news}{character variable for level news/current events interest}
 \item{econ}{character variable for retrospective report on the past year's economy}
-\item{approval_pres}{factor variable of approval of president - takes values of
+\item{approval_ch}{character variable of approval of president - takes values of
 "Strongly Approve", "Approve / Somewhat Approve", "Disapprove / Somewhat Disapprove",
 "Never Heard / Not Sure", "Neither Approve Nor Disapprove"}
-\item{approval_gov}{factor variable of approval of state governor - takes same values
-approval_pres}
+\item{approval}{numeric variable of approval for the current president on a 1-5 scale
+with higher numbers indicating greater approval}
 }
 }
 \source{

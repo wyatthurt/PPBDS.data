@@ -2,7 +2,7 @@
 #'
 #' Data for the approval ratings of voters to various government positions
 #' combined with the demographic background of the voter. See
-#' \href{https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/II2DB6}{Kuriwaki (2018)} 
+#' \href{https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/II2DB6}{Kuriwaki (2018)}
 #' for background and details. Raw code available at Kuriwaki's
 #'  \href{https://github.com/kuriwaki/cces_cumulative}{Github.}
 #'
@@ -23,11 +23,11 @@
 #'   "Liberal", "Moderate", "Conservative", "Very Conservative", and "Not Sure"}
 #'   \item{news}{character variable for level news/current events interest}
 #'   \item{econ}{character variable for retrospective report on the past year's economy}
-#'   \item{approval_pres}{factor variable of approval of president - takes values of 
+#'   \item{approval_ch}{character variable of approval of president - takes values of
 #'   "Strongly Approve", "Approve / Somewhat Approve", "Disapprove / Somewhat Disapprove",
 #'   "Never Heard / Not Sure", "Neither Approve Nor Disapprove"}
-#'   \item{approval_gov}{factor variable of approval of state governor - takes same values
-#'   approval_pres}
+#'   \item{approval}{numeric variable of approval for the current president on a 1-5 scale
+#'    with higher numbers indicating greater approval}
 #' }
 #' @source \url{https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/II2DB6}
 #'

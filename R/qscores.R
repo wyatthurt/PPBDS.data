@@ -25,7 +25,7 @@
 #'   \item{hours}{numeric variable representing hours per week of workload, outside of class time}
 #'   \item{rating}{numeric variable representing average of students' rating of course
 #'            (1 to 5 scale), with higher numbers indicating a higher rating}
-#'   \item{prof_name}{character variable representing name of professor}
+#'   \item{instructor}{character variable representing name of instructor}
 #' }
 #'
 "qscores"

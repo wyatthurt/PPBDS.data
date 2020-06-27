@@ -123,7 +123,8 @@ x <- raw %>%
   filter(enrollment > 15) %>%
 
   rename(rating = overall,
-         hours = workload) %>%
+         hours = workload,
+         instructor = prof_name) %>%
 
   # AW: I don't know how much more helpful data from the Registrar would be.
   # Only additional information is enrollment breakdown by school, as well as
@@ -133,11 +134,12 @@ x <- raw %>%
 
   # https://registrar.fas.harvard.edu/faculty-staff/courses/enrollment/archived-course-enrollment-reports
 
-  select(course_name, department, course_number, term, department, enrollment, workload, rating, prof_name) %>%
+  select(course_name, department, course_number, term, department,
+         enrollment, hours, rating, instructor) %>%
   as_tibble()
 
 
-# saving data
+# saving data. still need to fix course_name; and change to name; course_number to number
 
 qscores <- x
 
