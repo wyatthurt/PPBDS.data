@@ -7,11 +7,13 @@
 \format{
 A tibble with 305,866 observations and 6 variables:
 \describe{
+\item{sex}{character variable with values "male" and "female"}
+\item{birth}{integer variable indicating respondent birth year}
 \item{hhsize}{integer indication of respondent household size}
-\item{gender}{character variable with values "Male" and "Female"}
-\item{birth_yr}{integer variable indicating respondent birth year}
-\item{treatment}{factor variable indicating which of the 4 treatments were employed: 'Civic Duty', 'Hawthorne', 'Control', or 'Neighbors'. }
 \item{vote_04}{integer binary variable indicating "1" for respondent voting in the 2004 primary election}
+\item{treatment}{factor variable indicating which of the 4 treatments were employed in 2006, but
+before the primary election that year: 'Control', 'Civic Duty', 'Hawthorne',
+or 'Neighbors'.}
 \item{vote_06}{integer binary variable indicating "1" for respondent voting in the 2006 primary election}
 }
 }
