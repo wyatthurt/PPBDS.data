@@ -6,9 +6,11 @@
 
 * Called `nominate`. DW NOMINATE from VoteView project: https://www.voteview.com/data. Talk with Beau.
 
+* Called `nhanes`. Pick out some interesting variables from the NHANES data which lives in the NHANES package. That is, make_nhanes.R script will start with library(NHANES), meaning that it will assume that the package has already been installed.
 
 ----
 
+* Add inst/papers with all the relevant papers, then link there from the help pages.
 
 * pkgdown. Make look more like Healy, especially sidebar and citation.
 
@@ -19,8 +21,6 @@
 * Figure out proper numbering for releases.
 
 * Add NEWS file, using recommended practices from R Packages.
-
-* Use branching.
 
 ## Overview
 
@@ -45,14 +45,10 @@ We are creating an R package, PPBDS.data, which will contain a collection of int
 
 * Need to make the home page nicer. Follow [these instructions](https://pkgdown.r-lib.org/reference/build_home.html).
 
-*
-
-*
-
 
 ### git-lfs
 
-Before, we used git-lfs. See below for instructions. But, this led to Githib charging us too much money! So, we no longer need it, since we removed the anes_timeseries_cdf.dta from the repo.
+Previously, we used git-lfs. See below for instructions. But, this led to Githib charging us too much money! So, we no longer need it, since we removed the anes_timeseries_cdf.dta from the repo.
 
 Note that you need to have git-lfs installed to work with our repo because we use some big data sets. See [here](https://git-lfs.github.com/) for instructions. Note that the current Mac OS (Catalina) will give you a bit of a problem. To solve it, I did:
 
@@ -66,15 +62,6 @@ Once you have done this, all your standard git commands will work as usual. Note
 
 ### Data Sets
 
-
-### Ishan
-
-* Called `cces`. See how we use it in the *Primer* chapter 14. Mention Shiro's work [here](https://github.com/kuriwaki/cces_cumulative) in the help page. You can just get the cleaned up data form here: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/II2DB6. Download it by hand. (I did this already, but you should document the details. I am not sure if we can automate it, or at least make it a part of the script.) We will not keep all the variables. But which ones should we keep? And should we clean up the values for category variables, for example? Maybe we would be better off getting the dta and then using the **haven** to magically set the levels correctly, which is something which Stata makes easier for factor variables. Read the associated PDF. Perhaps the variables should be simple characters? Only other reasonable choice is factors. It is stupid to use "1" to mean "Democrat."
-
-### TBA
-
-Don't spend more than a few hours on any of these without stopping and then having a conversation with me about them. Not all of them can work! Don't pound your head against the wall.
-
 * Need something from Matt Blackwell's work on slavery. Ultimate use may just be in making an example for the maps appendix, which should be longer.
 
 * Or maybe a better voting experiment would be Electoral Administration in Fledgling Democracies: Experimental Evidence from Kenya at https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/UT25HQ. Kenya better because it is international, and we can use Erin's code!
@@ -83,13 +70,10 @@ Don't spend more than a few hours on any of these without stopping and then havi
 
 * Called `police`. [Open police data](https://openpolicing.stanford.edu/data/). Something with millions of rows and, ideally, geographic coordinates. We won't include this data in our repo. Instead, the make_police.R script will download and process it. Ideally, we can get the final police.rda to be less than 100 meg so that we don't need to turn on git-lfs again.
 
-* Maybe [GSS](http://gss.norc.org/). Isn't there already an R package?
+* Maybe [GSS](http://gss.norc.org/). Isn't there already an R package? https://kjhealy.github.io/gssr/. Could issue a PR for changing the installation instructions to use remotes:: instead of devtools.
 
 * FEC data. This is complex and important enough that it might become a stand-alone package. See [DIME](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/O5PX0B&version=2.2).
 
 * Shiro: I also have a clean large dataset of satellite lights in Africa from this period using this paper: https://www.aeaweb.org/articles?id=10.1257/aer.20161385
 
 * Called `deaths`. Maybe that demography data we used on the last day of 1005 this semester? Or is that too big?
-
-TEST
-
