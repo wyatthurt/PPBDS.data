@@ -19,7 +19,8 @@
 #'   "College", and "Post-Grad"} \item{treatment}{binary numerical variable for treatment: 1 =
 #'   Treated and 0 = Control}
 #'   \item{health_exp_m3}{numerical variable for health-related expenses in the
-#'   last 3 month in pesos} \item{health_exp_m1}{numerical variable for
+#'   last 3 month in pesos}
+#'   \item{health_exp_m1}{numerical variable for
 #'   health-related expenses in the last month in pesos}}
 #' @source
 #' \url{https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/P6NC0M}

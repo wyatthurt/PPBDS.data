@@ -14,7 +14,8 @@ A tibble with 16,733 observations and 8 variables: \describe{
 "College", and "Post-Grad"} \item{treatment}{binary numerical variable for treatment: 1 =
 Treated and 0 = Control}
 \item{health_exp_m3}{numerical variable for health-related expenses in the
-last 3 month in pesos} \item{health_exp_m1}{numerical variable for
+last 3 month in pesos}
+\item{health_exp_m1}{numerical variable for
 health-related expenses in the last month in pesos}}
 }
 \source{
