@@ -11,9 +11,9 @@
 
 ## Miro
 
-* Clean up `sps`. Which variables do we need? What do they show? What should they be called?
-
 * Clean up `nes`. income and ideology should be numeric variables, like we made them in class in 1006.
+
+* Clean up `sps`. Which variables do we need? What do they show? What should they be called?
 
 * Called `nhanes`. Pick out some interesting variables from the NHANES data which lives in the NHANES package. That is, make_nhanes.R script will start with library(NHANES), meaning that it will assume that the package has already been installed.
 
