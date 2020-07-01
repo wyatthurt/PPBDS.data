@@ -160,7 +160,7 @@ x <- data %>%
     ideology == " Independent - Republican" ~ 5,
     ideology == " Weak Republican" ~ 6,
     ideology == " Strong Republican" ~ 7,
-    TRUE ~ "NA"
+    TRUE ~ 0
   ))) %>%
 
 # education cleaning 'education'
@@ -283,13 +283,12 @@ z <- left_join(x = x, y = fips_key, by = "fips") %>%
 
 
 # this is commented out as a fail-safe in the workflow, it is run when the *.rda file needs updating
-
 # stopifnot(nrow(z) > 32000)
 # stopifnot(length(levels(z$education)) == 7)
 # stopifnot(is.integer(z$year))
 # stopifnot(ncol(z) == 10)
 # stopifnot(dim(table(nes$income)) == 5)
-#
+
 # nes <- z
 
 # usethis::use_data(nes, overwrite = T)
