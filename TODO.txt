@@ -17,7 +17,7 @@
 
 * Called `nhanes`. Pick out some interesting variables from the NHANES data which lives in the NHANES package. That is, make_nhanes.R script will start with library(NHANES), meaning that it will assume that the package has already been installed.
 
-* Called what? Use Electoral Administration in Fledgling Democracies: Experimental Evidence from Kenya at https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/UT25HQ. Kenya better because it is international, and we can use Erin's code!
+* Called `kenya`. Use Electoral Administration in Fledgling Democracies: Experimental Evidence from Kenya at https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/UT25HQ. This is another good international paper. We can use Erin's code: https://github.com/eguetzloe/kenya-electoral-administration.
 
 
 ## Other
