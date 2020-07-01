@@ -91,12 +91,12 @@ x <- data %>%
   separate(VCF0114, into = c(NA, "income"),
            sep = "[.]") %>%
 
-  mutate(income = as.ordered(case_when(
-    income == " 0 to 16 percentile" ~ "0 - 16",
-    income == " 17 to 33 percentile" ~ "17 - 33",
-    income == " 34 to 67 percentile" ~ "34 - 67",
-    income == " 68 to 95 percentile" ~ "68 - 95",
-    income == " 96 to 100 percentile" ~ "96 - 100"
+  mutate(income = as.integer(case_when(
+    income == " 0 to 16 percentile" ~ 1,
+    income == " 17 to 33 percentile" ~ 2,
+    income == " 34 to 67 percentile" ~ 3,
+    income == " 68 to 95 percentile" ~ 4,
+    income == " 96 to 100 percentile" ~ 5
   ))) %>%
 
 # year cleaning
