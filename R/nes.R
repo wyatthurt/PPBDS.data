@@ -8,8 +8,8 @@
 #' @format A tibble with 39,220 observations and  10 variables:
 #' \describe{
 #'   \item{gender}{character variable with values "Male" and "Female"}
-#'   \item{income}{integer variable representing 5 income groups: 1 as 0-16th percentile, 2 as 17-33rd, 3 as 34 to 67, 4 as 68 to 95, 5 as 96 to 100.   }
-#'   \item{real_ideo}{character variable of 7 party identification bins}
+#'   \item{income}{integer variable representing 5 income groups: 1 as 0-16th percentile, 2 as 17-33rd, 3 as 34 to 67, 4 as 68 to 95, 5 as 96 to 100}
+#'   \item{ideology}{integer variable representing party identification from 1 to 7 party, with 1 corresponding to strongly Democrat and 7 corresponding to strongly Republican}
 #'   \item{year}{integer variable for year of study}
 #'   \item{race}{character variable for race / ethnicity respondent identification}
 #'   \item{educ}{ordered factor variable with a 7 tier delineation of educational achievement}

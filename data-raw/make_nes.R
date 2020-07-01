@@ -152,14 +152,14 @@ x <- data %>%
   separate(VCF0301, into = c(NA, "ideology"),
            sep = "[.]") %>%
 
-  mutate(ideology = as.character(case_when(
-    ideology == " Strong Democrat" ~ "Dem.",
-    ideology == " Weak Democrat" ~ "weak Dem.",
-    ideology == " Independent - Democrat" ~ "ind. Dem.",
-    ideology == " Independent - Independent" ~ "Ind.",
-    ideology == " Independent - Republican" ~ "ind. Rep.",
-    ideology == " Weak Republican" ~ "weak Rep.",
-    ideology == " Strong Republican" ~ "Rep.",
+  mutate(ideology = as.integer(case_when(
+    ideology == " Strong Democrat" ~ 1,
+    ideology == " Weak Democrat" ~ 2,
+    ideology == " Independent - Democrat" ~ 3,
+    ideology == " Independent - Independent" ~ 4,
+    ideology == " Independent - Republican" ~ 5,
+    ideology == " Weak Republican" ~ 6,
+    ideology == " Strong Republican" ~ 7,
     TRUE ~ "NA"
   ))) %>%
 
