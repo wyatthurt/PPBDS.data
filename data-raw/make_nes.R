@@ -91,12 +91,12 @@ x <- data %>%
   separate(VCF0114, into = c(NA, "income"),
            sep = "[.]") %>%
 
-  mutate(income = as.ordered(case_when(
-    income == " 0 to 16 percentile" ~ "0 - 16",
-    income == " 17 to 33 percentile" ~ "17 - 33",
-    income == " 34 to 67 percentile" ~ "34 - 67",
-    income == " 68 to 95 percentile" ~ "68 - 95",
-    income == " 96 to 100 percentile" ~ "96 - 100"
+  mutate(income = as.integer(case_when(
+    income == " 0 to 16 percentile" ~ 1,
+    income == " 17 to 33 percentile" ~ 2,
+    income == " 34 to 67 percentile" ~ 3,
+    income == " 68 to 95 percentile" ~ 4,
+    income == " 96 to 100 percentile" ~ 5
   ))) %>%
 
 # year cleaning
@@ -152,14 +152,14 @@ x <- data %>%
   separate(VCF0301, into = c(NA, "ideology"),
            sep = "[.]") %>%
 
-  mutate(ideology = as.character(case_when(
-    ideology == " Strong Democrat" ~ "Dem.",
-    ideology == " Weak Democrat" ~ "weak Dem.",
-    ideology == " Independent - Democrat" ~ "ind. Dem.",
-    ideology == " Independent - Independent" ~ "Ind.",
-    ideology == " Independent - Republican" ~ "ind. Rep.",
-    ideology == " Weak Republican" ~ "weak Rep.",
-    ideology == " Strong Republican" ~ "Rep.",
+  mutate(ideology = as.integer(case_when(
+    ideology == " Strong Democrat" ~ 1,
+    ideology == " Weak Democrat" ~ 2,
+    ideology == " Independent - Democrat" ~ 3,
+    ideology == " Independent - Independent" ~ 4,
+    ideology == " Independent - Republican" ~ 5,
+    ideology == " Weak Republican" ~ 6,
+    ideology == " Strong Republican" ~ 7,
     TRUE ~ "NA"
   ))) %>%
 
