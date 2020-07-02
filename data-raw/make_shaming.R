@@ -1,6 +1,9 @@
 library(tidyverse)
 
-# Where did social.csv come from? Quantitative Social Science.
+# This dataset is from Gerber, Green & Larimer (2008), and was originally
+# published as part of a study in the American Political Science Review.
+# The raw data and details of the study can be accessed at
+# https://isps.yale.edu/research/data/d001.
 
 x <- read_csv("data-raw/social.csv",
               col_types = cols(sex = col_character(),
