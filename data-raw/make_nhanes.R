@@ -92,8 +92,8 @@ nhanes <- NHANES %>%
 
 
 
-# nhanes <- nhanes
-# usethis::use_data(nhanes, overwrite = T)
+nhanes <- nhanes
+usethis::use_data(nhanes, overwrite = T)
 
 
 
