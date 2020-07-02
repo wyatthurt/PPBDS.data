@@ -1,6 +1,6 @@
 #' National Health and Nutrition Examination Survey
 #'
-#' See \href{https://www.cdc.gov/nchs/nhanes/index.htm} for background and details.
+#' See \href{https://www.cdc.gov/nchs/nhanes/index.htm}{NHANES} for background and details.
 #'
 #' The National Health and Nutrition Examination Survey (NHANES) is a research survey
 #' distributed to adults and children across the United States to examine health
