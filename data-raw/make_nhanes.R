@@ -26,10 +26,10 @@ nhanes <- NHANES %>%
 
   # Making depressed a numbered variable
 
-  mutate(depressed = as.integer(case_when(
-    Depressed == "None" ~ 0,
-    Depressed == "Several" ~ 1,
-    Depressed == "Most" ~ 2
+  mutate(depressed = as.character(case_when(
+    Depressed == "None" ~ "none",
+    Depressed == "Several" ~ "several",
+    Depressed == "Most" ~ "most"
   ))) %>%
 
   # Making general health a numbered variable
@@ -53,6 +53,19 @@ nhanes <- NHANES %>%
     Education == "College Grade" ~ "college"
   ))) %>%
 
+  # Making income a numbered variable
+  # MB: Not sure what to do with "Other" variable
+  # MB: Also, 55k to 75k group is missing? Where is it?
+
+  mutate(income = as.character(case_when(
+    HHIncome == "more 99999" ~ "5",
+    HHIncome == "75000-99999" ~ "4",
+    HHIncome == "25000-34999" ~ "1",
+    HHIncome == "35000-44999" ~ "2",
+    HHIncome == "45000-54999" ~ "3",
+    HHIncome == "(Other)" ~ "other"
+  ))) %>%
+
   # Making diabetes an integer variable
 
   mutate(diabetes = as.integer(case_when(
@@ -72,9 +85,15 @@ nhanes <- NHANES %>%
          pregnancies = nPregnancies,
          pulse = Pulse) %>%
 
+  select(gender, survey_year, age, race, education, income, weight,
+         height, bmi, pulse, diabetes, general_health, depressed, pregnancies,
+         sleep_night_hrs)
 
 
 
+
+# nhanes <- nhanes
+# usethis::use_data(nhanes, overwrite = T)
 
 
 
