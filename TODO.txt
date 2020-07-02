@@ -2,11 +2,17 @@
 
 ## Thomas
 
-* Add pkgdown bullet points to this file with Beau's help.
+* Email shaming professor
 
-* Investigate (with Beau's help) the original shaming data. Add comments to make_shaming.R about your efforts.
+* Add some comments to make_shaming.R about your efforts.
 
-* Called `nominate`. DW NOMINATE from VoteView project: https://www.voteview.com/data. Talk with Beau.
+* Add another paragraph summarizing the study to shaming.R.
+
+* Called `nominate`. DW NOMINATE from VoteView project: https://www.voteview.com/data.
+
+* Add here bullet points for other stuff.
+
+* Discuss logo
 
 
 ## Miro
