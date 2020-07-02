@@ -17,18 +17,18 @@
 #'   \item{age}{character variable for age in years}
 #'   \item{race}{character variable with values "white", "black", "hispanic", "mexican", and "other"}
 #'   \item{education}{character variable with values "middle school", "high school", "some college", "college"}
-#'   \item{income}{}
+#'   \item{income}{integer variable for household income groups ranked from 1 to 5}
 #'   \item{weight}{double variable for weight in kilograms}
 #'   \item{height}{double variable for height in centimeters}
 #'   \item{bmi}{double variable for body mass index}
 #'   \item{pulse}{integer variable for pulse in beats per minute or bpm}
 #'   \item{diabetes}{integer variable with 1 and 0 corresponding to having and not having diabetes, respectively}
-#'   \item{general_health}{}
+#'   \item{general_health}{integer variable for general health ranked from 1-5. 1 maps to "poor", 2 is "fair", 3 is "good", 4 is "very good", and 5 is "excellent".}
 #'   \item{depressed}{character variable answering question how often patient feels depressed.
-#'                    Includes values "several", "none", "most".}
-#'   \item{pregnancies}{factor variable with two levels: "Treated" and "Control"}
-#'   \item{sleep_night_hrs}{Starting attitude toward immigration issues. Uses a 3 to 15 scale,
-#'                    with higher numbers meaning more conservative}
+#'                    Includes values "several", "none", "most"}
+#'   \item{pregnancies}{integer variable for number of pregnanices.
+#'                      NA if the individual, regardless of gender, hasn't experienced a pregnancy}
+#'   \item{sleep_night_hrs}{integer value for hours of sleep per night on average}
 #'
 #' }
 #' @source \url{https://cran.r-project.org/web/packages/NHANES/NHANES.pdf}
