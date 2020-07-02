@@ -2,6 +2,7 @@
 
 # MB: Should factor variables like race and gender just be characters?
 # MB: What should I be turning into number scales vs characters
+# MB: Add more variables?
 
 library(NHANES)
 
@@ -53,6 +54,17 @@ nhanes <- NHANES %>%
     Education == "College Grade" ~ "college"
   ))) %>%
 
+  # Cleaning up race names
+  # MB: They did not record race well in this dataset
+
+  mutate(race = as.character(case_when(
+    Race1 == "Black" ~ "black",
+    Race1 == "Hispanic" ~ "hispanic",
+    Race1 == "White" ~ "white",
+    Race1 == "Mexican" ~ "mexican",
+    Race1 == "Other" ~ "other"
+  ))) %>%
+
   # Making income a numbered variable
   # MB: Not sure what to do with "Other" variable
   # MB: Also, 55k to 75k group is missing? Where is it?
@@ -76,8 +88,7 @@ nhanes <- NHANES %>%
   # Fixing variable names
 
   mutate(gender = as.character(Gender),
-         age = as.character(Age),
-         race = as.character(Race1),
+         age = as.integer(Age),
          sleep_night_hrs = SleepHrsNight,
          height = Height,
          bmi = BMI,
