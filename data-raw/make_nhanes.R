@@ -5,8 +5,7 @@
 # MB: Add more variables?
 
 library(NHANES)
-
-testhanes <- NHANES
+library(tidyverse)
 
 nhanes <- NHANES %>%
 
@@ -88,7 +87,7 @@ nhanes <- NHANES %>%
   # Fixing variable names
 
   mutate(gender = as.character(Gender),
-         age = as.integer(Age),
+         age = as.character(Age),
          sleep_night_hrs = SleepHrsNight,
          height = Height,
          bmi = BMI,
@@ -103,9 +102,8 @@ nhanes <- NHANES %>%
 
 
 
-nhanes <- nhanes
-usethis::use_data(nhanes, overwrite = T)
-
+#nhanes <- nhanes
+#usethis::use_data(nhanes, overwrite = T)
 
 
 
