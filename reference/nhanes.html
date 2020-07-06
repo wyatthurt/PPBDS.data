@@ -129,7 +129,7 @@ conducted across two years, so the earlier year is used.</p></dd>
 <dt>age</dt><dd><p>character variable for age in years</p></dd>
 <dt>race</dt><dd><p>character variable with values "white", "black", "hispanic", "mexican", and "other"</p></dd>
 <dt>education</dt><dd><p>character variable with values "middle school", "high school", "some college", "college"</p></dd>
-<dt>income</dt><dd><p>integer variable for household income groups ranked from 1 to 5</p></dd>
+<dt>income</dt><dd><p>integer variable for household income groups ranked from 1 to 5. 0 corresponds to "other".</p></dd>
 <dt>weight</dt><dd><p>double variable for weight in kilograms</p></dd>
 <dt>height</dt><dd><p>double variable for height in centimeters</p></dd>
 <dt>bmi</dt><dd><p>double variable for body mass index</p></dd>
@@ -155,6 +155,9 @@ distributed to adults and children across the United States to examine health
 and nutritional status nationwide. It is unique in that it conducts both interviews
 and physical examination to produce their data. The survey is run by the National
 Center for Health Statistics (NCHS), a part of the Centers for Disease Control and Prevention.</p>
+<p>In order to get a demographically diverse range of responses, minority groups were surveyed
+more heavily. However, this skewed the survey results to have an inaccurate demographic makeup.
+To address this, some observations of more common groups are resampled in the data.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
