@@ -8,6 +8,10 @@
 #' and physical examination to produce their data. The survey is run by the National
 #' Center for Health Statistics (NCHS), a part of the Centers for Disease Control and Prevention.
 #'
+#' In order to get a demographically diverse range of responses, minority groups were surveyed
+#' more heavily. However, this skewed the survey results to have an inaccurate demographic makeup.
+#' To address this, some observations of more common groups are repeated in the data.
+#'
 #' @format A tibble with 10,000 observations and 15 variables:
 #' \describe{
 #'   \item{gender}{character variable with values "male" and "female"}
