@@ -20,7 +20,7 @@
 #'   \item{age}{character variable for age in years}
 #'   \item{race}{character variable with values "white", "black", "hispanic", "mexican", and "other"}
 #'   \item{education}{character variable with values "middle school", "high school", "some college", "college"}
-#'   \item{income}{integer variable for household income groups ranked from 1 to 5}
+#'   \item{income}{integer variable for household income groups ranked from 1 to 5. 0 corresponds to "other". }
 #'   \item{weight}{double variable for weight in kilograms}
 #'   \item{height}{double variable for height in centimeters}
 #'   \item{bmi}{double variable for body mass index}

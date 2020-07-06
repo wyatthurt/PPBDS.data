@@ -17,12 +17,12 @@ x <- NHANES %>%
 
   # Cleaning SurveyYr. Currently 20XX_YY, but will just be represented as 20XX.
 
-  separate(SurveyYr, into = c("survey_year", NA),
+  separate(SurveyYr, into = c("year", NA),
            sep = "_") %>%
 
   # Also making it into an integer
 
-  mutate(survey_year = as.integer(survey_year)) %>%
+  mutate(year = as.integer(year)) %>%
 
   # Making depressed a numbered variable
 
@@ -68,13 +68,13 @@ x <- NHANES %>%
   # MB: Not sure what to do with "Other" variable
   # MB: Also, 55k to 75k group is missing? Where is it?
 
-  mutate(income = as.character(case_when(
-    HHIncome == "more 99999" ~ "5",
-    HHIncome == "75000-99999" ~ "4",
-    HHIncome == "25000-34999" ~ "1",
-    HHIncome == "35000-44999" ~ "2",
-    HHIncome == "45000-54999" ~ "3",
-    HHIncome == "(Other)" ~ "other"
+  mutate(income = as.integer(case_when(
+    HHIncome == "more 99999" ~ 5,
+    HHIncome == "75000-99999" ~ 4,
+    HHIncome == "25000-34999" ~ 1,
+    HHIncome == "35000-44999" ~ 2,
+    HHIncome == "45000-54999" ~ 3,
+    HHIncome == "(Other)" ~ 0
   ))) %>%
 
   # Making diabetes an integer variable
@@ -87,7 +87,7 @@ x <- NHANES %>%
   # Fixing variable names
 
   mutate(gender = as.character(Gender),
-         age = as.character(Age),
+         age = as.integer(Age),
          sleep_night_hrs = SleepHrsNight,
          height = Height,
          bmi = BMI,
@@ -95,8 +95,10 @@ x <- NHANES %>%
          pregnancies = nPregnancies,
          pulse = Pulse) %>%
 
-  select(gender, survey_year, age, race, education, income, weight,
-         height, bmi, pulse, diabetes, general_health, depressed, pregnancies,
+  # Left out: diabetes, pulse
+
+  select(gender, year, age, race, education, income, weight,
+         height, bmi, general_health, depressed, pregnancies,
          sleep_night_hrs)
 
 
