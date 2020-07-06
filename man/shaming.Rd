@@ -24,12 +24,10 @@ or 'Neighbors'.}
 shaming
 }
 \description{
-This is a temporary data set corresponding to the Gerber, Green, and Larimer
+This is a data set corresponding to the Gerber, Green, and Larimer
 paper titled "Social Pressure and Voter Turnout: Evidence from a Large-Scale
 Field Experiment". See
 \href{https://doi.org/10.1017/S000305540808009X}{Gerber, Green, and Larimer
-(2008)} for background and details. Multiple treatment methods were employed
-in this experiment, which is the principal point of interest in the PPBDS
-context.
+(2008)} for background and details.
 }
 \keyword{datasets}
