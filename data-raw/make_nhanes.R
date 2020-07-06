@@ -26,7 +26,7 @@ x <- NHANES %>%
 
   # Making depressed a numbered variable
 
-  mutate(depressed = as.character(case_when(
+  mutate(depressed = as.ordered((case_when(
     Depressed == "None" ~ "none",
     Depressed == "Several" ~ "several",
     Depressed == "Most" ~ "most"
@@ -45,7 +45,7 @@ x <- NHANES %>%
   # Cleaning up education variable names
   # MB: Can I play with the buckets like this?
 
-  mutate(education = as.character(case_when(
+  mutate(education = as.ordered(case_when(
     Education == "8th Grade" ~ "middle school",
     Education == "9 - 11th Grade" ~ "middle school",
     Education == "High School" ~ "high school",
@@ -105,6 +105,9 @@ x <- NHANES %>%
 
 stopifnot(nrow(x) == 10000)
 stopifnot(ncol(x) > 10)
+stopifnot(ncol(x) < 15)
+stopifnot(is.integer(x$age))
+stopifnot(is.character(x$race))
 
 
 nhanes <- x
