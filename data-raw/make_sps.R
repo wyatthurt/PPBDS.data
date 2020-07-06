@@ -5,7 +5,7 @@ library(janitor)
 # Public policy for the poor? A randomised assessment of the Mexican universal
 # health insurance programme (2009)
 
-# The treatment consisted of encouragement to enrol in a health-insurance
+# The treatment consisted of encouragement to enroll in a health-insurance
 # programme and upgraded medical facilities. Participant states also received
 # funds to improve health facilities and to provide medications for services in
 # treated clusters.
