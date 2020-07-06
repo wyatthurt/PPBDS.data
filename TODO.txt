@@ -10,9 +10,21 @@
 
 * Called `nominate`. DW NOMINATE from VoteView project: https://www.voteview.com/data.
 
-* Add here bullet points for other stuff.
+* pkgdown
 
-* Discuss logo
+  - Discuss logo.
+
+  - Add NEWS file, using recommended practices from R Packages.
+
+  - Nicer graphics on home page.
+
+  - Make look more like Healy, especially sidebar and citation.
+
+  - Add some basic instructions on how to use pkgdown
+
+  - Add additional sidebar elements
+
+  - Look nice themes or yaml options
 
 
 ## Miro
@@ -30,15 +42,11 @@
 
 * Add inst/papers with all the relevant papers, then link there from the help pages.
 
-* pkgdown. Make look more like Healy, especially sidebar and citation.
-
 * Figure out this note from checking the package: "Note: found 2 marked UTF-8 strings"
-
-* Nicer graphics on home page.
 
 * Figure out proper numbering for releases.
 
-* Add NEWS file, using recommended practices from R Packages.
+
 
 ## Overview
 
