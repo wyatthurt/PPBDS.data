@@ -7,7 +7,7 @@
 library(NHANES)
 library(tidyverse)
 
-nhanes <- NHANES %>%
+x <- NHANES %>%
 
   # Selecting 5 relevant variables
 
@@ -101,9 +101,12 @@ nhanes <- NHANES %>%
 
 
 
+stopifnot(nrow(x) == 10000)
+stopifnot(ncol(x) > 10)
 
-#nhanes <- nhanes
-#usethis::use_data(nhanes, overwrite = T)
+
+nhanes <- x
+usethis::use_data(nhanes, overwrite = TRUE)
 
 
 

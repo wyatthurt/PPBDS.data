@@ -2,11 +2,29 @@
 
 ## Thomas
 
-* Add pkgdown bullet points to this file with Beau's help.
+* Email shaming professor
 
-* Investigate (with Beau's help) the original shaming data. Add comments to make_shaming.R about your efforts.
+* Add some comments to make_shaming.R about your efforts.
 
-* Called `nominate`. DW NOMINATE from VoteView project: https://www.voteview.com/data. Talk with Beau.
+* Add another paragraph summarizing the study to shaming.R.
+
+* Called `nominate`. DW NOMINATE from VoteView project: https://www.voteview.com/data.
+
+* pkgdown
+
+  - Discuss logo.
+
+  - Add NEWS file, using recommended practices from R Packages.
+
+  - Nicer graphics on home page.
+
+  - Make look more like Healy, especially sidebar and citation.
+
+  - Add some basic instructions on how to use pkgdown
+
+  - Add additional sidebar elements
+
+  - Look nice themes or yaml options
 
 
 ## Miro
@@ -24,15 +42,11 @@
 
 * Add inst/papers with all the relevant papers, then link there from the help pages.
 
-* pkgdown. Make look more like Healy, especially sidebar and citation.
-
 * Figure out this note from checking the package: "Note: found 2 marked UTF-8 strings"
-
-* Nicer graphics on home page.
 
 * Figure out proper numbering for releases.
 
-* Add NEWS file, using recommended practices from R Packages.
+
 
 ## Overview
 

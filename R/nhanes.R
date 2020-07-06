@@ -1,13 +1,12 @@
 #' National Health and Nutrition Examination Survey
 #'
-#' See \href{https://www.cdc.gov/nchs/nhanes/index.htm} for background and details.
+#' See \href{https://www.cdc.gov/nchs/nhanes/index.htm}{NHANES} for background and details.
 #'
 #' The National Health and Nutrition Examination Survey (NHANES) is a research survey
 #' distributed to adults and children across the United States to examine health
 #' and nutritional status nationwide. It is unique in that it conducts both interviews
 #' and physical examination to produce their data. The survey is run by the National
 #' Center for Health Statistics (NCHS), a part of the Centers for Disease Control and Prevention.
-#' NA variables means that variable was not recorded for the given observation.
 #'
 #' @format A tibble with 10,000 observations and 15 variables:
 #' \describe{
