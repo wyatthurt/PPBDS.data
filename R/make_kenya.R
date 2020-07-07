@@ -41,10 +41,4 @@ kenyadata <- x %>%
 
   # Selecting final variabless
 
-  select(treatment, poverty, distance, pop_density, date, block, poll_station, day
-
-         #  Registered voters at polling station during
-         # intervention period divided by registered voters
-         # at that same station in 2013
-
-         reg_byrv13, reg, rv13)
+  select(treatment, poverty, distance, pop_density, date, block, poll_station, day, reg_byrv13, reg, rv13)
