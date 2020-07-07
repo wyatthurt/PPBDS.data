@@ -1,4 +1,13 @@
+# work in progress preparing the data set from  Harris, Kamindo, and Windt (2020):
+# Electoral Administration in Fledgling Democracies: Experimental Evidence from Kenya
+
+# The replication data can be located at:
+# https://dataverse.harvard.edu/dataset.xhtml;jsessionid=786d92e2aec3933f01bd0af48ec0?persistentId=doi%3A10.7910%2FDVN%2FUT25HQ&version=&q=&fileTypeGroupFacet=%22Code%22&fileAccess=&fileTag=&fileSortField=&fileSortOrder=
+
+#  DISCARDED VARIABLES: weight (needed?), INTERVENTION (same as the first one?), DATE_DAY1 (include this or date or both?)
+
 library(tidyverse)
+library(usethis)
 
 # diff read function
 x <- readRDS('data-raw/kenyadata.Rds')
@@ -14,13 +23,15 @@ kenyadata <- x %>%
                                             treatment_2d_10d == "Local+Canvass" ~ "local + canvass",
                                             treatment_2d_10d == "Local+SMS" ~ "local + SMS"))) %>%
 
+  # Recoding values for day of the week
+
   mutate(day = case_when(day == "Monday" ~ "monday",
                          day == "Tuesday" ~ "tuesday",
                          day == "Wednesday" ~ "wednesday",
                          day == "Thursday" ~ "thursday",
                          day == "Friday" ~ "friday")) %>%
 
-  # Renaming variables
+  # Renaming variables for poverty, population density, date, block id, polling station id
 
   mutate(poverty = pov,
          pop_density = pd,
@@ -37,5 +48,3 @@ kenyadata <- x %>%
          # at that same station in 2013
 
          reg_byrv13, reg, rv13)
-
-# DISCARDED: w (weights), INTERVENTION (?? same as the first one?), DATE_DAY1,
