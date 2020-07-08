@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • PPBDS.data</title>
+<title>Electoral Administration in Fledgling Democracies: Experimental Evidence from Kenya — kenya • PPBDS.data</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,8 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Electoral Administration in Fledgling Democracies: Experimental Evidence from Kenya — kenya" />
+<meta property="og:description" content="See Harris, Kamindo, and Windt (2020) for background and details." />
 
 
 
@@ -58,7 +59,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -105,85 +106,53 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Electoral Administration in Fledgling Democracies: Experimental Evidence from Kenya</h1>
+    <small class="dont-index">Source: <a href='https://github.com/davidkane9/PPBDS.data/blob/master/R/kenya.R'><code>R/kenya.R</code></a></small>
+    <div class="hidden name"><code>kenya.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>See <a href='https://dataverse.harvard.edu/dataset.xhtml;jsessionid=786d92e2aec3933f01bd0af48ec0?persistentId=doi%3A10.7910%2FDVN%2FUT25HQ&amp;version=&amp;q=&amp;fileTypeGroupFacet=%22Code%22&amp;fileAccess=&amp;fileTag=&amp;fileSortField=&amp;fileSortOrder='>Harris, Kamindo, and Windt (2020)</a> for background and details.</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='kw'>kenya</span></pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="cces.html">cces</a></code> </p>
-        </td>
-        <td><p>Polling data from the Cooperative Congressional Election Study.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="kenya.html">kenya</a></code> </p>
-        </td>
-        <td><p>Electoral Administration in Fledgling Democracies: Experimental Evidence from Kenya</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="nes.html">nes</a></code> </p>
-        </td>
-        <td><p>American National Election Survey Data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="nhanes.html">nhanes</a></code> </p>
-        </td>
-        <td><p>National Health and Nutrition Examination Survey</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="qscores.html">qscores</a></code> </p>
-        </td>
-        <td><p>Harvard student feedback on courses</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="shaming.html">shaming</a></code> </p>
-        </td>
-        <td><p>Shaming Your Neighbor - A Catalyst to Civic Action?</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="sps.html">sps</a></code> </p>
-        </td>
-        <td><p>A Randomised Assessment of the Mexican Universal Health Insurance Programme.
-(2009)</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="trains.html">trains</a></code> </p>
-        </td>
-        <td><p>Attitude changes toward immigration.</p></td>
-      </tr>
-    </tbody>
-    </table>
+
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>A tibble with 1,989,680 observations and 11 variables:</p><dl>
+<dt>treatment</dt><dd><p>a character variable that indicates either the control group or some combination of
+treatment factors: canvassing, SMS reminder, local administrator, local admin and
+SMS, local admin and canvassing</p></dd>
+<dt>poverty</dt><dd><p>a double variable for the poverty rate of the individual's block</p></dd>
+<dt>distance</dt><dd><p>a double variable for individual's distance from polling location</p></dd>
+<dt>pop_density</dt><dd><p>a double variable for the population density of individual's block</p></dd>
+<dt>date</dt><dd><p>a date variable for the date the registration occurred</p></dd>
+<dt>block</dt><dd><p>a character variable for the individual's voting block ID</p></dd>
+<dt>poll_station</dt><dd><p>a character variable for the individual's polling station ID</p></dd>
+<dt>day</dt><dd><p>a character variable for the day of week the registration occurred</p></dd>
+<dt>reg</dt><dd><p>a double variable for the number of registered voters at polling location during intervention period</p></dd>
+<dt>rv13</dt><dd><p>a double variabale for the number of registered voters at polling location during 2013</p></dd>
+<dt>reg_byrv13</dt><dd><p>a double variable for registered voters at polling location during intervention
+period divided by registered voters at polling location during 2013</p></dd>
+
+</dl>
+
+    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
+
+    <p><a href='https://pdfs.semanticscholar.org/be58/c86f2366d5281d4800411d2dfcecd1a5c16a.pdf?_ga=2.260073289.590691361.1594131808-281689301.1594131808'>https://pdfs.semanticscholar.org/be58/c86f2366d5281d4800411d2dfcecd1a5c16a.pdf?_ga=2.260073289.590691361.1594131808-281689301.1594131808</a></p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>This dataset is from a study entitled "Electoral Administration in Fledgling Democracies:
+Experimental Evidence from Kenya". The study worked with Kenya's electoral commission in
+1,674 communities by assigning individuals to either a control/status quo group or one of
+several interventions to encourage voter registeration: SMS reminders, a local administrator
+at a polling station, canvassing, a local admin and canvassing, or a local admin and SMS.</p>
+<p>CHECK IF REG/RV13 desceriptions are right, and also date descriptions</p>
+
   </div>
-
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
