@@ -26,7 +26,6 @@
 #'   \item{rv13}{a double variabale for the number of registered voters at polling location during 2013}
 #'   \item{reg_byrv13}{a double variable for registered voters at polling location during intervention
 #'                     period divided by registered voters at polling location during 2013}
-#'
 #' }
 #' @source \url{https://pdfs.semanticscholar.org/be58/c86f2366d5281d4800411d2dfcecd1a5c16a.pdf?_ga=2.260073289.590691361.1594131808-281689301.1594131808}
 #'
