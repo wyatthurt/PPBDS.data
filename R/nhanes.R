@@ -10,7 +10,7 @@
 #'
 #' In order to get a demographically diverse range of responses, minority groups were surveyed
 #' more heavily. However, this skewed the survey results to have an inaccurate demographic makeup.
-#' To address this, some observations of more common groups are repeated in the data.
+#' To address this, some observations of more common groups are resampled in the data.
 #'
 #' @format A tibble with 10,000 observations and 15 variables:
 #' \describe{
@@ -20,7 +20,7 @@
 #'   \item{age}{character variable for age in years}
 #'   \item{race}{character variable with values "white", "black", "hispanic", "mexican", and "other"}
 #'   \item{education}{character variable with values "middle school", "high school", "some college", "college"}
-#'   \item{income}{integer variable for household income groups ranked from 1 to 5}
+#'   \item{income}{integer variable for household income groups ranked from 1 to 5. 0 corresponds to "other". }
 #'   \item{weight}{double variable for weight in kilograms}
 #'   \item{height}{double variable for height in centimeters}
 #'   \item{bmi}{double variable for body mass index}

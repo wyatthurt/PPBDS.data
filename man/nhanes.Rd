@@ -13,7 +13,7 @@ conducted across two years, so the earlier year is used.}
 \item{age}{character variable for age in years}
 \item{race}{character variable with values "white", "black", "hispanic", "mexican", and "other"}
 \item{education}{character variable with values "middle school", "high school", "some college", "college"}
-\item{income}{integer variable for household income groups ranked from 1 to 5}
+\item{income}{integer variable for household income groups ranked from 1 to 5. 0 corresponds to "other". }
 \item{weight}{double variable for weight in kilograms}
 \item{height}{double variable for height in centimeters}
 \item{bmi}{double variable for body mass index}
@@ -43,5 +43,9 @@ distributed to adults and children across the United States to examine health
 and nutritional status nationwide. It is unique in that it conducts both interviews
 and physical examination to produce their data. The survey is run by the National
 Center for Health Statistics (NCHS), a part of the Centers for Disease Control and Prevention.
+
+In order to get a demographically diverse range of responses, minority groups were surveyed
+more heavily. However, this skewed the survey results to have an inaccurate demographic makeup.
+To address this, some observations of more common groups are resampled in the data.
 }
 \keyword{datasets}
