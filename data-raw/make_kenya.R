@@ -13,7 +13,7 @@ library(usethis)
 # diff read function
 x <- readRDS('data-raw/kenyadata.Rds')
 
-kenyadata <- x %>%
+x <- x %>%
 
   # Recoding values for treatment variable
 
@@ -43,3 +43,13 @@ kenyadata <- x %>%
   # Selecting final variabless
 
   select(treatment, poverty, distance, pop_density, date, block, poll_station, day, reg_byrv13, reg, rv13)
+
+
+stopifnot(nrow(x) > 1000000)
+stopifnot(ncol(x) == 11)
+stopifnot(is.character(x$treatment))
+
+
+kenya <- x
+usethis::use_data(kenya, overwrite = TRUE)
+
