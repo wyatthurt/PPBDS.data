@@ -6,6 +6,10 @@
 # effective date same as above. The raw data file is too big to include in the
 # repo, which is why it is excluded in the .gitignore.
 
+#TO DO:
+# Make ideoology NA instead of 0
+#
+
 library(tidyverse)
 library(haven)
 library(usethis)
@@ -159,8 +163,8 @@ x <- data %>%
     ideology == " Independent - Independent" ~ 4,
     ideology == " Independent - Republican" ~ 5,
     ideology == " Weak Republican" ~ 6,
-    ideology == " Strong Republican" ~ 7,
-    TRUE ~ 0
+    ideology == " Strong Republican" ~ 7#,
+    #TRUE ~ NA_character_
   ))) %>%
 
 # education cleaning 'education'
@@ -179,7 +183,7 @@ x <- data %>%
       str_extract(VCF0140a, pattern = "5. ") == "5. " ~ "some college",
       str_extract(VCF0140a, pattern = "6. ") == "6. " ~ "college degree",
       str_extract(VCF0140a, pattern = "7. ") == "7. " ~ "adv. degree",
-      TRUE ~ "NA"))) %>%
+      TRUE ~ NA_character_))) %>%
 
   mutate(education = factor(education,
                        levels = c("elementary", "some hs", "hs diploma", "hs diploma +",
@@ -256,9 +260,9 @@ z <- left_join(x = x, y = fips_key, by = "fips") %>%
 
   mutate(pres_appr = as_factor(VCF0450)) %>%
   mutate(pres_appr = as.character(case_when(
-    str_detect(pres_appr, "1. ") == T ~ "Approve",
-    str_detect(pres_appr, "2. ") == T ~ "Disapprove",
-    str_detect(pres_appr, "8. ") == T ~ "Unsure",
+    str_detect(pres_appr, "1. ") == T ~ "approve",
+    str_detect(pres_appr, "2. ") == T ~ "disapprove",
+    str_detect(pres_appr, "8. ") == T ~ "unsure",
     T ~ NA_character_
   ))) %>%
 
@@ -266,9 +270,6 @@ z <- left_join(x = x, y = fips_key, by = "fips") %>%
 
   select(year, state, gender, income, age,
          education, race, ideology, pres_appr, voted)
-
-
-
 
 # todo:
   # address "(Other)" presence in summary(nes) output
@@ -280,18 +281,15 @@ z <- left_join(x = x, y = fips_key, by = "fips") %>%
   # there doesn't seem to be one for pres. candidates, though there are vaguely relevant ones
   # there are also pres. approval vars topically, e.g. health spending, economy behavior etc.
 
+stopifnot(nrow(z) > 32000)
+stopifnot(length(levels(z$education)) == 7)
+stopifnot(is.integer(z$year))
+stopifnot(ncol(z) == 10)
+stopifnot(dim(table(nes$income)) == 5)
 
+nes <- z
 
-# this is commented out as a fail-safe in the workflow, it is run when the *.rda file needs updating
-# stopifnot(nrow(z) > 32000)
-# stopifnot(length(levels(z$education)) == 7)
-# stopifnot(is.integer(z$year))
-# stopifnot(ncol(z) == 10)
-# stopifnot(dim(table(nes$income)) == 5)
-
-# nes <- z
-
-# usethis::use_data(nes, overwrite = T)
+usethis::use_data(nes, overwrite = T)
 
 
 
