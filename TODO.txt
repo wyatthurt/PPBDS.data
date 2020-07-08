@@ -88,6 +88,11 @@ Once you have done this, all your standard git commands will work as usual. Note
 
 ### Data Sets
 
+
+* I love this discussion: https://statmodeling.stat.columbia.edu/2020/07/02/no-i-dont-believe-that-claim-based-on-regression-discontinuity-analysis-that/. Data for the paper is here: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/IBKYRX&widget=dataverse@harvard
+
+* Science experiment: https://science.sciencemag.org/content/358/6364/776/tab-figures-data
+
 * Need something from Matt Blackwell's work on slavery. Ultimate use may just be in making an example for the maps appendix, which should be longer.
 
 * Called `congress`. Something about the results of US congressional elections over several election cycles. 538? Really want this to include some measure of campaign spending so we can discuss a (potential) causal effect. Didn't they have a model which they used for the 2018 election? If they estimated a model, they must have some data.
