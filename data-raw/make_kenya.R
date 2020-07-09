@@ -5,7 +5,7 @@
 # https://dataverse.harvard.edu/dataset.xhtml;jsessionid=786d92e2aec3933f01bd0af48ec0?persistentId=doi%3A10.7910%2FDVN%2FUT25HQ&version=&q=&fileTypeGroupFacet=%22Code%22&fileAccess=&fileTag=&fileSortField=&fileSortOrder=
 
 #  DISCARDED VARIABLES: weight (needed?), INTERVENTION (same as the first one?), DATE_DAY1 (include this or date or both?)
-# Should treatment be a factor? Should any of them?
+# TO-DO: Go from individuals --> communities, documentation not showing up
 
 library(tidyverse)
 library(usethis)
@@ -17,7 +17,7 @@ x <- x %>%
 
   # Recoding values for treatment variable
 
-  mutate(treatment = as.character(case_when(treatment_2d_10d == "Control" ~ "control",
+  mutate(treatment = as.factor(case_when(treatment_2d_10d == "Control" ~ "control",
                                             treatment_2d_10d == "SMS" ~ "SMS",
                                             treatment_2d_10d == "Canvass" ~ "canvass",
                                             treatment_2d_10d == "Local" ~ "local",
@@ -42,12 +42,14 @@ x <- x %>%
 
   # Selecting final variabless
 
-  select(treatment, poverty, distance, pop_density, date, block, poll_station, day, reg_byrv13, reg, rv13)
+  select(treatment, poverty, distance, pop_density, date, block, poll_station, day, reg_byrv13, reg, rv13) %>%
+
+  as_tibble()
 
 
 stopifnot(nrow(x) > 1000000)
 stopifnot(ncol(x) == 11)
-stopifnot(is.character(x$treatment))
+stopifnot(is.factor(x$treatment))
 
 
 kenya <- x
