@@ -2,44 +2,26 @@
 
 ## Thomas
 
-* Email shaming professor -- [Done]
+* pkgdown
 
-* Add some comments to make_shaming.R about your efforts. -- [Done]
+  - Start using package numbering correctly
 
-* Add another paragraph summarizing the study to shaming.R. -- [Done]
+  - Add NEWS file, using recommended practices from R Packages.
+
+  - Make look more like Healy, especially sidebar.
 
 * Called `nominate`. DW NOMINATE from VoteView project: https://www.voteview.com/data.
 
+* Investigate "found 2 marked UTF-8 strings"
+
+
 * pkgdown
 
-  - Discuss logo.
-<<<<<<< HEAD
+  - Look nice themes or yaml option
 
-  - Add NEWS file, using recommended practices from R Packages.
-
-  - Nicer graphics on home page.
-
-  - Make look more like Healy, especially sidebar and citation.
-
-  - Add some basic instructions on how to use pkgdown
-
-  - Add additional sidebar elements
-
-  - Look nice themes or yaml options
-=======
->>>>>>> master
-
-  - Add NEWS file, using recommended practices from R Packages.
+  - Discuss logo. Ullyseus and the Sirens, with url
 
   - Nicer graphics on home page.
-
-  - Make look more like Healy, especially sidebar and citation.
-
-  - Add some basic instructions on how to use pkgdown
-
-  - Add additional sidebar elements
-
-  - Look nice themes or yaml options
 
 
 ## Miro
