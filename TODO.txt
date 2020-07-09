@@ -2,17 +2,32 @@
 
 ## Thomas
 
-* Email shaming professor
+* Email shaming professor -- [Done]
 
-* Add some comments to make_shaming.R about your efforts.
+* Add some comments to make_shaming.R about your efforts. -- [Done]
 
-* Add another paragraph summarizing the study to shaming.R.
+* Add another paragraph summarizing the study to shaming.R. -- [Done]
 
 * Called `nominate`. DW NOMINATE from VoteView project: https://www.voteview.com/data.
 
 * pkgdown
 
   - Discuss logo.
+<<<<<<< HEAD
+
+  - Add NEWS file, using recommended practices from R Packages.
+
+  - Nicer graphics on home page.
+
+  - Make look more like Healy, especially sidebar and citation.
+
+  - Add some basic instructions on how to use pkgdown
+
+  - Add additional sidebar elements
+
+  - Look nice themes or yaml options
+=======
+>>>>>>> master
 
   - Add NEWS file, using recommended practices from R Packages.
 
