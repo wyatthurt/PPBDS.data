@@ -6,10 +6,6 @@
 # effective date same as above. The raw data file is too big to include in the
 # repo, which is why it is excluded in the .gitignore.
 
-#TO DO:
-# Make ideoology NA instead of 0
-#
-
 library(tidyverse)
 library(haven)
 library(usethis)
@@ -107,6 +103,10 @@ x <- data %>%
 
   mutate(year = as.integer(VCF0004)) %>%
 
+  # Filtering out all 1948 observations because they are lacking data on states and education
+
+  filter(year > 1948) %>%
+
   select(-VCF0004) %>%
 
 # race/ethn. cleaning (factors)
@@ -163,8 +163,7 @@ x <- data %>%
     ideology == " Independent - Independent" ~ 4,
     ideology == " Independent - Republican" ~ 5,
     ideology == " Weak Republican" ~ 6,
-    ideology == " Strong Republican" ~ 7#,
-    #TRUE ~ NA_character_
+    ideology == " Strong Republican" ~ 7
   ))) %>%
 
 # education cleaning 'education'
@@ -285,7 +284,7 @@ stopifnot(nrow(z) > 32000)
 stopifnot(length(levels(z$education)) == 7)
 stopifnot(is.integer(z$year))
 stopifnot(ncol(z) == 10)
-stopifnot(dim(table(nes$income)) == 5)
+stopifnot(dim(table(z$income)) == 5)
 
 nes <- z
 
