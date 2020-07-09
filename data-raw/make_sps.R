@@ -79,15 +79,18 @@ x <- read_dta("data-raw/sps.dta") %>%
   # know = NA. This is my interpretation, but I am still trying to figure out if
   # this is the actual recoding the authors used.
 
-  mutate(sex = if_else(sex == 0, "Male", "Female"),
-         education = case_when(educ == 0 ~ "None",
-                               educ == 1 ~ "Preschool",
-                               educ == 2 ~ "Primary",
-                               educ == 3 ~ "Secondary",
-                               educ == 4 ~ "High School",
-                               educ %in% c(5,7) ~ "College",
-                               educ == 6 ~ "Technical",
-                               educ == 8 ~ "Post-Grad"),
+  mutate(sex = if_else(sex == 0, "male", "female"),
+
+         age = as.integer(age),
+
+         education = case_when(educ == 0 ~ "none",
+                               educ == 1 ~ "preschool",
+                               educ == 2 ~ "primary",
+                               educ == 3 ~ "secondary",
+                               educ == 4 ~ "high school",
+                               educ %in% c(5,7) ~ "college",
+                               educ == 6 ~ "techinical",
+                               educ == 8 ~ "post-grad"),
 
          # Secondary equates to middle school. Normal is the equivalent of a
          # bachelor's degree, but only for teaching. Normal, Technical or
@@ -95,23 +98,22 @@ x <- read_dta("data-raw/sps.dta") %>%
          # decided to put normal and college together because they are both
          # bachelor's degrees.
 
-         ideology = case_when(ideology == 1 ~ "Left",
-                              ideology == 2 ~ "Center-left",
-                              ideology == 3 ~ "Center",
-                              ideology == 4 ~ "Center-right",
-                              ideology == 5 ~ "Right"),
-         t2_ideology = case_when(t2_ideology == 1 ~ "Left",
-                                 t2_ideology == 2 ~ "Center-left",
-                                 t2_ideology == 3 ~ "Center",
-                                 t2_ideology == 4 ~ "Center-right",
-                                 t2_ideology == 5 ~ "Right"),
-         ec_better = case_when(ec_better == -1 ~ "Worse",
-                               ec_better == 0 ~ "Same",
-                               ec_better == 1 ~ "Better"),
-         pol_better = case_when(pol_better == -1 ~ "Worse",
-                                pol_better == 0 ~ "Same",
-                                pol_better == 1 ~ "Better")) %>%
-
+         ideology = case_when(ideology == 1 ~ "left",
+                              ideology == 2 ~ "center-left",
+                              ideology == 3 ~ "center",
+                              ideology == 4 ~ "center-right",
+                              ideology == 5 ~ "right"),
+         t2_ideology = case_when(t2_ideology == 1 ~ "left",
+                                 t2_ideology == 2 ~ "center-left",
+                                 t2_ideology == 3 ~ "center",
+                                 t2_ideology == 4 ~ "center-right",
+                                 t2_ideology == 5 ~ "right"),
+         ec_better = case_when(ec_better == -1 ~ "worse",
+                               ec_better == 0 ~ "same",
+                               ec_better == 1 ~ "better"),
+         pol_better = case_when(pol_better == -1 ~ "worse",
+                                pol_better == 0 ~ "same",
+                                pol_better == 1 ~ "better")) %>%
 
 
   # These variables (ideology, t2_ideology, ec_better, t2_ec_better, pol_better,
@@ -140,6 +142,9 @@ x <- read_dta("data-raw/sps.dta") %>%
 
   drop_na()
 
+stopifnot(nrow(x) > 20000)
+stopifnot(is.character(x$sex))
+stopifnot(ncol(x) == 8)
 
 
 

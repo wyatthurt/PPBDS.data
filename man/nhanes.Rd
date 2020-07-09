@@ -43,5 +43,9 @@ distributed to adults and children across the United States to examine health
 and nutritional status nationwide. It is unique in that it conducts both interviews
 and physical examination to produce their data. The survey is run by the National
 Center for Health Statistics (NCHS), a part of the Centers for Disease Control and Prevention.
+
+In order to get a demographically diverse range of responses, minority groups were surveyed
+more heavily. However, this skewed the survey results to have an inaccurate demographic makeup.
+To address this, some observations of more common groups are repeated in the data.
 }
 \keyword{datasets}

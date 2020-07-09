@@ -11,13 +11,13 @@
 #' later (July, 2006, to August, 2006).
 #'
 #'
-#' @format A tibble with 16,733 observations and 8 variables: \describe{
-#'   \item{age}{numerical variable with raw age values of respondents}
-#'   \item{sex}{character variable with values "Male" and "Female"}
-#'   \item{educ}{character variable with values "Preschool", "Primary",
-#'   "Secondary", "High School", "Normal", "Technical",
-#'   "College", and "Post-Grad"} \item{treatment}{binary numerical variable for treatment: 1 =
-#'   Treated and 0 = Control}
+#' @format A tibble with 27,569 observations and 8 variables: \describe{
+#'   \item{age}{integer variable with raw age values of respondents}
+#'   \item{sex}{character variable with values "male" and "female"}
+#'   \item{educ}{character variable with values "preschool", "primary",
+#'   "secondary", "high school", "normal", "technical",
+#'   "college", and "post-grad"}
+#'   \item{treatment}{binary numerical variable for treatment (1) and control (0)}
 #'   \item{health_exp_m3}{numerical variable for health-related expenses in the
 #'   last 3 month in pesos}
 #'   \item{health_exp_m1}{numerical variable for
