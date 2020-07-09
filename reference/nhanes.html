@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>National Health and Nutrition Examination Survey — nhanes • PPBDS.data</title>
+<title>Electoral Administration in Fledgling Democracies: Experimental Evidence from Kenya — nhanes • PPBDS.data</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,9 @@
 
 
 
-<meta property="og:title" content="National Health and Nutrition Examination Survey — nhanes" />
-<meta property="og:description" content="See NHANES for background and details." />
+<meta property="og:title" content="Electoral Administration in Fledgling Democracies: Experimental Evidence from Kenya — nhanes" />
+<meta property="og:description" content="See Harris, Kamindo, and Windt (2020) for background and details.
+See NHANES for background and details." />
 
 
 
@@ -108,21 +109,43 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>National Health and Nutrition Examination Survey</h1>
-    <small class="dont-index">Source: <a href='https://github.com/davidkane9/PPBDS.data/blob/master/R/nhanes.R'><code>R/nhanes.R</code></a></small>
+    <h1>Electoral Administration in Fledgling Democracies: Experimental Evidence from Kenya</h1>
+    <small class="dont-index">Source: <a href='https://github.com/davidkane9/PPBDS.data/blob/master/R/kenya.R'><code>R/kenya.R</code></a>, <a href='https://github.com/davidkane9/PPBDS.data/blob/master/R/nhanes.R'><code>R/nhanes.R</code></a></small>
     <div class="hidden name"><code>nhanes.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>See <a href='https://www.cdc.gov/nchs/nhanes/index.htm'>NHANES</a> for background and details.</p>
+    <p>See <a href='https://dataverse.harvard.edu/dataset.xhtml;jsessionid=786d92e2aec3933f01bd0af48ec0?persistentId=doi%3A10.7910%2FDVN%2FUT25HQ&amp;version=&amp;q=&amp;fileTypeGroupFacet=%22Code%22&amp;fileAccess=&amp;fileTag=&amp;fileSortField=&amp;fileSortOrder='>Harris, Kamindo, and Windt (2020)</a> for background and details.</p>
+<p>See <a href='https://www.cdc.gov/nchs/nhanes/index.htm'>NHANES</a> for background and details.</p>
     </div>
 
-    <pre class="usage"><span class='kw'>nhanes</span></pre>
+    <pre class="usage"><span class='kw'>nhanes</span>
+
+<span class='kw'>nhanes</span></pre>
 
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A tibble with 10,000 observations and 15 variables:</p><dl>
+    <p>A tibble with 1,989,680 observations and 11 variables:</p><dl>
+<dt>treatment</dt><dd><p>a character variable that indicates either the control group or some combination of
+treatment factors: canvassing, SMS reminder, local administrator, local admin and
+SMS, local admin and canvassing</p></dd>
+<dt>poverty</dt><dd><p>a double variable for</p></dd>
+<dt>distance</dt><dd><p>a double variable for individual's distance from polling location</p></dd>
+<dt>pop_density</dt><dd><p>a double variable for the population density of individual's block</p></dd>
+<dt>date</dt><dd><p></p></dd>
+<dt>block</dt><dd><p>a character variable for the individual's voting block ID</p></dd>
+<dt>poll_station</dt><dd><p>a character variable for the individual's polling station ID</p></dd>
+<dt>day</dt><dd><p></p></dd>
+<dt>reg</dt><dd><p>a double variable for the number of registered voters at polling location during intervention period</p></dd>
+<dt>rv13</dt><dd><p>a double variabale for the number of registered voters at polling location during 2013</p></dd>
+<dt>reg_byrv13</dt><dd><p>a double variable for registered voters at polling location during intervention
+period divided by registered voters at polling location during 2013</p></dd>
+
+
+</dl>
+
+<p>A tibble with 10,000 observations and 15 variables:</p><dl>
 <dt>gender</dt><dd><p>character variable with values "male" and "female"</p></dd>
 <dt>survey_year</dt><dd><p>integer variable with the year the survey was conducted in. Most tests were
 conducted across two years, so the earlier year is used.</p></dd>
@@ -148,9 +171,12 @@ NA if the individual, regardless of gender, hasn't experienced a pregnancy</p></
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
     <p><a href='https://cran.r-project.org/web/packages/NHANES/NHANES.pdf'>https://cran.r-project.org/web/packages/NHANES/NHANES.pdf</a></p>
+<p><a href='https://cran.r-project.org/web/packages/NHANES/NHANES.pdf'>https://cran.r-project.org/web/packages/NHANES/NHANES.pdf</a></p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The National Health and Nutrition Examination Survey (NHANES) is a research survey
+    <p>DESCRIPTION OF STUDY / DATASET</p>
+<p>CHECK IF REG/RV13 desceriptions are right, and also date descriptions</p>
+<p>The National Health and Nutrition Examination Survey (NHANES) is a research survey
 distributed to adults and children across the United States to examine health
 and nutritional status nationwide. It is unique in that it conducts both interviews
 and physical examination to produce their data. The survey is run by the National
