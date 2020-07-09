@@ -81,6 +81,8 @@ x <- read_dta("data-raw/sps.dta") %>%
 
   mutate(sex = if_else(sex == 0, "male", "female"),
 
+         treatment = as.factor(treatment),
+
          age = as.integer(age),
 
          education = case_when(educ == 0 ~ "none",
