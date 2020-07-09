@@ -15,7 +15,25 @@
 * Investigate "found 2 marked UTF-8 strings"
 
 
+## Miro
+
+* Clean up make_nes, make_nhanes for future you.
+
+* Fix merge conflict.
+
+* Called `kenya`. Use Electoral Administration in Fledgling Democracies: Experimental Evidence from Kenya at https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/UT25HQ. This is another good international paper. We can use Erin's code: https://github.com/eguetzloe/kenya-electoral-administration.
+
+* Clean up `sps`. Which variables do we need? What do they show? What should they be called?
+
+* Called `governors`. I love this discussion: https://statmodeling.stat.columbia.edu/2020/07/02/no-i-dont-believe-that-claim-based-on-regression-discontinuity-analysis-that/. Data for the paper is here: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/IBKYRX&widget=dataverse@harvard
+
+## Other
+
+* Add inst/papers with all the relevant papers, then link there from the help pages.
+
 * pkgdown
+
+  - Start using a release and development branch?
 
   - Look nice themes or yaml option
 
@@ -23,26 +41,11 @@
 
   - Nicer graphics on home page.
 
+  - Annoying to maintain the bullet points for tibble description on main page. Can't we just print the first paragraph from the description, i.e., the same thing which appears on the top of the help page?
 
-## Miro
+  - The front page is getting a bit ugly. Do we really need to list all the data sets? That seems like too much. Instead, we could have an "Article" which provided a list of all the tibbles along with the one paragraph description. Then, the front page could just have a basic blurb and one nice graphic.
 
-* Clean up `nes`.
-
-* Called `nhanes`. Pick out some interesting variables from the NHANES data which lives in the NHANES package. That is, make_nhanes.R script will start with library(NHANES), meaning that it will assume that the package has already been installed.
-
-* Called `kenya`. Use Electoral Administration in Fledgling Democracies: Experimental Evidence from Kenya at https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/UT25HQ. This is another good international paper. We can use Erin's code: https://github.com/eguetzloe/kenya-electoral-administration.
-
-* Clean up `sps`. Which variables do we need? What do they show? What should they be called?
-
-
-## Other
-
-* Add inst/papers with all the relevant papers, then link there from the help pages.
-
-* Figure out this note from checking the package: "Note: found 2 marked UTF-8 strings"
-
-* Figure out proper numbering for releases.
-
+  - Would it be useful to have another Article? Perhaps a guide to which data sets go well with which portions of the textbook?
 
 
 ## Overview
@@ -85,8 +88,6 @@ Once you have done this, all your standard git commands will work as usual. Note
 
 ### Data Sets
 
-
-* I love this discussion: https://statmodeling.stat.columbia.edu/2020/07/02/no-i-dont-believe-that-claim-based-on-regression-discontinuity-analysis-that/. Data for the paper is here: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/IBKYRX&widget=dataverse@harvard
 
 * Science experiment: https://science.sciencemag.org/content/358/6364/776/tab-figures-data
 
