@@ -3,37 +3,59 @@ library(tidyverse)
 # This dataset is from Gerber, Green & Larimer (2008), and was originally
 # published as part of a study in the American Political Science Review.
 # The raw data and details of the study can be accessed at
-# https://isps.yale.edu/research/data/d001.
+# https://isps.yale.edu/research/data/d001. [UPDATE: As of 07/08/20, the website
+# of Yale's Institute of Social and Policy Studies is currently not accessible.]
 
-x <- read_csv("data-raw/social.csv",
+# Reading in the data. I excluded variables that represent internal IDs the
+# researchers assigned to households ("hh_id") and clusters of randomization
+# ("cluster"), as well as variables that show the mean voter turnout per household
+# in the 2004 elections ("p2004_mean" and "g2004_mean"). None of these are particularly
+# relevant for analyzing and interpreting the data. Furthermore, I also excluded two
+# variables that show the voting histories of the 2000 elections ("p2000" and "g2000").
+# They provide little insight in addition to the remaining histories from 2002 and 2004,
+# and we do not want to overwhelm people.
+
+x <- read_csv("data-raw/social_original.csv",
               col_types = cols(sex = col_character(),
-                               yearofbirth = col_integer(),
-                               primary2004 = col_double(),
-                               messages = col_character(),
-                               primary2006 = col_double(),
-                               hhsize = col_integer())) %>%
+                               yob = col_integer(),
+                               p2002 = col_character(),
+                               p2004 = col_character(),
+                               g2002 = col_character(),
+                               g2004 = col_character(),
+                               treatment = col_factor(),
+                               voted = col_character(),
+                               hh_size = col_integer(),
+                               numberofnames = col_integer())) %>%
 
-  # Should we set the primary voting history to integer, or perhaps logical?
+  # Renaming variables.
 
-  # Bear in mind the publication year of this study, I was initially
-  # uncomfortable with birth years ~1900, but this isn't a 2020 study
+  rename(birth_year = yob,
+         primary_02 = p2002,
+         primary_04 = p2004,
+         general_02 = g2002,
+         general_04 = g2004,
+         no_of_names = numberofnames) %>%
 
-  mutate(messages = parse_factor(messages,
-                                  levels = c("Control", "Civic Duty",
-                                             "Hawthorne", "Neighbors"))) %>%
+  # Recoding character values.
 
-  # This data is suspiciously clean
+  mutate(sex = str_to_title(sex),
+         primary_02 = str_to_title(primary_02),
+         primary_04 = str_to_title(primary_04),
+         general_02 = str_to_title(general_02),
+         general_04 = str_to_title(general_04)) %>%
 
-  rename(birth = yearofbirth,
-         treatment = messages,
-         vote_04 = primary2004,
-         vote_06 = primary2006) %>%
-  select(sex, birth, hhsize, everything())
+  # Ordering variables.
+
+  select(sex, birth_year,
+         primary_02, general_02,
+         primary_04, general_04,
+         treatment, voted,
+         hh_size, no_of_names)
 
 
-# Check and save
+# Check and save.
 
-stopifnot(x %>% drop_na() %>% nrow() == 305866)
+stopifnot(x %>% drop_na() %>% nrow() == 344084)
 
 shaming <- x
 
