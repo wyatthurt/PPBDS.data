@@ -12,7 +12,7 @@
 #' more heavily. However, this skewed the survey results to have an inaccurate demographic makeup.
 #' To address this, some observations of more common groups are resampled in the data.
 #'
-#' @format A tibble with 10,000 observations and 15 variables:
+#' @format A tibble with 10,000 observations and 14 variables:
 #' \describe{
 #'   \item{gender}{character variable with values "male" and "female"}
 #'   \item{survey_year}{integer variable with the year the survey was conducted in. Most tests were

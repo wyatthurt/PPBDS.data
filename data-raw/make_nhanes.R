@@ -1,8 +1,4 @@
-# work in progress of the National Health and Nutrition Examination Survey
-
-# MB: Should factor variables like race and gender just be characters?
-# MB: What should I be turning into number scales vs characters
-# MB: Add more variables?
+# work in progress of the National Health and Nutrition Examination Survey dataset
 
 library(NHANES)
 library(tidyverse)
@@ -26,7 +22,7 @@ x <- NHANES %>%
 
   # Making depressed a numbered variable
 
-  mutate(depressed = as.ordered((case_when(
+  mutate(depressed = as.ordered(case_when(
     Depressed == "None" ~ "none",
     Depressed == "Several" ~ "several",
     Depressed == "Most" ~ "most"
@@ -34,7 +30,7 @@ x <- NHANES %>%
 
   # Making general health a numbered variable
 
-  mutate(general_health = as.integer(case_when(
+  mutate(health = as.integer(case_when(
     HealthGen == "Poor" ~ 1,
     HealthGen == "Fair" ~ 2,
     HealthGen == "Good" ~ 3,
@@ -88,18 +84,18 @@ x <- NHANES %>%
 
   mutate(gender = as.character(Gender),
          age = as.integer(Age),
-         sleep_night_hrs = SleepHrsNight,
+         sleep = SleepHrsNight,
          height = Height,
          bmi = BMI,
          weight = Weight,
          pregnancies = nPregnancies,
          pulse = Pulse) %>%
 
-  # Left out: diabetes, pulse
+  # Left out: diabetes
 
   select(gender, year, age, race, education, income, weight,
-         height, bmi, general_health, depressed, pregnancies,
-         sleep_night_hrs)
+         height, bmi, health, depressed, pregnancies,
+         sleep, pulse)
 
 
 
