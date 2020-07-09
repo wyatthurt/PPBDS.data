@@ -2,29 +2,26 @@
 
 ## Thomas
 
-* Email shaming professor
-
-* Add some comments to make_shaming.R about your efforts.
-
-* Add another paragraph summarizing the study to shaming.R.
-
-* Called `nominate`. DW NOMINATE from VoteView project: https://www.voteview.com/data.
-
 * pkgdown
 
-  - Discuss logo.
+  - Start using package numbering correctly
 
   - Add NEWS file, using recommended practices from R Packages.
 
+  - Make look more like Healy, especially sidebar.
+
+* Called `nominate`. DW NOMINATE from VoteView project: https://www.voteview.com/data.
+
+* Investigate "found 2 marked UTF-8 strings"
+
+
+* pkgdown
+
+  - Look nice themes or yaml option
+
+  - Discuss logo. Ullyseus and the Sirens, with url
+
   - Nicer graphics on home page.
-
-  - Make look more like Healy, especially sidebar and citation.
-
-  - Add some basic instructions on how to use pkgdown
-
-  - Add additional sidebar elements
-
-  - Look nice themes or yaml options
 
 
 ## Miro
@@ -87,6 +84,11 @@ Once you have done this, all your standard git commands will work as usual. Note
 
 
 ### Data Sets
+
+
+* I love this discussion: https://statmodeling.stat.columbia.edu/2020/07/02/no-i-dont-believe-that-claim-based-on-regression-discontinuity-analysis-that/. Data for the paper is here: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/IBKYRX&widget=dataverse@harvard
+
+* Science experiment: https://science.sciencemag.org/content/358/6364/776/tab-figures-data
 
 * Need something from Matt Blackwell's work on slavery. Ultimate use may just be in making an example for the maps appendix, which should be longer.
 
