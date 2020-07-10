@@ -1,0 +1,801 @@
+---
+title: "Tidyverse (New)"
+output: 
+  learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r context = "setup", include=FALSE}
+library(tidyverse)
+library(learnr)
+library(gradethis)
+# Commenting out so the app can deploy
+# tutorial_options(exercise.checker = gradethis::grade_learnr)
+knitr::opts_chunk$set(echo = FALSE, message = FALSE)
+```
+
+```{r, include = FALSE}
+# library(gapminder)
+library(fueleconomy)
+library(dslabs)
+murders <- as_tibble(murders)
+states <- murders$states
+states2 <- murders %>%
+  select(state, abb)
+
+lexus_2000 <- vehicles %>%
+  filter(year == 2000,
+         make == "Lexus") %>%
+  select(id, make, model, class, drive)
+
+lexus_1999 <- vehicles %>%
+  filter(year == 1999,
+         make == "Lexus") %>%
+  select(id, make, model, class, trans, drive) 
+
+lexus_1998 <- vehicles %>%
+  filter(year == 1998,
+         make == "Lexus") %>%
+  select(id, make, model, class, trans, drive) %>%
+  rename("type" = class)
+
+lexus_mileage <- vehicles %>%
+  filter(year == 2000,
+         make == "Lexus") %>%
+  select(id, hwy, cty) %>%
+  slice(3:9)
+```
+
+## Summarize()
+
+### Exercise 1
+Load the `gapminder` package.
+```{r question-1-1, exercise = TRUE}
+
+```
+
+```{r question-1-1-hint, silent = TRUE}
+library(...)
+```
+
+### Exercise 2
+
+`glimpse()` the `gapminder` dataset.
+```{r question-1-2, exercise = TRUE}
+
+```
+
+```{r question-1-2-hint}
+glimpse(...)
+```
+
+### Exercise 3
+Run the `summary()` function on the `gapminder` dataset.
+```{r question-1-3, exercise = TRUE}
+
+```
+
+```{r question-1-3-hint}
+summary(...)
+```
+
+### Exercise 4 
+Use the extraction operator `$` to see the `lifeExp` variable from the `gapminder` dataset.
+```{r question-1-4, exercise = TRUE}
+
+```
+
+```{r question-1-4-hint}
+gapminder$...
+```
+
+### Exercise 5
+Use `mutate()` to create `mean_lifeExp` using the `mean()` function on the `gapminder` dataset. You do not need to assign this to any variable name. Just take a look at the output when you run the code.  
+```{r question-1-5, exercise = TRUE}
+
+```
+
+```{r question-1-5-hint}
+mutate(.data = ..., mean_lifeExp = mean(...))
+
+# You can also use a pipe operator:
+... %>%
+mutate(mean_lifeExp = mean(...))
+```
+
+### Exercise 6
+Use `summarize()` to calculate the `mean_lifeExp` from the `lifeExp` column. How does the output of using `summarize()` differ from using `mutate()`?
+```{r question-1-6, exercise = TRUE}
+
+```
+
+```{r question-1-6-hint}
+summarize(.data = ..., mean_lifeExp = mean(...))
+
+# Or you could write:
+... %>%
+  summarize(mean_lifeExp = mean(...))
+```
+
+### Exercise 7
+Run `mutate()` on the `lifeExp`, `pop` and `gdpPercap` columns to find the `mean()` of each of these columns.
+```{r question-1-7, exercise = TRUE}
+
+```
+
+```{r question-1-7-hint}
+mutate(.data = gapminder, mean_lifeExp = mean(...),
+       mean_pop = mean(...),
+       mean_gdpPercap = mean(...))
+```
+
+### Exercise 8
+`summarize()` the three columns specified in the previous question to find the `mean()` values of the variables.
+```{r question-1-8, exercise = TRUE}
+
+```
+
+```{r question-1-8-hint}
+summarize(.data = gapminder, mean_lifeExp = mean(...),
+          mean_pop = mean(...),
+          mean_gdpPercap = mean(...))
+```
+
+### Exercise 9
+Use the helper function `across()` to `summarize()` the `mean()` of all of the numeric variables in the gapminder dataset. You should use `is.numeric`.
+```{r question-1-9, exercise = TRUE}
+
+```
+
+```{r question-1-9-hint-1}
+summarize(.data = ..., across(...(...), ...))
+```
+
+```{r question-1-9-hint-2}
+summarize(.data = ... , across(where(...), ...))
+```
+
+```{r question-1-9-hint-3}
+summarize(.data = ..., across(where(is.numeric), ...))
+```
+
+```{r question-1-9-hint-4}
+summarize(.data = ..., across(where(is.numeric), mean))
+```
+
+### Exercise 10
+Suppose that you did not want to include the `year` variable with the other numeric variables. `mutate()` the year column so it is of the type `factor` and not `int`. Assign this mutated dataset to `gapminder_fct`, and use this new dataset in following code chunks instead of `gapminder`. 
+```{r question-1-10, exercise = TRUE}
+
+```
+
+```{r question-1-10-hint-1}
+... <- mutate(.data = ..., year = ...(...))
+```
+
+```{r question-1-10-hint-2}
+... <- mutate(.data = ..., year = as.factor(...))
+```
+
+```{r question-1-10-hint-3}
+gapminder_fct <- mutate(.data = ..., year = as.factor(...))
+```
+
+### Exercise 11
+```{r question-1-11-setup}
+gapminder_fct <- mutate(.data = gapminder, year = as.factor(year))
+```
+Now, use the `across()` function again to `summarize()` the `mean()` for all of the numeric variables. 
+```{r question-1-11, exercise = TRUE}
+
+```
+
+```{r question-1-11-hint}
+summarize(.data = ..., across(where(...), ...))
+```
+
+### Exercise 12
+
+```{r question-1-12-setup}
+gapminder_fct <- mutate(.data = gapminder, year = as.factor(year))
+```
+Repeat the previous exercise, but set the `.names` argument so each of the pieces of summarized output are of the form `mean_*` where the `*` is the original variable name
+```{r question-1-12, exercise = TRUE}
+
+```
+
+```{r question-1-12-hint}
+gapminder_fct %>%
+  summarize(across(where(is.numeric), mean, .names = "..."))
+```
+
+### Exercise 13
+```{r question-1-13-setup}
+gapminder_fct <- mutate(.data = gapminder, year = as.factor(year))
+```
+Now, repeat exercise 12, but before using `summarize()`, `group_by()` the `continent` variable.
+```{r question-1-13, exercise = TRUE}
+
+```
+
+```{r question-1-13-hint}
+gapminder_fct %>%
+  group_by(continent)
+  summarize(across(where(is.numeric), mean, .names = ...))
+```
+
+```{r quiz-1-13}
+quiz(
+  question("Which continent has the highest mean_lifeExp?",
+    answer("Africa"),
+    answer("Americas"),
+    answer("Asia"),
+    answer("Europe"),
+    answer("Oceania", correct = TRUE)
+  )
+)
+```
+
+
+## stringr wrangling
+Use `str_detect()` on `states` to find state that contain the pattern "ana":
+```{r exercise-2-1, exercise = TRUE}
+
+```
+
+```{r exercise-2-1-hint}
+str_detect(..., pattern = ...)
+```
+
+Now use `str_subset()` with `states` to find the names of the states that contain the pattern "ana" instead of just the boolean values: 
+```{r exercise-2-2, exercise = TRUE}
+
+```
+
+```{r exercise-2-2-hint}
+str_subset(..., pattern = ...)
+```
+
+Use `str_subset()` to find `states` that have two a's in their name:
+```{r exercise-2-3, exercise = TRUE}
+
+```
+
+```{r exercise-2-3-hint-1}
+# Considering use the regex "."
+```
+
+```{r exercise-2-3-hint-2}
+str_subset(..., pattern = ...)
+```
+
+`str_split()` `states` that are two or more words:
+```{r exercise-2-4, exercise = TRUE}
+
+```
+
+```{r exercise-2-4-hint}
+str_split(..., pattern = ...)
+```
+
+`str_split_fixed()` `states` into two words. What will happen to `District of Columbia`?
+```{r exercise-2-5, exercise = TRUE}
+
+```
+
+```{r exercise-2-5-hint}
+str_split_fixed(..., pattern = ..., n = ...)
+```
+
+Collapse `states` using `str_c()`, and separate them with a comma.
+```{r exercise-2-6, exercise = TRUE}
+
+```
+
+```{r exercise-2-6-hint}
+str_c(states, collapse = ",")
+```
+
+Use `str_c` to collapse states into the form `state1 & state2`. Combine the first 1-25 states with states 26-50. Note that we have to exclude the 51st state.
+```{r exercise-2-7, exercise = TRUE}
+
+```
+
+```{r exercise-2-7-hint}
+str_c(..., ..., sep = ...)
+```
+
+Use `str_replace()` to replace the pattern `North` with `N.`. For example, transform North Carolina into N. Carolina.
+```{r exercise-2-8, exercise = TRUE}
+
+```
+
+```{r exercise-2-8-hint}
+str_replace(..., pattern = ..., replacement = ...)
+```
+
+Use `str_subset()` to find `states` that contain the letter a and then one or more characters and another a.
+```{r exercise-2-9, exercise = TRUE}
+
+```
+
+```{r exercise-2-9-hint-1}
+# Consider using the pattern "a.*a"
+```
+
+```{r exercise-2-9-hint-2}
+str_subset(..., pattern = ...)
+```
+
+Does capitalization matter? Repeat the previous question but replace the first letter with a capital "A". 
+```{r exercise-2-10, exercise = TRUE}
+
+```
+
+```{r exercise-2-10-hint}
+str_subset(..., pattern = ...)
+```
+
+`glimpse()` the `states2` tibble. 
+```{r exercise-2-11, exercise = TRUE}
+
+```
+
+```{r exercise-2-11-hint}
+glimpse(states2)
+```
+
+`mutate()` the `states2` dataset so that it contains a column `state_length` that takes the `str_length()` of each `state`. Then, `arrange()` the dataset from the state with the longest name to that with the shortest.
+```{r exercise-2-12, exercise = TRUE}
+
+```
+
+```{r exercise-2-12-hint}
+states2 %>% 
+  mutate(... = str_length(...)) %>%
+  arrange(desc(...))
+```
+
+Now compare the previous question by the `states2` dataset arranged by `desc(state)`. How does this arrangement differ from the previous one?
+```{r exercise-2-13, exercise = TRUE}
+
+```
+
+```{r exercise-2-13-hint}
+... %>% 
+  arrange(desc(...))
+```
+
+`mutate()` the `state` column of `states2` to only contain the first two letters of each state name. Reassign this as `states2`.
+```{r exercise-2-14, exercise = TRUE}
+
+```
+
+```{r exercise-2-14-hint-1}
+... <- states2 %>% mutate(... = str_sub(...))
+```
+
+```{r exercise-2-15-setup}
+staes2 <- states2 %>% mutate(state = str_sub(state, 1, 2))
+```
+
+Now use `str_to_upper()` and `mutate()` to make both of the first two letters of the states capital letters. Reassign this as `states2`.
+```{r exercise-2-15, exercise = TRUE }
+
+```
+
+```{r exercise-2-15-hint}
+... <- states2 %>% mutate(... = str_to_upper(...))
+```
+
+```{r exercise-2-16-setup}
+states2 <- states2 %>% mutate(state = str_to_upperstate)
+```
+
+`mutate()` a new column called `match` that creates a TRUE or FALSE value if the first two letters of the state name (the `state` column) and the `abb` column match.
+```{r exercise-2-16, exercise = TRUE}
+
+```
+
+```{r exercise-2-16-hint}
+states2 %>% mutate(match = (... == ...))
+```
+
+`count()` the `match` column.
+```{r exercise-2-17, exercise = TRUE}
+
+```
+
+```{r exercise-2-17-hint}
+states2 %>% count(...)
+```
+
+```{r exercise-2-17-quiz}
+quiz(
+  question("How many state abbreviations match the first two letters of the state's name?",
+    answer("15"),
+    answer("42"),
+    answer("23"),
+    answer("32", correct = TRUE)
+  )
+)
+```
+
+## Combining Data
+### bind_rows()
+### Exercise 1
+Run `lexus_2000` in this code chunk:
+```{r exercise-3-1, exercise = TRUE}
+
+```
+
+```{r exercise-3-1-hint}
+lexus_2000
+```
+
+### Exercise 2
+Run `lexus_1999` in the code chunk: 
+```{r exercise-3-2, exercise = TRUE}
+
+```
+
+```{r exercise-3-2-hint}
+lexus_1999
+```
+
+```{r quiz-3-2}
+quiz(
+  question("Which variable is included in lexus_1999 but not lexus_2000",
+    answer("id"),
+    answer("make"),
+    answer("model"),
+    answer("class"),
+    answer("trans", correct = TRUE),
+    answer("drive")
+  )
+)
+```
+What do you think will happen we try to bind the rows? 
+
+### Exercise 3
+
+Use `bind_rows()` to bind `lexus_1999` and `lexus_2000`:
+What happens to the `trans` column?
+```{r question-3-3, exercise = TRUE}
+
+```
+
+```{r question-3-3-hint}
+bind_rows(..., ...)
+```
+
+### Exercise 4 
+
+Run `lexus_1998` in the following code chunk:
+```{r question-3-4, exercise = TRUE}
+
+```
+What is the discrepancy between the columns of `lexus_1998` and `lexus_1999`. How do you think this will affect binding the rows of the two dataframes?
+
+### Exercise 5
+
+Bind the two dataframes `lexus_1998` and `lexus_1999`:
+```{r question-3-5, exercise = TRUE}
+bind_rows(lexus_1998, lexus_1999)
+```
+
+```{r question-3-5-hint}
+bind_rows(..., ...)
+```
+
+### Exercise 6
+
+Use the `rename()` function to change the `type` variable to `class` in the `lexus_1998` dataframe. Use the assignment operator to reassign the changed dataframe to `lexus_1998`. 
+```{r question-3-6, exercise = TRUE}
+
+```
+
+```{r question-3-6-hint}
+... <- ... %>%
+  rename(...)
+```
+
+### Exercise 7
+
+```{r question-3-7-setup}
+lexus_1998 <- lexus_1998 %>%
+  rename("class" = type)
+```
+
+Use `bind_rows` to bind `lexus_1998` and `lexus_1999` again. Assign this dataframe as `lexus_two_year`: 
+```{r question-3-7, exercise = TRUE}
+
+```
+
+```{r question-3-7-hint}
+... <- bind_rows(..., ...)
+```
+
+### Exercise 8
+
+```{r question-3-8-setup}
+lexus_1998 <- lexus_1998 %>%
+  rename("class" = type)
+lexus_two_year <- bind_rows(lexus_1998, lexus_1999)
+```
+Now bind the rows of `lexus_two_year` with `lexus_2000`. Use the assignment operator to call this dataframe `lexus`
+```{r question-3-8, exercise = TRUE}
+
+```
+
+```{r question-3-8-hint}
+... <- bind_rows(..., ...)
+```
+
+### Exercise 8
+
+```{r question-3-9-setup}
+lexus_1998 <- lexus_1998 %>%
+  rename("class" = type)
+lexus_two_year <- bind_rows(lexus_1998, lexus_1999)
+lexus <- bind_rows(lexus_two_year, lexus_2000)
+```
+
+### Exercise 10 
+
+Now, `unite()` the `make` and `model` columns of the `lexus` dataframe. Name this united column `vehicle`, and make the separator between the previous columns a space.
+```{r question-3-10, exercise = TRUE}
+
+```
+
+```{r question-3-10-hint-1}
+lexus %>%
+  unite(..., ..., ..., sep = ...)
+```
+
+```{r question-3-10-hint-2}
+lexus %>%
+  unite("vehicle", ..., ..., sep = " ")
+```
+
+### joins in dplyr
+
+### Exercise 11 
+
+Let's return to the `lexus_2000` data. `glimpse()` both the `lexus_2000` dataframe and the `lexus_mileage` dataframe.
+```{r question-3-11, exercise = TRUE}
+
+```
+
+```{r question-3-11-hint}
+glimpse(... )
+
+glimpse(...)
+```
+
+### Exercise 12
+
+Now use the extraction operator `$` on the `id` columns of both `lexus_2000` and `lexus_mileage`.
+```{r question-3-12, exercise = TRUE}
+
+```
+
+```{r question-3-12-hint}
+lexus_2000$...
+
+lexus_mileage$...
+```
+
+```{r question-3-12-quiz}
+quiz(
+  question("Which id(s) are included in the lexus_2000 dataframe but not in the lexus_mileage dataframe?",
+    answer("16365, 16366"),
+    answer("15921, 15922, 16038, 16366, 16039, 15685, 15686"),
+    answer("15801"),
+    answer("15920, 15801", correct = TRUE),
+    answer("15801, 15920, 15921"),
+    answer("15685, 16039")
+  )
+)
+```
+
+### Exercise 13
+```{r question-3-13-quiz}
+quiz(
+  question("Which id(s) will be excluded when you full_join() both datasets?",
+    answer("None", correct = TRUE),
+    answer("16365, 16366"),
+    answer("15920, 15801"),
+    answer("15801, 15922")
+  )
+)
+```
+`full_join()` the `lexus_2000` and `lexus_mileage` dataframes by the `id` columns. Visually confirm your answer to the question above.
+```{r question-3-13, exercise = TRUE}
+
+```
+
+```{r question-3-13-hint}
+full_join(..., ..., by = ...)
+```
+
+### Exercise 14 
+```{r question-3-14-quiz}
+quiz(
+  question("Which id(s) will be excluded when you inner_join() both datasets?",
+    answer("None"),
+    answer("16365, 16366"),
+    answer("15920, 15801", correct = TRUE),
+    answer("15801, 15922")
+  )
+)
+```
+`inner_join()` the `lexus_2000` and `lexus_mileage` dataframes by the `id` columns. Visually confirm your answer to the question above.
+```{r question-3-14, exercise = TRUE}
+
+```
+
+```{r question-3-14-hint}
+inner_join(..., ..., by = ...)
+```
+
+### Exercise 15
+```{r question-3-15-1-quiz}
+quiz(
+  question("Which id(s) will be excluded when you run left_join(lexus_2000, lexus_mileage, by = 'id')?",
+    answer("None", correct = TRUE),
+    answer("All"),
+    answer("15920, 15801"),
+    answer("15801, 15922")
+  )
+)
+
+```
+
+```{r question-3-15-2-quiz}
+quiz(
+  question("Which id(s) will be excluded when you run left_join(lexus_mileage, lexus_2000)?",
+    answer("None"),
+    answer("All"),
+    answer("15920, 15801", correct = TRUE),
+    answer("15801, 15922")
+  )
+)
+```
+
+```{r question-3-15-3-quiz}
+quiz(
+  question("Which id(s) will be excluded when you run left_join(lexus_mileage, lexus_2000, by = 'id')?",
+    answer("None"),
+    answer("All"),
+    answer("15920, 15801", correct = TRUE),
+    answer("15801, 15922")
+  )
+)
+```
+
+```{r question-3-15-4-quiz}
+quiz(
+  question("Which id(s) will be excluded when you run right_join(lexus_2000, lexus_mileage, by = 'id')?",
+    answer("None"),
+    answer("All"),
+    answer("15920, 15801", correct = TRUE),
+    answer("15801, 15922")
+  )
+)
+```
+
+```{r question-3-15-5-quiz}
+quiz(
+  question("Which id(s) will be excluded when you run right_join(lexus_mileage, lexus_2000, by = 'id')?",
+    answer("None", correct = TRUE),
+    answer("All"),
+    answer("15920, 15801"),
+    answer("15801, 15922")
+  )
+)
+```
+
+```{r question-3-15-6-quiz}
+quiz(
+  question("Which id(s) will be excluded when you run anti_join(lexus_mileage, lexus_2000, by = 'id')?",
+    answer("None"),
+    answer("All", correct = TRUE),
+    answer("15920, 15801"),
+    answer("15801, 15922")
+  )
+)
+```
+
+```{r question-3-15-7-quiz}
+quiz(
+  question("Which id(s) will be excluded when you run anti_join(lexus_2000, lexus_mileage, by = 'id')?",
+    answer("None"),
+    answer("All"),
+    answer("15920, 15801", correct = TRUE),
+    answer("15801, 15922")
+  )
+)
+```
+
+```{r question-3-15-8-quiz}
+quiz(
+  question("Which columns will be excluded when you run semi_join(lexus_2000, lexus_mileage, by = 'id')?",
+    answer("id, hwy, cty"),
+    answer("hwy, cty", correct = TRUE),
+    answer("id, class, drive"),
+    answer("id, make, model, class, drive")
+  )
+)
+```
+
+```{r question-3-15-9-quiz}
+quiz(
+  question("Which columns will be excluded when you run semi_join(lexus_mileage, lexus_2000, by = 'id')?",
+    answer("id, hwy, cty"),
+    answer("hwy, cty"),
+    answer("id, class, drive"),
+    answer("make, model, class, drive", correct = TRUE)
+  )
+)
+```
+
+## Tidying Data
+Run `table1` in the code chunk below:
+```{r question-4-1, exercise = TRUE}
+
+```
+
+```{r question-4-1-solution}
+table1
+```
+
+```{r question-4-1-quiz}
+quiz(
+  question("Is table1 in tidy format?",
+  answer("Yes", correct = TRUE),
+  answer("No")
+)
+)
+
+```
+
+Now, run `table2` in the code chunk below:
+```{r question-4-2, exercise = TRUE}
+
+```
+
+```{r question-4-2-solution}
+table2
+```
+
+```{r question-4-2-quiz}
+quiz(
+  question("Is table2 in tidy format?",
+  answer("Yes"),
+  answer("No", correct = TRUE)
+)
+)
+```
+
+Use `pivot_longer()` to put `table1` into untidy format.
+```{r question-4-3, exercise = TRUE}
+
+```
+
+```{r question-4-3-hint}
+... %>%
+  pivot_longer(cols = ..., names_to = ..., values_to = ...)
+```
+
+Use `pivot_wider()` to put `table2` into tidy format.
+```{r question-4-4, exercise = TRUE}
+
+```
+
+```{r question-4-4-hint}
+... %>%
+  pivot_wider(names_from = ..., values_from = ...)
+```
+
+
