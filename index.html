@@ -68,100 +68,42 @@
   <div class="contents col-md-9">
 <div id="data-for-preceptors-primer-for-bayesian-data-science" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#data-for-preceptors-primer-for-bayesian-data-science" class="anchor"></a>Data for Preceptor’s Primer for Bayesian Data Science</h1></div>
-<div id="about" class="section level2">
-<h2 class="hasAnchor">
-<a href="#about" class="anchor"></a>About</h2>
-<p><code>PPBDS.data</code> provides the data used in <em><a href="https://davidkane9.github.io/PPBDS/">Preceptor’s Primer for Bayesian Data Science</a></em>, the textbook used in <a href="https://www.davidkane.info/files/gov_50_fall_2020.html">Gov 50: Data</a> at Harvard University.There are currently 6 different data sets to choose from that span topics from a social experiment in the Boston, MA <em>“T”</em> stations to an insurance plan in Mexico.</p>
+<a href="#data-for-preceptors-primer-for-bayesian-data-science" class="anchor"></a>Data for <em>Preceptor’s Primer for Bayesian Data Science</em>
+</h1></div>
+<p><code>PPBDS.data</code> provides the data used in <em><a href="https://davidkane9.github.io/PPBDS/">Preceptor’s Primer for Bayesian Data Science</a></em>, the textbook used in <a href="https://www.davidkane.info/files/gov_50_fall_2020.html">Gov 50: Data</a> at Harvard University.</p>
 <!-- unsure if badges are available for use yet here -->
-</div>
-<div id="data-sets" class="section level2">
-<h2 class="hasAnchor">
-<a href="#data-sets" class="anchor"></a>Data Sets</h2>
-<div id="cces" class="section level3">
-<h3 class="hasAnchor">
-<a href="#cces" class="anchor"></a><code>cces</code>
-</h3>
-<ul>
-<li>Sourced from <a href="https://doi.org/10.7910/DVN/II2DB6">Kuriwaki (2018)</a>.</li>
-<li>Features ideological, demographic, educational, and other information from the <em>Cooperative Congressional Election Study</em>.</li>
-</ul>
-</div>
-<div id="nes" class="section level3">
-<h3 class="hasAnchor">
-<a href="#nes" class="anchor"></a><code>nes</code>
-</h3>
-<ul>
-<li>Cleaned subset of data from the <a href="https://electionstudies.org/data-center/anes-time-series-cumulative-data-file/">National Election Survey</a>.</li>
-<li>Features ideological, demographic, educational, and other information from respondents. See <a href="https://electionstudies.org/data-center/anes-time-series-cumulative-data-file/">Codebooks</a> for questionnaire and other details.</li>
-</ul>
-</div>
-<div id="qscores" class="section level3">
-<h3 class="hasAnchor">
-<a href="#qscores" class="anchor"></a><code>qscores</code>
-</h3>
-<ul>
-<li>Data from Harvard’s own student <a href="https://q.fas.harvard.edu/">course reviews</a>.</li>
-<li>Students answer multiple choice and free response questions about their courses upon completion, and this is a subset of their responses.</li>
-</ul>
-</div>
-<div id="sps" class="section level3">
-<h3 class="hasAnchor">
-<a href="#sps" class="anchor"></a><code>sps</code>
-</h3>
-<ul>
-<li>Survey data from a randomized healthcare experiment done in several states in Mexico.</li>
-<li>Sourced from <a href="https://gking.harvard.edu/files/gking/files/pubpolforpoor.pdf">King et. al. (2009)</a>.</li>
-</ul>
-</div>
-<div id="trains" class="section level3">
-<h3 class="hasAnchor">
-<a href="#trains" class="anchor"></a><code>trains</code>
-</h3>
-<ul>
-<li>Data from a study by <a href="https://scholar.harvard.edu/files/renos/files/enostrains.pdf">Enos (2016)</a> who addressed exclusionary attitudes and cultural exposures.</li>
-</ul>
-</div>
-<div id="shaming" class="section level3">
-<h3 class="hasAnchor">
-<a href="#shaming" class="anchor"></a><code>shaming</code>
-</h3>
-<ul>
-<li>Data from <a href="https://doi.org/10.1017/S000305540808009X">Gerber, Green, and Larimer (2008)</a> regarding potential voter response to varying degrees external pressures to vote.</li>
-</ul>
-</div>
-</div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>As this package is not relaesed on CRAN, you can download it directly from GitHub!</p>
+<p>As this package is not released on CRAN, you must install it directly from GitHub.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://remotes.r-lib.org">remotes</a></span>)
 <span class="kw">remotes</span>::<span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"davidkane9/PPBDS.data"</span>)
 </pre></div>
 </div>
 <div id="loading-preceptors-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#loading-preceptors-data" class="anchor"></a>Loading Preceptor’s Data</h2>
-<p>After remote-installing the package, it loads as any package should.</p>
+<p>After installing the package, it loads as any package should.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw">tidyverse</span>) <span class="co"># the tidyverse is your new best friend</span>
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw">PPBDS.data</span>)
 
 <span class="kw">qscores</span>
 <span class="co">#&gt; # A tibble: 748 x 8</span>
-<span class="co">#&gt;    course_name department course_number term  enrollment workload overall</span>
-<span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;         &lt;chr&gt;      &lt;int&gt;    &lt;dbl&gt;   &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 " Introduc~ AFRAMER    100Y          2019S         49      2.6     4.2</span>
-<span class="co">#&gt;  2 " American~ AFRAMER    123Z          2019S         49      3.6     4.4</span>
-<span class="co">#&gt;  3 " Urban In~ AFRAMER    125X          2019S         40      5.2     4.5</span>
-<span class="co">#&gt;  4 " Richard ~ AFRAMER    130X          2019S         23      7.2     4.4</span>
-<span class="co">#&gt;  5 " 19th cen~ AFRAMER    131Y          2019S         20      3.5     4.9</span>
-<span class="co">#&gt;  6 " Social R~ AFRAMER    199X          2019S         19      7.2     4.8</span>
-<span class="co">#&gt;  7 " Martin L~ AFRAMER    199Y          2019S         40      4.2     4.7</span>
-<span class="co">#&gt;  8 " Elementa~ AFRIKAAN   AB            2019S         22      2.9     4.9</span>
-<span class="co">#&gt;  9 " Elementa~ JAMAICAN   AB            2019S         18      1.5     4.9</span>
-<span class="co">#&gt; 10 " Elementa~ WSTAFRCN   AB            2019S         29      2.6     4  </span>
-<span class="co">#&gt; # ... with 738 more rows, and 1 more variable: prof_name &lt;chr&gt;</span>
+<span class="co">#&gt;    course_name department course_number term  enrollment hours rating instructor</span>
+<span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;         &lt;chr&gt;      &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;     </span>
+<span class="co">#&gt;  1 " Introduc… AFRAMER    100Y          2019S         49   2.6    4.2 Jesse McC…</span>
+<span class="co">#&gt;  2 " American… AFRAMER    123Z          2019S         49   3.6    4.4 Cornel We…</span>
+<span class="co">#&gt;  3 " Urban In… AFRAMER    125X          2019S         40   5.2    4.5 Elizabeth…</span>
+<span class="co">#&gt;  4 " Richard … AFRAMER    130X          2019S         23   7.2    4.4 Glenda Ca…</span>
+<span class="co">#&gt;  5 " 19th cen… AFRAMER    131Y          2019S         20   3.5    4.9 Linda Cha…</span>
+<span class="co">#&gt;  6 " Social R… AFRAMER    199X          2019S         19   7.2    4.8 Alejandro…</span>
+<span class="co">#&gt;  7 " Martin L… AFRAMER    199Y          2019S         40   4.2    4.7 Brandon M…</span>
+<span class="co">#&gt;  8 " Elementa… AFRIKAAN   AB            2019S         22   2.9    4.9 John M Mu…</span>
+<span class="co">#&gt;  9 " Elementa… JAMAICAN   AB            2019S         18   1.5    4.9 John M Mu…</span>
+<span class="co">#&gt; 10 " Elementa… WSTAFRCN   AB            2019S         29   2.6    4   John M Mu…</span>
+<span class="co">#&gt; # … with 738 more rows</span>
 </pre></div>
 </div>
 <div id="using-the-data" class="section level2">
@@ -179,30 +121,29 @@
   <span class="fu">labs</span>(
     title = <span class="st">"Rudimentary Graphic to Test Function"</span>,
     subtitle = <span class="st">"Better graphic, potentially from 1005 work coming"</span>,
-    caption = <span class="st">"Never forget to cite"</span>
-  )
+    caption = <span class="st">"Never forget to cite"</span>)
 </pre></div>
+<!-- DK: We need some comments explaining what this is doing and how we can replace it. Specifically, why place the figure in man/ rather than inst/? -->
 <p><img src="reference/figures/README-quick.plot-1.png" align="center" width="600"></p>
 </div>
 <div id="citing-ppbdsdata" class="section level2">
 <h2 class="hasAnchor">
 <a href="#citing-ppbdsdata" class="anchor"></a>Citing PPBDS.data</h2>
 <div class="sourceCode" id="cb4"><pre class="downlit">
-
 <span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"PPBDS.data"</span>)
 <span class="co">#&gt; </span>
-<span class="co">#&gt; To cite package 'PPBDS.data' in publications use:</span>
+<span class="co">#&gt; To cite 'PPBDS.data' in publications use:</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt;   David Kane (2020). PPBDS.data: Data for Preceptor's Primer for</span>
-<span class="co">#&gt;   Bayesian Data Science. R package version 0.0.0.9000.</span>
+<span class="co">#&gt;   David Kane. 2020. 'PPBDS.data'. R package version 0.1.0,</span>
+<span class="co">#&gt;   &lt;https://github.com/davidkane9/PPBDS.data&gt;.</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; A BibTeX entry for LaTeX users is</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;   @Manual{,</span>
-<span class="co">#&gt;     title = {PPBDS.data: Data for Preceptor's Primer for Bayesian Data Science},</span>
+<span class="co">#&gt;     title = {PPBDS.data},</span>
 <span class="co">#&gt;     author = {David Kane},</span>
 <span class="co">#&gt;     year = {2020},</span>
-<span class="co">#&gt;     note = {R package version 0.0.0.9000},</span>
+<span class="co">#&gt;     url = {https://github.com/davidkane9/PPBDS.data},</span>
 <span class="co">#&gt;   }</span>
 </pre></div>
 </div>
