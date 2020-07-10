@@ -2,50 +2,86 @@
 
 ## Thomas
 
-* Email shaming professor
-
-* Add some comments to make_shaming.R about your efforts.
-
-* Add another paragraph summarizing the study to shaming.R.
-
-* Called `nominate`. DW NOMINATE from VoteView project: https://www.voteview.com/data.
-
 * pkgdown
 
-  - Discuss logo.
+  - Start using package numbering correctly
 
   - Add NEWS file, using recommended practices from R Packages.
 
-  - Nicer graphics on home page.
+  - Make look more like Healy, especially sidebar.
 
-  - Make look more like Healy, especially sidebar and citation.
+* Called `nominate`. DW NOMINATE from VoteView project: https://www.voteview.com/data.
 
-  - Add some basic instructions on how to use pkgdown
-
-  - Add additional sidebar elements
-
-  - Look nice themes or yaml options
+* Investigate "found 2 marked UTF-8 strings"
 
 
 ## Miro
 
-* Clean up `nes`. income and ideology should be numeric variables, like we made them in class in 1006.
+* Clean up make_nes, make_nhanes for future you.
 
-* Clean up `sps`. Which variables do we need? What do they show? What should they be called?
-
-* Called `nhanes`. Pick out some interesting variables from the NHANES data which lives in the NHANES package. That is, make_nhanes.R script will start with library(NHANES), meaning that it will assume that the package has already been installed.
+* Fix merge conflict.
 
 * Called `kenya`. Use Electoral Administration in Fledgling Democracies: Experimental Evidence from Kenya at https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/UT25HQ. This is another good international paper. We can use Erin's code: https://github.com/eguetzloe/kenya-electoral-administration.
 
+* Clean up `sps`. Which variables do we need? What do they show? What should they be called?
+
+* Called `governors`. I love this discussion: https://statmodeling.stat.columbia.edu/2020/07/02/no-i-dont-believe-that-claim-based-on-regression-discontinuity-analysis-that/. Data for the paper is here: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/IBKYRX&widget=dataverse@harvard
 
 ## Other
 
 * Add inst/papers with all the relevant papers, then link there from the help pages.
 
-* Figure out this note from checking the package: "Note: found 2 marked UTF-8 strings"
+* Standardize https://davidkane9.github.io/PPBDS.data/reference/index.html by ensuring that help files title are similar in style, and meet R Package guidelines.
 
-* Figure out proper numbering for releases.
+* When I pkgdown::build_site(), I see:
 
+Reading 'man/nes.Rd'
+Writing 'reference/nes.html'
+Reading 'man/nhanes.Rd'
+Writing 'reference/nhanes.html'
+Reading 'man/qscores.Rd'
+Reading 'man/shaming.Rd'
+Reading 'man/sps.Rd'
+
+It seems weird that references in nhanes work one way and in shaming another. We should standardize this.
+
+
+* pkgdown
+
+  - Start using a release and development branch?
+
+  - Look nice themes or yaml option
+
+  - Discuss logo. Ullyseus and the Sirens, with url
+
+  - Nicer graphics on home page.
+
+  - Annoying to maintain the bullet points for tibble description on main page. Can't we just print the first paragraph from the description, i.e., the same thing which appears on the top of the help page?
+
+  - The front page is getting a bit ugly. Do we really need to list all the data sets? That seems like too much. (Done) Instead, we could have an "Article" which provided a list of all the tibbles along with the one paragraph description. Then, the front page could just have a basic blurb and one nice graphic.
+
+  - Would it be useful to have another Article? Perhaps a guide to which data sets go well with which portions of the textbook?
+
+
+### Data Sets
+
+* Clean up qscores. Note the text misformating in course names. Semester should be something easier to read, like Fall-2018, Spring 2019.
+
+* Science experiment: https://science.sciencemag.org/content/358/6364/776/tab-figures-data
+
+* Need something from Matt Blackwell's work on slavery. Ultimate use may just be in making an example for the maps appendix, which should be longer.
+
+* Called `congress`. Something about the results of US congressional elections over several election cycles. 538? Really want this to include some measure of campaign spending so we can discuss a (potential) causal effect. Didn't they have a model which they used for the 2018 election? If they estimated a model, they must have some data.
+
+* Called `police`. [Open police data](https://openpolicing.stanford.edu/data/). Something with millions of rows and, ideally, geographic coordinates. We won't include this data in our repo. Instead, the make_police.R script will download and process it. Ideally, we can get the final police.rda to be less than 100 meg so that we don't need to turn on git-lfs again.
+
+* Maybe [GSS](http://gss.norc.org/). Isn't there already an R package? https://kjhealy.github.io/gssr/. Could issue a PR for changing the installation instructions to use remotes:: instead of devtools.
+
+* FEC data. This is complex and important enough that it might become a stand-alone package. See [DIME](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/O5PX0B&version=2.2).
+
+* Shiro: I also have a clean large dataset of satellite lights in Africa from this period using this paper: https://www.aeaweb.org/articles?id=10.1257/aer.20161385
+
+* Called `deaths`. Maybe that demography data we used on the last day of 1005 this semester? Or is that too big?
 
 
 ## Overview
@@ -86,18 +122,3 @@ The first command is just a standard way of installing things on the Mac. The se
 Once you have done this, all your standard git commands will work as usual. Note that data-raw/ in in .Rbuildignore, so that directory is not included in the distributed package. That is cool since we don't want the package to force people to download hundreds of megs of raw data.
 
 
-### Data Sets
-
-* Need something from Matt Blackwell's work on slavery. Ultimate use may just be in making an example for the maps appendix, which should be longer.
-
-* Called `congress`. Something about the results of US congressional elections over several election cycles. 538? Really want this to include some measure of campaign spending so we can discuss a (potential) causal effect. Didn't they have a model which they used for the 2018 election? If they estimated a model, they must have some data.
-
-* Called `police`. [Open police data](https://openpolicing.stanford.edu/data/). Something with millions of rows and, ideally, geographic coordinates. We won't include this data in our repo. Instead, the make_police.R script will download and process it. Ideally, we can get the final police.rda to be less than 100 meg so that we don't need to turn on git-lfs again.
-
-* Maybe [GSS](http://gss.norc.org/). Isn't there already an R package? https://kjhealy.github.io/gssr/. Could issue a PR for changing the installation instructions to use remotes:: instead of devtools.
-
-* FEC data. This is complex and important enough that it might become a stand-alone package. See [DIME](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/O5PX0B&version=2.2).
-
-* Shiro: I also have a clean large dataset of satellite lights in Africa from this period using this paper: https://www.aeaweb.org/articles?id=10.1257/aer.20161385
-
-* Called `deaths`. Maybe that demography data we used on the last day of 1005 this semester? Or is that too big?

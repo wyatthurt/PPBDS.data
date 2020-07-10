@@ -1,8 +1,4 @@
-# work in progress of the National Health and Nutrition Examination Survey
-
-# MB: Should factor variables like race and gender just be characters?
-# MB: What should I be turning into number scales vs characters
-# MB: Add more variables?
+# work in progress of the National Health and Nutrition Examination Survey dataset
 
 library(NHANES)
 library(tidyverse)
@@ -17,16 +13,16 @@ x <- NHANES %>%
 
   # Cleaning SurveyYr. Currently 20XX_YY, but will just be represented as 20XX.
 
-  separate(SurveyYr, into = c("survey_year", NA),
+  separate(SurveyYr, into = c("year", NA),
            sep = "_") %>%
 
   # Also making it into an integer
 
-  mutate(survey_year = as.integer(survey_year)) %>%
+  mutate(year = as.integer(year)) %>%
 
   # Making depressed a numbered variable
 
-  mutate(depressed = as.character(case_when(
+  mutate(depressed = as.ordered(case_when(
     Depressed == "None" ~ "none",
     Depressed == "Several" ~ "several",
     Depressed == "Most" ~ "most"
@@ -34,7 +30,7 @@ x <- NHANES %>%
 
   # Making general health a numbered variable
 
-  mutate(general_health = as.integer(case_when(
+  mutate(health = as.integer(case_when(
     HealthGen == "Poor" ~ 1,
     HealthGen == "Fair" ~ 2,
     HealthGen == "Good" ~ 3,
@@ -45,7 +41,7 @@ x <- NHANES %>%
   # Cleaning up education variable names
   # MB: Can I play with the buckets like this?
 
-  mutate(education = as.character(case_when(
+  mutate(education = as.ordered(case_when(
     Education == "8th Grade" ~ "middle school",
     Education == "9 - 11th Grade" ~ "middle school",
     Education == "High School" ~ "high school",
@@ -68,13 +64,13 @@ x <- NHANES %>%
   # MB: Not sure what to do with "Other" variable
   # MB: Also, 55k to 75k group is missing? Where is it?
 
-  mutate(income = as.character(case_when(
-    HHIncome == "more 99999" ~ "5",
-    HHIncome == "75000-99999" ~ "4",
-    HHIncome == "25000-34999" ~ "1",
-    HHIncome == "35000-44999" ~ "2",
-    HHIncome == "45000-54999" ~ "3",
-    HHIncome == "(Other)" ~ "other"
+  mutate(income = as.integer(case_when(
+    HHIncome == "more 99999" ~ 5,
+    HHIncome == "75000-99999" ~ 4,
+    HHIncome == "25000-34999" ~ 1,
+    HHIncome == "35000-44999" ~ 2,
+    HHIncome == "45000-54999" ~ 3,
+    HHIncome == "(Other)" ~ 0
   ))) %>%
 
   # Making diabetes an integer variable
@@ -87,21 +83,27 @@ x <- NHANES %>%
   # Fixing variable names
 
   mutate(gender = as.character(Gender),
-         age = as.character(Age),
-         sleep_night_hrs = SleepHrsNight,
+         age = as.integer(Age),
+         sleep = SleepHrsNight,
          height = Height,
          bmi = BMI,
          weight = Weight,
          pregnancies = nPregnancies,
          pulse = Pulse) %>%
 
-  select(gender, survey_year, age, race, education, income, weight,
-         height, bmi, pulse, diabetes, general_health, depressed, pregnancies,
-         sleep_night_hrs)
+  # Left out: diabetes
+
+  select(gender, year, age, race, education, income, weight,
+         height, bmi, health, depressed, pregnancies,
+         sleep, pulse)
+
 
 
 stopifnot(nrow(x) == 10000)
 stopifnot(ncol(x) > 10)
+stopifnot(ncol(x) < 15)
+stopifnot(is.integer(x$age))
+stopifnot(is.character(x$race))
 
 
 nhanes <- x
