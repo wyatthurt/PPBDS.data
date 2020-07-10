@@ -46,6 +46,10 @@ Center for Health Statistics (NCHS), a part of the Centers for Disease Control a
 
 In order to get a demographically diverse range of responses, minority groups were surveyed
 more heavily. However, this skewed the survey results to have an inaccurate demographic makeup.
+<<<<<<< HEAD
+To address this, some observations of more common groups are repeated in the data.
+=======
 To address this, some observations of more common groups are resampled in the data.
+>>>>>>> master
 }
 \keyword{datasets}

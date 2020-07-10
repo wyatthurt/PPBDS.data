@@ -25,7 +25,6 @@
 #'   \item{height}{double variable for height in centimeters}
 #'   \item{bmi}{double variable for body mass index}
 #'   \item{pulse}{integer variable for pulse in beats per minute or bpm}
-#'   \item{diabetes}{integer variable with 1 and 0 corresponding to having and not having diabetes, respectively}
 #'   \item{general_health}{integer variable for general health ranked from 1-5. 1 maps to "poor", 2 is "fair", 3 is "good", 4 is "very good", and 5 is "excellent".}
 #'   \item{depressed}{character variable answering question how often patient feels depressed.
 #'                    Includes values "several", "none", "most"}
