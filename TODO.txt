@@ -31,6 +31,21 @@
 
 * Add inst/papers with all the relevant papers, then link there from the help pages.
 
+* Standardize https://davidkane9.github.io/PPBDS.data/reference/index.html by ensuring that help files title are similar in style, and meet R Package guidelines.
+
+* When I pkgdown::build_site(), I see:
+
+Reading 'man/nes.Rd'
+Writing 'reference/nes.html'
+Reading 'man/nhanes.Rd'
+Writing 'reference/nhanes.html'
+Reading 'man/qscores.Rd'
+Reading 'man/shaming.Rd'
+Reading 'man/sps.Rd'
+
+It seems weird that references in nhanes work one way and in shaming another. We should standardize this.
+
+
 * pkgdown
 
   - Start using a release and development branch?
@@ -43,9 +58,30 @@
 
   - Annoying to maintain the bullet points for tibble description on main page. Can't we just print the first paragraph from the description, i.e., the same thing which appears on the top of the help page?
 
-  - The front page is getting a bit ugly. Do we really need to list all the data sets? That seems like too much. Instead, we could have an "Article" which provided a list of all the tibbles along with the one paragraph description. Then, the front page could just have a basic blurb and one nice graphic.
+  - The front page is getting a bit ugly. Do we really need to list all the data sets? That seems like too much. (Done) Instead, we could have an "Article" which provided a list of all the tibbles along with the one paragraph description. Then, the front page could just have a basic blurb and one nice graphic.
 
   - Would it be useful to have another Article? Perhaps a guide to which data sets go well with which portions of the textbook?
+
+
+### Data Sets
+
+* Clean up qscores. Note the text misformating in course names. Semester should be something easier to read, like Fall-2018, Spring 2019.
+
+* Science experiment: https://science.sciencemag.org/content/358/6364/776/tab-figures-data
+
+* Need something from Matt Blackwell's work on slavery. Ultimate use may just be in making an example for the maps appendix, which should be longer.
+
+* Called `congress`. Something about the results of US congressional elections over several election cycles. 538? Really want this to include some measure of campaign spending so we can discuss a (potential) causal effect. Didn't they have a model which they used for the 2018 election? If they estimated a model, they must have some data.
+
+* Called `police`. [Open police data](https://openpolicing.stanford.edu/data/). Something with millions of rows and, ideally, geographic coordinates. We won't include this data in our repo. Instead, the make_police.R script will download and process it. Ideally, we can get the final police.rda to be less than 100 meg so that we don't need to turn on git-lfs again.
+
+* Maybe [GSS](http://gss.norc.org/). Isn't there already an R package? https://kjhealy.github.io/gssr/. Could issue a PR for changing the installation instructions to use remotes:: instead of devtools.
+
+* FEC data. This is complex and important enough that it might become a stand-alone package. See [DIME](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/O5PX0B&version=2.2).
+
+* Shiro: I also have a clean large dataset of satellite lights in Africa from this period using this paper: https://www.aeaweb.org/articles?id=10.1257/aer.20161385
+
+* Called `deaths`. Maybe that demography data we used on the last day of 1005 this semester? Or is that too big?
 
 
 ## Overview
@@ -86,21 +122,3 @@ The first command is just a standard way of installing things on the Mac. The se
 Once you have done this, all your standard git commands will work as usual. Note that data-raw/ in in .Rbuildignore, so that directory is not included in the distributed package. That is cool since we don't want the package to force people to download hundreds of megs of raw data.
 
 
-### Data Sets
-
-
-* Science experiment: https://science.sciencemag.org/content/358/6364/776/tab-figures-data
-
-* Need something from Matt Blackwell's work on slavery. Ultimate use may just be in making an example for the maps appendix, which should be longer.
-
-* Called `congress`. Something about the results of US congressional elections over several election cycles. 538? Really want this to include some measure of campaign spending so we can discuss a (potential) causal effect. Didn't they have a model which they used for the 2018 election? If they estimated a model, they must have some data.
-
-* Called `police`. [Open police data](https://openpolicing.stanford.edu/data/). Something with millions of rows and, ideally, geographic coordinates. We won't include this data in our repo. Instead, the make_police.R script will download and process it. Ideally, we can get the final police.rda to be less than 100 meg so that we don't need to turn on git-lfs again.
-
-* Maybe [GSS](http://gss.norc.org/). Isn't there already an R package? https://kjhealy.github.io/gssr/. Could issue a PR for changing the installation instructions to use remotes:: instead of devtools.
-
-* FEC data. This is complex and important enough that it might become a stand-alone package. See [DIME](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/O5PX0B&version=2.2).
-
-* Shiro: I also have a clean large dataset of satellite lights in Africa from this period using this paper: https://www.aeaweb.org/articles?id=10.1257/aer.20161385
-
-* Called `deaths`. Maybe that demography data we used on the last day of 1005 this semester? Or is that too big?
