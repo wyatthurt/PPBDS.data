@@ -17,39 +17,33 @@ x <- x %>%
 
   # Recoding values for treatment variable
 
-  mutate(treatment = as.factor(case_when(treatment_2d_10d == "Control" ~ "control",
-                                            treatment_2d_10d == "SMS" ~ "SMS",
-                                            treatment_2d_10d == "Canvass" ~ "canvass",
-                                            treatment_2d_10d == "Local" ~ "local",
-                                            treatment_2d_10d == "Local+Canvass" ~ "local + canvass",
-                                            treatment_2d_10d == "Local+SMS" ~ "local + SMS"))) %>%
-
-  # Recoding values for day of the week
-
-  mutate(day = case_when(day == "Monday" ~ "monday",
-                         day == "Tuesday" ~ "tuesday",
-                         day == "Wednesday" ~ "wednesday",
-                         day == "Thursday" ~ "thursday",
-                         day == "Friday" ~ "friday")) %>%
+  mutate(treatment = as.factor(case_when(treat == "Control" ~ "control",
+                                         treat == "SMS" ~ "SMS",
+                                         treat == "Canvass" ~ "canvass",
+                                         treat == "Local" ~ "local",
+                                         treat == "Local+Canvass" ~ "local + canvass",
+                                         treat == "Local+SMS" ~ "local + SMS"))) %>%
 
   # Renaming variables for poverty, population density, date, block id, polling station id
 
-  mutate(poverty = pov,
+  mutate(block = as.character(BLOCK_ID),
+         poll_station = PS_ID,
+         poverty = pov,
          pop_density = pd,
-         date = DATE,
-         block = BLOCK_ID,
-         poll_station = PS_ID) %>%
+         mean_age = mean.age,
+         reg_byrv13 = reg_int_byrv13) %>%
 
   # Selecting final variabless
 
-  select(treatment, poverty, distance, pop_density, date, block, poll_station, day, reg_byrv13, reg, rv13) %>%
+  select(block, poll_station, treatment, poverty, distance, pop_density, mean_age, reg_byrv13, rv13) %>%
 
   as_tibble()
 
 
-stopifnot(nrow(x) > 1000000)
-stopifnot(ncol(x) == 11)
+stopifnot(nrow(x) > 1600)
+stopifnot(ncol(x) == 9)
 stopifnot(is.factor(x$treatment))
+stopifnot(is.character(x$block))
 
 
 kenya <- x

@@ -12,18 +12,15 @@
 #'
 #' @format A tibble with 1,989,680 observations and 11 variables:
 #' \describe{
-#'   \item{treatment}{a character variable that indicates either the control group or some combination of
+#'   \item{treatment}{factor variable that indicates either the control group or some combination of
 #'                    treatment factors: canvassing, SMS reminder, local administrator, local admin and
 #'                    SMS, local admin and canvassing}
-#'   \item{poverty}{a double variable for the poverty rate of the individual's block}
-#'   \item{distance}{a double variable for individual's distance from polling location}
+#'   \item{poverty}{a double variable for the poverty rate of the voting block for those assigned to it}
+#'   \item{distance}{a double variable for average distance from polling location for those assigned to it}
 #'   \item{pop_density}{a double variable for the population density of individual's block}
-#'   \item{date}{a date variable for the date the registration occurred}
 #'   \item{block}{a character variable for the individual's voting block ID}
 #'   \item{poll_station}{a character variable for the individual's polling station ID}
-#'   \item{day}{a character variable for the day of week the registration occurred}
-#'   \item{reg}{a double variable for the number of registered voters at polling location during intervention period}
-#'   \item{rv13}{a double variabale for the number of registered voters at polling location during 2013}
+#'   \item{rv13}{a double variable for the number of registered voters at polling location during 2013}
 #'   \item{reg_byrv13}{a double variable for registered voters at polling location during intervention
 #'                     period divided by registered voters at polling location during 2013}
 #' }

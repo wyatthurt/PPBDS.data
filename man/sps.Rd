@@ -12,11 +12,13 @@ A tibble with 27,569 observations and 8 variables: \describe{
 \item{educ}{character variable with values "preschool", "primary",
 "secondary", "high school", "normal", "technical",
 "college", and "post-grad"}
-\item{treatment}{binary numerical variable for treatment (1) and control (0)}
-\item{health_exp_m3}{numerical variable for health-related expenses in the
+\item{treatment}{binary factor variable for treatment (1) and control (0)}
+\item{health_exp_m3}{double variable for health-related expenses in the
 last 3 month in pesos}
-\item{health_exp_m1}{numerical variable for
-health-related expenses in the last month in pesos}}
+\item{health_exp_m1}{double variable for
+health-related expenses in the last month in pesos}
+\item{t2_health_exp_m1}{}
+\item{t2_health_exp_m3}{}}
 }
 \source{
 \url{https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/P6NC0M}

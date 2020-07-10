@@ -1,9 +1,8 @@
-# work in progress preparing the NES cumulative survey data from 1948 to 2016
-# current as of 05/23/2020
-
+# Preparing the NES cumulative survey data from 1948 to 2016 current as of 05/23/2020
 # CDF source can be located at:
 # https://electionstudies.org/data-center/anes-time-series-cumulative-data-file/
-# effective date same as above. The raw data file is too big to include in the
+# effective date same as above.
+# The raw data file is too big to include in the
 # repo, which is why it is excluded in the .gitignore.
 
 library(tidyverse)
@@ -12,79 +11,30 @@ library(usethis)
 
 data <- read_dta("data-raw/anes_timeseries_cdf.dta")
 
-# check that the first study year is a presedential election year
-# min(data$VCF0004) == 1948
-
-# create a convenient object by which to filter for only presedential election years
-# the first study will always be 1948, but the CDF may update, so I coded the max end value in
-# here to save someone else's time later
+# Filters only for presidential years to the end of the data
 
 pres_years <- seq(1948, max(data$VCF0004), by = 4)
 
 x <- data %>%
 
-  # retain only studies in years of presedential elections
+  # only retains pres election years
 
   filter(VCF0004 %in% pres_years) %>%
 
-  # retain only the variables relevant to the course(s)
+  # picking relevant variables: gender, income, year, race, party identification,
+  # education, state FIPS code, voted in national elections?, age group, incumbent prez approval
 
-  select(
+  select(VCF0104, VCF0114, VCF0004, VCF0105a, VCF0301, VCF0140a, VCF0901a, VCF0702,
+         VCF0102, VCF0450) %>%
 
-    # gender
-
-    VCF0104,
-
-    # income
-
-    VCF0114,
-
-    # year
-
-    VCF0004,
-
-    # race
-
-    VCF0105a,
-
-    # party identification
-
-    VCF0301, # 1281 NA's
-
-    # education (7 tier) Q: 1978-1984: Do you have a college degree? (IF YES:) What is the highest
-    # degree that you have earned? 1986 AND LATER: What is the highest degree that you have earned?
-
-    VCF0140a, # 1059 NA's
-
-    # state FIPS code, to be matched to K. Healy's file to convert to 2-letter state abbreviation
-
-    VCF0901a,
-
-    # did R vote in the national election(s)
-
-    VCF0702,
-
-    # respondent age group
-
-    VCF0102,
-
-    # presidential (incumbent) approval
-
-    VCF0450
-
-  ) %>%
-
-# gender cleaning
+  # renaming and cleaning gender variable
 
   mutate(VCF0104 = as.character(as_factor(VCF0104))) %>%
-
-  # (there is a year component that is discarded in 11 cases, not relevant to gender
-  #  determination but relevant to different question asked in that year)
 
   separate(VCF0104, into = c(NA, "gender"),
            sep = " ") %>%
 
-# income cleaning (income percentile brackets)
+  # renaming and cleaning income variable
 
   mutate(VCF0114 = as.character(as_factor(VCF0114)))  %>%
 
@@ -99,7 +49,7 @@ x <- data %>%
     income == " 96 to 100 percentile" ~ 5
   ))) %>%
 
-# year cleaning
+  # cleaning year variable
 
   mutate(year = as.integer(VCF0004)) %>%
 
@@ -109,9 +59,7 @@ x <- data %>%
 
   select(-VCF0004) %>%
 
-# race/ethn. cleaning (factors)
-  # currently they display in alphabetical order, ordered factors would be needed if you wish them to be
-  # in their original / any other order
+  # race cleaning
 
   mutate(VCF0105a = as.character(as_factor(VCF0105a))) %>%
 
@@ -123,22 +71,21 @@ x <- data %>%
   # always open to suggestion
 
   mutate(race = as.character(case_when(
-    str_extract(VCF0105a, pattern = "White") == "White" ~ "White",
-    str_extract(VCF0105a, pattern = "Black") == "Black" ~ "Black",
-    str_extract(VCF0105a, pattern = "Asian") == "Asian" ~ "Asian",
-    str_extract(VCF0105a, pattern = "Indian") == "Indian" ~ "Native",
+    str_extract(VCF0105a, pattern = "White") == "White" ~ "white",
+    str_extract(VCF0105a, pattern = "Black") == "Black" ~ "black",
+    str_extract(VCF0105a, pattern = "Asian") == "Asian" ~ "asian",
+    str_extract(VCF0105a, pattern = "Indian") == "Indian" ~ "native",
 
     # I had to account for the 'non-hispanic' clause in the other labels, hence the
     # extra code in this case
 
     ((str_extract(VCF0105a, pattern = "Hispanic") == "Hispanic") &
-       str_detect(VCF0105a, pattern = "non-") == F) ~ "Hispanic",
-    str_extract(VCF0105a, pattern = "Other") == "Other" ~ "Other",
+       str_detect(VCF0105a, pattern = "non-") == F) ~ "hispanic",
+    str_extract(VCF0105a, pattern = "Other") == "Other" ~ "other",
 
-    #
     # it may be prudent to combine this with other or NA
 
-    str_extract(VCF0105a, pattern = "Non-white") == "Non-white" ~ "Other",
+    str_extract(VCF0105a, pattern = "Non-white") == "Non-white" ~ "other",
 
     # this seems to be the proper way to include a case for NA values in their true
     # non-character format
@@ -149,7 +96,7 @@ x <- data %>%
 
   select(-VCF0105a) %>%
 
-# party affiliation / ideology cleaning
+  # party / ideology cleaning
 
   mutate(VCF0301 = as_factor(VCF0301)) %>%
 
@@ -166,7 +113,7 @@ x <- data %>%
     ideology == " Strong Republican" ~ 7
   ))) %>%
 
-# education cleaning 'education'
+  # education cleaning
 
   mutate(VCF0140a = as.character(as_factor(VCF0140a))) %>%
 
@@ -191,7 +138,7 @@ x <- data %>%
 
   select(-VCF0140a) %>%
 
-# state variable coercion
+  # state cleaning
 
   # Going from a haven_labelled object to an integer is fun. If you fail to pass through <chr>
   # state before going to integer, the integrity of the values is lost for a presently unknown
@@ -204,7 +151,7 @@ x <- data %>%
 
 
 # Many thanks to K. Healy for making this state FIPS key file available
-  # see more at: https://github.com/kjhealy/fips-codes. Relevant .csv file included in `data-raw`
+# see more at: https://github.com/kjhealy/fips-codes. Relevant .csv file included in `data-raw`
 
 fips_key <- read.csv("data-raw/state_fips_master.csv") %>%
 
@@ -213,10 +160,9 @@ fips_key <- read.csv("data-raw/state_fips_master.csv") %>%
 
 
 # match the key dataframe to the NES data if possible while keeping all NES data
-  # based on FIPS indication
-
-  # there is no code for DC, Guam, etc. so I may need to use one of the other files from Healy,
-  # but this works for now and I will look into the other options.
+# based on FIPS indication
+# there is no code for DC, Guam, etc. so I may need to use one of the other files from Healy,
+# but this works for now and I will look into the other options.
 
 z <- left_join(x = x, y = fips_key, by = "fips") %>%
 
