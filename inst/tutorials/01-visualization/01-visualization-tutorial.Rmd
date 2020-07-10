@@ -1,0 +1,646 @@
+---
+title: "Visualization"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(learnr)
+library(gradethis)
+knitr::opts_chunk$set(echo = FALSE, message = FALSE)
+options(tutorial.storage="client") 
+```
+
+## What are R and RStudio?
+
+```{r quiz-1, echo = FALSE}
+quiz(
+  question("What are R and RStudio?",
+             answer("R is a programming language and RStudio is an integrated development environment (IDE)", 
+                    correct = TRUE),
+             answer("RStudio is a programming language and R is an IDE"),
+             answer("R and RStudio are both programming languages"),
+             answer("R and RStudio are both IDEs"),
+             allow_retry = TRUE
+    ),
+  question("In what order do you install R and RStudio?",
+             answer("First R then RStudio", correct = TRUE),
+             answer("First RStudio then R"),
+             allow_retry = TRUE
+    )
+)
+```
+
+## How Do I Code in R?
+
+```{r quiz-2, echo = FALSE}
+quiz(
+  question("Which of the following is NOT the name of a data type in R?",
+           answer("Logicals"),
+           answer("Integers"),
+           answer("Characters"),
+           answer("Strings", correct = TRUE),
+           allow_retry = TRUE
+  ),
+  question("What is the operator used in R to test for inclusion?",
+           answer("'in'"),
+           answer("'%in%'", correct = TRUE),
+           answer("'include'"),
+           answer("'IN'"),
+           allow_retry = TRUE
+  ),
+  question("What is the symbol used to bring up a help file?",
+           answer("*"),
+           answer("~"),
+           answer("!"),
+           answer("?", correct = TRUE),
+           allow_retry = TRUE
+  ),
+  question("True / False: Seeing red text in the console is always bad because it denotes an error.",
+           answer("True"),
+           answer("False", correct = TRUE, message = "R will show red text in the console pane for errors, warnings, and messages. The only situation in which the code will not run is if there is an error."),
+           incorrect = "R will show red text in the console pane for errors, warnings, and messages. The only situation in which the code will not run is if there is an error.",
+           allow_retry = TRUE
+  )
+)
+```
+
+## What are R packages?
+
+```{r quiz-3, echo = FALSE}
+quiz(
+  question("Which of the following is NOT true about R packages?",
+           answer("R packages extend the functionality of R by providing additional functions, data, and documentation"),
+           answer("If comparing R and R packages to a phone, R would be the apps you can download on the phone and R packages would be the phone", correct = TRUE),
+           answer("R packages are written by a worldwide community of R users"),
+           answer("R packages can be downloaded for free from the Internet"),
+           allow_retry = TRUE
+  ),
+  question("Which command corresponds to loading a package in R?",
+           answer("install.packages(“package”)"),
+           answer("library(package)", correct = TRUE),
+           allow_retry = TRUE
+  )
+)
+```
+
+*Load the `ggplot2` package.*
+
+```{r exercise-1, exercise = TRUE, exercise.lines = 3}
+
+```
+
+```{r exercise-1-solution}
+library(ggplot2)
+```
+
+## Explore your first datasets
+
+*Load the `PPBDS.data` package to look at the `trains` dataset.*
+```{r exercise-2, exercise = TRUE, exercise.lines = 5}
+# ---------
+  
+trains
+```
+
+```{r exercise-2-solution}
+library(PPBDS.data)
+
+trains
+```
+
+*Use the `glimpse()` function to look at the `trains` dataset. We already loaded the `dplyr` and `PPBDS.data` packages.*
+```{r exercise-4, exercise = TRUE, exercise.lines = 5}
+library(dplyr)
+library(PPBDS.data)
+
+# ---------
+```
+
+```{r exercise-4-solution}
+library(dplyr)
+library(PPBDS.data)
+
+glimpse(trains)
+```
+
+```{r quiz-4, echo = FALSE}
+quiz(
+  question("What is the data type of the `liberal` variable?",
+           answer("character"),
+           answer("logical", correct = TRUE),
+           answer("double"),
+           answer("factor"),
+           allow_retry = TRUE
+  ),
+  question("How many rows does the `train` dataset have?",
+           answer("8"),
+           answer("15"),
+           answer("115", correct = TRUE),
+           allow_retry = TRUE
+  )
+)
+```
+
+*Extract the `income` variable in the `trains` dataset using the `$` operator.*
+```{r exercise-5, exercise = TRUE, exercise.lines = 5}
+library(PPBDS.data)
+
+# ---------
+```
+
+```{r exercise-5-solution}
+library(PPBDS.data)
+
+trains$income
+```
+
+*Look at the `qscores` dataset using `glimpse()`. We have loaded the `PPBDS.data` and the `dplyr` packages.*
+```{r qscores-setup, include = FALSE}
+library(PPBDS.data)
+library(dplyr)
+```
+
+```{r qscores, echo = TRUE}
+glimpse(qscores)
+```
+
+```{r quiz-5, echo = FALSE}
+quiz(
+  question("Which of the following is NOT an identification variable?",
+           answer("`course_name`"),
+           answer("`department`", correct = TRUE),
+           answer("`workload`", correct = TRUE),
+           answer("`course_number`"),
+           allow_retry = TRUE
+  )
+)
+```
+
+## Components of a graphic
+
+```{r quiz-6, echo = FALSE}
+quiz(
+  question("What are the three essential components of a graphic?",
+           answer("the dataset containing the variables in question", correct = TRUE),
+           answer("the geometric object we can observe in a plot", correct = TRUE),
+           answer("axes labels on a plot"),
+           answer("the aesthetic attributes", correct = TRUE),
+           allow_retry = TRUE
+  ),
+  question("What are the two important arguments that we need to provide the `ggplot()` function?",
+           answer("`data` and `mapping`", correct = TRUE),
+           answer("`data` and `aesthetics`"),
+           answer("`data` and `layers`"),
+           allow_retry = TRUE
+  )
+)
+```
+
+*Look at this scatterplot made using the `trains` dataset. We have loaded the `PPBDS.data` and the `ggplot2` packages.*
+
+*Higher numbers mean more conservative attitudes toward immigration-related policies on a 3 to 15 scale. Individuals with a treatment value of "Treated" were exposed to two Spanish-speakers on their regular commute. "Control" individuals were not.*
+
+```{r trains}
+library(PPBDS.data)
+library(ggplot2)
+
+ggplot(data = trains, mapping = aes(x = att_start, y = att_end, color = treatment)) +
+  geom_point() + facet_wrap(~party)
+```
+
+```{r quiz-7, echo = FALSE}
+quiz(
+  question("Which `data` variable is mapped to the `x`-position `aes`thetic of the points?",
+           answer("`att_start`", correct = TRUE),
+           answer("`att_end`"),
+           answer("`treatment`"),
+           allow_retry = TRUE
+  ),
+  question("Which `data` variable is mapped to the `y`-position `aes`thetic of the points?",
+           answer("`att_start`"),
+           answer("`att_end`", correct = TRUE),
+           answer("`treatment`"),
+           allow_retry = TRUE
+  ),
+  question("Which `data` variable is mapped to the `color` `aes`thetic of the points?",
+           answer("`att_start`"),
+           answer("`att_end`"),
+           answer("`treatment`", correct = TRUE),
+           allow_retry = TRUE
+  )
+)
+```
+
+## Scatterplots
+
+*Let's make a scatterplot using the `qscores` dataset. Load the `PPBDS.data` package and look at the `qscores` dataset by simply typing the name of the dataset.*
+
+```{r exercise-6, exercise = TRUE, exercise.lines = 5}
+# ---------
+
+# ---------
+```
+
+```{r exercise-6-solution}
+library(PPBDS.data)
+
+qscores
+```
+
+*Fill in the `ggplot()` function to create a scatterplot with `overall` on the x-axis and `workload` on the y-axis. Is there a relationship between the overall rating of a Harvard course versus the average hours per week of workload?*
+
+```{r exercise-7, exercise = TRUE, exercise.lines = 5}
+library(ggplot2)
+
+# ggplot(data = qscores, mapping = aes(x = ---------, y = ---------)) +
+  # geom_point()
+```
+
+```{r exercise-7-solution}
+ggplot(data = qscores, mapping = aes(x = overall, y = workload)) + 
+  geom_point()
+```
+
+*Now we want to add a `size` `aes`thetic based on the number of students enrolled in each course. Add `size = enrollment` to the other `aes`thetics of the points. Do larger classes have a higher average overall course rating? What about higher workload?*
+
+```{r exercise-8, exercise = TRUE, exercise.lines = 5}
+# ggplot(data = qscores, mapping = aes(x = overall, y = workload, ---------)) +
+  # geom_point()
+```
+
+```{r exercise-8-solution}
+ggplot(data = qscores, mapping = aes(x = overall, y = workload, size = enrollment)) +
+  geom_point()
+```
+
+*Change the transparency of the points by setting `alpha = 0.2` within `geom_point()`.*
+
+```{r exercise-9, exercise = TRUE, exercise.lines = 5}
+# ggplot(data = qscores, mapping = aes(x = overall, y = workload, size = enrollment)) +
+  # geom_point(----------)
+```
+
+```{r exercise-9-solution}
+ggplot(data = qscores, mapping = aes(x = overall, y = workload, size = enrollment)) +
+  geom_point(alpha = 0.2)
+```
+
+*Replace `geom_point()` with `geom_jitter()` to create a jittered scatterplot.*
+
+```{r exercise-10, exercise = TRUE, exercise.lines = 5}
+ggplot(data = qscores, mapping = aes(x = overall, y = workload)) +
+  geom_point()
+```
+
+```{r exercise-10-solution}
+ggplot(data = qscores, mapping = aes(x = overall, y = workload)) +
+  geom_jitter()
+```
+
+## Linegraphs
+
+```{r linegraphs-setup, include = FALSE}
+library(PPBDS.data)
+library(tidyverse)
+
+cces_data <- cces %>%
+  filter(approval_ch %in% c("Approve / Somewhat Approve", "Disapprove / Somewhat Disapprove")) %>%
+  group_by(year, approval_ch) %>%
+  summarize(avg_age = mean(age))
+```
+
+*The `cces` dataset in the `PPBDS.data` package has been changed to show the average age of voters per year based on their approval of the president that year. The `cces` dataset was manipulated using the `filter()`, `group_by`, and `summarize()` functions within the `tidyverse` package, which you will learn how to use in the next chapter.*
+
+```{r gov_qscores, echo = TRUE}
+cces_data
+```
+
+*Fill in the `ggplot()` function to create a linegraph with `year` on the x-axis, `avg_age` on the y-axis, and `approval_ch` as the color aesthetic.*
+
+```{r exercise-11, exercise = TRUE, exercise.lines = 5}
+library(ggplot2)
+
+# ggplot(data = cces_data, mapping = aes(x = ---------, y = ---------, color = ----------)) +
+  # geom_line()
+```
+
+```{r exercise-11-solution}
+ggplot(data = cces_data, mapping = aes(x = year, y = avg_age, color = approval_ch)) + 
+  geom_line()
+```
+
+```{r quiz-8, echo = FALSE}
+quiz(
+  question("True / False: Linegraphs and scatterplots both display the relationship between two numerical variables.",
+           answer("True", correct = TRUE),
+           answer("False"),
+           allow_retry = TRUE),
+  question("True / False: It is preferred to use scatterplots over linegraphs when the variable on the x-axis has an inherent ordering, like in a time series plot.",
+           answer("True"),
+           answer("False", correct = TRUE),
+           allow_retry = TRUE)
+)
+```
+
+## Histograms
+
+```{r quiz-9, echo = FALSE}
+quiz(
+  question("A histogram is:",
+           answer("A plot that displays the relationship between two numerical variables"),
+           answer("A plot that visualizes the distribution of a numerical variable", correct = TRUE),
+           answer("A plot that visualizes the distribution of a categorical variable"),
+           allow_retry = TRUE)
+)
+```
+
+*Using the `qscores` dataset and `ggplot()`, make a histogram where `overall` is on the x-axis to see the distribution of Harvard course ratings.*
+
+```{r exercise-12, exercise = TRUE, exercise.lines = 5}
+library(PPBDS.data)
+library(ggplot2)
+
+# ggplot(data = qscores, mapping = aes(x = ---------)) + geom_histogram()
+```
+
+```{r exercise-12-solution}
+library(PPBDS.data)
+library(ggplot2)
+
+ggplot(data = qscores, mapping = aes(x = overall)) + geom_histogram()
+```
+
+```{r quiz-10, echo = FALSE}
+quiz(
+  question_text("What is the default value of bins for this histogram?",
+                answer("30", correct = TRUE), 
+                allow_retry = TRUE)
+)
+```
+
+*Add white vertical borders demarcating the bins by adding `color = "powderblue"` and `fill = "violet"` arguments to `geom_histogram()`.*
+
+```{r exercise-13, exercise = TRUE, exercise.lines = 5}
+# ggplot(data = qscores, mapping = aes(x = overall)) +
+  # geom_histogram(color = --------, fill = --------)
+```
+
+```{r exercise-13-solution}
+ggplot(data = qscores, mapping = aes(x = overall)) + 
+  geom_histogram(color = "powderblue", fill = "violet")
+```
+
+*Specify the number of bins to be 10 via the `bins` argument in `geom_histogram()`.*
+
+```{r exercise-14, exercise = TRUE, exercise.lines = 5}
+# ggplot(data = qscores, mapping = aes(x = overall)) +
+  # geom_histogram(bins = --------, color = "white")
+```
+
+```{r exercise-14-solution}
+ggplot(data = qscores, mapping = aes(x = overall)) +
+  geom_histogram(bins = 10, color = "white")
+```
+
+*Specify the width of the bins to be 1 via the `binwidth` argument in `geom_histogram()`.*
+
+```{r exercise-15, exercise = TRUE, exercise.lines = 5}
+# ggplot(data = qscores, mapping = aes(x = overall)) +
+  # geom_histogram(binwidth = ---------, color = "white")
+```
+
+```{r exercise-15-solution}
+ggplot(data = qscores, mapping = aes(x = overall)) +
+  geom_histogram(binwidth = 1, color = "white")
+```
+
+## Boxplots
+
+```{r quiz-11, echo = FALSE}
+quiz(
+  question("Which of the following are included in the five-number summary of a numerical variable used to construct a boxplot?",
+           answer("Minimum", correct = TRUE),
+           answer("First quartile", correct = TRUE),
+           answer("Median", correct = TRUE),
+           answer("Mean"),
+           answer("Third quartile", correct = TRUE),
+           answer("Maximum", correct = TRUE)
+  )
+)
+```
+
+*Let's keep playing with the `qscores` dataset in the `PPBDS.data` package. We have filtered the dataset using the `tidyverse` package based on the five departments with the classes with the most enrollment: ECON, COMPSCI, STAT, GOV, and MATH. (You will learn how to do this in the next chapter). The filtered dataset is called `top_five_qscores`.*
+
+```{r boxplot-setup, include = FALSE}
+library(tidyverse)
+library(PPBDS.data)
+
+top_five_enrolled <- qscores %>% 
+  group_by(department) %>%
+  summarize(enrollment = sum(enrollment)) %>% 
+  arrange(desc(enrollment)) %>%
+  pull(department)
+
+top_five_qscores <- qscores %>% filter(department %in% top_five_enrolled[0:5])
+```
+
+```{r boxplot-top-five-qscores, echo = TRUE}
+top_five_qscores
+```
+
+*Using the `top_five_qscores` dataset and `ggplot()`, make a boxplot where `department` is on the x-axis and `overall` is on the y-axis.*
+
+```{r exercise-16, exercise = TRUE, exercise.lines = 5}
+library(ggplot2)
+
+# ggplot(data = top_five_qscores, mapping = aes(x = ---------, y = ---------)) + geom_boxplot()
+```
+
+```{r exercise-16-solution}
+library(ggplot2)
+
+ggplot(data = top_five_qscores, mapping = aes(x = department, y = overall)) + geom_boxplot()
+```
+
+```{r quiz-12, echo = FALSE}
+quiz(
+  question("Which department has the highest median course rating?",
+           answer("COMPSCI"),
+           answer("ECON"),
+           answer("GOV"),
+           answer("MATH", correct = TRUE),
+           answer("STAT")
+  ),
+  question("Which department has outliers?",
+           answer("COMPSCI"),
+           answer("ECON"),
+           answer("GOV"),
+           answer("MATH", correct = TRUE),
+           answer("STAT")
+  ),
+  question("Which department has the largest range of course ratings?",
+           answer("COMPSCI"),
+           answer("ECON"),
+           answer("GOV", correct = TRUE),
+           answer("MATH"),
+           answer("STAT")
+  )
+)
+```
+
+## Barplots
+
+```{r quiz-13, echo = FALSE}
+quiz(
+  question("A barplot is:",
+           answer("A plot that displays the relationship between two numerical variables"),
+           answer("A plot that visualizes the distribution of a numerical variable"),
+           answer("A plot that visualizes the distribution of a categorical variable",
+                  correct = TRUE),
+           allow_retry = TRUE)
+)
+```
+
+*We can now use a barplot to plot how many students are enrolled in classes per department. We will use the `top_five_qscores` dataset again to look at the five largest departments.*
+
+```{r barplot-setup, include = FALSE}
+library(tidyverse)
+library(PPBDS.data)
+
+top_five_enrolled <- qscores %>% 
+  group_by(department) %>%
+  summarize(enrollment = sum(enrollment)) %>% 
+  arrange(desc(enrollment)) %>%
+  pull(department)
+
+top_five_qscores <- qscores %>% filter(department %in% top_five_enrolled[0:5])
+```
+
+```{r barplot-top-five-qscores, echo = TRUE}
+top_five_qscores
+```
+
+*Use `geom_bar()` to plot `department` on the x-axis to see the number of classes in each department.*
+
+```{r exercise-17, exercise = TRUE, exercise.lines = 5}
+library(ggplot2)
+
+# ggplot(data = top_five_qscores, mapping = aes(x = ---------)) +
+  ---------
+```
+
+```{r exercise-17-solution}
+library(ggplot2)
+
+ggplot(data = top_five_qscores, mapping = aes(x = department)) +
+  geom_bar()
+```
+
+*We can then count the number of classes per department in order to use the `geom_col()` layer instead. We do this using the `group_by()` and `count()` functions in the `tidyverse` package, which you will learn how to use in the next chapter. Our new data frame is stored as `top_five_qscores_counted`.*
+
+```{r classes-counted-setup, include = FALSE}
+library(tidyverse)
+
+top_five_qscores_counted <- top_five_qscores %>% group_by(department) %>% count() %>% rename(count = n)
+```
+
+```{r avg-workload-setup, echo = TRUE}
+top_five_qscores_counted
+```
+
+*Use `geom_col()` to plot `department` on the x-axis and `count` on the y-axis to see the number of classes in each department.*
+
+```{r exercise-18, exercise = TRUE, exercise.lines = 5}
+# ggplot(data = top_five_qscores_counted, mapping = aes(x = ---------, y = ---------)) +
+  # ---------
+```
+
+```{r exercise-18-solution}
+ggplot(data = top_five_qscores_counted, mapping = aes(x = department, y = count)) +
+  geom_col()
+```
+
+```{r quiz-14, echo = FALSE}
+quiz(
+  question("What's the difference between `geom_bar()` and `geom_col()`?",
+           answer("`geom_bar()` is used to represent pre-counted data while `geom_col() is not."),
+           answer("`geom_col()` is used to represent pre-counted data while `geom_bar() is not.", 
+                  correct = TRUE),
+           answer("There is no difference between the two layers.")
+  )
+)
+```
+
+*Let's go back to the `trains` dataset in the `PPBDS.data` package. Use `geom_bar()` to plot `treatment` on the x-axis.*
+
+```{r exercise-19, exercise = TRUE, exercise.lines = 5}
+library(PPBDS.data)
+library(ggplot2)
+ 
+# ggplot(data = trains, mapping = aes(x = ---------)) + ---------
+```
+
+```{r exercise-19-solution}
+library(PPBDS.data)
+library(ggplot2)
+ 
+ggplot(data = trains, mapping = aes(x = treatment)) + geom_bar()
+```
+
+*We can now map the additional variable `party` by adding a `fill = party` inside the `aes()` aesthetic mapping.*
+
+```{r exercise-20, exercise = TRUE, exercise.lines = 5}
+# ggplot(data = trains, mapping = aes(x = treatment, fill = --------)) + geom_bar()
+```
+
+```{r exercise-20-solution}
+ggplot(data = trains, mapping = aes(x = treatment, fill = party)) + geom_bar()
+```
+
+*Change `fill = party` to `color = party`. What happens? *
+
+```{r exercise-21, exercise = TRUE, exercise.lines = 5}
+ggplot(data = trains, mapping = aes(x = treatment, fill = party)) + geom_bar()
+```
+
+```{r exercise-21-solution}
+ggplot(data = trains, mapping = aes(x = treatment, color = party)) + geom_bar()
+```
+
+*Create a side-by-side barplot by adding `position = "dodge"` to `geom_bar()`.*
+
+```{r exercise-22, exercise = TRUE, exercise.lines = 5}
+# ggplot(data = trains, mapping = aes(x = treatment, fill = party)) + geom_bar(---------)
+```
+
+```{r exercise-22-solution}
+ggplot(data = trains, mapping = aes(x = treatment, fill = party)) + geom_bar(position = "dodge")
+```
+
+*Instead of mapping `party` to `fill`, we can include it as the variable to create small multiples of the plot across the levels of `party` using `facet_wrap(~ party)`. Add this layer to the provided plot in order to create a faceted barplot.*
+
+```{r exercise-23, exercise = TRUE, exercise.lines = 5}
+# ggplot(data = trains, mapping = aes(x = treatment)) + geom_bar() + ---------
+```
+
+```{r exercise-23-solution}
+ggplot(data = trains, mapping = aes(x = treatment)) + geom_bar() + facet_wrap(~ party)
+```
+
+<!-- ## Adding Layers to a Plot -->
+
+<!-- Need to add: faceting, position, scales, coordinate systems, statistical transformations, adding titles and labels to a graph -->
+
+## Submit
+Ignore the link below. Copy and paste the hash after clicking "Generate Submission" and upload to Canvas!
+
+```{r context="server"}
+learnrhash::encoder_logic()
+```
+
+```{r encode, echo=FALSE}
+learnrhash::encoder_ui()
+```
+
