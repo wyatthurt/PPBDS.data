@@ -1,7 +1,6 @@
 ---
-title: "Tidyverse (New)"
-output: 
-  learnr::tutorial
+title: "Tidyverse"
+output: learnr::tutorial
 runtime: shiny_prerendered
 ---
 
