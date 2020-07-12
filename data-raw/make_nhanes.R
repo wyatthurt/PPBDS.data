@@ -1,6 +1,6 @@
 # work in progress of the National Health and Nutrition Examination Survey dataset
 
-library(NHANES)
+# library(NHANES)
 library(tidyverse)
 
 x <- NHANES %>%

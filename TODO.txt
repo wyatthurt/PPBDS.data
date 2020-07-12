@@ -1,5 +1,7 @@
 # Priorities
 
+Is there an issue about having library(NHANES) and such in our make_* scripts causing warnings when students just want to library(PPBDS.data)?
+
 ## Thomas
 
 * pkgdown
