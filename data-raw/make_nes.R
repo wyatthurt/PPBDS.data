@@ -6,7 +6,7 @@
 # repo, which is why it is excluded in the .gitignore.
 
 library(tidyverse)
-library(haven)
+# library(haven)
 library(usethis)
 
 data <- read_dta("data-raw/anes_timeseries_cdf.dta")

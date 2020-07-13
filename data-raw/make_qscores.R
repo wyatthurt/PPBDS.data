@@ -11,8 +11,8 @@
 
 # required packages
 
-library(dbplyr)
-library(RSQLite)
+# library(dbplyr)
+# library(RSQLite)
 library(usethis)
 library(tidyverse)
 

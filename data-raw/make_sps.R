@@ -1,6 +1,6 @@
 library(tidyverse)
-library(haven)
-library(janitor)
+# library(haven)
+# library(janitor)
 
 # Public policy for the poor? A randomised assessment of the Mexican universal
 # health insurance programme (2009)
