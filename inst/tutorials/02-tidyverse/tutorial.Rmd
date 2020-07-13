@@ -1,7 +1,6 @@
 ---
-title: "Tidyverse (New)"
-output: 
-  learnr::tutorial
+title: "Tidyverse"
+output: learnr::tutorial
 runtime: shiny_prerendered
 ---
 
@@ -9,8 +8,7 @@ runtime: shiny_prerendered
 library(tidyverse)
 library(learnr)
 library(gradethis)
-# Commenting out so the app can deploy
-# tutorial_options(exercise.checker = gradethis::grade_learnr)
+tutorial_options(exercise.checker = gradethis::grade_learnr)
 knitr::opts_chunk$set(echo = FALSE, message = FALSE)
 ```
 
