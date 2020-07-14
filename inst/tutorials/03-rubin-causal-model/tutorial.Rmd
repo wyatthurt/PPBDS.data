@@ -1,0 +1,25 @@
+---
+title: "Rubin Causal Model"
+output:
+  learnr::tutorial:
+      progressive: true
+      allow_skip: true
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE)
+library(tidyverse)
+library(PPBDS.data)
+library(learnr)
+library(gradethis)
+# library(learnrhash)
+library(shiny)
+options(tutorial.storage="client") 
+```
+
+<!-- Copied set up from Jessica -->
+<!-- Ch. 3 tutorial questions written by Cassidy Bargell  -->
+<!-- Also taken from rstudio/learnr and rstudio-education/primers GitHub repos -->
+
+
