@@ -2,7 +2,6 @@
 title: "Tidyverse"
 output: learnr::tutorial
 runtime: shiny_prerendered
-description: "Tidyverse tutorial corresponding to Chapter 2"
 ---
 <!-- EF: Initial edit for PR --> 
 
@@ -11,7 +10,6 @@ library(tidyverse)
 library(learnr)
 library(gradethis)
 library(learnrhash)
-library(shiny)
 tutorial_options(exercise.checker = gradethis::grade_learnr)
 knitr::opts_chunk$set(echo = FALSE, message = FALSE)
 ```
@@ -801,20 +799,10 @@ Use `pivot_wider()` to put `table2` into tidy format.
 ```
 
 ## Submit
+Ignore the link below. Copy and paste the hash after clicking "Generate Submission" and upload to Canvas!
 
 ```{r encode, echo=FALSE}
-learnrhash::encoder_ui(
-  ui_before = shiny::div(
-    "When you have completed this tutorial, follow these steps:",
-        br(),
-    tags$ol(
-       tags$li("Click Generate Submission"),
-       tags$li("Type in your name"),
-       tags$li("Copy and paste the hash generated into the \"Hash\" textbox"),
-       tags$li("Press submit"),
-       tags$li("Download the .rds file (a window will pop up asking you where to place the downloaded file) and upload to the appropriate Canvas assignment."))
-  )
-)
+learnrhash::encoder_ui()
 ```
 
 ```{r context="setup"}

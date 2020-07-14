@@ -1,14 +1,18 @@
 ---
 title: "Visualization"
-output: learnr::tutorial
+output:
+  learnr::tutorial:
+      progressive: true
+      allow_skip: true
 runtime: shiny_prerendered
-description: "Visualization tutorial corresponding to Chapter 1"
 ---
 
-<!-- Editing Ch. 1 tutorial in PPBDS.data repo -->
+<!-- Ch. 1 tutorial questions written by Jessica Edwards  -->
+<!-- Also taken from rstudio/learnr and rstudio-education/primers GitHub repos -->
 
 ```{r setup, include=FALSE}
 library(tidyverse)
+library(nycflights13)
 library(learnr)
 library(gradethis)
 library(learnrhash)
@@ -18,6 +22,71 @@ options(tutorial.storage="client")
 ```
 
 ## What are R and RStudio?
+
+### How to install R
+
+![](https://vimeo.com/203516510)
+
+### Test your knowledge
+
+```{r quiz2, echo=FALSE}
+quiz(caption = "Quiz - Install R",
+  question("Is R free to download and use?",
+    answer("Yes!", correct = TRUE, message = "R is free _and_ open source, which means that anyone can read, use, and copy the source code of the R language."),
+    answer("No.")
+  ),
+  question("Where do you download R?",
+    answer("www.rstudio.com/download"),
+    answer("[cloud.r-project.org](http://cloud.r-project.org)", correct = TRUE, message = "You can also download R from [cran.r-project.org](http://cran.r-project.org)"),
+    answer("www.r-project.org", message = "Good try, but not exactly. www.r-project.org doesn't provide a download link, but it does provide a link to one the websites above."),
+    answer("www.r.com"),
+    allow_retry = TRUE
+  ),
+  question("How often should you update R?",
+    answer("Everytime you use it", message = "This will be too often unless you use R very rarely!"),
+    answer("About once a year", correct = TRUE, "A new version of R is released about once a year. Update sooner if you encounter a bug that you cannot explain."),
+    answer("Never", message = "A new version of R is released about once a year. I'll assume that you are using the newest version of R, which will be the fastest version with the fewest unexpected behaviors." ),
+    allow_retry = TRUE
+  )
+)
+```
+
+### How to install RStudio
+
+RStudio is an Integrated Development Environment for R. What does that mean? Well, if you think of R as a language, which it is, you can think of RStudio as a program that helps you write and work in the language. RStudio makes programming in R much easier and I suggest that you use it!
+
+![](https://vimeo.com/203516968)
+
+### Test your knowledge
+
+```{r quiz3, echo=FALSE}
+quiz(caption = "Quiz - Install RStudio",
+  question("What is the RStudio IDE?",
+    answer("An application that makes it easier to use R.", correct = TRUE, message = "RStudio organizes your workspace and makes it easier to write, use, debug, and save R code. I highly recommend it and will rely on the RStudio IDE in several tutorials."),
+    answer("An application that let's you use R without writing any code", message = "And thank goodness! Code provides a reproducible record of your work, which is essential for data science."),
+    answer("A spreadsheet program like Microsoft Excel."),
+    answer("Another name for R", message = "R and RStudio are two separate things. R is a language, like English. Think of RStudio as a program that helps you use the language, kind of like how a word processing program helps you write in English."),
+    allow_retry = TRUE
+  ),
+  question("Is the RStudio IDE free to download and use?",
+    answer("Yes!", correct = TRUE, message = "Like R, RStudio is free and open-source. There do exist professional versions of RStudio with enhanced features, but we will not rely on those features in these tutorials."),
+    answer("No.", message = "Like R, RStudio is free and open-source. There do exist professional versions of RStudio with enhanced features, but we will not rely on those features in these tutorials.")
+  ),
+  question("Where do you download RStudio?",
+    answer("www.rstudio.com/download", correct = TRUE, message = "For these tutorials, download and install the RStudio Desktop Open Source License."),
+    answer("[cloud.r-project.org](http://cloud.r-project.org)", message = "This is where you download R, not RStudio."),
+    answer("www.r-project.org"),
+    answer("[cran.rstudio.org](http://cran.rstudio.org)"),
+    allow_retry = TRUE
+  ),
+  question("Do you need to install R if you already have RStudio?",
+    answer("Yes.", correct = TRUE),
+    answer("No.", message = "R does not come with RStudio; you need to install R separately.")
+  )
+)
+```
+
+### Summary
 
 ```{r quiz-1, echo = FALSE}
 quiz(
@@ -39,9 +108,167 @@ quiz(
 
 ## How Do I Code in R?
 
-```{r quiz-2, echo = FALSE}
+Data frames and tibbles are R's structures for storing tabular data; if you inherit a tabular dataset in R, it will almost certainly come as one of these structures. 
+
+Here, you will learn how to do three things with data frames and tibbles:
+
+1. Look at the contents of a data frame or tibble
+2. Open a help page that describes a data frame or tibble
+3. Identify the variables and their types in a tibble 
+
+### What is a data frame?
+
+A __data frame__ is a rectangular collection of values, usually organized so that variables appear in the columns and observations appear in rows. 
+
+Here is an example: the `mpg` data frame contains observations collected by the US Environmental Protection Agency on 38 models of cars. To see the `mpg` data frame, type `mpg` in the code chunk below and then click "Submit Answer."
+
+```{r mpg-setup}
+mpg <- as.data.frame(mpg)
+```
+
+```{r mpg, exercise = TRUE}
+...
+```
+
+<div id="mpg-hint">
+**Hint:** Type `mpg` and then click the Run Code button.
+</div>
+
+### A note about mpg
+
+The code above worked because I've already loaded the ggplot2 package for you in this tutorial: `mpg` comes in the ggplot2 package. If you would like to look at `mpg` on your own computer, you will need to first load `ggplot2`. You can do that in two steps:
+
+1. Run `install.packages('ggplot2')` to install ggplot2 if you do not yet have it.
+2. Load ggplot2 with the `library(ggplot2)` command
+
+After that, you will be able to access any object in ggplot2—including `mpg`—until you close R. 
+
+###  
+
+Did you notice how much information was inside `mpg`? Me too. Sometimes the contents of a data frame do not fit on a single screen, which makes them difficult to inspect. We'll look at an alternative to using and examining data frames soon. But first let's get some help...
+
+### Help pages
+
+You can learn more about `mpg` by opening its help page. The help page will explain where the `mpg`dataset comes from and what each variable in `mpg` describes. To open the help page, type `?mpg` in the code chunk below and then click "Run Code".
+
+```{r help, exercise = TRUE}
+
+```
+
+<div id="help-hint">
+**Hint:** Type `?mpg` and then click the Submit Answer button.
+</div>
+
+### ? syntax
+
+You can open a help page for any object that comes with R or with an R package. To open the help page, type a `?` before the object's name and then run the command, as you did with `?mpg`. This technique works for functions, packages, and more. 
+
+Notice that objects created by you or your colleagues will not have a help page (unless you make one).
+
+### Exercises
+
+Use the code chunk below to answer the following questions.
+
+```{r exercises1, exercise = TRUE}
+
+```
+
+```{r quiz1, echo = FALSE}
+quiz(caption = "Quiz",
+  question("What does the `drv` variable of `mpg` describe?  Read the help for `?mpg` to find out.",
+           answer("Whether or not the vehicle has driver side airbags"), 
+           answer("Whether a car is automatic or manual transmission"),
+           answer("The number of cylinders in the car's engine"),
+           answer("Something else", correct = TRUE, message = "`drv` describes the type of drivetrain in a car: front wheel drive, rear wheel drive, or four wheel drive."), 
+           allow_retry = TRUE
+  ),
+  question("How many rows are in the data frame named `cars`?",
+           answer("2"), 
+           answer("25"),
+           answer("50", correct = TRUE),
+           answer("100"),
+           incorrect = "Incorrect.\nHint: R numbers the rows of a data frame when it displays the contents of a data frame. As a result, you can spot the number of rows in `cars` by examining `cars` in the code block above.", 
+           allow_retry = TRUE
+  ),
+  question("How many columns are in the data frame named `cars`?",
+           answer("1"), 
+           answer("2", correct = TRUE),
+           answer("4"),
+           answer("more than four"),
+           incorrect = "Incorrect.\nHint: If you inspect the contents of `cars` in the code block above, it should be pretty easy to count the number of columns.", 
+           allow_retry = TRUE
+  )
+)
+```
+
+### What is a tibble?
+
+The `flights` data frame in the nycflights13 package is an example of a _tibble_. Tibbles are a data frames with some extra properties. 
+
+To see what I mean, use the code chunk below to print the contents of `flights`.
+
+```{r flights, exercise = TRUE}
+
+```
+
+<div id="flights-hint">
+**Hint:** Type the name of the data frame that you want to print and then click the Run Code button. We've already loaded the nycflight13 package for you.
+</div>
+
+###  
+
+Good Job. `flights` describes every flight that departed from New York City in 2013. The data comes from the [US Bureau of Transportation Statistics](http://www.transtats.bts.gov/DatabaseInfo.asp?DB_ID=120&Link=0), and is documented in `?flights`.
+
+
+### The tibble display
+
+You might notice that `flights` looks a little differently than `mpg`. `flights` shows only the first few rows of the data frame and only the columns that fit on one screen.
+
+`flights` prints differently because it's a __tibble__. Tibbles are data frames that are slightly tweaked to be more user-friendly. For example, R doesn't try to show you all of a tibble at once (but it will try to show you all of a data frame that is not a tibble).
+
+You can use `as_tibble()` to return a tibble version of any data frame. For example, this would return a tibble version of `mpg`: `as_tibble(mpg)`. 
+
+### Data types
+ 
+```{r flights3, echo = FALSE}
+flights
+``` 
+ 
+Did you notice that a row of three (or four) letter abbreviations appears under the column names of `flights`? These abbreviations describe the _type_ of data that is stored in each column of `flights`:
+
+* `int` stands for integers.
+
+* `dbl` stands for doubles, or real numbers.
+
+* `chr` stands for character vectors, or strings.
+
+* `dttm` stands for date-times (a date + a time).
+
+There are three other common types of variables that aren't used in this dataset but are used in other datasets:
+
+* `lgl` stands for logical, vectors that contain only `TRUE` or `FALSE`.
+
+* `fctr` stands for factors, which R uses to represent categorical variables
+  with fixed possible values.
+
+* `date` stands for dates.
+
+This row of data types is unique to tibbles and is one of the ways that tibbles try to be more user-friendly than data frames.
+
+### Test your knowledge
+
+```{r summary, echo=FALSE}
 quiz(
-  question("Which of the following is NOT the name of a data type in R?",
+  question("Which types of variables does `flights` contain? Check all that apply.",
+         type = "multiple",
+         allow_retry = TRUE,
+         incorrect = "Not quite right. Look a little closer at `flights`.",
+         answer("integers", correct = TRUE),
+         answer("doubles", correct = TRUE),
+         answer("factors"),
+         answer("characters", correct = TRUE),
+         correct = "Great Job!"
+), question("Which of the following is NOT the name of a data type in R?",
            answer("Logicals"),
            answer("Integers"),
            answer("Characters"),
@@ -73,45 +300,59 @@ quiz(
 
 ## What are R packages?
 
-```{r quiz-3, echo = FALSE}
-quiz(
+### How to install R packages
+
+![](https://vimeo.com/203516241)
+
+### Test your knowledge
+
+```{r names, echo = FALSE}
+quiz(caption = "Quiz - Working with Packages",
+  question("What command do you use to install packages?",
+    answer("`library()`", message = "We will see what `library()` does later."),
+    answer("`install.packages()`", correct = TRUE),
+    answer("`install_packages()`"),
+    answer("There is no command. You must visit [cran.r-project.org](http://cran.r-project.org) and download packages manually.", message = "R makes it easy to download packages. You connect to the internet and then run one of the commands above."),
+    allow_retry = TRUE
+  ),
+  question("How often do you need to install a package on your computer?",
+    answer("Every time you restart R"),
+    answer("Every time you restart your computer"),
+    answer("Only once. Afterwards, R can find it on your hard drive as needed.", correct = TRUE),
+    answer("Never, as long as you are connected to the internet.", message = "This could be true if you are using R over a cloud service. However, if you are using R locally on your own computer, you will need to install each package that you use on your computer."),
+    allow_retry = TRUE
+  ),
+  question("What is the tidyverse?",
+    answer("A collection of packages that work well together and provide tools for common data science tasks.", correct = TRUE, message = 'You can install all of the tidyverse packages at once with `install.packages("tidyverse")`.'),
+    answer("A word processing program for R"),
+    answer("A code style that reads like poetry"),
+    answer("An alternate universe where everyone is an R programmer."),
+    allow_retry = TRUE
+  ),
   question("Which of the following is NOT true about R packages?",
            answer("R packages extend the functionality of R by providing additional functions, data, and documentation"),
            answer("If comparing R and R packages to a phone, R would be the apps you can download on the phone and R packages would be the phone", correct = TRUE),
            answer("R packages are written by a worldwide community of R users"),
            answer("R packages can be downloaded for free from the Internet"),
            allow_retry = TRUE
-  ),
-  question("Which command corresponds to loading a package in R?",
-           answer("install.packages(“package”)"),
-           answer("library(package)", correct = TRUE),
-           allow_retry = TRUE
   )
 )
 ```
 
-*Load the `ggplot2` package.*
+*Load the `ggplot2` package using `library()`.*
 
 ```{r exercise-1, exercise = TRUE, exercise.lines = 3}
 
 ```
 
-```{r exercise-1-solution}
-library(ggplot2)
-```
-
 ## Explore your first datasets
+
+### `trains` dataset
 
 *Load the `PPBDS.data` package to look at the `trains` dataset.*
 ```{r exercise-2, exercise = TRUE, exercise.lines = 5}
-# ---------
+...
   
-trains
-```
-
-```{r exercise-2-solution}
-library(PPBDS.data)
-
 trains
 ```
 
@@ -120,18 +361,11 @@ trains
 library(dplyr)
 library(PPBDS.data)
 
-# ---------
-```
-
-```{r exercise-4-solution}
-library(dplyr)
-library(PPBDS.data)
-
-glimpse(trains)
+...
 ```
 
 ```{r quiz-4, echo = FALSE}
-quiz(
+quiz(caption = "Quiz - `trains` dataset",
   question("What is the data type of the `liberal` variable?",
            answer("character"),
            answer("logical", correct = TRUE),
@@ -152,14 +386,10 @@ quiz(
 ```{r exercise-5, exercise = TRUE, exercise.lines = 5}
 library(PPBDS.data)
 
-# ---------
+...
 ```
 
-```{r exercise-5-solution}
-library(PPBDS.data)
-
-trains$income
-```
+### `qscores` dataset
 
 *Look at the `qscores` dataset using `glimpse()`. We have loaded the `PPBDS.data` and the `dplyr` packages.*
 ```{r qscores-setup, include = FALSE}
@@ -167,13 +397,13 @@ library(PPBDS.data)
 library(dplyr)
 ```
 
-```{r qscores, echo = TRUE}
-glimpse(qscores)
+```{r qscores, exercise = TRUE, exercise.lines = 5}
+
 ```
 
 ```{r quiz-5, echo = FALSE}
 quiz(
-  question("Which of the following is NOT an identification variable?",
+  question("Which of the following is NOT an identification variable? (choose 2)",
            answer("`course_name`"),
            answer("`department`", correct = TRUE),
            answer("`workload`", correct = TRUE),
@@ -184,6 +414,8 @@ quiz(
 ```
 
 ## Components of a graphic
+
+### Test your knowledge
 
 ```{r quiz-6, echo = FALSE}
 quiz(
@@ -202,6 +434,8 @@ quiz(
   )
 )
 ```
+
+### Components of a scatterplot
 
 *Look at this scatterplot made using the `trains` dataset. We have loaded the `PPBDS.data` and the `ggplot2` packages.*
 
@@ -639,6 +873,7 @@ ggplot(data = trains, mapping = aes(x = treatment)) + geom_bar() + facet_wrap(~ 
 <!-- Need to add: faceting, position, scales, coordinate systems, statistical transformations, adding titles and labels to a graph -->
 
 ## Submit
+Ignore the link below. Copy and paste the hash after clicking "Generate Submission" and upload to Canvas!
 
 ```{r encode, echo=FALSE}
 learnrhash::encoder_ui(
