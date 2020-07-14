@@ -50,6 +50,16 @@ lexus_mileage <- vehicles %>%
 
 ## Summarize()
 
+```{r name, echo=FALSE}
+question_text(
+  "Student Name:",
+  answer(NULL, correct = TRUE),
+  incorrect = "Ok",
+  try_again_button = "Modify your answer",
+  allow_retry = TRUE
+)
+```
+
 ### Exercise 1
 Load the `gapminder` package.
 ```{r question-1-1, exercise = TRUE}
@@ -809,7 +819,6 @@ learnrhash::encoder_ui(
         br(),
     tags$ol(
        tags$li("Click Generate Submission"),
-       tags$li("Type in your name"),
        tags$li("Copy and paste the hash generated into the \"Hash\" textbox"),
        tags$li("Press submit"),
        tags$li("Download the .rds file (a window will pop up asking you where to place the downloaded file) and upload to the appropriate Canvas assignment."))
@@ -821,7 +830,6 @@ learnrhash::encoder_ui(
 fluidPage(
     mainPanel(
           div(id = "form",
-            textInput("name", "Name", ""),
             textInput("hash", "Hash", ""),
             actionButton("submit", "Submit", class = "btn-primary"),
             downloadButton("downloadData", "Download")
@@ -836,10 +844,9 @@ learnrhash::encoder_logic()
 
  observeEvent(input$submit,{
         
-        name_id <<- input$name
         hash_id <<- input$hash
         
-        responses <<- data.frame("Name" = name_id, "Hash" = hash_id)
+        responses <<- data.frame("Hash" = hash_id)
         
  })
 output$downloadData <- downloadHandler(

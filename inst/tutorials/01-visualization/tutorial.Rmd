@@ -13,11 +13,22 @@ library(learnr)
 library(gradethis)
 library(learnrhash)
 library(shiny)
+library(PPBDS.data)
 knitr::opts_chunk$set(echo = FALSE, message = FALSE)
 options(tutorial.storage="client") 
 ```
 
 ## What are R and RStudio?
+
+```{r name, echo=FALSE}
+question_text(
+  "Student Name:",
+  answer(NULL, correct = TRUE),
+  incorrect = "Ok",
+  try_again_button = "Modify your answer",
+  allow_retry = TRUE
+)
+```
 
 ```{r quiz-1, echo = FALSE}
 quiz(
@@ -176,7 +187,7 @@ quiz(
   question("Which of the following is NOT an identification variable?",
            answer("`course_name`"),
            answer("`department`", correct = TRUE),
-           answer("`workload`", correct = TRUE),
+           answer("`hours`", correct = TRUE),
            answer("`course_number`"),
            allow_retry = TRUE
   )
@@ -254,7 +265,7 @@ library(PPBDS.data)
 qscores
 ```
 
-*Fill in the `ggplot()` function to create a scatterplot with `overall` on the x-axis and `workload` on the y-axis. Is there a relationship between the overall rating of a Harvard course versus the average hours per week of workload?*
+*Fill in the `ggplot()` function to create a scatterplot with `rating` on the x-axis and `hours` on the y-axis. Is there a relationship between the rating rating of a Harvard course versus the average hours per week of workload?*
 
 ```{r exercise-7, exercise = TRUE, exercise.lines = 5}
 library(ggplot2)
@@ -264,43 +275,43 @@ library(ggplot2)
 ```
 
 ```{r exercise-7-solution}
-ggplot(data = qscores, mapping = aes(x = overall, y = workload)) + 
+ggplot(data = qscores, mapping = aes(x = rating, y = hours)) + 
   geom_point()
 ```
 
 *Now we want to add a `size` `aes`thetic based on the number of students enrolled in each course. Add `size = enrollment` to the other `aes`thetics of the points. Do larger classes have a higher average overall course rating? What about higher workload?*
 
 ```{r exercise-8, exercise = TRUE, exercise.lines = 5}
-# ggplot(data = qscores, mapping = aes(x = overall, y = workload, ---------)) +
+# ggplot(data = qscores, mapping = aes(x = rating, y = hours, ---------)) +
   # geom_point()
 ```
 
 ```{r exercise-8-solution}
-ggplot(data = qscores, mapping = aes(x = overall, y = workload, size = enrollment)) +
+ggplot(data = qscores, mapping = aes(x = rating, y = hours, size = enrollment)) +
   geom_point()
 ```
 
 *Change the transparency of the points by setting `alpha = 0.2` within `geom_point()`.*
 
 ```{r exercise-9, exercise = TRUE, exercise.lines = 5}
-# ggplot(data = qscores, mapping = aes(x = overall, y = workload, size = enrollment)) +
+# ggplot(data = qscores, mapping = aes(x = rating, y = hours, size = enrollment)) +
   # geom_point(----------)
 ```
 
 ```{r exercise-9-solution}
-ggplot(data = qscores, mapping = aes(x = overall, y = workload, size = enrollment)) +
+ggplot(data = qscores, mapping = aes(x = rating, y = hours, size = enrollment)) +
   geom_point(alpha = 0.2)
 ```
 
 *Replace `geom_point()` with `geom_jitter()` to create a jittered scatterplot.*
 
 ```{r exercise-10, exercise = TRUE, exercise.lines = 5}
-ggplot(data = qscores, mapping = aes(x = overall, y = workload)) +
+ggplot(data = qscores, mapping = aes(x = rating, y = hours)) +
   geom_point()
 ```
 
 ```{r exercise-10-solution}
-ggplot(data = qscores, mapping = aes(x = overall, y = workload)) +
+ggplot(data = qscores, mapping = aes(x = rating, y = hours)) +
   geom_jitter()
 ```
 
@@ -361,7 +372,7 @@ quiz(
 )
 ```
 
-*Using the `qscores` dataset and `ggplot()`, make a histogram where `overall` is on the x-axis to see the distribution of Harvard course ratings.*
+*Using the `qscores` dataset and `ggplot()`, make a histogram where `rating` is on the x-axis to see the distribution of Harvard course ratings.*
 
 ```{r exercise-12, exercise = TRUE, exercise.lines = 5}
 library(PPBDS.data)
@@ -374,7 +385,7 @@ library(ggplot2)
 library(PPBDS.data)
 library(ggplot2)
 
-ggplot(data = qscores, mapping = aes(x = overall)) + geom_histogram()
+ggplot(data = qscores, mapping = aes(x = rating)) + geom_histogram()
 ```
 
 ```{r quiz-10, echo = FALSE}
@@ -388,36 +399,36 @@ quiz(
 *Add white vertical borders demarcating the bins by adding `color = "powderblue"` and `fill = "violet"` arguments to `geom_histogram()`.*
 
 ```{r exercise-13, exercise = TRUE, exercise.lines = 5}
-# ggplot(data = qscores, mapping = aes(x = overall)) +
+# ggplot(data = qscores, mapping = aes(x = rating)) +
   # geom_histogram(color = --------, fill = --------)
 ```
 
 ```{r exercise-13-solution}
-ggplot(data = qscores, mapping = aes(x = overall)) + 
+ggplot(data = qscores, mapping = aes(x = rating)) + 
   geom_histogram(color = "powderblue", fill = "violet")
 ```
 
 *Specify the number of bins to be 10 via the `bins` argument in `geom_histogram()`.*
 
 ```{r exercise-14, exercise = TRUE, exercise.lines = 5}
-# ggplot(data = qscores, mapping = aes(x = overall)) +
+# ggplot(data = qscores, mapping = aes(x = rating)) +
   # geom_histogram(bins = --------, color = "white")
 ```
 
 ```{r exercise-14-solution}
-ggplot(data = qscores, mapping = aes(x = overall)) +
+ggplot(data = qscores, mapping = aes(x = rating)) +
   geom_histogram(bins = 10, color = "white")
 ```
 
 *Specify the width of the bins to be 1 via the `binwidth` argument in `geom_histogram()`.*
 
 ```{r exercise-15, exercise = TRUE, exercise.lines = 5}
-# ggplot(data = qscores, mapping = aes(x = overall)) +
+# ggplot(data = qscores, mapping = aes(x = rating)) +
   # geom_histogram(binwidth = ---------, color = "white")
 ```
 
 ```{r exercise-15-solution}
-ggplot(data = qscores, mapping = aes(x = overall)) +
+ggplot(data = qscores, mapping = aes(x = rating)) +
   geom_histogram(binwidth = 1, color = "white")
 ```
 
@@ -455,7 +466,7 @@ top_five_qscores <- qscores %>% filter(department %in% top_five_enrolled[0:5])
 top_five_qscores
 ```
 
-*Using the `top_five_qscores` dataset and `ggplot()`, make a boxplot where `department` is on the x-axis and `overall` is on the y-axis.*
+*Using the `top_five_qscores` dataset and `ggplot()`, make a boxplot where `department` is on the x-axis and `rating` is on the y-axis.*
 
 ```{r exercise-16, exercise = TRUE, exercise.lines = 5}
 library(ggplot2)
@@ -466,7 +477,7 @@ library(ggplot2)
 ```{r exercise-16-solution}
 library(ggplot2)
 
-ggplot(data = top_five_qscores, mapping = aes(x = department, y = overall)) + geom_boxplot()
+ggplot(data = top_five_qscores, mapping = aes(x = department, y = rating)) + geom_boxplot()
 ```
 
 ```{r quiz-12, echo = FALSE}
@@ -647,7 +658,6 @@ learnrhash::encoder_ui(
         br(),
     tags$ol(
        tags$li("Click Generate Submission"),
-       tags$li("Type in your name"),
        tags$li("Copy and paste the hash generated into the \"Hash\" textbox"),
        tags$li("Press submit"),
        tags$li("Download the .rds file (a window will pop up asking you where to place the downloaded file) and upload to the appropriate Canvas assignment."))
@@ -659,7 +669,6 @@ learnrhash::encoder_ui(
 fluidPage(
     mainPanel(
           div(id = "form",
-            textInput("name", "Name", ""),
             textInput("hash", "Hash", ""),
             actionButton("submit", "Submit", class = "btn-primary"),
             downloadButton("downloadData", "Download")
@@ -673,11 +682,10 @@ fluidPage(
 learnrhash::encoder_logic()
 
  observeEvent(input$submit,{
-        
-        name_id <<- input$name
+      
         hash_id <<- input$hash
         
-        responses <<- data.frame("Name" = name_id, "Hash" = hash_id)
+        responses <<- data.frame("Hash" = hash_id)
         
  })
 output$downloadData <- downloadHandler(
