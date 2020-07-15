@@ -35,7 +35,7 @@
 #'   \item{treatment}{factor variable indicating which of the 5 treatments were employed in 2006, but
 #'                     before the primary election that year: 'Control', 'Civic Duty', 'Hawthorne',
 #'                     'Self', or 'Neighbors'}
-#'   \item{voted}{character variable indicating whether the respondent voted in the 2006 primary election}
+#'   \item{primary_06}{0/1 integer variable indicating whether the respondent voted in the 2006 primary election}
 #'   \item{hh_size}{integer variable indicating the respondent household size}
 #'   \item{no_of_names}{integer variable indicating the number of names listed on the letter if the
 #'                      respondent was in the "Neighbours" group}

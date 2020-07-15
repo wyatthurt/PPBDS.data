@@ -27,7 +27,8 @@ x <- read_csv("data-raw/social_original.csv",
                                hh_size = col_integer(),
                                numberofnames = col_integer())) %>%
 
-  # Renaming variables.
+  # Renaming variables. Why is general_04 only Yes? I feel that there are som
+  # ugly NA issues here.
 
   rename(birth_year = yob,
          primary_02 = p2002,
@@ -44,12 +45,16 @@ x <- read_csv("data-raw/social_original.csv",
          general_02 = str_to_title(general_02),
          general_04 = str_to_title(general_04)) %>%
 
+  # voted as 0/1 makes later analysis much easier.
+
+  mutate(primary_06 = ifelse(voted == "Yes", 1L, 0L)) %>%
+
   # Ordering variables.
 
   select(sex, birth_year,
          primary_02, general_02,
          primary_04, general_04,
-         treatment, voted,
+         treatment, primary_06,
          hh_size, no_of_names)
 
 
