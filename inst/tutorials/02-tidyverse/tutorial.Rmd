@@ -821,8 +821,8 @@ learnrhash::encoder_ui(
     tags$ol(
        tags$li("Click Generate Submission"),
        tags$li("Copy and paste the hash generated into the \"Hash\" textbox"),
-       tags$li("Press submit"),
-       tags$li("Download the .rds file (a window will pop up asking you where to place the downloaded file) and upload to the appropriate Canvas assignment."))
+       tags$li("Press 'Create responses.rds'. Nothing will pop up, but this will create an .rds file of your hashed responses."),
+       tags$li("Download the .rds file. A window will pop up asking you where to place the downloaded file. Upload this file to the appropriate Canvas assignment."))
   )
 )
 ```
@@ -832,8 +832,8 @@ fluidPage(
     mainPanel(
           div(id = "form",
             textInput("hash", "Hash", ""),
-            actionButton("submit", "Submit", class = "btn-primary"),
-            downloadButton("downloadData", "Download")
+            actionButton("submit", "Create responses.rds", class = "btn-primary"),
+            downloadButton("downloadData", "Download responses.rds")
           )
         )
     )
