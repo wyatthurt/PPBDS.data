@@ -351,7 +351,7 @@ quiz(caption = "Quiz - Working with Packages",
 
 *Load the `PPBDS.data` package to look at the `trains` dataset.*
 ```{r exercise-2, exercise = TRUE, exercise.lines = 5}
-...
+
   
 trains
 ```
@@ -361,7 +361,7 @@ trains
 library(dplyr)
 library(PPBDS.data)
 
-...
+
 ```
 
 ```{r quiz-4, echo = FALSE}
@@ -386,7 +386,7 @@ quiz(caption = "Quiz - `trains` dataset",
 ```{r exercise-5, exercise = TRUE, exercise.lines = 5}
 library(PPBDS.data)
 
-...
+
 ```
 
 ### `qscores` dataset
@@ -474,57 +474,90 @@ quiz(
 
 ## Scatterplots
 
+### Scatterplot with the `qscores` dataset
+
 *Let's make a scatterplot using the `qscores` dataset. Load the `PPBDS.data` package and look at the `qscores` dataset by simply typing the name of the dataset.*
 
 ```{r exercise-6, exercise = TRUE, exercise.lines = 5}
-# ---------
 
-# ---------
 ```
 
-```{r exercise-6-solution}
-library(PPBDS.data)
+```{r exercise-6-hint}
+library(...)
 
-qscores
+...
 ```
 
-*Fill in the `ggplot()` function to create a scatterplot with `overall` on the x-axis and `workload` on the y-axis. Is there a relationship between the overall rating of a Harvard course versus the average hours per week of workload?*
+###
+
+*Load the `ggplot2` package. Use the `ggplot()` function to create a scatterplot using the `qscores` dataset, `rating` on the x-axis and `hours` on the y-axis. Is there a relationship between the rating of a Harvard course versus the average hours per week of workload?*
 
 ```{r exercise-7, exercise = TRUE, exercise.lines = 5}
-library(ggplot2)
 
-# ggplot(data = qscores, mapping = aes(x = ---------, y = ---------)) +
-  # geom_point()
 ```
 
-```{r exercise-7-solution}
-ggplot(data = qscores, mapping = aes(x = overall, y = workload)) + 
+```{r exercise-7-hint}
+library(...)
+
+ggplot(data = qscores, mapping = aes(x = ..., y = ...)) +
   geom_point()
 ```
+
+###
 
 *Now we want to add a `size` `aes`thetic based on the number of students enrolled in each course. Add `size = enrollment` to the other `aes`thetics of the points. Do larger classes have a higher average overall course rating? What about higher workload?*
 
 ```{r exercise-8, exercise = TRUE, exercise.lines = 5}
-# ggplot(data = qscores, mapping = aes(x = overall, y = workload, ---------)) +
-  # geom_point()
-```
-
-```{r exercise-8-solution}
-ggplot(data = qscores, mapping = aes(x = overall, y = workload, size = enrollment)) +
+ggplot(data = qscores, mapping = aes(x = rating, y = hours)) +
   geom_point()
 ```
+
+```{r exercise-8-hint}
+ggplot(data = qscores, mapping = aes(x = rating, y = hours, size = ...)) +
+  geom_point()
+```
+
+### Overplotting
+
+While this plot only displays 126 points, it visualizes a data set that contains 234 points.
+
+```{r echo = FALSE, out.width = "80%"}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy))
+```
+
+The missing points are hidden behind other points, a phenomenon known as _overplotting_. Overplotting is a problem because it provides an incomplete picture of the dataset. You cannot determine where the *mass* of the points fall, which makes it difficult to spot relationships in the data. 
+
+### Causes of overplotting
+
+Overplotting usually occurs for two different reasons:
+
+1. The data points have been rounded to a "grid" of common values, as in the plot above
+2. The dataset is so large that it cannot be plotted without points overlapping each other
+
+How you deal with overplotting will depend on the cause. 
+
+### Changing the transparency
+
+If your overplotting is due to rounding, you can obtain a better picture of the data by making each point semi-transparent. For example you could _set_ the alpha aesthetic of the plot below to a _value_ less than one, which will make the points transparent. 
+
+Try this now. Set the points to an alpha of 0.2, which will make each point 20% opague (i.e. five points staked on top of each other will create a solid black).
 
 *Change the transparency of the points by setting `alpha = 0.2` within `geom_point()`.*
 
 ```{r exercise-9, exercise = TRUE, exercise.lines = 5}
-# ggplot(data = qscores, mapping = aes(x = overall, y = workload, size = enrollment)) +
-  # geom_point(----------)
+ggplot(data = qscores, mapping = aes(x = rating, y = hours, size = enrollment)) +
+  geom_point()
 ```
 
-```{r exercise-9-solution}
-ggplot(data = qscores, mapping = aes(x = overall, y = workload, size = enrollment)) +
-  geom_point(alpha = 0.2)
+```{r exercise-9-hint}
+ggplot(data = qscores, mapping = aes(x = rating, y = hours, size = enrollment)) +
+  geom_point(alpha = ...)
 ```
+
+### Adjusting the position
+
+A second strategy for dealing with overplotting due to rounding is to adjust the position of each point. `geom_jitter()` plots a scatterplot and then adds a small amount of random noise to each point in the plot. It is a shortcut for adding a "jitter" position adjustment to a points plot (i.e, `geom_point(position = "jitter")`). Since the noise is random, it is unlikely that two points rounded to the same location will also be jittered to the same location. The result is a jittered plot that displays more of the data and provides a simple way to inspect patterns that occur in heavily gridded or overlapping data. 
 
 *Replace `geom_point()` with `geom_jitter()` to create a jittered scatterplot.*
 
@@ -533,10 +566,11 @@ ggplot(data = qscores, mapping = aes(x = overall, y = workload)) +
   geom_point()
 ```
 
-```{r exercise-10-solution}
-ggplot(data = qscores, mapping = aes(x = overall, y = workload)) +
-  geom_jitter()
-```
+### Strategies for large data
+
+Alpha and jittering are less useful for large data. Jittering will not separate the points, and a mass of transparent points can still look black.
+
+A better way to deal with overplotting due to large data is to visualize a summary of the data, by using a histogram or a linegraph, for example.
 
 ## Linegraphs
 
