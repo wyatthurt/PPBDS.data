@@ -2,6 +2,7 @@
 title: "Tidyverse"
 output: learnr::tutorial
 runtime: shiny_prerendered
+description: "Chapter 2 tutorial"
 ---
 <!-- EF: Initial edit for PR --> 
 
@@ -10,6 +11,7 @@ library(tidyverse)
 library(learnr)
 library(gradethis)
 library(learnrhash)
+library(shiny)
 tutorial_options(exercise.checker = gradethis::grade_learnr)
 knitr::opts_chunk$set(echo = FALSE, message = FALSE)
 ```
@@ -47,6 +49,17 @@ lexus_mileage <- vehicles %>%
 ```
 
 ## Summarize()
+
+```{r name, echo=FALSE}
+question_text(
+  "Student Name:",
+  answer(NULL, correct = TRUE),
+  incorrect = "Ok",
+  try_again_button = "Modify your answer",
+  allow_retry = TRUE
+)
+```
+
 
 ### Exercise 1
 Load the `gapminder` package.
@@ -799,17 +812,25 @@ Use `pivot_wider()` to put `table2` into tidy format.
 ```
 
 ## Submit
-Ignore the link below. Copy and paste the hash after clicking "Generate Submission" and upload to Canvas!
 
 ```{r encode, echo=FALSE}
-learnrhash::encoder_ui()
+learnrhash::encoder_ui(
+  ui_before = shiny::div(
+    "When you have completed this tutorial, follow these steps:",
+        br(),
+    tags$ol(
+       tags$li("Click Generate Submission"),
+       tags$li("Copy and paste the hash generated into the \"Hash\" textbox"),
+       tags$li("Press submit"),
+       tags$li("Download the .rds file (a window will pop up asking you where to place the downloaded file) and upload to the appropriate Canvas assignment."))
+  )
+)
 ```
 
 ```{r context="setup"}
 fluidPage(
     mainPanel(
           div(id = "form",
-            textInput("name", "Name", ""),
             textInput("hash", "Hash", ""),
             actionButton("submit", "Submit", class = "btn-primary"),
             downloadButton("downloadData", "Download")
@@ -823,12 +844,8 @@ fluidPage(
 learnrhash::encoder_logic()
 
  observeEvent(input$submit,{
-        
-        name_id <<- input$name
         hash_id <<- input$hash
-        
-        responses <<- data.frame("Name" = name_id, "Hash" = hash_id)
-        
+        responses <<- data.frame("Hash" = hash_id)
  })
 output$downloadData <- downloadHandler(
       filename = "responses.rds",

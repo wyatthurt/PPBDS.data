@@ -15,8 +15,11 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Depends: R (>= 2.10)
 Imports:
-    learnr (>= 0.10.1)
+    learnr (>= 0.10.1),
+    learnrhash
 Remotes:
     rundel/learnrhash,
     rstudio-education/gradethis
+Suggests:
+    gradethis
 BugReports: https://github.com/davidkane9/PPBDS.data/issues
