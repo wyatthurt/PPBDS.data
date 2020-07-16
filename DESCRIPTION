@@ -21,6 +21,5 @@ Remotes:
     rundel/learnrhash,
     rstudio-education/gradethis
 Suggests:
-    NHANES
     gradethis
 BugReports: https://github.com/davidkane9/PPBDS.data/issues
