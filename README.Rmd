@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 
 # Data for *Preceptor's Primer for Bayesian Data Science*
 
-`PPBDS.data` provides the data used in *[Preceptor's Primer for Bayesian Data Science](https://davidkane9.github.io/PPBDS/)*, the textbook used in [Gov 50: Data](https://www.davidkane.info/files/gov_50_fall_2020.html) at Harvard University. 
+`PPBDS.data` provides the data and tutorials used in *[Preceptor's Primer for Bayesian Data Science](https://davidkane9.github.io/PPBDS/)*, the textbook used in [Gov 50: Data](https://www.davidkane.info/files/gov_50_fall_2020.html) at Harvard University. 
 
 <!-- unsure if badges are available for use yet here -->
 
@@ -30,6 +30,13 @@ As this package is not released on CRAN, you must install it directly from GitHu
 ```r
 library(remotes)
 remotes::install_github("davidkane9/PPBDS.data")
+```
+
+In order to run the tutorials, you must install the [learnrhash](https://github.com/rundel/learnrhash) package, created by Colin Rundel. To do so, run the following line:
+
+```r
+library(remotes)
+remotes::install_github("rundel/learnrhash")
 ```
 
 ## Loading Preceptor's Data
@@ -64,6 +71,7 @@ qscores %>%
 <!-- DK: We need some comments explaining what this is doing and how we can replace it. Specifically, why place the figure in man/ rather than inst/? -->
 
 <img src= "man/figures/README-quick.plot-1.png" align="center" width="600">
+
 
 ## Citing PPBDS.data
 

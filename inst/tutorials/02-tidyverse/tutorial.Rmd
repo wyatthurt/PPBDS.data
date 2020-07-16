@@ -9,10 +9,8 @@ description: "Chapter 2 tutorial"
 ```{r context = "setup", include=FALSE}
 library(tidyverse)
 library(learnr)
-library(gradethis)
 library(learnrhash)
 library(shiny)
-tutorial_options(exercise.checker = gradethis::grade_learnr)
 knitr::opts_chunk$set(echo = FALSE, message = FALSE)
 ```
 
