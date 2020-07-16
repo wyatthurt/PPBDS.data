@@ -26,8 +26,6 @@ inst/tutorials/*/*_files/
 
 # Then some stragglers.
 
-docs
-
 data-raw/anes_timeseries_cdf.dta
 
 

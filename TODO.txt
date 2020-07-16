@@ -14,14 +14,6 @@ Is there an issue about having library(NHANES) and such in our make_* scripts ca
 
 ## Thomas
 
-* pkgdown
-
-  - Start using package numbering correctly -- [Done]
-
-  - Add NEWS file, using recommended practices from R Packages. -- [Done]
-
-  - Make look more like Healy, especially sidebar. [Already done?]
-
 * Called `nominate`. DW NOMINATE from VoteView project: https://www.voteview.com/data.
 
 * Investigate "found 2 marked UTF-8 strings"
@@ -33,6 +25,8 @@ Is there an issue about having library(NHANES) and such in our make_* scripts ca
 * Clean up `sps`. Which variables do we need? What do they show? What should they be called?
 
 * Called `governors`. I love this discussion: https://statmodeling.stat.columbia.edu/2020/07/02/no-i-dont-believe-that-claim-based-on-regression-discontinuity-analysis-that/. Data for the paper is here: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/IBKYRX&widget=dataverse@harvard
+
+* article section
 
 
 ## Other
@@ -70,7 +64,7 @@ It seems weird that references in nhanes work one way and in shaming another. We
 
   - Annoying to maintain the bullet points for tibble descriptions on main page. Can't we just print the first paragraph from the description, i.e., the same thing which appears on the top of the help page?
 
-  - The front page is getting a bit ugly. Do we really need to list all the data sets? That seems like too much. (Done) Instead, we could have an "Article" which provided a list of all the tibbles along with the one paragraph description. Then, the front page could just have a basic blurb and one nice graphic.
+  - Instead, we could have an "Article" which provided a list of all the tibbles along with the one paragraph description. Then, the front page could just have a basic blurb and one nice graphic.
 
   - Would it be useful to have another Article? Perhaps a guide to which data sets go well with which portions of the textbook?
 
