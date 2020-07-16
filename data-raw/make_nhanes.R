@@ -20,13 +20,12 @@ x <- NHANES %>%
 
   mutate(year = as.integer(year)) %>%
 
-  # Making depressed a numbered variable
+  # Making depressed as an ordered factor
 
   mutate(depressed = as.ordered(case_when(
     Depressed == "None" ~ "none",
     Depressed == "Several" ~ "several",
-    Depressed == "Most" ~ "most"
-  ))) %>%
+    Depressed == "Most" ~ "most"))) %>%
 
   # Making general health a numbered variable
 
@@ -35,22 +34,19 @@ x <- NHANES %>%
     HealthGen == "Fair" ~ 2,
     HealthGen == "Good" ~ 3,
     HealthGen == "Vgood" ~ 4,
-    HealthGen == "Excellent" ~ 5
-  ))) %>%
+    HealthGen == "Excellent" ~ 5))) %>%
 
-  # Cleaning up education variable names
-  # MB: Can I play with the buckets like this?
+  # Cleaning up education variable names. Should we be using ordered factors?
 
   mutate(education = as.ordered(case_when(
     Education == "8th Grade" ~ "middle school",
     Education == "9 - 11th Grade" ~ "middle school",
     Education == "High School" ~ "high school",
     Education == "Some College" ~ "some college",
-    Education == "College Grade" ~ "college"
-  ))) %>%
+    Education == "College Grade" ~ "college"))) %>%
 
   # Cleaning up race names
-  # MB: They did not record race well in this dataset
+  # They did not record race well in this dataset
 
   mutate(race = as.character(case_when(
     Race1 == "Black" ~ "black",
@@ -70,15 +66,13 @@ x <- NHANES %>%
     HHIncome == "25000-34999" ~ 1,
     HHIncome == "35000-44999" ~ 2,
     HHIncome == "45000-54999" ~ 3,
-    HHIncome == "(Other)" ~ 0
-  ))) %>%
+    HHIncome == "(Other)" ~ 0))) %>%
 
-  # Making diabetes an integer variable
+  # Making diabetes an integer variable. What is that comma doing!??:
 
   mutate(diabetes = as.integer(case_when(
     Diabetes == "Yes" ~ 1,
-    Diabetes == "No" ~ 0,
-  ))) %>%
+    Diabetes == "No" ~ 0,))) %>%
 
   # Fixing variable names
 
@@ -104,6 +98,7 @@ stopifnot(ncol(x) > 10)
 stopifnot(ncol(x) < 15)
 stopifnot(is.integer(x$age))
 stopifnot(is.character(x$race))
+stopifnot(sum(is.na(x$depressed)) < 5000)
 
 
 nhanes <- x
