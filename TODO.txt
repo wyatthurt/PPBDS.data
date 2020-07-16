@@ -1,6 +1,16 @@
 # Priorities
 
-Is there an issue about having library(NHANES) and such in our make_* scripts causing warnings when students just want to library(PPBDS.data)?
+`general_04` in `shaming` seems wrong. It only has Yes's. Maybe all the NAs are No's? I think we can assume that they are, but then we ought to HAVE MAJOR COMMENTS about this in make_shaming.R. Fix this first and let me know. Effects chapter 9.
+
+Let's take a careful tour of the data we have and make sure it is all good and sensible. Take ownership! No blaming your predecessors! As part of this, learn about making test cases from R Packages and add at least one test case for each data set. (Be smart in making these. It is OK to have a test case which tests the number of rows in trains because trains will always have 115 rows. It would be bad (or maybe not?) to have a test case like that for cces since the number of rows for will change once we add next year's data to it.)
+
+The definition of a "careful tour" is that you have looked at make_* for a data set, regenerated it, and added at least two test cases about it. You should certainly use any current stopifnot() as test cases and then remove them from the make_* files.
+
+Provide instruction in the lower part of this document about the release cycle. Like, first you increment the number, then you update NEWS file, then . . . Or just a link to the instructions in R Packages.
+
+## Previous
+
+Is there an issue about having library(NHANES) and such in our make_* scripts causing warnings when students just want to library(PPBDS.data)? Maybe this would go away if we changed these make_* files from scripts to functions? We certainly do not want to require anyone who installs this package to have these libraries. That is too much, especially since we will have lots of students installing this package so they can do the tutorial.
 
 ## Thomas
 
@@ -10,18 +20,13 @@ Is there an issue about having library(NHANES) and such in our make_* scripts ca
 
   - Add NEWS file, using recommended practices from R Packages. -- [Done]
 
-  - Make look more like Healy, especially sidebar.
+  - Make look more like Healy, especially sidebar. [Already done?]
 
 * Called `nominate`. DW NOMINATE from VoteView project: https://www.voteview.com/data.
 
 * Investigate "found 2 marked UTF-8 strings"
 
-
-## Miro
-
 * Clean up make_nes, make_nhanes for future you.
-
-* Fix merge conflict.
 
 * Called `kenya`. Use Electoral Administration in Fledgling Democracies: Experimental Evidence from Kenya at https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/UT25HQ. This is another good international paper. We can use Erin's code: https://github.com/eguetzloe/kenya-electoral-administration.
 
@@ -29,9 +34,14 @@ Is there an issue about having library(NHANES) and such in our make_* scripts ca
 
 * Called `governors`. I love this discussion: https://statmodeling.stat.columbia.edu/2020/07/02/no-i-dont-believe-that-claim-based-on-regression-discontinuity-analysis-that/. Data for the paper is here: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/IBKYRX&widget=dataverse@harvard
 
+
 ## Other
 
-* Add inst/papers with all the relevant papers, then link there from the help pages.
+* Add inst/papers with all the relevant papers. Then from the help pages to these locations?
+
+* Should we re-create all the data sets each time we run R CMD package check? This would not take too much time and would ensure that everything us ship-shape.
+
+*
 
 * Standardize https://davidkane9.github.io/PPBDS.data/reference/index.html by ensuring that help files title are similar in style, and meet R Package guidelines.
 
@@ -58,7 +68,7 @@ It seems weird that references in nhanes work one way and in shaming another. We
 
   - Nicer graphics on home page.
 
-  - Annoying to maintain the bullet points for tibble description on main page. Can't we just print the first paragraph from the description, i.e., the same thing which appears on the top of the help page?
+  - Annoying to maintain the bullet points for tibble descriptions on main page. Can't we just print the first paragraph from the description, i.e., the same thing which appears on the top of the help page?
 
   - The front page is getting a bit ugly. Do we really need to list all the data sets? That seems like too much. (Done) Instead, we could have an "Article" which provided a list of all the tibbles along with the one paragraph description. Then, the front page could just have a basic blurb and one nice graphic.
 
