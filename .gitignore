@@ -22,6 +22,7 @@
 
 # Then commands associated with the tutorials.
 
+inst/tutorials/*/*html
 inst/tutorials/*/*_files/
 
 # Then some stragglers.
