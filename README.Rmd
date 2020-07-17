@@ -2,9 +2,9 @@
 output: github_document
 ---
 
-<!-- README is generated from README.Rmd, edit ONLY this file if needed. But, after you edit it, you need to knit it in order to create the new README.md, which is the thing which is actually used. -->
+<!-- README is generated from README.Rmd, edit ONLY this file if needed. But, after you edit it, you NEED TO KNIT IT BY HAND in order to create the new README.md, which is the thing which is actually used. -->
 
-```{r, include = FALSE}
+```{r, include=FALSE}
 
 knitr::opts_chunk$set(
   collapse = T,
@@ -28,14 +28,12 @@ knitr::opts_chunk$set(
 As this package is not released on CRAN, you must install it directly from GitHub.
 
 ```r
-library(remotes)
 remotes::install_github("davidkane9/PPBDS.data")
 ```
 
-In order to run the tutorials, you must install the [learnrhash](https://github.com/rundel/learnrhash) package, created by Colin Rundel. To do so, run the following line:
+In order to run these tutorials, you must install the [learnrhash](https://github.com/rundel/learnrhash) package, created by Colin Rundel. 
 
 ```r
-library(remotes)
 remotes::install_github("rundel/learnrhash")
 ```
 
@@ -44,7 +42,7 @@ remotes::install_github("rundel/learnrhash")
 After installing the package, it loads as any package should.
 
 ```{r loading, message=F}
-library(tidyverse) # the tidyverse is your new best friend
+library(tidyverse) 
 library(PPBDS.data)
 
 qscores

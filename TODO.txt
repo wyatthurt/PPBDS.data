@@ -18,6 +18,7 @@ The definition of a "careful tour" is that you have looked at make_* for a data 
 
 * Clean up `sps`. Which variables do we need? What do they show? What should they be called?
 
+* Why aren't new versions of the site showing up? See Kieran Healy's tweet.
 
 ## Previous
 
