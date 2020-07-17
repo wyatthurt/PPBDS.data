@@ -14,6 +14,7 @@ description: "Chapter 1 tutorial"
 ```{r setup, include=FALSE}
 library(tidyverse)
 library(nycflights13)
+library(PPBDS.data)
 library(learnr)
 library(gradethis)
 library(learnrhash)
@@ -287,19 +288,13 @@ quiz(caption = "Quiz - `trains` dataset",
 ```
 
 *Extract the `income` variable in the `trains` dataset using the `$` operator.*
-```{r exercise-5, exercise = TRUE, exercise.lines = 5}
-library(PPBDS.data)
-
+```{r exercise-5, exercise = TRUE}
 
 ```
 
 ### `qscores` dataset
 
 *Look at the `qscores` dataset using `glimpse()`. We have loaded the `PPBDS.data` and the `dplyr` packages.*
-```{r qscores-setup, include = FALSE}
-library(PPBDS.data)
-library(dplyr)
-```
 
 ```{r qscores, exercise = TRUE, exercise.lines = 5}
 
@@ -317,9 +312,9 @@ quiz(
 )
 ```
 
-## Components of a graphic
+## Data Visualization using the ggplot2 package
 
-### Test your knowledge
+### Components of a graphic
 
 ```{r quiz-6, echo = FALSE}
 quiz(
@@ -341,14 +336,9 @@ quiz(
 
 ### Components of a scatterplot
 
-*Look at this scatterplot made using the `trains` dataset. We have loaded the `PPBDS.data` and the `ggplot2` packages.*
-
-*Higher numbers mean more conservative attitudes toward immigration-related policies on a 3 to 15 scale. Individuals with a treatment value of "Treated" were exposed to two Spanish-speakers on their regular commute. "Control" individuals were not.*
+*Look at this scatterplot made using the `trains` dataset. Higher numbers mean more conservative attitudes toward immigration-related policies on a 3 to 15 scale. Individuals with a treatment value of "Treated" were exposed to two Spanish-speakers on their regular commute. "Control" individuals were not.*
 
 ```{r trains}
-library(PPBDS.data)
-library(ggplot2)
-
 ggplot(data = trains, mapping = aes(x = att_start, y = att_end, color = treatment)) +
   geom_point() + facet_wrap(~party)
 ```
@@ -371,6 +361,47 @@ quiz(
            answer("`att_start`"),
            answer("`att_end`"),
            answer("`treatment`", correct = TRUE),
+           allow_retry = TRUE
+  )
+)
+```
+
+## Summary of Geoms
+
+### Test Your Knowledge
+
+```{r geoms, echo = FALSE}
+quiz(
+  question("Which plot(s) show the relationship between 2 numerical variables?",
+           answer("scatterplot", correct = TRUE),
+           answer("lineplot", correct = TRUE),
+           answer("histogram"),
+           answer("boxplot"),
+           answer("barplot"),
+           allow_retry = TRUE
+  ),
+  question("Which plot(s) show the distribution of 1 numerical variable?",
+           answer("scatterplot"),
+           answer("lineplot"),
+           answer("histogram", correct = TRUE),
+           answer("boxplot", correct = TRUE),
+           answer("barplot"),
+           allow_retry = TRUE
+  ),
+  question("Which plot(s) show the distribution of 1 categorical variable?",
+           answer("scatterplot"),
+           answer("lineplot"),
+           answer("histogram"),
+           answer("boxplot"),
+           answer("barplot", correct = TRUE),
+           allow_retry = TRUE
+  ),
+  question("Which of the following is NOT a geometric object?",
+           answer("`geom_scatter()`", correct = TRUE),
+           answer("`geom_line()`"),
+           answer("`geom_histogram()`"),
+           answer("`geom_boxplot()`"),
+           answer("`geom_bar()`"),
            allow_retry = TRUE
   )
 )
@@ -404,7 +435,7 @@ library(...)
 library(...)
 
 ggplot(data = qscores, mapping = aes(x = ..., y = ...)) +
-  geom_point()
+  ...
 ```
 
 ###
@@ -423,7 +454,7 @@ ggplot(data = qscores, mapping = aes(x = rating, y = hours, size = ...)) +
 
 ### Overplotting
 
-While this plot only displays 126 points, it visualizes a data set that contains 234 points.
+While this plot created using the `mpg` dataset only displays 126 points, it visualizes a data set that contains 234 points.
 
 ```{r echo = FALSE, out.width = "80%"}
 ggplot(data = mpg) +
@@ -466,7 +497,7 @@ A second strategy for dealing with overplotting due to rounding is to adjust the
 *Replace `geom_point()` with `geom_jitter()` to create a jittered scatterplot.*
 
 ```{r exercise-10, exercise = TRUE, exercise.lines = 5}
-ggplot(data = qscores, mapping = aes(x = overall, y = workload)) +
+ggplot(data = qscores, mapping = aes(x = rating, y = hours)) +
   geom_point()
 ```
 
@@ -479,9 +510,6 @@ A better way to deal with overplotting due to large data is to visualize a summa
 ## Linegraphs
 
 ```{r linegraphs-setup, include = FALSE}
-library(PPBDS.data)
-library(tidyverse)
-
 cces_data <- cces %>%
   filter(approval_ch %in% c("Approve / Somewhat Approve", "Disapprove / Somewhat Disapprove")) %>%
   group_by(year, approval_ch) %>%
@@ -494,17 +522,18 @@ cces_data <- cces %>%
 cces_data
 ```
 
-*Fill in the `ggplot()` function to create a linegraph with `year` on the x-axis, `avg_age` on the y-axis, and `approval_ch` as the color aesthetic.*
+*Use the `ggplot()` function to create a linegraph with the dataset called `cces_data` with `year` on the x-axis, `avg_age` on the y-axis, and `approval_ch` as the color aesthetic.*
 
 ```{r exercise-11, exercise = TRUE, exercise.lines = 5}
-# ggplot(data = cces_data, mapping = aes(x = ---------, y = ---------, color = ----------)) +
-  # geom_line()
+
 ```
 
-```{r exercise-11-solution}
-ggplot(data = cces_data, mapping = aes(x = year, y = avg_age, color = approval_ch)) + 
+```{r exercise-11-hint}
+ggplot(data = cces_data, mapping = aes(x = ..., y = ..., color = ...)) +
   geom_line()
 ```
+
+### Test your knowledge
 
 ```{r quiz-8, echo = FALSE}
 quiz(
@@ -521,6 +550,8 @@ quiz(
 
 ## Histograms
 
+### Test your knowledge
+
 ```{r quiz-9, echo = FALSE}
 quiz(
   question("A histogram is:",
@@ -531,20 +562,16 @@ quiz(
 )
 ```
 
-*Using the `qscores` dataset and `ggplot()`, make a histogram where `overall` is on the x-axis to see the distribution of Harvard course ratings.*
+###
+
+*Using the `qscores` dataset and `ggplot()`, make a histogram where `rating` is on the x-axis to see the distribution of Harvard course ratings.*
 
 ```{r exercise-12, exercise = TRUE, exercise.lines = 5}
-library(PPBDS.data)
-library(ggplot2)
 
-# ggplot(data = qscores, mapping = aes(x = ---------)) + geom_histogram()
 ```
 
-```{r exercise-12-solution}
-library(PPBDS.data)
-library(ggplot2)
-
-ggplot(data = qscores, mapping = aes(x = overall)) + geom_histogram()
+```{r exercise-12-hint}
+ggplot(data = ..., mapping = aes(x = ...)) + ...
 ```
 
 ```{r quiz-10, echo = FALSE}
@@ -555,35 +582,41 @@ quiz(
 )
 ```
 
+###
+
 *Add white vertical borders demarcating the bins by adding `color = "powderblue"` and `fill = "violet"` arguments to `geom_histogram()`.*
 
 ```{r exercise-13, exercise = TRUE, exercise.lines = 5}
-# ggplot(data = qscores, mapping = aes(x = overall)) +
-  # geom_histogram(color = --------, fill = --------)
+ggplot(data = qscores, mapping = aes(x = overall)) +
+  geom_histogram()
 ```
 
-```{r exercise-13-solution}
+```{r exercise-13-hint}
 ggplot(data = qscores, mapping = aes(x = overall)) + 
-  geom_histogram(color = "powderblue", fill = "violet")
+  geom_histogram(color = ..., fill = ...)
 ```
 
-*Specify the number of bins to be 10 via the `bins` argument in `geom_histogram()`.*
+###
+
+*Specify the number of bins to be 10 via the `bins` argument and the `color` as "white" in `geom_histogram()`.*
 
 ```{r exercise-14, exercise = TRUE, exercise.lines = 5}
-# ggplot(data = qscores, mapping = aes(x = overall)) +
-  # geom_histogram(bins = --------, color = "white")
+ggplot(data = qscores, mapping = aes(x = overall)) +
+  geom_histogram()
 ```
 
 ```{r exercise-14-solution}
 ggplot(data = qscores, mapping = aes(x = overall)) +
-  geom_histogram(bins = 10, color = "white")
+  geom_histogram(bins = ..., color = ...)
 ```
 
-*Specify the width of the bins to be 1 via the `binwidth` argument in `geom_histogram()`.*
+###
+
+*Specify the width of the bins to be 1 via the `binwidth` argument and the `color` as "white" in `geom_histogram()`.*
 
 ```{r exercise-15, exercise = TRUE, exercise.lines = 5}
-# ggplot(data = qscores, mapping = aes(x = overall)) +
-  # geom_histogram(binwidth = ---------, color = "white")
+ggplot(data = qscores, mapping = aes(x = overall)) +
+  geom_histogram()
 ```
 
 ```{r exercise-15-solution}
@@ -609,9 +642,6 @@ quiz(
 *Let's keep playing with the `qscores` dataset in the `PPBDS.data` package. We have filtered the dataset using the `tidyverse` package based on the five departments with the classes with the most enrollment: ECON, COMPSCI, STAT, GOV, and MATH. (You will learn how to do this in the next chapter). The filtered dataset is called `top_five_qscores`.*
 
 ```{r boxplot-setup, include = FALSE}
-library(tidyverse)
-library(PPBDS.data)
-
 top_five_enrolled <- qscores %>% 
   group_by(department) %>%
   summarize(enrollment = sum(enrollment)) %>% 
@@ -628,15 +658,12 @@ top_five_qscores
 *Using the `top_five_qscores` dataset and `ggplot()`, make a boxplot where `department` is on the x-axis and `overall` is on the y-axis.*
 
 ```{r exercise-16, exercise = TRUE, exercise.lines = 5}
-library(ggplot2)
 
-# ggplot(data = top_five_qscores, mapping = aes(x = ---------, y = ---------)) + geom_boxplot()
 ```
 
-```{r exercise-16-solution}
-library(ggplot2)
-
-ggplot(data = top_five_qscores, mapping = aes(x = department, y = overall)) + geom_boxplot()
+```{r exercise-16-hint}
+ggplot(data = ..., mapping = aes(x = ..., y = ...)) +
+  ...
 ```
 
 ```{r quiz-12, echo = FALSE}
@@ -678,12 +705,11 @@ quiz(
 )
 ```
 
+###
+
 *We can now use a barplot to plot how many students are enrolled in classes per department. We will use the `top_five_qscores` dataset again to look at the five largest departments.*
 
 ```{r barplot-setup, include = FALSE}
-library(tidyverse)
-library(PPBDS.data)
-
 top_five_enrolled <- qscores %>% 
   group_by(department) %>%
   summarize(enrollment = sum(enrollment)) %>% 
@@ -697,44 +723,39 @@ top_five_qscores <- qscores %>% filter(department %in% top_five_enrolled[0:5])
 top_five_qscores
 ```
 
-*Use `geom_bar()` to plot `department` on the x-axis to see the number of classes in each department.*
+*Use `ggplot()` and `geom_bar()` to plot `department` on the x-axis to see the number of classes in each department.*
 
 ```{r exercise-17, exercise = TRUE, exercise.lines = 5}
-library(ggplot2)
 
-# ggplot(data = top_five_qscores, mapping = aes(x = ---------)) +
-  ---------
 ```
 
-```{r exercise-17-solution}
-library(ggplot2)
-
-ggplot(data = top_five_qscores, mapping = aes(x = department)) +
-  geom_bar()
+```{r exercise-17-hint}
+ggplot(data = ..., mapping = aes(x = ...)) +
+  ...
 ```
+
+###
 
 *We can then count the number of classes per department in order to use the `geom_col()` layer instead. We do this using the `group_by()` and `count()` functions in the `tidyverse` package, which you will learn how to use in the next chapter. Our new data frame is stored as `top_five_qscores_counted`.*
 
 ```{r classes-counted-setup, include = FALSE}
-library(tidyverse)
-
-top_five_qscores_counted <- top_five_qscores %>% group_by(department) %>% count() %>% rename(count = n)
+top_five_qscores_counted <- top_five_qscores %>% 
+  group_by(department) %>% count() %>% rename(count = n)
 ```
 
 ```{r avg-workload-setup, echo = TRUE}
 top_five_qscores_counted
 ```
 
-*Use `geom_col()` to plot `department` on the x-axis and `count` on the y-axis to see the number of classes in each department.*
+*Use `ggplot()` and `geom_col()` to plot `department` on the x-axis and `count` on the y-axis to see the number of classes in each department.*
 
 ```{r exercise-18, exercise = TRUE, exercise.lines = 5}
-# ggplot(data = top_five_qscores_counted, mapping = aes(x = ---------, y = ---------)) +
-  # ---------
+
 ```
 
-```{r exercise-18-solution}
-ggplot(data = top_five_qscores_counted, mapping = aes(x = department, y = count)) +
-  geom_col()
+```{r exercise-18-hint}
+ggplot(data = top_five_qscores_counted, mapping = aes(x = ..., y = ...)) +
+  ...
 ```
 
 ```{r quiz-14, echo = FALSE}
@@ -748,31 +769,31 @@ quiz(
 )
 ```
 
-*Let's go back to the `trains` dataset in the `PPBDS.data` package. Use `geom_bar()` to plot `treatment` on the x-axis.*
+###
+
+*Let's go back to the `trains` dataset in the `PPBDS.data` package. Use `ggplot()` and `geom_bar()` to plot `treatment` on the x-axis.*
 
 ```{r exercise-19, exercise = TRUE, exercise.lines = 5}
-library(PPBDS.data)
-library(ggplot2)
- 
-# ggplot(data = trains, mapping = aes(x = ---------)) + ---------
+
 ```
 
-```{r exercise-19-solution}
-library(PPBDS.data)
-library(ggplot2)
- 
-ggplot(data = trains, mapping = aes(x = treatment)) + geom_bar()
+```{r exercise-19-hint}
+ggplot(data = ..., mapping = aes(x = ...)) + ...
 ```
+
+###
 
 *We can now map the additional variable `party` by adding a `fill = party` inside the `aes()` aesthetic mapping.*
 
 ```{r exercise-20, exercise = TRUE, exercise.lines = 5}
-# ggplot(data = trains, mapping = aes(x = treatment, fill = --------)) + geom_bar()
+ggplot(data = trains, mapping = aes(x = treatment)) + geom_bar()
 ```
 
-```{r exercise-20-solution}
-ggplot(data = trains, mapping = aes(x = treatment, fill = party)) + geom_bar()
+```{r exercise-20-hint}
+ggplot(data = trains, mapping = aes(x = treatment, fill = ...)) + geom_bar()
 ```
+
+###
 
 *Change `fill = party` to `color = party`. What happens? *
 
@@ -780,33 +801,32 @@ ggplot(data = trains, mapping = aes(x = treatment, fill = party)) + geom_bar()
 ggplot(data = trains, mapping = aes(x = treatment, fill = party)) + geom_bar()
 ```
 
-```{r exercise-21-solution}
-ggplot(data = trains, mapping = aes(x = treatment, color = party)) + geom_bar()
-```
+###
 
 *Create a side-by-side barplot by adding `position = "dodge"` to `geom_bar()`.*
 
 ```{r exercise-22, exercise = TRUE, exercise.lines = 5}
-# ggplot(data = trains, mapping = aes(x = treatment, fill = party)) + geom_bar(---------)
+ggplot(data = trains, mapping = aes(x = treatment, fill = party)) +
+  geom_bar()
 ```
 
 ```{r exercise-22-solution}
-ggplot(data = trains, mapping = aes(x = treatment, fill = party)) + geom_bar(position = "dodge")
+ggplot(data = trains, mapping = aes(x = treatment, fill = party)) +
+  geom_bar(position = ...)
 ```
+
+###
 
 *Instead of mapping `party` to `fill`, we can include it as the variable to create small multiples of the plot across the levels of `party` using `facet_wrap(~ party)`. Add this layer to the provided plot in order to create a faceted barplot.*
 
 ```{r exercise-23, exercise = TRUE, exercise.lines = 5}
-# ggplot(data = trains, mapping = aes(x = treatment)) + geom_bar() + ---------
+ggplot(data = trains, mapping = aes(x = treatment)) + 
+  geom_bar()
 ```
 
-```{r exercise-23-solution}
-ggplot(data = trains, mapping = aes(x = treatment)) + geom_bar() + facet_wrap(~ party)
+```{r exercise-23-hint}
+ggplot(data = trains, mapping = aes(x = treatment)) + geom_bar() + ...
 ```
-
-<!-- ## Adding Layers to a Plot -->
-
-<!-- Need to add: faceting, position, scales, coordinate systems, statistical transformations, adding titles and labels to a graph -->
 
 ## Submit
 
