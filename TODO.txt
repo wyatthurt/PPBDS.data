@@ -18,7 +18,10 @@ The definition of a "careful tour" is that you have looked at make_* for a data 
 
 * Clean up `sps`. Which variables do we need? What do they show? What should they be called?
 
-* Why aren't new versions of the site showing up? See Kieran Healy's tweet.
+* Why aren't new versions of the site showing up? See Kieran Healy's tweet. Post an issue at pkgdown Github?
+
+* Use the Kieran Healy trick of calling skimr::skim() in the help page. E-mail him to thank him.
+
 
 ## Previous
 
