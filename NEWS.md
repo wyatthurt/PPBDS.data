@@ -1,3 +1,10 @@
+## PPBDS.data 0.2.0
+
+---
+
+- Adds the `nominate` dataset.
+
+
 
 
 ## PPBDS.data 0.1.0
