@@ -1,0 +1,2217 @@
+---
+title: "Functions"
+output:
+  learnr::tutorial:
+      progressive: true
+      allow_skip: true
+runtime: shiny_prerendered
+description: "Chapter 4 tutorial"
+---
+
+<!-- Ch. 4 tutorial questions taken from rstudio-education/primers GitHub repos -->
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(PPBDS.data)
+library(learnr)
+library(learnrhash)
+library(shiny)
+knitr::opts_chunk$set(echo = FALSE, message = FALSE)
+```
+
+## Functions
+
+```{r name, echo=FALSE}
+question_text(
+  "Student Name:",
+  answer(NULL, correct = TRUE),
+  incorrect = "Ok",
+  try_again_button = "Modify your answer",
+  allow_retry = TRUE
+)
+```
+
+###  
+
+Functions are the verbs of R. When you do something in R, you do it by running a function. For example,
+
+* To take a log, you run a function named log: `log(2.71)`.
+* To fit a linear model, you run a function named lm: `lm(mpg ~ wt, data = mtcars)`.
+* To add two numbers, you run a function named "+": `1 + 2`. 
+
+This last one is an alternative way to call the function `'+'(1, 2)`. In R, even things that do not look like functions are functions. 
+
+###  
+
+But what is a function? 
+
+A function is simply a piece of code that is packaged in a way that makes it easy to reuse.
+
+This short tutorial will show you how R functions are packaged and how you can work with R functions. It is a pre-requisite for the next tutorial, which will show you how to write your own R functions. Let's begin!
+
+## Parts of a function
+
+###  
+
+Every R function has three parts:
+
+1. A body of code
+1. A set of formal arguments
+1. An environment (where the function will look up the values of the objects within it)
+
+###  
+
+You can inspect each part of a function with three helper functions:
+
+1. `body()`
+1. `formals()`
+1. `environment()`
+
+Let's use these helpers to see how the `xor` function works. `xor` is a logical operator that returns `TRUE` if one, but not both, or its arguments evaluates to `TRUE`.
+
+### body()
+
+* Run `body(xor)` to see the code body of `xor`. Then click Submit Code.
+
+```{r xor-body, exercise = TRUE}
+```
+
+```{r xor-body-solution}
+body(xor)
+```
+
+```{r xor-body-check}
+"xor contains one line of code in its body (you can ignore the braces). This isn't always the case. A function can have as many lines of code as it needs in its body. If you don't believe me check out the body for lm. R will run the code in a function's code body each time you call the function; but as you can see, the code in a function's body may not be self-contained. What is x? What is y? Click Continue to find out."
+```
+
+###  
+
+`xor` contains one line of code in its body (you can ignore the braces). This isn't always the case. A function can have as many lines of code as it needs in its body. For example, `as.list.data.frame` has three lines (most R functions have much more).
+
+```{r}
+body(as.list.data.frame)
+```
+
+When a function contains more than one line of code in its body, R will run the entire body and return the result of the **last** line.
+
+###  
+
+R will run the code in a function's code body each time you call the function; but as you can see with `xor`, the code in a function's body may not be self-contained. 
+
+```{r}
+xor
+```
+
+What is `x`? What is `y`? Click Continue to find out.
+
+### formals()
+
+Often times, a function will need one or more named values to do its job. These values are the _formal arguments_ of the function. The formal arguments of `xor` are `x` and `y`.
+
+`formals()` returns a list of the formal arguments of a function. If an argument in the list does not come with a value, you will need to supply a value when you call the function. If a function does not have any formal arguments (always possible), `formals()` will return `NULL`.
+
+* Use `formals()` to see the formal arguments of `xor` (hint: they are `x` and `y`). Then click Submit Answer.
+
+```{r xor-formals, exercise = TRUE}
+```
+
+```{r xor-formals-solution}
+formals(xor)
+```
+
+```{r xor-formals-check}
+"A function can have zero, one, or many many formal arguments. Do not be distracted by the $'s that appear before the argument names. Those are an artifact of how R displays lists."
+```
+
+### environment()
+
+Each function is associated with an R environment. The association tells R how to look up any objects that are used by a function, but not defined in its arguments. We'll learn more about environments later, so you do not need to worry about them now. However, looking up a function's environment is a handy way to tell which package the function comes in.
+
+* Use `environment()` to see the environment associated with the `gather` function.
+
+```{r gather-env, exercise = TRUE}
+```
+
+```{r gather-env-solution}
+environment(gather)
+```
+
+```{r gather-env-check}
+"The gather() function comes in the tidyr package. If a function's environment is namespace:base, that is a good sign that the function comes in base R, the part of R that loads before you load any optional packages."
+```
+
+### names
+
+You can look up all three parts of a function at once by typing the name of the object that the function is stored in. This is what you think of as the "name of the function." (In reality, functions do not have names, but they are stored in objects that have names.)
+
+For example, the `xor` function is a nameless function stored in the object named `xor`. To see the function in full, type `xor`.
+
+```{r}
+xor
+```
+
+### Help pages
+
+And _never_ forget: you can learn more about any R function by looking up its help page. To do this, type the "function's name" preceded by a question mark, e.g.
+
+```{r eval = FALSE}
+?xor
+```
+
+When you type this into an R IDE, a help page will open in a separate tab.
+
+### Quiz
+
+```{r q1, echo = FALSE}
+question("Which of the following is not a part of a function?",
+         allow_retry = TRUE,
+         random_answer_order = TRUE,
+         answer("A name", correct = TRUE, message = "That's right, functions contain a code body, a set of formal arguments, and an environment, but not a name. They just happen to inherit a name from the object they are stored in."),
+         answer("A code body"),
+         answer("A (potentially empty) set of formal arguments"),
+         answer("An environment"))
+```
+
+### Primitives
+
+You should also know about an important class of R functions called _primitives_. Most R functions call other R functions in their code body, but primitives do not. Instead primitives call internally implemented algorithms that are written in a lower level programming language (i.e. a more primitive programming language) like C, C++, or FORTRAN. 
+
+R's primitive functions are designed to be very fast, but you won't be able to inspect their components. See what happens if you inspect the contents of `log`, which is a primitive function.
+
+```{r}
+body(log)
+formals(log)
+environment(log)
+```
+
+That's enough minutiae! Now, how do you _run_ a function?
+
+## Calling functions
+
+###  
+
+To call an R function, type its name followed immediately by an open parenthesis and eventually by a closed parenthesis. The parentheses act as a "trigger" that causes R to run the code in the function's code body. Note the difference:
+
+```{r}
+Sys.Date
+Sys.Date()
+```
+
+If you ever try to run a function and nothing happens, double check to see if you included the closing parenthesis.
+
+###  
+
+If a function requires you to provide values for formal arguments, provide the values between the parentheses. 
+
+```{r}
+xor(x = TRUE, y = FALSE)
+```
+
+The best practice is to explicitly write out each argument name followed by an equals sign and then a value. If you leave out the argument names, R will match your values to arguments in the order that they are listed. It is common practice among R users to skip the first one or two argument names and then write out the rest.
+
+### Default values
+
+Some R functions will provide a default value for one or more of arguments. In this case, you do not need to pass a value to the argument when you call the function. If you do not provide a value, the function will use the default value. 
+
+You will know that an argument comes with a default value, if the argument appears with a value in the `formals()` list.
+
+* `rnorm` generates n random values from a normal distribution. When you call `rnorm` you can supply the mean and standard deviation of the distribution to draw the values from. Check to see if `rnorm` uses any default values. For which arguments? What are the values? Click Submit Answer to see if you are right.
+
+```{r rnorm, exercise = TRUE}
+```
+
+```{r rnorm-solution}
+formals(rnorm)
+```
+
+```{r rnorm-check}
+"rnorm provides a default value of zero for the mean argument and a default argument of one for the sd argument. In other words, if you do not supply a mean and sd value when you call rnorm, rnorm will randomly generate results from a standard normal distribution. Default values can be very handy!"
+```
+
+###  
+
+You can also spot a function's default values by examining the function itself. Do you see them?
+
+```{r}
+rnorm
+```
+
+###  
+
+There is one last thing you should know about functions: functions are like Las Vegas:
+
+> What happens in a function stays in the function.
+For example, suppose I've saved values as `x` and `y`. 
+
+```{r}
+x <- 1
+y <- FALSE
+```
+
+###  
+
+Calling `xor` will not change those values, even though I'm defining new values for `x` and `y` in the function.
+
+```{r}
+xor(x = TRUE, y = TRUE)
+x
+y
+```
+
+###   
+
+Moreover, `xor` won't remember which values I've used in the past. If I forget to define `x` and `y` the next time I call `xor`, `xor` will return an error. `xor` won't even be able to look up the values that I assigned to `x` and `y` outside of the function.
+
+```{r eval=FALSE}
+xor()
+```
+
+_What happens in a function stays in the function._ 
+
+So don't worry about using functions. (Ahem, technically you _could_ write a function that would change things outside of the function, but that would be a bad idea, and you would have to try to do it on purpose, and it would be rather hard at that. So don't worry.)
+
+## Quiz
+
+### Exercise 1
+
+```{r quiz-1a, echo = FALSE}
+question("Which of these will run the `Sys.time` function?",
+         answer("Sys.time"),
+         answer("Sys.time()", correct = TRUE, 
+         message = "The open and closed parentheses tell R to execute the code in the code body of the function stored in the object names Sys.time."))
+```
+
+### Exercise 2
+
+* Find the code body of `foo`
+
+```{r foo, exercise = TRUE}
+```
+
+```{r foo-setup}
+foo <- function() {
+  a <- 10
+  a
+}
+```
+
+```{r foo-solution}
+body(foo)
+```
+
+```{r foo-check}
+""
+```
+
+### Exercise 3
+
+Recall the code in `foo`:
+
+```{r echo = FALSE}
+foo <- function() {
+  a <- 10
+  a
+}
+```
+
+```{r}
+body(foo)
+```
+
+What will be the final value of `a` if I run the following three lines of code in order?
+
+```{r eval = FALSE}
+a <- 1
+foo()
+a
+```
+
+```{r quiz-1b, echo = FALSE}
+question("",
+         answer("1", correct = TRUE, message = "What happens in a function, stays in the function. foo() will not change the value of a outside of foo()."),
+         answer("10"),
+         answer("Running a will return an error."),
+         allow_retry = TRUE)
+```
+
+### Congratulations!
+
+You have finished the tutorial.
+
+## When to write a function
+
+###  
+
+R comes with thousands of functions, and more are written everyday (these are published in R packages). If you want to do something in R, there is a good chance that a function already exists somewhere that does it.
+
+But what if you want to do something new in R, something that doesn't yet have a function? What should you do?
+
+###  
+
+Write a function?
+
+No, silly. Write some code. But what if you want to use that code _over and over again_, as if it were a part of R? Then what should you do?
+
+###  
+
+Write a function!
+
+This tutorial will show you how. Take the quiz below to begin.
+
+### Quiz
+
+Suppose you need to run the following code on 20 different objects, `sqrt(sum(x^2))`.
+
+```{r why-quiz, echo = FALSE}
+question("Why would you not want to rewrite the code 20 times? (Check all that apply)",
+     answer("Retyping code takes time.", correct = TRUE),
+     answer("Typing the code 20 times creates 20 chances to make a typo.", correct = TRUE),
+     answer("If you need to change the code later, you'll need to change it in 20 different places.", correct = TRUE),
+     allow_retry = TRUE, 
+     type = "multiple", 
+     incorrect = "Did you check ALL that applied?",
+     correct = "Good job! You can avoid these outcomes by turning your code into a function. A good rule is to turn a piece of code into a function whenever you find yourself re-using the code more than three times.")
+```
+
+## Workflow
+
+###  
+
+How should you turn your code into functions? Always follow these four steps: 
+
+1. Create a real R object (or set of objects) to use with your function
+2. Write code that works with the real object(s)
+3. Wrap the code in `function()`
+4. Assign the names of your real objects as argument names to the function
+
+These steps are the best practice for writing functions in R. When you follow these steps, your functions are guaranteed to work for at least one case, which means you will spend more time using your functions and less time debugging them.
+
+Let's use the steps to create your first function.
+
+### Goal - Grading
+
+To make this real, put yourself in the shoes of a teacher: 
+
+You've given your students 10 homework assignments and announced that you will drop their lowest homework score. Their final grade will be the average score of the remaining homeworks.
+
+To make your life easier, you want to write an R function that will take a vector of 10 homework scores and return a final grade. 
+
+Ready to begin?
+
+###  
+
+Remember our steps:
+
+1. Create a real R object (or set of objects) to use with your function
+
+* Create an object named `x` that contains the vector `c(100, 100, 100, 100, 100, 100, 100, 100, 100, 90)` (hint: use copy and paste!). Then click Submit Answer. `x` will be the grades of your test student. 
+
+```{r obj, exercise = TRUE}
+```
+
+```{r obj-solution}
+x <- c(100, 100, 100, 100, 100, 100, 100, 100, 100, 90)
+```
+
+```{r obj-check}
+"Now you can use x to develop and test your code"
+```
+
+###  
+
+2. Write code that works with the real object(s)
+
+Recall the grading scheme: the final grade is the average homework score after you drop the lowest score. Since there are many ways to calculate this, let's be specific and end up on the same page.
+
+* Use `sum()`, `min()`, `/`, `9` and parentheses to calculate the final grade for student `x`. Click Submit Answer to check that your code works.
+
+```{r make-x, echo = FALSE}
+x <- c(100, 100, 100, 100, 100, 100, 100, 100, 100, 90)
+```
+
+```{r norm, exercise = TRUE, setup = "make-x"}
+x
+```
+
+```{r norm-hint}
+"Your code should return 100."
+```
+
+```{r norm-solution}
+(sum(x) - min(x)) / 9
+```
+
+```{r norm-check}
+"This is the crucial step in writing a function. It is important to get your code working in real life with a real object before you try to abstract the code into a reusable function."
+```
+
+###  
+
+3. Wrap the code in `function()`
+
+The `function()` function builds a function from a piece of R code. To use it, call `function()` followed by an opening brace, `{`. Then write one or more lines of R code followed by a closed brace, `}`, e.g.
+
+```{r}
+foo <- function() {
+ a <- 1
+ b <- 2
+ a + b
+}
+```
+
+`function()` will return a function that uses everything between the braces as its code body. If you'd like to save the function, you'll need to assign it in the usual way to an R object that you can call later.
+
+As you write your functions, recall that R will only return the result of the last line in the code body when you call the function (we'll learn about some exceptions to this rule in the Control Flow tutorial). 
+
+###  
+
+Once you save a function, you can run it and inspect its contents.
+
+```{r}
+foo()
+foo
+```
+
+### Your turn
+
+Let's save your code as a function.
+
+* Save the code below as a function named `grade`. Then click Submit Answer.
+
+```{r grade, exercise = TRUE}
+(sum(x) - min(x)) / 9
+```
+
+```{r grade-hint}
+"Use the function() {} function."
+```
+
+```{r grade-solution}
+grade <- function() { 
+  (sum(x) - min(x)) / 9
+}
+```
+
+```{r grade-check}
+"Now that you've saved grade as a function, you can call it whenever you like, but there is still one more thing to do..."
+```
+
+###  
+
+At the moment, your `grade()` function is reusable but not _generalizable_. Each time you call `grade()` it computes the final grade of the vector `x` that contains `c(100, 100, 100, 100, 100, 100, 100, 100, 100, 90)`.
+
+```{r echo = FALSE}
+x <- c(100, 100, 100, 100, 100, 100, 100, 100, 100, 90)
+grade <- function() { 
+  (sum(x) - min(x)) / 9
+}
+```
+
+```{r}
+grade()
+grade()
+```
+
+We'd like to use `grade()` with new vectors that have new values.
+
+### Arguments
+
+4. Assign the names of your real objects as argument names to the function
+
+You can make a function generalizable by turning some of the objects in its code body into _formal arguments_. A formal argument is an object that a user can assign a value to when he or she calls the function. The function will use the user's value for the object when it executes its code body.
+
+For example, we'd like to tell R that `x` in `grade()` is an argument. R shouldn't use a pre-defined value for `x`; it should let the user supply a new value for `x` each time he or she runs the function.
+
+```{r eval = FALSE}
+grade <- function() { 
+  (sum(x) - min(x)) / 9
+}
+```
+
+###  
+
+How do you tell R that an object is a formal argument? 
+
+You list the name of the object in the parentheses that follow `function()` in the function definition. If you make more than one argument, separate their names with a comma. For example, you could make `a` and `b` arguments of my `foo` function.
+
+```{r}
+foo <- function(a, b) {
+ a + b
+}
+```
+
+Now I can define a new value for `a` and `b` each time I call `foo`. 
+
+```{r}
+foo(a = 1, b = 1)
+foo(a = 100, b = 200)
+```
+
+### Default values
+
+To give an argument a default value, set it equal to a value when you define the function. For example, the code below will set the default value of `b` in `foo` to one.
+
+```{r}
+foo <- function(a, b = 1) {
+ a + b
+}
+foo(a = 2)
+foo(a = 2, b = 2)
+```
+
+###  
+
+Interesting, huh? Now apply what you've learned to `grade()`.
+
+* Change the code below to list `x` as a formal argument of `grade()`. Then click Submit Answer.
+
+```{r x, exercise = TRUE}
+grade <- function() { 
+  (sum(x) - min(x)) / 9
+}
+```
+
+```{r x-solution}
+grade <- function(x) { 
+  (sum(x) - min(x)) / 9
+}
+```
+
+```{r x-check}
+'If you use the "best practice" workflow, your argument names will always be the names of the real R objects that you create in Step 1. Nice and simple.'
+```
+
+###   
+
+Good job! You can now have a finished `grade()` function that you can use to calculate the final grade of _any_ vector (I mean, student). Try it out.
+
+* Calculate the final grade of the vector `c(100, 90, 90, 90, 90, 90, 90, 90, 90, 80)`. Then click Submit Answer.
+
+```{r make-grade}
+grade <- function(x) { 
+  (sum(x) - min(x)) / 9
+}
+```
+
+```{r function, exercise = TRUE, exercise.setup = "make-grade"}
+```
+
+```{r function-solution}
+grade(x = c(100, 90, 90, 90, 90, 90, 90, 90, 90, 80))
+```
+
+```{r function-check}
+"Let's recap the function writing workflow."
+```
+
+### Quiz
+
+```{r recap-quiz, exercse=TRUE, echo = FALSE}
+question("Which is not a step of the best practice workflow for writing functions?",
+         allow_retry = TRUE, random_answer_order = TRUE,
+         answer("Create a real R object (or set of objects) to use with your function"),
+         answer("Write code that works with the real object(s)"),
+         answer("Wrap the code in `function()`"),
+         answer("Assign the names of your real objects as argument names to the function"),
+         answer("Predict how the function should be written and try it out.", correct = TRUE)
+)
+```
+
+### Recap
+
+Use the four step workflow whenever you need to write a function:
+
+1. Create a real R object (or set of objects) to use with your function
+2. Write code that works with the real object(s)
+3. Wrap the code in `function()`
+4. Assign the names of your real objects as argument names to the function
+
+## Function look-alikes
+
+###  
+
+As an R user, you may have already made things that resemble functions. 
+
+Here are two examples that may be familiar. In each case, you can easily convert your code into a function.
+
+### Purrr expressions
+
+In the Iteration primer, you learned that purrr's map functions can take "expressions." _Expressions_ are a pieces of code that are preceded by `~` and include `.x`s. Map will apply expressions iteratively to each element of a vector.
+
+For example, this call to `map()` will apply the expression `~.x^2` to each element of `vec`. On each iteration, `map()` will assign the _i_th element of vec to `.x` and run the expression.
+
+```{r message=FALSE}
+library(tidyverse)
+vec <- c(1, 2, 3)
+map(vec, ~.x^2)
+```
+
+###  
+
+In other words, purrr's map expressions work like functions that have `.x` as a formal argument. To transform an expression to a function, remove the `~`, wrap the code in `function()` and list `.x` as a formal argument.
+
+```{r}
+sq <- function(.x) {
+  .x^2
+}
+map(vec, sq)
+```
+
+### Functions and pipes
+
+It is also easy to use pipes like simple functions because you can copy and paste a pipe behind different objects. For example, this pipe would compute sum of squares of any vector that you place it behind.
+
+```{r}
+c(1, 1, 1) %>% 
+  sq() %>% 
+  sum()
+c(1, 2, 3, 4, 5) %>% 
+  sq() %>% 
+  sum()
+```
+
+###   
+
+It is a good idea to turn a pipe into a function when you find yourself using it often. You don't need to rewrite the pipe to do this. Pipes come with a handy shortcut for turning them into functions.
+
+To turn a pipe into a function, replace its initial object with a `.`, and then save the pipe to an object. R will treat the object as a function that passes its argument to the beginning of the pipe.
+
+```{r}
+l2_pipe <- . %>% 
+  sq() %>% 
+  sum()
+l2_pipe(c(1, 1, 1))
+```
+
+### Extract function
+
+There is one final way to generate a function. You can use the Extract Function feature of the RStudio IDE to turn a piece of code into a function. 
+
+To do so, highlight a section of code in the scripts pane. Then navigate to **Code > Extract Function** in the RStudio menu bar. RStudio will prompt you to type in a name for the function. It will then surround your code with `function()`, making an educated guess about which objects to list as formal arguments.
+
+```{r echo=FALSE, out.width = "100%"}
+knitr::include_graphics("images/extract.png")
+```
+
+## Practice
+
+Congratulations on finishing the tutorial. Before you go, complete the following exercises to cement your skills!
+
+### Exercise 1
+
+```{r quiz-2a, echo = FALSE}
+question("What is the first step of writing a function?",
+         answer("Choose a name, then type <- function(){", message = "You shouldn't type function() until you have code that works with a real test case."),
+         answer("Create a real R object (or set of objects)", correct = TRUE, message = "You can then use the object to test your code."),
+         answer("Assign argument names to your function"),
+         answer("Write a help page that describes how your function will work."),
+         allow_retry = TRUE)
+```
+
+### Exercise 2
+
+What will the following code return?
+
+```{r eval = FALSE}
+f <- function(a, b, c) {
+  a
+  b
+  c
+}
+f(1, 2, 3)
+```
+
+```{r quiz-2b, echo = FALSE}
+question("",
+         answer("1"),
+         answer("2"),
+         answer("3", correct =TRUE, message = "A function will return the result of its *last* line."),
+         answer("A vector that contains 1, 2, and 3"),
+         answer("An error"),
+         allow_retry = TRUE)
+```
+
+### Exercise 3
+
+Let's write a function that grades by counting a student's highest score twice and then taking an average of the 11 scores.
+
+```{r quiz-2c, echo = FALSE}
+question("Do you have a test vector that you can use?",
+         answer("Test vector? We don't need no stinking test vector.", 
+                message = "Yes you do."),
+         answer("Yes, we can reuse the vector named x.", correct=TRUE),
+         allow_retry = TRUE,
+         random_answer_order = TRUE)
+```
+
+### Exercise 4
+
+* Write a piece of code that uses `max()` to double count the highest score in `x` and then takes the average of the 11 results. Click Submit Answer to check that your code works.
+
+```{r e3, exercise = TRUE, exercise.setup = "make-x"}
+x
+```
+
+```{r e3-hint}
+"Your code should retrun the answer 99.09091."
+```
+
+```{r e3-solution}
+(sum(x) + max(x)) / 11
+```
+
+### Exercise 5
+
+* Wrap your code in `function()` and save it to the name `grade2`.
+* Then define the argument(s) for the function.
+* Then click Submit Answer.
+
+```{r e4, exercise = TRUE}
+(sum(x) + max(x)) / 11
+```
+
+```{r e4-hint}
+"When you use this workflow, the names of the argument(s) are always the names of the object(s) that you created in step 1."
+```
+
+```{r e4-solution}
+grade2 <- function(x) {
+  (sum(x) + max(x)) / 11
+}
+```
+
+### Exercise 6
+
+It's time to put it all together. 
+
+* Use the code block below to develop a function named `l2` that calculates the Euclidean distance, or L~2~ norm ($\|x||_{2}$), of a vector of numbers named `x`. The L~2~ norm is the square root of the sum of the squared values in the vector, i.e.
+
+$$\| x \|_{2} = \sqrt{\sum_{i = 1}^{n} x_{i}^{2}}$$
+
+* When you are finished, reduce your code to just the definition of your function. Then click Submit Answer.
+
+```{r e5, exercise = TRUE}
+```
+
+```{r e5-hint-1}
+"You've already seen the code for the l2 function earlier in this tutorial (I do not mean the pipe example)."
+```
+
+```{r e5-hint-2}
+"Consider using sqrt(), sum(), and ^2. Your code will work with vectors of any length."
+```
+
+```{r e5-solution}
+l2 <- function(x) {
+  sqrt(sum(x^2))
+}
+```
+
+## Matching Quiz
+
+###  
+
+Assigning the right values to the right arguments can make or break your code. 
+
+```{r}
+log(1, 2)
+log(2, 1)
+## Uh oh.
+```
+
+But how much do you know about assigning arguments? Take this quiz to find out.
+
+### methods
+
+```{r methods, echo = FALSE}
+question("Which method(s) can you use to match values to arguments? (Check all that apply.)",
+         answer("Complete names (e.g. na.rm = TRUE)", correct = TRUE),
+         answer("Partial names (e.g. na = TRUE)", correct = TRUE),
+         answer("Numbers (e.g. 2 = TRUE)"),
+         answer("Position (e.g. TRUE)", correct = TRUE),
+         allow_retry = TRUE, type = "multiple", 
+         incorrect = "Did you check _every_ method that works?",
+         correct = "Good job! R can match values to arguments in three ways, but some of these methods are more foolproof then others.")
+```
+
+### Not matching
+
+Consider this brilliant function:
+
+```{r}
+foo <- function(aaa, abb, abc) {
+  c(aaa, abb, abc)
+}
+```
+
+```{r no-args, echo = FALSE}
+question("What will `foo()` return?",
+         answer('[1] "aaa" "abb" "abc"'),
+         answer("An error", correct = TRUE, message = "`foo` will not be able to find a value for `aaa` (or the rest)."),
+         allow_retry = TRUE)
+```
+
+### Default values
+
+Let's make `foo` even more brilliant:
+
+```{r}
+foo <- function(aaa = 1, abb = 2, abc = 3) {
+  c(aaa, abb, abc)
+}
+```
+
+```{r default-args, echo = FALSE}
+question("Now what will `foo()` return?",
+         answer('[1] "aaa" "abb" "abc"'),
+         answer('[1] 1 2 3', correct = TRUE, message = "An argument with a default value is optional, R will use the default value if you do not provide one."),
+         answer("An error"),
+         allow_retry = TRUE)
+```
+
+###  
+
+```{r default-args-2, echo = FALSE}
+question("Which of these could you run to see the names and default values of `foo`'s arguments?",
+         answer("`foo`"),
+         answer("`?foo`"),
+         answer("`formals(foo)`"),
+         answer("`args(foo)`"),
+         answer("All of the above.", correct = TRUE, message = "Each of these will return output that contains `foo`'s argument names and default values (somewhere in the output)."),
+         incorrect = "Is that the only way?",
+         allow_retry = TRUE)
+```
+
+### Position
+
+Remember `foo`:
+
+```{r}
+foo <- function(aaa = 1, abb = 2, abc = 3) {
+  c(aaa, abb, abc)
+}
+```
+
+```{r position-1, echo = FALSE}
+question("What will `foo(0)` return?",
+         answer("[1] 1 2 3"),
+         answer("[1] 0 2 3", correct = TRUE, message = "If you do not provide an argument name in your call, R will match your value to the first unmatched argument name."),
+         answer("[1] 1 0 3"),
+         answer("[1] 1 2 0"),
+         answer("[1] 0 0 0"),
+         answer("An error"),
+         allow_retry = TRUE)
+```
+
+###  
+
+```{r}
+foo <- function(aaa = 1, abb = 2, abc = 3) {
+  c(aaa, abb, abc)
+}
+```
+
+```{r position-2, echo = FALSE}
+question("What will `foo(0, 5)` return?",
+         answer("[1] 1 2 3"),
+         answer("[1] 0 5 3", correct = TRUE, message = "I think you have the hang of position matching."),
+         answer("[1] 0 5 0"),
+         answer("[1] 0 5 5"),
+         answer("An error"),
+         allow_retry = TRUE)
+```
+
+### Names
+
+```{r}
+foo <- function(aaa = 1, abb = 2, abc = 3) {
+  c(aaa, abb, abc)
+}
+```
+
+```{r complete-names, echo = FALSE}
+question("What will `foo(aaa = 0, abc = 5)` return?",
+         answer("[1] 1 2 3"),
+         answer("[1] 0 5 3"),
+         answer("[1] 0 5 0"),
+         answer("[1] 0 2 5", correct = TRUE, message = "Using complete argument names is the easiest way to avoid an error (and to write comprehensible code). But what if you use a partial argument name?"),
+         answer("An error"),
+         allow_retry = TRUE)
+```
+
+### Partial names
+
+```{r}
+foo <- function(aaa = 1, abb = 2, abc = 3) {
+  c(aaa, abb, abc)
+}
+```
+
+```{r partial-names, echo = FALSE}
+question("What will `foo(aa = 0)` return?",
+         answer("[1] 1 2 3"),
+         answer("[1] 0 2 3", correct = TRUE, message = "You do not need to spell out the full argument name, so long as you provide enough of the name to uniquely identify the argument. Here `aa` could only be the beginning of the `aaa` argument."),
+         answer("[1] 0 0 0"),
+         answer("An error"),
+         allow_retry = TRUE)
+```
+
+###  
+
+```{r}
+foo <- function(aaa = 1, abb = 2, abc = 3) {
+  c(aaa, abb, abc)
+}
+```
+
+```{r partial-names-2, echo = FALSE}
+question("What will `foo(a = 0)` return?",
+         answer("[1] 1 2 3"),
+         answer("[1] 0 2 3"),
+         answer("[1] 0 0 0"),
+         answer("An error", correct = TRUE, message = "Here `a` does not uniquely match an argument name: it is the beginning of all three argument names. R isn't psychic, so it won't guess which argument you meant. Instead R returns an error. It's the right thing to do because it lets you fix your code."),
+         allow_retry = TRUE)
+```
+
+### Dots
+
+Now for some dark magic:
+
+```{r}
+foodoo <- function(...) {
+  c(...)
+}
+```
+
+```{r dots-1, echo = FALSE}
+question("What will `foodoo(1, 2, 3)` return?",
+         answer("[1] 1 2 3", correct = TRUE, message = "`...` is a special mechanism for passing arguments. `...` will match any argument not otherwise matched and pass those arguments on as a group. This is a convenient way to pass a set of arguments through to a function in the function body."),
+         answer("An error."),
+         answer("Oh my goodness! You've broken R!"),
+         allow_retry = TRUE)
+```
+
+###  
+
+```{r}
+foodoo <- function(...) {
+  c(...)
+}
+```
+
+```{r dots-2, echo = FALSE}
+question("What will `foodoo(a = 1, b = 2, c = 3)` return?",
+         answer("[1] 1 2 3"),
+         answer("[1] 1 2 3 _but with the names a b c above the values_", correct = TRUE, message = "If you provide names to your values, `...` will capture those as well and pass them on. So here, our code essentially runs `c(a = 1, b = 2, c = 3)`."),
+         answer("An error."),
+         allow_retry = TRUE)
+```
+
+###  
+
+Here is one last wrinkle. Suppose we rewrite `foodoo` slightly:
+
+```{r}
+foodoo <- function(a, ...) {
+  c(...)
+}
+```
+
+```{r dots-3, echo = FALSE}
+question("What will `foodoo(a = 1, b = 2, c = 3)` return?",
+         answer("[1] 1 2 3 with the names a b c above the values"),
+          answer("[1] 2 3 with the names b c above the values", correct = TRUE, message = "Remember that `...` only captures _unmatched_ values. Now that `a` is a formal argument, `a = 1` will be matched to it, leaving `b = 2` and `c = 3` to be captured and passed on."),
+         answer("An error."),
+         allow_retry = TRUE)
+```
+
+## Tips
+
+###   
+
+Congratulations! You've finished the quiz and know a lot about how R parses arguments. As a reward, here are two useful things that you can do with arguments in the RStudio IDE:
+
+
+###  
+
+After you've written a function name followed by an opening parenthesis, look for a small yellow window to pop up that tells you the names, order, and default values of the function's arguments. This can be handy when you are not very familiar with the function.
+
+```{r echo=FALSE, out.width = "100%"}
+# knitr::include_graphics("images/popup.png")
+```
+
+###  
+
+After you've written a function name followed by an opening parenthesis, press tab to invoke RStudio's tab completion. RStudio will open a pop up menu that contains the names of the function's arguments. Use the up and down arrow keys to navigate to a name, and then press enter to insert the name into your code. This can save you a lot of time once you get a feel for it.
+
+```{r echo=FALSE, out.width = "100%"}
+# knitr::include_graphics("images/tab-completion.png")
+```
+
+## Environments
+
+###  
+
+Thanks to the previous tutorials, you can write and execute functions, but can you predict how a function will work? 
+
+To do that precisely, you need to know how R will look up the values of objects that appear in the function.
+
+Consider the code below, which defines and then calls the function `foo()`. With its last line, `foo()` returns the value of `z`, but what will the value be?
+
+```{r eval = FALSE}
+z <- 1
+foo <- function(z = 2) {
+  z <- 3
+  z
+}
+foo(z = 4)
+```
+
+###  
+
+```{r q1-environments, echo = FALSE}
+question("What will the value of `z` be?",
+         answer("`1`, because we define `z <- 1` before defining the function."),
+         answer("`2`, because `2` is the default value of the `z` argument."),
+         answer("`3`, because the function runs `z <- 3`", correct = TRUE, message = "R can look for the value of z in many places, so it is important to know where R will look and why."),
+         answer("`4`, because we define `z = 4` when we call the function."),
+         allow_retry = TRUE, 
+         incorrect = "Not Quite.")
+```
+
+### Scoping rules and environments
+
+This tutorial will teach you R's rules for looking up values. 
+
+The rules that a language uses to look up values are known as _scoping rules_, and R's scoping rules are closely tied to a new type of R object: the environment. So let's start there.
+
+***
+
+Before we begin, let me assure you: this topic is worth studying, even though it is unusually technical. R becomes much more predictable when you know how R looks up objects and their values.
+
+### The big picture
+
+An R _environment_ is a list of object names paired with the values contained in the objects. Each environment is linked to another environment, and together these links form a chain of environments.
+
+Every object in R is saved somewhere in an environment. When R needs to look up the value of an object, R searches through the chain of environments until R finds the object and its value.
+
+That's the big picture. Let's look at the details.
+
+### globalenv()
+
+`globalenv()` is a function that returns an R environment. In fact, `globalenv()` returns a very special R environment named the _global environment_. You'll learn more about the global environment later, but first let's take a look at how R displays environments. 
+
+* Click Submit Answer to run the code below.
+
+```{r global, exercise = TRUE}
+globalenv()
+```
+
+```{r global-solution}
+globalenv()
+```
+
+```{r global-check}
+"Notice that R's display is not very informative: it shows you only the label of the environment."
+```
+
+### `ls.str()`
+
+I've saved some objects in the global environment. Would you like to see them? You can display the contents of an R environment with `ls.str()`. 
+
+* To see what I've saved in the global environment, run `ls.str()` on the code below. Then click Submit Answer. 
+
+```{r, echo = FALSE}
+i <- function() show_stack()
+j <- function() i()
+k <- function() j()
+```
+
+```{r ls_str, exercise = TRUE}
+globalenv()
+```
+
+```{r ls_str-hint}
+"Pass `globalenv()` to `ls.str()`."
+```
+
+```{r ls_str-solution}
+ls.str(globalenv())
+```
+
+```{r ls_str-check}
+"I've saved three objects in the global environment named `i`, `j`, and `k`. Each is a function (we will use them later). You'll also see an object named `list_to_string` and an object named `x`. ls.str() provides a good depiction of an environment, because ls.str() shows the contents of the environment. However, ls.str()'s depiction of the global environment is missing one thing."
+```
+
+### Parent environments
+
+In addition to name-value pairs, each environment contains a link to _another_ environment. This second environment is called the _parent environment_ of the first environment. 
+
+The relationship between an environment and its parent is a special relationship that we will return to in a moment. But first:
+
+* Call `parent.env()` on `globalenv()` to see which environment is the parent environment of the global environment. Then click Submit Answer.
+
+```{r parent, exercise = TRUE}
+```
+
+```{r parent-solution}
+parent.env(globalenv())
+```
+
+```{r parent-check}
+"(You can ignore the extra attributes that appear beneath the environment label). You can use `parent.env()` to find the parent of any environment in R, but notice that there is no way to find the children of an environment: each child knows who its parent is, but each parent does not know who its children are. Compare this to real life: you can know who you are pointing at, but you can't know who may be pointing at you."
+```
+
+### parenvs()
+
+The parent of an environment will also have a parent environment. And that parent environment will have a parent environment, and so on. Together the parents will form a chain of environments that ends with the _empty environment_, which is the only environment in R that does not have a parent.
+
+Every environment can trace its lineage to the empty environment through a set of parents.
+
+You can see an environment's lineage with the `parenvs()` function that comes in the `pryr` package. `parenvs(e, all = TRUE)` will display the chain of parent environments that leads to the empty environment from whichever environment you pass to the `e` argument. 
+
+* Use `parenvs()` to see the "lineage" of the global environment. Don't forget to include the argument `all = TRUE`. Then click Submit Answer.
+
+```{r search, exercise = TRUE}
+library(pryr)
+```
+
+```{r search-hint-1}
+"Set e = globalenv()."
+```
+
+```{r search-hint-2}
+"Don't forget the argument all = TRUE."
+```
+
+```{r search-solution}
+library(pryr)
+parenvs(globalenv(), all = TRUE)
+```
+
+```{r search-check}
+"The global environment is at the top of this list. The second line contains the parent of the global environment. Next comes the parent of that parent, and so on until we reach the empty environment."
+```
+
+### Summary
+
+You've learned four things about environments:
+
+1. An environment is a list of name-value pairs that define the values of R objects
+2. Each environment contains a link to a parent environment (with the exception of the empty environment).
+3. Each environment is linked to the empty environment by a chain of parent environments.
+4. Every object in R is stored in an environment
+
+## Scoping rules
+
+### The active environment
+
+At any moment in time, R is working closely with a single environment, which I will call the _active environment_. If I say that R is running code in an environment, I mean that the environment is the active environment when R runs the code.
+
+The active environment is special in two ways:
+
+1. If code creates a new object, R will store the object in the active environment. 
+2. If code calls an object, R will look for the object in the active environment. 
+
+What if R cannot find the value in the active environment?
+
+### Search path
+
+If R cannot find an object in the active environment, then R will look in the parent of the active environment, and then the parent of the parent, and so on until R either finds the object or reaches the empty environment.
+
+If R gets to the empty environment before it finds the object, R will return the familiar error message: `Error: object not found`.
+
+In this way, the chain of environments from the active environment to the empty environment forms R's _search path_.
+
+### environment()
+
+Which environment is active will change from time to time depending on what R is doing (which means that the search path will change as well). 
+
+You can use the `environment()` function to return the current active environment. 
+
+* Type `environment()` in the exercise chunk below to return the label of the active environment. Then click Submit Answer.
+
+```{r active, exercise = TRUE}
+```
+
+```{r active-hint}
+"Run `environment()` with no arguments."
+```
+
+```{r active-solution}
+environment()
+```
+
+```{r active-check}
+"This is the environment that was active when R ran the exercise chunk. Notice that the label is a random string; that's true for most R environments. Also notice that if you rerun the chunk, R will use a new active environment. As a result, objects that you make on one run of the chunk will not be available on a second run."
+```
+
+### The global environment 
+
+The global environment plays a very important role in R because it is the active environment when you run code from the command line of an R console, like the RStudio IDE. 
+
+As a result, the global environment acts as your personal workspace: it is where R will save the objects that you create at the command line, and it is where R will look for the objects that you call at the command line.
+
+### Other environments
+
+Other R environments include: 
+
+* the empty environment
+* package environments (which contain all of the objects loaded by a package) 
+* temporary environments (that R creates to do certain tasks, like execute the exercise chunks in this tutorial)
+
+You can see each type of environment in the search path from the active environment of the exercise chunk below.
+
+* Use the exercise chunk to display the search path from the active environment (i.e. the list of parents that connects the active `environment()` to the empty environment). Then click Submit Answer.
+
+```{r path, exercise = TRUE}
+```
+
+```{r path-hint-1}
+"Use parenvs()."
+```
+
+```{r path-hint-2}
+"Set e = environment(), which returns the active environment)."
+```
+
+```{r path-hint-3}
+"Don't forget to include all = TRUE."
+```
+
+```{r path-solution}
+# parenvs(e = environment(), all = TRUE)
+```
+
+### Environments in tutorials
+
+Whenever you run an exercise chunk in a tutorial, R creates a temporary environment to run your code in. The parent of this environment is the global environment.
+
+Compare this to what will happen when you run code in an R console. There, the code that you run at the command line will be executed in the global environment (i.e. the global environment will be active).
+
+This is a small difference, but since we're talking about environments today, I want you to be aware of it.
+
+### Summary
+
+The chain of parent environments from the active environment to the empty environment creates a _search path_ that R uses to look for objects.
+
+1. R first looks for objects in the current active environment.
+
+2. If R cannot find an object in the active environment, R looks for the object in the parent of the active environment. R then looks in the parent of the parent, and so on until R finds the object or comes to the empty environment.
+
+3. If R gets to the empty environment before it finds an object, R will return the familiar error message: `Error: object not found`.
+
+These three rules are R's scoping rules.
+
+### Keep in mind
+
+R's search path will vary based on which environment is active when you call `parenvs()` (or begin searching). 
+
+The search path will also vary based on which packages you have loaded. The environments of loaded packages appear between the global environment and the empty environment in the reverse order of which the packages were loaded. 
+
+Now that you know how R looks up objects, let's look at what can go wrong.
+
+
+## Overwriting and Masking
+
+### Overwriting
+
+In the exercise below, I've saved an object named `x` to the active environment. 
+
+* Call `x` to see its value. Then click Submit Answer.
+
+```{r makex}
+x <- "password123"
+```
+
+
+```{r makex-q, exercise = TRUE, exercise.setup = "makex"}
+```
+
+```{r makex-q-solution}
+x
+```
+
+###  
+
+`x` is also stored in the active environment of the exercise chunk below (you can check if you like). 
+
+What would happen if you run the code in the chunk? (Click Start Over if the code is no longer there.)
+
+* Make a prediction then click Submit Answer. What happened?
+
+```{r x2, exercise = TRUE, exercise.setup = TRUE}
+x <- "oops"
+x
+```
+
+```{r x2-solution}
+x <- "oops"
+x
+```
+
+```{r x2-check}
+"R returned the value oops for x. Remember that R saves the objects that you create to the active environment. If you use a name that already exists in the active environment, R will overwrite the object with that name. Here R overwrote x = password123 with x = oops. This is a true oops because you will not be able to get x = password123 back: it is gone."
+```
+
+### Masking
+
+This time, let's save `x <- "password123"` to the global environment (I'll no longer add `x` to the active environments for the exercise chunks).
+
+* Check the contents of the global environment to see if `x` is there. Then click Submit Answer.
+
+```{r include = FALSE}
+x <- "password123"
+```
+
+```{r x3, exercise = TRUE}
+```
+
+```{r x3-hint-1}
+"Use ls.str()"
+```
+
+```{r x3-hint-2}
+"Run ls.str() on globalenv()"
+```
+
+```{r x3-solution}
+ls.str(globalenv())
+```
+
+```{r x3-check}
+"x = password123 is stored in the global environment, which will be the parent environment for each of the exercise chunks that follow."
+```
+
+###  
+
+Now what would happen if you run the code below?
+
+* Make a prediction then click Submit Answer. What happened?
+
+```{r x4, exercise = TRUE, exercise.setup = TRUE}
+x <- "oops"
+x
+```
+
+```{r x4-solution}
+x <- "oops"
+x
+```
+
+```{r x4-check}
+"But uh oh: the same result. This time things are not as dire. R saved your version of x to the active environment, which means that it did not overwrite the version of x in the global environment. However, when R searches for x, R will find your version of x and return it, without searching further up the search path. You can stop this by removing your version of x (before you call x) with `rm(x)`."
+```
+
+###  
+
+This behavior is called masking. _Masking_ occurs whenever two objects with the same name exist in the search path. When masking happens, R will always use the object that appears first in the search path. 
+
+Masking can be confusing if you do not realize that it is happening.
+
+### Masking and packages
+
+R will help you detect one source of masking: R will return an informative message if you load a package that contains objects that mask other objects. Here, R tells us that the `date()` function in the lubridate package masks the `date()` function in the base package.
+
+```{r}
+library(lubridate)
+```
+
+### ::
+
+You can get around package masking with the `::` syntax. To use `::`, write a package name followed by `::` and then an object name. R will look for the object in the package environment, circumventing the search path and any masking conflicts.
+
+```{r}
+lubridate::date
+```
+
+```{r}
+base::date
+```
+
+### Summary
+
+1. **Overwriting** happens when you assign a new value to a name that already exists in the active environment, replacing the old value.
+
+2. **Masking** happens when you create an object that has the same name as an object further down the search path, hiding the object.
+
+### Back to functions
+
+You now know everything you need to know to understand R's scoping and execution rules for functions. R must follow a set of rules to execute the code in functions safely, without accidentally masking or overwriting existing variables.
+
+## Function Rules
+
+###  
+
+When you call a function, R executes the code that is saved in the body of the function. To execute that code safely:
+
+1. R creates a fresh environment to run the code in. I'll call this environment the _execution environment_.
+
+2. R sets the parent of the execution environment to the function's _enclosing environment_, which is the environment where the function was first defined. This ensures that the function will use the same, predictable search path each time that it runs.
+
+3. When R finishes running the function, R returns the result to the _calling environment_, which is the environment that was active when the function was called. R also makes the calling environment the active environment again, which removes the execution environment from the search path.
+
+R repeats these steps everytime it runs a function. Let's use some quizzes to unpack these steps and their implications.
+
+### Calling Environments
+
+```{r a1, echo = FALSE}
+question("TRUE or FALSE: Every function is called from some calling environment.",
+         answer("TRUE", correct = TRUE, message = "R is always working closely with an active environment. Whichever environment is active when you call a function will be the function's calling environment."),
+         answer("FALSE"),
+         allow_retry = TRUE)
+```
+
+### What would happen...?
+
+Consider the `foo()` function:
+
+```{r eval = FALSE}
+foo <- function(z = 2) {
+  z <- 3
+  z
+}
+```
+
+```{r a2, echo = FALSE}
+question("What would happen if R ran the code saved in `foo()` in `foo()`'s calling environment?",
+         answer("Nothing important"),
+         answer("If an object named `z` exists in the calling environment, `foo()` will overwrite its value with `3`.", correct = TRUE, message = "foo() will pollute the calling environment with an object named z. This could overwrite an object named z in the calling environment, or mask an object named z in another environment. R avoids this problem by running foo() in a fresh execution environment."),
+         answer("An error would occur."),
+         answer("`foo()` will check to see if an object named `z` already exists in the calling environment. If so, `it`foo()` will use that value of `z`."),
+         allow_retry = TRUE)
+```
+
+### Could the execution environment stay active?
+
+Suppose there _is_ an object named `z` stored in the calling environment. In fact, `z` contains my password, `"password123"`. Boy am I glad that R runs the body of `foo()` in a fresh execution environment where, `z <- 3` cannot overwrite my password!
+
+```{r a3, echo = FALSE}
+question("But what would happen if R left the execution environment as the active environment after it finished running `foo()`?",
+         answer("Nothing important."),
+         answer("The next command would produce an immediate error."),
+         answer("`z = 3` will mask `z = password123` whenever I call `z`.", correct = TRUE, message = "If the execution environment remains the active environment, every search will begin there and its objects will mask any objects with the same names in other environments."),
+         allow_retry = TRUE)
+```
+
+### What if...?
+
+```{r a4, echo = FALSE}
+question("What would happen if one function called another function in its code body?",
+         answer("The execution environment of the first function would become the calling environment of the second function.", correct = TRUE, message = "Let's look at how this works."),
+         answer("R would make the calling environment active again and return an error."),
+         answer("R would ignore the call to the second function."),
+         answer("That thing from Ghostbusters would occur: the thing that happens when they cross the beams."),
+         allow_retry = TRUE)
+```
+
+### The Call Stack
+
+Since one R function can call another R function, an execution environment can become the calling environment for a second execution environment. If the second function calls a third function, then the second execution environment would become the calling environment for a third execution environment, and so on.
+
+These chains of calling environments are known as the _call stack_. Let's see one in action.
+
+### show_stack()
+
+The `show_stack()` function comes in the envtutorial package, which is a package I made specifically for this tutorial. `show_stack()` shows the call stack at the moment it is called. 
+
+The call stack does not look very impressive when you call `show_stack()` directly from the active environment (which in my case is the global environment):
+
+```{r}
+# show_stack()
+```
+
+The first row of the result is the execution environment of `show_stack()`. The second row is the calling environment of `show_stack()`.
+
+### A bigger stack
+
+But it is easy to embed `show_stack()` in a series of functions. When I run the code below, the `k()` function will call the `j()` function, which will call the `i()` function, which will call `show_stack()`.
+
+```{r}
+# i <- function() show_stack()
+# j <- function() i()
+# k <- function() j()
+# k()
+```
+
+Here, the first row is the execution environment of `show_stack()`. The second row is the calling environment of `show_stack()`, which is the execution environment of `i()`. The third row is the calling environment of `i()`, which is the execution environment of `j()`. The fourth row is the calling environment of `j()`, which is the execution environment of `k()`. And the final row is the calling environment of `k()`, which is the global environment.
+
+### Call stack life cycle
+
+Picture call stacks expanding and then collapsing as R runs its code. R built the call stack above one environment at a time, first making an execution environment to run `k()`, then an execution environment to run `j()`, and so on.
+
+After R ran the last function, `show_env()`, R switched the active environment back to the calling environment of `show_env()`, removing the execution environment of `show_env()` from the call stack.
+
+The calling environment of `show_env()` was the execution environment of `i()`. When R finished running `i()`, R switched the active environment back to the calling environment of `i()`, removing the execution environment of `i()` from the call stack, and so on.
+
+Eventually, R had finished running all of the code and had removed the execution environments one at a time until the call stack only contained the original active environment (here the global environment).
+
+### Call stacks and search paths
+
+```{r a5, echo = FALSE}
+question("Will the call stack that leads to a function be the same as the search path used by the function?",
+         answer("Yes"),
+         answer("No", correct = TRUE, message = "The call stack that leads to a function can vary from one run of the function to the next (as you saw with show_stack()), but you want the function to use the same search path each time it runs. Let's see why."),
+         allow_retry = TRUE)
+```
+
+### Masking in the call stack
+
+Let's call `show_stack()` in a different way:
+
+```{r eval = FALSE}
+# i <- function() show_stack()
+# j <- function() {
+#   show_stack <- function() 1 + 1
+#   i()
+# }
+# k <- function() j()
+# k()
+```
+
+This time the `j()` function defines its own version of `show_stack()`, which will live in the calling environment of `i()` (i.e. in the call stack).
+
+Believe it or not, but `show_stack()` isn't defined in the execution environment of `i()`---`show_stack()` is defined in the package environment for the envtutorial package. As a result, R needs to look up `show_stack()` in the same way that it looks up any other object.
+
+If R uses the call stack as its search path, R will find and use the incorrect version of `show_stack()` that was created by `j()`. 
+
+### Enclosing environments
+
+It would be a bad idea to use the call stack as the search path, since there is no way to police what might appear in the call stack that leads to a function. But what does R do instead?
+
+Every function saves a reference to the environment where it was originally defined. This environment is known as the function's _enclosing environment_.
+
+You can look up a function's enclosing environment by running `environment()` on the function, or by simply typing the name of the function: its enclosing environment will appear after its code body.
+
+* Click Submit Answer below to try it out.
+
+```{r show, exercise = TRUE}
+# environment(show_stack)
+# show_stack
+```
+
+```{r show-solution}
+# environment(show_stack)
+# show_stack
+```
+
+### Enclosing environments and the search path
+
+Each time R runs a function, R will create a new execution environment; but each of these execution environments will use the same parent environment: the enclosing environment of the function.
+
+As a result, the function will always run with the same search path, finding the same values for undefined variables each time. (Note that different functions will have different enclosing environments and hence different search paths).
+
+In my example, `i()` was defined in the global environment, which became its enclosing environment. 
+
+```{r}
+environment(i)
+```
+
+
+When R needed to look up `show_stack()` it first looked in the execution environment of `i()`, and then in the global environment, bypassing the execution environment of `j()`.
+
+### What if you need an object from the calling environment?
+
+Enclosing environments mean that the calling environment will (usually) not be on a function's search path.
+
+```{r a6, echo = FALSE}
+question("What if your function needs to use an object from the calling environment to do its job?",
+         answer("You are out of luck."),
+         answer("You should rewrite the function to automatically fetch the object."),
+         answer("You should manually reconstruct the search path before running the function."),
+         answer("You can pass the object to the function as an argument.", correct = TRUE, message = "That is exactly what the argument system is for."),
+         allow_retry = TRUE)
+```
+
+The remaining tutorials will show you how to write functions that do different things, like handle cases or iterate over loops.
+
+## if and else
+
+### Control Flow
+
+_Control flow_ refers to the order in which a function executes the statements in its body of code.
+
+By default, R functions will execute each line of code in the body in order, and then return the result of the last line of code. But it doesn't have to be this way. You can write functions that run some code in some situations and other code in other situations. 
+
+Let's learn how!
+
+### if
+
+Take a look at the code below. What is happening? 
+
+```{r}
+x <- 1
+```
+
+```{r}
+x == 1
+x > 1
+log(x)
+if (x == 1) log(x)
+```
+
+```{r}
+if (x > 1) log(x)
+```
+
+Try to describe what `if` is doing in your own words. Your best guess is okay!
+
+###  
+
+```{r if-quiz, echo = FALSE}
+question("Which describes `if`'s behavior? (Check all that apply).",
+         answer("`if` takes a logical test and a piece of code. It runs the code _if_ the test returns TRUE.", correct = TRUE, message = "`if` is a way to run code only in certain cases. When you use `if`, you first pass it a logical test surrounded by parentheses and then a piece of code."),
+         answer("`if` takes a logical test and a piece of code. It does not run the code _if_ the logical test returns FALSE.", correct = TRUE, message = "`if` will run the piece of code if the logical test returns TRUE and not run the code if the logical test returns FALSE."),
+         answer("`if` returns the results of the code that appears in _parentheses_ behind `if`."),
+         answer("`if` always executes all of the code that follows it.", message = "`if` will always execute the logical test that appears in parentheses behind `if`. However, `if` will only execute the code that appears after the logical test if the logical test returns TRUE."),
+         allow_retry = TRUE)
+```
+
+### Data cleaner
+
+Think you have it? Let's check. We'll use `if` to write a useful function.
+
+Many data sets use their own symbols to represent missing values. For example, NOAA will often use -99 to represent missing values in weather data sets. Let's write a function that checks whether a value is -99, and if so replaces the value with NA, like this:
+
+```{r echo = FALSE}
+clean <- function(x) {
+  if (x == -99) x <- NA
+  x
+}
+```
+
+```{r}
+clean(1)
+clean(-99)
+```
+
+###  
+
+Here is a start. `clean()` takes an object and returns the object, but `clean()` is missing an important piece of code.
+
+* Add an `if` statement to the beginning of `clean()`. Your statement should assign NA to x if x equals -99. Then click Submit Answer.
+
+```{r clean-setup}
+x <- -99
+```
+
+```{r clean, exercise = TRUE}
+clean <- function(x) {
+  # add if statement here
+  x
+}
+```
+
+```{r clean-hint}
+"Don't forget to use == to check for equality."
+```
+
+
+```{r clean-solution}
+clean <- function(x) {
+  if (x == -99) x <- NA
+  x
+}
+```
+
+```{r clean-check}
+"clean() replaces x with NA if x is -99, otherwise clean() returns x as is."
+```
+
+### else
+
+Here is a second version of `clean()` that uses on a new command. Can you tell what `else` does?
+
+```{r}
+clean <- function(x) {
+  if (x == -99) NA else x
+}
+```
+
+* Run `clean()` with several different values, `22`, `-99`, `3`. What does `clean()` return in each case? Why?
+
+```{r else-setup}
+clean <- function(x) {
+  if (x == -99) NA else x
+}
+```
+
+```{r else, exercise = TRUE}
+```
+
+###  
+
+```{r else-quiz, echo = FALSE}
+question("Which describes `else`? (Check all that apply).",
+         answer("R interprets `else` as a continuation of the `if` statement that immediately precedes it.", correct = TRUE, message = "`else` always follows an `if` statement (if not, `else` returns an error), and R always sees the combined `if` and `else` statements as a single statement."),
+         answer("Unlike `if`, `else` does not take a logical test.", correct = TRUE),
+         answer("Like `if`, `else` takes a piece of code.", correct = TRUE),
+         answer("`else` executes the piece of code if the `if` condition returns FALSE.", correct = TRUE),
+         answer("`else` does not execute the piece of code if the `if` condition returns TRUE.", correct = TRUE, message = "Think of a combined `if` `else` statement as a complete description: if the logical test at the start of the statement returns TRUE, R will run the code that follows `if` (but not the code that follows `else`). If the condition returns FALSE, R will run the code that follows `else` (but not the code that follows `if`)."),
+         allow_retry = TRUE)
+```
+
+### A word about syntax
+
+Although you can put `if` and `else` on the same line, you shouldn't because it is easy for readers to miss the trailing `else` when they scan the code. Also, placing `if` and `else` on the same line can make very long lines.
+
+It would be more common to write our function like this:
+
+```{r}
+clean <- function(x) {
+  if (x == -99) NA 
+  else x
+}
+```
+
+R parses the `if` and `else` lines as a single statement as long as `else` is the first thing that follows the `if` statement. As a result, R will return the result of the combined if else statement if it appears at the end of a function.
+
+### \{\}
+
+You can also pass `if` and `else` chunks of code surrounded by braces, `{}`. Braces group multiple lines of code into a single "piece." When you use braces in an if else statement, R will run (or not run) everything between the braces.
+
+In this example, R will run all three lines that follow `else` whenever x does not equal -99.
+
+```{r}
+clean <- function(x) {
+  if (x == -99) {
+    NA
+  } else {
+    x <- x^2
+    x <- sqrt(x)
+    x
+  }
+}
+```
+
+When you use braces, indent everything between the braces by two spaces to make your code more readable. And of course, you can use braces to organize your code even if you have a single line of code between the braces.
+
+### If else quiz
+
+SAS often saves missing values as `"."`.
+
+* Write a function named `clean2` that takes a value named `x` and returns an NA if the value is `"."` (and returns the value of `x` otherwise).
+
+```{r clean2-setup}
+x <- "."
+```
+
+```{r clean2, exercise = TRUE}
+```
+
+```{r clean2-hint}
+"clean2() should closely resemble clean()."
+```
+
+```{r clean2-solution}
+clean <- function(x) {
+  if (x == ".") NA 
+  else x
+}
+```
+
+```{r clean2-check}
+"What if you'd like to check for both -99 and . in the same function?"
+```
+
+### else if
+
+In that case, you can use `else` to chain together multiple `if` statements.
+
+```{r eval = FALSE}
+clean <- function(x) {
+  if (x == -99) NA 
+  else if (x == ".") NA
+  else x
+}
+```
+
+###  
+
+This does the same thing as 
+
+```{r eval = FALSE}
+clean <- function(x) {
+  if (x == -99) NA 
+  else {
+      if (x == ".") NA
+      else x
+  }
+}
+```
+
+`clean()` will:
+
+1. Check whether `x == -99`. If so `clean()` will return NA and skip the rest of the code. If not, `clean()` will...
+1. Check whether `x == "."`. If so, `clean()` will return NA and skip the rest of the code. If not, `clean()` will...
+1. Evaluate `x` and return its value.
+
+`else if` is more readable than nested if else statements, especially if you use many `else if`s.
+
+###  
+
+You can use `else` to string together as many if statements as you like. R will treat the result as a single multi-part if else statement. 
+Be thoughtful with the order. R will always evaluate the clauses in order, executing the code in the _first clause whose condition is true_ and ignoring every clause after that. 
+
+### Your turn
+
+* Write a function named `clean()` that uses `if`, `else`, and `else if` statements to replace the following four values with NA before returning x, `-99`, `"."`, `""`, `"NaN"`. Then click Submit Answer.
+
+```{r clean3-setup}
+x <- ""
+```
+
+
+```{r clean3, exercise = TRUE}
+```
+
+```{r clean3-solution}
+clean <- function(x) {
+  if (x == -99) NA 
+  else if (x == ".") NA
+  else if (x == "") NA
+  else if (x == "NaN") NA
+  else x
+}
+```
+
+```{r clean3-check}
+"You can add as many else if's after if as you like. However, you cannot add an else if clause after an else because R will interpret the else as the end of a complete if else statement."
+```
+
+### Quiz
+
+```{r eval = FALSE}
+foo <- function(x) {
+  if (x > 2) "a"
+  else if (x < 2) "b"
+  else if (x == 1) "c"
+  else "d"
+}
+foo(1)
+```
+
+```{r else-if-quiz, echo = FALSE}
+question("What will this code return?",
+         answer('"a"', message = "R will not retunr a because the condition 1 > 2 is false."),
+         answer('"b"', correct = TRUE, message = 'The condition 1 < 2 is true, so R will evaluate the code that follows it (i.e. "b") and then skip the remainder of the multi-part if statement.'),
+         answer('"a" "b"', message = "The conditions 1 < 2 and 1 == 1 are both TRUE, but R will stop after the _first_ true condition."),
+         allow_retry = TRUE)
+```
+
+### Quiz
+
+```{r eval = FALSE}
+clean <- function(x) {
+  if (x == -99) NA 
+  if (x == ".") NA
+  if (x == "NaN") NA
+  x
+}
+clean(-99)
+```
+
+```{r clean3-quiz, echo = FALSE}
+question("What will this code return?",
+         answer("NA", message = "Did you notice that the `if` statements are not linked by `else`? What difference does this make?"),
+         answer("-99", correct = TRUE, message = "Since the `if` clauses are not linked by `else`, R treats them as separate statements. R checks each if statement. After the first statement it runs NA, but does not return this as the result of the function (because this is not the final statement in the function). R does not run NA for the next two if statements because their conditions are false. Then R reaches `x`, which is the last line and last statement in the function. R evaluates `x`, which equals -99, and returns -99 as the result of the function."),
+         allow_retry = TRUE)
+```
+
+### Congratulations!
+
+You now know how to use `if` and `else` in your code. Let's look at another way to control flow in R.
+
+## return() and stop()
+
+###  
+
+You can tell R to stop executing a function early with 
+
+* `return()`
+* `stop()`, and
+* `stopifnot()`
+
+Each will work only in the context of a function (because they stop the function). You wouldn't run these directly at the command line, but they provide a powerful way to control the flow of your functions: They can make if else statements unnecessary and they can even make your code less buggy.
+
+### return()
+
+When R encounters `return()` it will stop executing the function that called `return()`. If you pass a value to `return()`, R will return that value when it stops executing the function. Let's see how it works.
+
+```{r}
+impatient_square <- function(x) {
+  return(x)
+  x^2
+}
+```
+
+```{r return-quiz, echo = FALSE}
+question("Which value will `impatient_square(2)` return?",
+         answer("2", correct = TRUE, message = "R stops executing `impatient_square()` and returns `x` when R encounters `return(x)`. It doesn't matter that `return(x)` is not the last line of the function."),
+         answer("4", message = "R stops executing `impatient_square()` when it encounters `return(x)`. As a result, R does not evaluate `x^2`."),
+         allow_retry = TRUE)
+```
+
+### R with a python accent
+
+If you are a python user, you might already use `return()` ...unnecessarily. In python, you explicitly tell each function what to return, e.g. 
+
+```python
+def mysquare(x):
+  y = x * x
+  return y
+```
+
+Translated to R this becomes:
+
+```{r}
+my_square <- function(x) {
+  y <- sum(x) / length(x)
+  return(y)
+}
+```
+
+But in R, this `return()` is not needed. R functions automatically return the result of their last line of code. In R, you can save `return()` for unusual control flow.
+
+### Using return()
+
+Remember this function? It didn't work as expected because we forgot to link our if statements with `else`.
+
+* Fix the function not by adding `else`, but by adding `return()` in the right places. Then Click Submit Answer.
+
+```{r return, exercise = TRUE}
+# clean <- function(x) {
+#   if (x == -99) NA 
+#   if (x == ".") NA
+#   if (x == "NaN") NA
+#   x
+# }
+```
+
+```{r return-solution}
+# clean <- function(x) {
+#   if (x == -99) return(NA)
+#   if (x == ".") return(NA)
+#   if (x == "NaN") return(NA)
+#   x
+# }
+```
+
+```{r return-check}
+"This version is slightly easier to read than a linked if else tree because you can think about each if clause separately. You can often avoid long, nested if else trees by using return() thoughtfully."
+```
+
+### NULL
+
+`clean()` is a fairly useful function, but it does have one flaw. 
+
+* What happens when `x = NULL`? Run the code and find out.
+
+```{r null, exercise = TRUE}
+# clean <- function(x) {
+#   if (x == -99) return(NA)
+#   if (x == ".") return(NA)
+#   if (x == "NaN") return(NA)
+#   x
+# }
+# clean(NULL)
+```
+
+```{r null-solution}
+# clean <- function(x) {
+#   if (x == -99) return(NA)
+#   if (x == ".") return(NA)
+#   if (x == "NaN") return(NA)
+#   x
+# }
+# clean(NULL)
+```
+
+###  
+
+`clean()` cannot handle `NULL` because `if` returns an error when it evaluates `NULL == -99`. And, unfortunately, the error message isn't very clear. This is the perfect case for `stop()`.
+
+```{r echo = FALSE}
+# clean <- function(x) {
+#   if (x == -99) return(NA)
+#   if (x == ".") return(NA)
+#   if (x == "NaN") return(NA)
+#   x
+# }
+```
+
+```{r}
+# clean(NULL)
+```
+
+### stop()
+
+`stop()` behaves like `return()`, but instead of returning a value, `stop()` returns an error, complete with a custom error message. Can you tell how it works?
+
+```{r eval = FALSE}
+immovable_square <- function(x) {
+  stop("I refuse to proceed.")
+  x^2
+}
+```
+
+```{r stop-quiz, echo = FALSE}
+question("What does `immovable_square(2)` return?",
+         answer("4", message = 'R will stop executing `immovable_square()` and throw an error when it comes to `stop("I refuse to proceed.")`.'),
+         answer("Error in immovable_square(2) : I refuse to proceed.", correct = TRUE, message = 'R will stop executing `immovable_square()` and throw an error when it comes to `stop("I refuse to proceed")`. The error message will look just like this answer; R inserts the message that you pass as a character string to `stop()`.'),
+         allow_retry = TRUE)
+```
+
+### Use stop()
+
+* Use `if` and `is.null()` to add a `stop()` call at the beginning of `clean()`. The command should return the error message `"x is NULL"` whenever x is NULL. 
+* Then click Submit Answer.
+
+```{r stop, exercise = TRUE}
+# clean <- function(x) {
+#   if (x == -99) return(NA)
+#   if (x == ".") return(NA)
+#   if (x == "NaN") return(NA)
+#   x
+# }
+```
+
+```{r stop-solution}
+# clean <- function(x) {
+#   if (is.null(x)) stop("x is NULL")
+#   if (x == -99) return(NA)
+#   if (x == ".") return(NA)
+#   if (x == "NaN") return(NA)
+#   x
+# }
+```
+
+### stopifnot()
+
+`stopifnot()` is a more readable substitute for statements that combine `if` and `stop()`. Can you guess how it works?
+
+```{r stopifnot-quiz, echo = FALSE}
+question('Which of these does the equivalent of `if (x < 0) stop("x is less than zero")`?',
+         answer('`stopifnot(x < 0)`', message = "Good guess! But the function isn't called `stopif()`; it's called `stopifnot()`."),
+         answer('`stopifnot(x >= 0)`', correct = TRUE, message = "`stopifnot()` stops if a condition is _not_ met, which is slightly different than `if` + `stop()`."),
+         allow_retry = TRUE)
+```
+
+### differences
+
+`stopifnot()` is different from `if` + `stop()` in a few important ways: 
+
+1. Instead of checking whether a condition is met, `stopifnot()` checks whether a condition is _not_ met.
+1. `stopifnot()` does not pass along a custom error message. Instead, `stopifnot()` always explains that the condition was not true:
+    ```{r, eval=FALSE}
+    x <- -1
+    stopifnot(x >= 0)
+    ```
+
+Notice that the first argument of `stopifnot()` should always be a logical condition, the inverse of the condition it replaces in an `if` + `stop()` statement. 
+
+You can include additional logical conditions for `stopifnot()` to check after the first. Separate each with a comma.
+
+###  
+
+Think you have it? 
+
+* Try replacing the `if` + `stop()` statement in `clean()` with `stopifnot()`. Then click Submit Answer.
+
+```{r stopifnot, exercise = TRUE}
+clean <- function(x) {
+  if (is.null(x)) stop("x is NULL")
+  if (x == -99) return(NA)
+  if (x == ".") return(NA)
+  if (x == "NaN") return(NA)
+  x
+}
+```
+
+```{r stopifnot-hint}
+"You can reverse the result of `is.null()` by placing an `!` in front of it: `!is.null()`."
+```
+
+```{r stopifnot-solution}
+clean <- function(x) {
+  stopifnot(!is.null(x))
+  if (x == -99) return(NA)
+  if (x == ".") return(NA)
+  if (x == "NaN") return(NA)
+  x
+}
+```
+
+### Defensive programming with stopifnot()
+
+You can save yourself debugging time by writing your functions to _fail fast_ with clear error messages. To do this, think about situations that will lead to errors and then check for them with `stopifnot()` at the beginning of your code.
+
+```{r}
+clean <- function(x) {
+  stopifnot(!is.null(x), is.numeric(x), length(x) == 1)
+  
+  if (x == -99) return(NA)
+  x
+}
+```
+
+If things go wrong, `stopifnot()` will help you see what you need to fix as soon as you run your function. Compare this to what will happen if you do not use `stopifnot()`:
+
+1. Your code will run until it triggers a (perhaps unhelpful) error message
+1. Your code may not trigger an error message, but return an incorrect result that you will think is true. This would very bad.
+
+###  
+
+Congratulations! You know two techniques of control flow, how to:
+
+1. Run specific code in specific cases
+1. Stop execution early
+
+In the Advanced Control Flow tutorial, you'll learn how to combine logical tests in an if statement as well as how to write if statements that work with vectors, which is a prerequisite if you want to write vectorized functions.
+
+
+## Submit
+
+```{r encode, echo=FALSE}
+learnrhash::encoder_ui(
+  ui_before = shiny::div(
+    "When you have completed this tutorial, follow these steps:",
+        br(),
+    tags$ol(
+       tags$li("Click Generate Submission"),
+       tags$li("Copy and paste the hash generated into the \"Hash\" textbox"),
+       tags$li("Press 'Create responses.rds'. Nothing will pop up, but this will create an .rds file of your hashed responses."),
+       tags$li("Download the .rds file. A window will pop up asking you where to place the downloaded file. Upload this file to the appropriate Canvas assignment."))
+  )
+)
+```
+
+```{r context="setup"}
+fluidPage(
+    mainPanel(
+          div(id = "form",
+            textInput("hash", "Hash", ""),
+            actionButton("submit", "Create responses.rds", class = "btn-primary"),
+            downloadButton("downloadData", "Download responses.rds")
+          )
+        )
+    )
+```
+
+```{r context="server"}
+
+learnrhash::encoder_logic()
+
+ observeEvent(input$submit,{
+        hash_id <<- input$hash
+        responses <<- data.frame("Hash" = hash_id)
+ })
+output$downloadData <- downloadHandler(
+      filename = "responses.rds",
+      content = function(file) {
+      write_rds(responses, file)
+    }
+  )
+```
+
+

@@ -1,6 +1,9 @@
 ---
 title: "Tidyverse"
-output: learnr::tutorial
+output:
+  learnr::tutorial:
+      progressive: true
+      allow_skip: true
 runtime: shiny_prerendered
 description: "Chapter 2 tutorial"
 ---
