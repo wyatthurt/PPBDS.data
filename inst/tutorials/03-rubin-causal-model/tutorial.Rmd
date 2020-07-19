@@ -6,7 +6,6 @@ output:
       allow_skip: true
 runtime: shiny_prerendered
 description: "Chapter 3 tutorial"
----
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, message = FALSE)
@@ -17,8 +16,35 @@ library(learnrhash)
 library(shiny)
 ```
 
+```{r echo=FALSE}
+knitr::include_graphics("images/don_rubin.jpg", dpi = 100)
+```
+
 <!-- Copied set up from Jessica -->
 <!-- Ch. 3 tutorial questions written by Cassidy Bargell  -->
 <!-- Also taken from rstudio/learnr and rstudio-education/primers GitHub repos -->
 
+## What is a causal effect?
+
+```{r quiz1, echo=FALSE}
+quiz(caption = "Quiz - Causal Effects",
+  question("What is the Fundamental Problem of Causal Inference?",
+    answer("It is impossible to observe multiple potential outcomes at once.", correct = TRUE, message = "Nice!"),
+    answer("We don't know the potential outcomes for people not surveyed.", message = "Close, missing data is at the heart of inference, but this is not the Fundamental Problem of *Causal* Inference."), 
+    allow_retry = TRUE
+  ),
+  question("How do we estimate causal effect?",
+    answer("Observe someone's potential outcome under treatment and compare it to their potential outcome as control.", message = "Remember the Fundamental Problem of Causal Inference is that we cannot *observe* both potential outcomes, but you're on the right track."),
+    answer("Only through lots of complicated coding.", message = "We can describe the process of finding the causal effect without any real code!"),
+    answer("Find the difference between potential outcomes under treatment and potential outcomes under control.", correct = TRUE),
+    allow_retry = TRUE
+  ),
+  question("What is $Y$? (Multi-response question with 2 right answers!)", type = "multiple",
+    answer("Response variable", correct = TRUE),
+    answer("The variable we want to explain through experimentation", correct = TRUE),
+    answer("Causal Effect", message = "Not quite!" ),
+    allow_retry = TRUE
+  )
+)
+```
 
