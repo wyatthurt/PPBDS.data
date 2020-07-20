@@ -16,10 +16,11 @@ library(PPBDS.data)
 library(learnr)
 library(learnrhash)
 library(shiny)
+library(gapminder)
 knitr::opts_chunk$set(echo = FALSE, message = FALSE)
 ```
 
-## Functions
+## Using map_* functions to create list columns
 
 ```{r name, echo=FALSE}
 question_text(
@@ -31,6 +32,171 @@ question_text(
 )
 ```
 
+<!-- EC: Insert one question about lists -->
+
+```{r quiz-1}
+quiz(caption = "Concept Check: Map functions and list-columns",
+  question("What is a list-column?",
+           answer("A list in which there is only one variable, and therefore only one \"column\""),
+           answer("A list which only contains variable, or \"column\" names"),
+           answer("A column of your data whose data type is a list rather than a character, numeric, integer, complex, or logical", message = "Remember, a list is not a data type, but rather a data structure! Other data structures include data frames and factors." ),
+           answer("A column of your data which is a list rather than a vector", correct = TRUE),
+           allow_retry = TRUE
+  ),
+  question("What does map_dbl() mean?",
+           answer("The input to the map_dbl() function must be numeric", correct=TRUE),
+           answer("The output of the map_dbl() function will be numeric"),
+           allow_retry = TRUE
+  ),
+  question("How are map_* functions different than mutate()?",
+           answer("They can take list inputs and iterate over each element of a list", correct = TRUE),
+           answer("They are the same, except you can specify what output data type you'd like to have"),
+           answer("They can apply functions to their inputs, whereas mutate() cannot"),
+           answer("They can apply custom and anonymous functions to their inputs, whereas mutate() can only apply built-in functions to their inputs")),
+   question("Which of the following is correct about map_* functions?",
+           answer("You do not need the parentheses when specifying a function for the map_* function to apply. Ex: map(data, mean)", correct = TRUE),
+           answer("You do need the parentheses when specifying a function for the map_* function to apply. Ex: map(data, mean())"),
+           answer("You cannot have a list with NAs, or else using the map_* function will return an error", message = "This is not necessarily true. Hint: What does the \"...\" mean in map_*? Refer to the next question!")),
+  question("What does the \"...\" argument mean in a map_* function?",
+           answer("Nothing. R functions commonly have an auxiliary \"...\" argument"),
+           answer("It means that the map_* function will take in its default arguments"),
+           answer("It means that you can specify additional arguments to be passed into the given function", correct = TRUE))
+)
+```
+
+List-Columns
+
+### 
+
+Create a list-column called `col_2` using `str_split()` that splits the phrases into "Government", "Data Science", "Preceptor", and "Primer".
+
+```{r exercise-0, exercise = TRUE}
+tibble(col_1 = c("Government and Data Science", "Preceptor and Primer")) %>%
+  mutate(col_2 = ...) %>%
+  str()
+```
+
+```{r exercise-0-hint}
+tibble(col_1 = c("Government and Data Science", "Preceptor and Primer")) %>%
+  mutate(col_2 = str_split(..., " and ")) %>%
+  str()
+```
+
+Explore the `ChickWeight` dataset using `skim()`.
+
+```{r exercise-1, exercise = TRUE}
+
+```
+
+```{r exercise-1-hint}
+skim(...)
+```
+
+Create a list-column of weights using `mutate()`called `weight_groups`, grouping by `Diet` and `Time`. Save this list-column in a new dataframe called `x`.
+
+```{r exercise-2, exercise = TRUE}
+x <- ChickWeight %>%
+  group_by(Diet, Time) %>%
+  mutate(...)
+```
+
+```{r exercise-2-hint}
+x <- ChickWeight %>%
+  group_by(Diet, Time) %>%
+  mutate(weight_groups = list(...))
+```
+
+Use a `map_*` function to find the mean weight per row in the new list-column. Name this new column `mean_weight`.
+
+```{r setup3}
+x <- ChickWeight %>%
+  group_by(Diet, Time) %>%
+  mutate(weight_groups = list(weight))
+```
+
+```{r exercise-3, exercise = TRUE, exercise.setup = "setup3"}
+x <- x %>%
+  mutate(mean_weight = map_dbl(...))
+```
+
+```{r exercise-3-hint}
+x <- x %>%
+  mutate(mean_weight = map_dbl(weight_groups, ...))
+```
+
+Now let's use `map_dbl()` to round each `mean_weight` to the nearest integer. Name this new column `rounded_mean`. 
+
+```{r setup4, exercise.setup = "setup3"}
+x <- x %>%
+  mutate(mean_weight = map_dbl(weight_groups, mean))
+```
+
+```{r exercise-4, exercise = TRUE, exercise.setup = "setup4"}
+x %>%
+  mutate(rounded_mean = map_dbl(...))
+```
+
+```{r exercise-4-hint}
+x %>%
+  mutate(rounded_mean = map_dbl(mean_weight, ...))
+```
+
+```{r quiz-2}
+quiz(
+  question("What is the rounded mean weight for chicks given Diet 2 for 4 days (corresponding to a value of 4 in Time)?",
+           answer("56 grams"),
+           answer("41 grams"),
+           answer("60 grams", correct = TRUE),
+           answer("52 grams"),
+           allow_retry = TRUE),
+  question("What would have happened if we had used map() instead of map_dbl() above?",
+           answer("The input would have looked for a list, rather than data of type double"),
+           answer("Nothing. Map() is just the general function for all map functions"),
+           answer("The output would have been a list, not a vector of type double", correct = TRUE, message = "Exactly! Try it out for yourself. This is why the world of map_* functions is so convenient. Functions such as unnest() can extract from list-columns, but there is no need to do so in this case."))
+  )
+```
+
+Now let's use a `map_*` function to find the highest weight per `Diet` + `Time` combination. First, let's sort from highest to lowest weight and create a new column named `sorted_weight`.
+
+```{r exercise-5, exercise = TRUE, exercise.setup = "setup4"}
+x <- x %>%
+  mutate(sorted_weight = map(weight_groups, ...))
+```
+
+```{r exercise-5-hint}
+x <- x %>%
+  mutate(sorted_weight = map(weight_groups, ..., decreasing = TRUE))
+```
+
+Next, return the highest weight in each row of the `sorted_weight` list-column in a new column named `heaviest`.
+
+```{r setup6}
+x <- x %>%
+  mutate(sorted_weight = map(weight_groups, sort, decreasing = TRUE))
+```
+
+```{r exercise-6, exercise = TRUE, exercise.setup = "setup6"}
+x %>%
+  mutate(heaviest = map_dbl(...))
+```
+
+```{r exercise-6-hint}
+x %>%
+  mutate(heaviest = map_dbl(...,  ~ .[1]))
+```
+
+```{r quiz-3}
+quiz(
+  question("What is the heaviest weight for a 16-day old chick on Diet 3?",
+           answer("227 grams"),
+           answer("287 grams", correct = TRUE),
+           answer("222 grams"),
+           answer("332 grams"))
+)
+```
+
+## Functions
+
 ###  
 
 Functions are the verbs of R. When you do something in R, you do it by running a function. For example,
@@ -40,14 +206,6 @@ Functions are the verbs of R. When you do something in R, you do it by running a
 * To add two numbers, you run a function named "+": `1 + 2`. 
 
 This last one is an alternative way to call the function `'+'(1, 2)`. In R, even things that do not look like functions are functions. 
-
-###  
-
-But what is a function? 
-
-A function is simply a piece of code that is packaged in a way that makes it easy to reuse.
-
-This short tutorial will show you how R functions are packaged and how you can work with R functions. It is a pre-requisite for the next tutorial, which will show you how to write your own R functions. Let's begin!
 
 ## Parts of a function
 
@@ -80,17 +238,9 @@ Let's use these helpers to see how the `xor` function works. `xor` is a logical 
 body(xor)
 ```
 
-```{r xor-body-check}
-"xor contains one line of code in its body (you can ignore the braces). This isn't always the case. A function can have as many lines of code as it needs in its body. If you don't believe me check out the body for lm. R will run the code in a function's code body each time you call the function; but as you can see, the code in a function's body may not be self-contained. What is x? What is y? Click Continue to find out."
-```
-
 ###  
 
-`xor` contains one line of code in its body (you can ignore the braces). This isn't always the case. A function can have as many lines of code as it needs in its body. For example, `as.list.data.frame` has three lines (most R functions have much more).
-
-```{r}
-body(as.list.data.frame)
-```
+`xor` contains one line of code in its body (you can ignore the braces). This isn't always the case. A function can have as many lines of code as it needs in its body. 
 
 When a function contains more than one line of code in its body, R will run the entire body and return the result of the **last** line.
 
@@ -117,10 +267,6 @@ Often times, a function will need one or more named values to do its job. These 
 
 ```{r xor-formals-solution}
 formals(xor)
-```
-
-```{r xor-formals-check}
-"A function can have zero, one, or many many formal arguments. Do not be distracted by the $'s that appear before the argument names. Those are an artifact of how R displays lists."
 ```
 
 ### environment()
@@ -333,10 +479,6 @@ question("",
          answer("Running a will return an error."),
          allow_retry = TRUE)
 ```
-
-### Congratulations!
-
-You have finished the tutorial.
 
 ## When to write a function
 
@@ -693,10 +835,6 @@ To do so, highlight a section of code in the scripts pane. Then navigate to **Co
 knitr::include_graphics("images/extract.png")
 ```
 
-## Practice
-
-Congratulations on finishing the tutorial. Before you go, complete the following exercises to cement your skills!
-
 ### Exercise 1
 
 ```{r quiz-2a, echo = FALSE}
@@ -1023,29 +1161,6 @@ question("What will `foodoo(a = 1, b = 2, c = 3)` return?",
           answer("[1] 2 3 with the names b c above the values", correct = TRUE, message = "Remember that `...` only captures _unmatched_ values. Now that `a` is a formal argument, `a = 1` will be matched to it, leaving `b = 2` and `c = 3` to be captured and passed on."),
          answer("An error."),
          allow_retry = TRUE)
-```
-
-## Tips
-
-###   
-
-Congratulations! You've finished the quiz and know a lot about how R parses arguments. As a reward, here are two useful things that you can do with arguments in the RStudio IDE:
-
-
-###  
-
-After you've written a function name followed by an opening parenthesis, look for a small yellow window to pop up that tells you the names, order, and default values of the function's arguments. This can be handy when you are not very familiar with the function.
-
-```{r echo=FALSE, out.width = "100%"}
-# knitr::include_graphics("images/popup.png")
-```
-
-###  
-
-After you've written a function name followed by an opening parenthesis, press tab to invoke RStudio's tab completion. RStudio will open a pop up menu that contains the names of the function's arguments. Use the up and down arrow keys to navigate to a name, and then press enter to insert the name into your code. This can save you a lot of time once you get a feel for it.
-
-```{r echo=FALSE, out.width = "100%"}
-# knitr::include_graphics("images/tab-completion.png")
 ```
 
 ## Environments
@@ -1918,10 +2033,6 @@ question("What will this code return?",
          allow_retry = TRUE)
 ```
 
-### Congratulations!
-
-You now know how to use `if` and `else` in your code. Let's look at another way to control flow in R.
-
 ## return() and stop()
 
 ###  
@@ -2160,15 +2271,1272 @@ If things go wrong, `stopifnot()` will help you see what you need to fix as soon
 1. Your code will run until it triggers a (perhaps unhelpful) error message
 1. Your code may not trigger an error message, but return an incorrect result that you will think is true. This would very bad.
 
+## && and ||
+
+###   
+
+This tutorial extends the Control Flow tutorial, where you learned how to use `if`, `else`, `return()`, and `stop()`.
+
+Here you will learn how to 
+
+1. combine logical tests in an if statement 
+1. write if statements that work with vectors, which is a prerequisite if you want to write vectorized functions.
+
 ###  
 
-Congratulations! You know two techniques of control flow, how to:
+Here's what `clean()` looked like at the end of the Control Flow tutorial. Do you notice that all of the if statements have the same outcome? 
 
-1. Run specific code in specific cases
-1. Stop execution early
+```{r eval = FALSE}
+clean <- function(x) {
+  stopifnot(!is.null(x))
+  if (x == -99) return(NA)
+  if (x == ".") return(NA)
+  if (x == "NaN") return(NA)
+  x
+}
+```
 
-In the Advanced Control Flow tutorial, you'll learn how to combine logical tests in an if statement as well as how to write if statements that work with vectors, which is a prerequisite if you want to write vectorized functions.
+Let's use your knowledge of logical tests to trim them down to a single if statement. 
 
+###   
+
+* Write a logical test that returns TRUE when x is -99 OR x is "." (Let's ignore the "NaN" case to keep things simple). Then click Submit Answer.
+
+```{r logic, exercise = TRUE}
+```
+
+```{r logic-hint}
+"You can combine two logical tests in R with `&` (and) and `|` (or), e.g. x < 0 & x > 1."
+```
+
+```{r logic-solution}
+x == -99 | x == "."
+```
+
+```{r logic-check}
+"This is the correct way to combine logical tests in R, but it has some downsides when you use it in an if statement."
+```
+
+### & and |
+
+`&` and `|` are R's boolean operators for combining logical tests.
+
+* `&` stands for "and" will return `TRUE` if _**both**_ tests return `TRUE` and will return `FALSE` otherwise. 
+* `|` stands for "or" will return `TRUE` if _**one or both**_ tests returns `TRUE` and will return `FALSE` otherwise. 
+
+So,
+
+```{r}
+x <- -99
+x == -99 | x == "."
+```
+
+###  
+
+However, it is bad practice to use `&` and `|` to combine logical tests within an `if` condition. Why? Because:
+
+1. there is something better (as you'll see in a minute)
+1. `&` and `|` tend to generate warning messages when used with `if`
+
+###   
+
+As R operators, both `&` and `|` are vectorized which means that you can use them with vectors. This is very useful.
+
+```{r}
+x <- c(-99, 0 , 1)
+x == -99
+x == "."
+x == -99 | x == "."
+```
+
+###  
+
+However, `if` conditions are not vectorized. `if` expects the logical test contained within its parentheses to return a **single** `TRUE` or `FALSE`. If the condition returns a vector of `TRUE` or `FALSE`s, `if` will use the first value and show a warning message.
+
+```{r}
+x <- c(-99, 0 , 1)
+if (x == -99 | x == ".") NA
+```
+
+### && and ||
+
+You can avoid this by always using `&&` and `||` within your `if` conditions. `&&` and `||` are lazy substitutes for `&` and `|`. They are lazy in two ways.
+
+First, `&&` and `||` always return a single `TRUE` or `FALSE`. If you give `&&` or `||` vectors, they will compare only the first elements of the vectors---and they will not return a warning message.
+
+```{r}
+x <- c(-99, 0 , 1)
+x == -99 || x == "."
+```
+    
+### Use ||
+
+Let's use this to our immediate advantage.
+
+* Replace the two `if` statements below with a single statement that tests whether x is `-99` or `"."` without throwing error messages.
+
+```{r or, exercise = TRUE}
+clean <- function(x) {
+  stopifnot(!is.null(x))
+  if (x == -99) return(NA)
+  if (x == ".") return(NA)
+  x
+}
+```
+
+```{r or-hint}
+"Like |, || expects a _complete_ logical test on each side of ||."
+```
+
+```{r or-solution}
+clean <- function(x) {
+  stopifnot(!is.null(x))
+  if (x == -99 || x == ".") return(NA)
+  x
+}
+```
+
+```{r or-check}
+"Now lets see what happens if you use clean() with a vector of values."
+```
+
+###  
+
+```{r eval = FALSE}
+clean <- function(x) {
+  stopifnot(!is.null(x))
+  if (x == -99 || x == ".") return(NA)
+  x
+}
+```
+
+```{r vector-quiz, echo = FALSE}
+question("What will `clean(c(-99, 0, 1))` return?",
+         answer("NA 0 1", message = "The logical test will only consider the first value of the vector x, which here contains c(-99, 0, 1). Since that value is -99, the logical test will return TRUE and R will execute the code `return(NA)`, which returns a single NA."),
+         answer("NA _with_ a warning message", message = "You certainly would get a warning message if your logical test used |, which will pass a vector of TRUEs and FALSEs to if, triggering the message. However, || will only pass on a single TRUE or FALSE."),
+         answer("NA _without_ a warning message", correct = TRUE),
+         answer("an error"),
+         allow_retry = TRUE)
+```
+
+### Computation
+
+The most important reason to use `||` instead of `|` is that `||` saves unnecessary computation when possible. This is the second way that `&&` and `||` are lazy.
+
+When possible, `&&` and `||` jump to the correct conclusion after evaluating the first of the two logical tests (not so with `&` and `|`). 
+
+* `&&` will return `FALSE` if the test on the left returns `FALSE` (because the combined test would return `FALSE`). 
+* `||` will return `TRUE` if the test on the left returns `TRUE` (because the combined test would return `TRUE`)  
+  
+In either case, `&&` and `||` will not evaluate the test on the right.
+    
+```{r}
+x <- -99
+if (x == -99 || stop("if you evaluate this.")) "I didn't evaluate stop()."
+```
+ 
+###  
+
+How could you use this?
+
+Remember how this code returns an error because `if` cannot handle the result of `NULL == -99`?
+
+```{r, eval=FALSE}
+clean <- function(x) {
+  if (x == -99) return(NA)
+  x
+}
+clean(NULL)
+```
+
+### Quiz
+
+Suppose we redefine `clean()` like this:
+
+```{r eval = FALSE}
+clean <- function(x) {
+  if (is.null(x) || x == -99) return(NA)
+  x
+}
+```
+
+```{r null-quiz, echo = FALSE}
+question("Now what will `clean(NULL)` return?",
+         answer("An error", message = "clean() certainly would return an error if it evaluated `x == -99` (and collapsed the results into a single result to pass to `if`), but _does_ `clean()` evaluate `x == -99`?"),
+         answer("NA", correct = TRUE, message = "|| first evaluates `is.null(x)`. `is.null(NULL)` returns `TRUE`, so `||` stops and returns `TRUE` to `if`. As a result, R never evaluates the code that leads to an error."),
+         allow_retry = TRUE)
+```
+
+## Vectorized if
+
+###  
+
+Burried in the last section is an interesting question: what if you _do_ want `clean()` to work with vectors? i.e.
+
+```{r echo = FALSE}
+clean <- function(x) ifelse(x == -99, NA, x)
+```
+
+```{r}
+clean(c(-99, 0, 1))
+```
+
+That would be a handy way to clean whole columns of data. How could you do it?
+
+###   
+
+Compare these two functions (one should seem familiar). What is different?
+
+```{r}
+clean <- function(x) {
+  if (x == -99) NA else x
+}
+clean2 <- function(x) {
+  ifelse(x == -99, NA, x)
+}
+```
+
+```{r ifelse-quiz, echo = FALSE}
+question("Make a guess: do these two functions do the same thing?",
+         answer("Yes!", correct = TRUE, message = "Well, you are sort of correct..."),
+         answer("No!", correct = TRUE, message = "Well, you are sort of correct..."),
+         answer("Sort of...", correct = TRUE, message = "You are absolutely right."), 
+         allow_retry = TRUE,
+         type = "single")
+```
+
+### ifelse()
+
+`ifelse()` is a function that replicates an if else statement. It takes three arguments: a logical test followed by two pieces of code. If the test returns `TRUE`, `ifelse()` will return the results of the first piece of code. If the test returns `FALSE`, `ifelse()` will return the results of the second piece of code. 
+
+So `clean(-99)` and `clean2(-99)` both return `NA`.
+
+```{r}
+clean(-99)
+clean2(-99)
+```
+
+###  
+
+However, unlike `if` and `else`, `ifelse` is vectorized. As a result, you can pass `ifelse()` a vector of values and it will apply the implied if else statement separately to each element of the vector.
+
+```{r}
+x <- c(-99, 0, 1)
+ifelse(x == -99, NA, x)
+```
+
+`clean2()` inherits this vectorized property from `ifelse()`. 
+
+```{r}
+clean2(c(-99, 0, 1))
+```
+
+Compare that to `clean()` (which is non-vectorized because it relies on `if` and `else`, which are non-vectorized).
+
+```{r}
+clean(c(-99, 0, 1))
+```
+
+### if_else
+
+The dplyr package offers a slight improvement on `ifelse()` named `if_else()`. `if_else()` is faster than `ifelse()`, but it requires you to make sure that each case in the if else statement returns the same type of object. For example, the statement needs to return a real number (or a string, or a logical, etc.) _whether or not_ the condition is `TRUE`.
+
+No big deal, right? Well kind of.
+
+```{r eval=FALSE}
+x <- c(-99, 0, 1)
+if_else(x == -99, NA, x)
+```
+
+### NA
+
+What happened? Recall that data in R comes in six atomic types. 
+
+```{r type-quiz, echo = FALSE}
+question("What type of data is NA?",
+         answer("double (i.e. real numbers)"),
+         answer("integer"),
+         answer("character"),
+         answer("logical", correct = TRUE, message = "It turns out that if you type NA at the command line, R saves the result as a logical."),
+         answer("complex"),
+         answer("raw"),
+         allow_retry = TRUE)
+```
+
+###  
+
+It is true:
+
+```{r}
+typeof(NA)
+```
+
+So when you write `if_else(x == -99, NA, x)`, `if_else()` returns a logical in the first case and a double (real number) in the second (assuming `x` is a real number). 
+
+You can get around this mishap in two ways:
+
+1. Stick to `ifelse()`
+1. Use a NA that comes with a type
+
+### Types of NA
+
+You may not realize it, but R comes with five types of NA. They all appear as `NA` when printed, but they are each saved with a separate data type. These are:
+
+```{r}
+NA # logical
+NA_integer_ # integer
+NA_real_ # double
+NA_complex_ # complex
+NA_character_ # character
+```
+
+You can fix `if_else()` by being precise about which NA to use (most other R functions will convert the type of NA without bothering you).
+
+```{r}
+x <- c(-99, 0, 1)
+if_else(x == -99, NA_real_, x)
+```
+
+### Use if_else
+
+* Fix the `if_else()` statement of `clean2()` to work with real numbers. Then click Submit Answer.
+
+```{r cleans, exercise = TRUE}
+clean2 <- function(x) {
+  ifelse(x == -99, NA, x)
+}
+```
+
+```{r cleans-solution}
+clean2 <- function(x) {
+  ifelse(x == -99, NA_real_, x)
+}
+```
+
+## Vectorized else if
+
+###  
+
+What if you want to write a vectorized version of a multi-part if else tree? Like the tree in this function:
+
+```{r eval = FALSE}
+clean <- function(x) {
+  if (x == -99) NA 
+  else if (x == ".") NA
+  else if (x == "") NA
+  else if (x == "NaN") NA
+  else x
+}
+```
+
+In this case, neither `ifelse()` or `if_else()` will do. Why? Because each can only handle a single if condition, but our tree has four.
+
+### case_when()
+
+You can vectorize multi-part if else statements with dplyr's `case_when()` function. Here is how you would use `case_when()` to rewrite our `foo()` function from the Control Flow tutorial.
+
+Here is the masterpiece in its original form
+
+```{r}
+foo <- function(x) {
+  if (x > 2) "a"
+  else if (x < 2) "b"
+  else if (x == 1) "c"
+  else "d"
+}
+```
+
+And here it is with `case_when()`.
+
+```{r}
+foo2 <- function(x) {
+  case_when(
+    x > 2  ~ "a",
+    x < 2  ~ "b",
+    x == 1 ~ "c",
+    TRUE   ~ "d"
+  )
+}
+```
+
+###  
+
+And here are our foos in action to prove that `foo2()` is vectorized.
+
+```{r}
+x <- c(3, 2, 1)
+foo(x)
+foo2(x)
+```
+
+Notice that 
+
+1. `case_when()` returns a single case for each element, the first case whose left hand side evaluates to `TRUE`
+1. The left hand side of the last case evaluates to `TRUE` no matter what the value of `x` is (In fact, the left hand side _is_ `TRUE`). This is an easy way to add an `else` clause to the end of `case_when()`.
+
+Now let's look at the unusual syntax of `case_when()`.
+
+### case_when() syntax
+
+```{r eval = FALSE}
+foo2 <- function(x) {
+  case_when(
+    x > 2  ~ "a",
+    x < 2  ~ "b",
+    x == 1 ~ "c",
+    TRUE   ~ "d"
+  )
+}
+```
+
+Each argument of `case_when()` is a pair that consists of a logical test on the left hand side and a piece of code on the right hand side. The two are _always_ separated by a `~`.
+
+Like `if_else()`, `case_when()` expects each case to return the same type of output. So keep those NA types handy: `NA`, `NA_integer_`, `NA_real_`, `NA_complex_`, `NA_character_`.
+
+### Final Challenge
+
+* Rewrite the multi-part version of `clean()` to use `case_when()`, which will allow `clean()` to handle vectors. Retain each case. Assume where necessary that `clean()` will only work with real numbers. Then click Submit Answer.
+
+```{r when, exercise = TRUE}
+clean <- function(x) {
+  if (x == -99) NA 
+  else if (x == ".") NA
+  else if (x == "") NA
+  else if (x == "NaN") NA
+  else x
+}
+```
+
+```{r when-hint}
+"Use NA's that have the right type."
+```
+
+```{r when-solution}
+clean <- function(x) {
+  case_when(
+    x == -99 ~ NA_real_, 
+    x == "." ~ NA_real_,
+    x == "" ~ NA_real_,
+    x == "NaN" ~ NA_real_,
+    TRUE ~ x
+  )
+}
+```
+
+```{r when-check}
+'And if you noticed that a vector of real numbers would never contain ".", "", and "Nan" because they are strings, you are of course right. Thanks for playing along with the charade.'
+```
+
+## repeat
+
+###  
+
+Many Data Science tasks require you to do the same thing over and over again. This is boring work---but not for your computer!
+
+But how do you ask your computer to repeat a task? 
+
+* The purrr package provides one way. I recommend that you check out the Iteration primer to learn how to use purrr and its map functions.
+
+* This tutorial will show you another way. You will learn how to repeat tasks with R's loop functions. You know know enough to understand loops, and loops will expand your ability to write useful functions.
+
+### Did you know?
+
+Did you know that some languages, like C, C++ and python, use loops as an _all purpose_ programming tool. This approach will not work well in R.
+
+R's loops are the right tool for a very specific job, but they lose out to other methods for other jobs. This is due to R's user-oriented design: most R functions implement their own pre-optimized loops behind the scenes in a lower level language. These built-in loops are much faster than any loop you could write at the command line. 
+
+But don't let this drive you loopy! You'll learn when and when not to use loops in R if you read through to the end of _When to use loops_. But first, we have a more pressing topic:
+
+What is a loop anyways?
+
+### loops
+
+R contains three types of loops
+
+1. `repeat`
+1. `while` 
+1. `for`
+
+The simplest of these are `repeat` loops.
+
+### repeat 
+
+`repeat` repeats an expression over and over again. To use `repeat`, type `repeat` without trailing parentheses. Then use braces to enclose one or more lines of code, e.g.
+
+```{r eval = FALSE}
+repeat {
+  print("Hello")
+}
+```
+
+```{r echo = FALSE}
+cat("Hello\nHello\nHello\nHello\nHello\n...")
+```
+
+`repeat` will execute all of the code between the braces. Then it will execute it again. And again. And again...
+
+###  
+
+```{r repeat-quiz, echo = FALSE}
+question("When will `repeat` stop executing the code?",
+         answer("After five times.", message = "Repeat will repeat your code until the end of time (I shortened things in the example above). This isn't particularly useful, so you will almost always use repeat with..."),
+         answer("Never, unless you or your computer intervene.", correct = TRUE, 
+         message = "Repeat will repeat your code until the end of time. This isn't particularly useful, so you will almost always use repeat with..."))
+```
+
+### break
+
+When an R loop encounters the `break` command, it exits the loop. This lets you schedule the end of a `repeat` loop.
+
+* How many times will R repeat the code in the loop below? Make a prediction then Click Submit Answer to see if you are right.
+
+```{r repeat, exercise = TRUE}
+n <- 1
+repeat {
+  print(n)
+  if (n == 5) break
+  n <- n + 1
+}
+```
+
+```{r repeat-solution}
+n <- 1
+repeat {
+  print(n)
+  if (n == 5) break
+  n <- n + 1
+}
+```
+
+```{r repeat-check}
+"R repeats the print statement five times and then exits the loop. Notice how we created an n variable to use with the loop. The loop reaches the end because we increment n by one each time we run the code. What would happen if you left out n <- n + 1? Don't try! The loop would print 1 for a very long time."
+```
+
+###   
+
+Here is a good question: 
+
+What happens to the value of `n` when you run the loop? 
+
+`n` is defined as `1` _outside_ of the loop. Is `n` still `1` when the loop is finished?
+
+```{r results='hide'}
+n <- 1
+repeat {
+  print(n)
+  if (n == 5) break
+  n <- n + 1
+}
+n
+```
+
+```{r n-setup}
+n <- 1
+repeat {
+  if (n == 5) break
+  n <- n + 1
+}
+```
+
+* Click Submit Answer to find out.
+
+```{r n, exercise = TRUE}
+n
+```
+
+```{r n-solution}
+n
+```
+
+```{r n-check}
+"n = 5. Are you surprised? R's loops are not like functions, which safely execute code in a new environment. R's loops execute code in the environment that calls them, which means that loops will modify the objects in the environment. This is important to know. It can be very useful---but not if you forget that it happens."
+```
+
+### count
+
+One way to prevent loops from altering objects in your environment is to put the loop into a function. For example, here is a function that counts from one to the number `x`. Do you see how it works?
+
+```{r}
+count <- function(x) {
+  n <- 1
+  repeat {
+    print(n)
+    if (n == x) break
+    n <- n + 1
+  }
+}
+```
+
+* Can you write something similar? Write a function named `count_down` that counts from `x` to one. Be sure to arrange for the loop to end! Then click Submit Answer.
+
+```{r countdown, exercise = TRUE}
+count_down <- function(x) {
+  
+  
+  
+  
+  
+}
+```
+
+```{r countdown-hint-1}
+"Begin by setting n = x. In which direction should you increment n to get to one?"
+```
+
+```{r countdown-hint-2}
+"Increment n by subtracting one from it on each repetition. You will want to do this _after_ you print the value of n for that repetition."
+```
+
+```{r countdown-hint-3}
+"Arrange to break the loop after you print n when n = 1."
+```
+
+```{r countdown-solution}
+count_down <- function(x) {
+  n <- x
+  repeat {
+    print(n)
+    if (n == 1) break
+    n <- n - 1
+  }
+}
+```
+
+```{r countdown-check}
+"You know, this sounds a lot like a rocket launch. Let's try to make the loop return the words 'Blast off!' when it ends. If we can do that, we could make loops return _anything_ when they end."
+```
+
+### return
+
+`break` is not the only way to end a loop in R. 
+
+If your loop is in a function, you can end the loop with a `return()` statement. R will stop executing the function (and therefore the loop) and return the value supplied by `return()`. 
+
+* Alter your function below to end the loop with `return("Blast off!")`. You will no longer need the `break` command. Then click Submit Answer.
+
+```{r blastoff, exercise = TRUE}
+count_down <- function(x) {
+  n <- x
+  repeat {
+    print(n)
+    if (n == 1) break
+    n <- n - 1
+  }
+}
+```
+
+```{r blastoff-hint}
+"Replace `break` with something else."
+```
+
+```{r blastoff-solution}
+count_down <- function(x) {
+  n <- x
+  repeat {
+    print(n)
+    if (n == 1) return("Blast off!")
+    n <- n - 1
+  }
+}
+```
+
+```{r blastoff-check}
+"Return is a useful way to return a message or value from a loop within a function. And for satisfaction's sake..."
+```
+
+###  
+
+```{r echo = FALSE}
+count_down <- function(x) {
+  n <- x
+  repeat {
+    print(n)
+    if (n == 1) return("Blast off!")
+    n <- n - 1
+  }
+}
+```
+
+```{r}
+count_down(10)
+```
+
+###  
+
+You've learned the essence of loops, now it is time to learn the forms. In the next sections, you will learn how to refine `repeat` loops into two common types of loops: 
+1. `while` loops, and
+1. `for` loops
+
+Each of these is a `repeat` loop adapted to a specific task.
+
+###  
+
+Along the way, you will work through a simple project: you will write and then refine a function that checks whether a number is prime. (This is a common computer science right of passage).
+
+Let's begin the project now with a `repeat` loop. You'll need to know some things about prime numbers and `%%` to begin...
+
+###   Prime numbers
+
+In mathematics, a _prime_ number is a number that can be divided evenly only by itself and the number one. In other words, if you try to divide a prime number by any number less than itself, you get a remainder (_to keep things simple, let's not worry about zero or negative numbers_). 
+
+For example, five is a prime number because you get a remainder when you divide it by two, three, and four:
+
+```{r results ='hold'}
+5 / 5
+5 / 4
+5 / 3
+5 / 2
+5 / 1
+```
+
+Interestingly, it is hard to prove that a number is prime...
+
+###  
+
+...unless you are a computer. Then you can divide the number by every number less than itself and show that the result has a remainder.
+
+###  %%
+
+To do this, you'll need to use the modulo function, `a %% b`, which we met in the control flow tutorial. Modulo is an arithmetic operator that returns the remainder of dividing `a` by `b`. For example, when you divide five by five, nothing is left over. When you divide five by four, one is left over. When you divide five by three, two is left over. And so on.
+
+```{r results='hold'}
+5 %% 5
+5 %% 4
+5 %% 3
+5 %% 2
+5 %% 1
+```
+
+Modulo doesn't return a decimal, it returns the number that remains once you subtract the largest multiple of `b` from `a` (i.e the number that you would get for the remainder if you did long division).
+
+### is_prime
+
+The code below uses a `repeat` loop to provide the beginnings of a function. Complete the loop:
+
+1. Change `n` to begin at `2` instead of `1`
+1. Add an `if` statement that ends the loop and returns `TRUE` if/when `n == x`.
+1. Add a second `if` statement that that checks whether `x %% n == 0` and returns `FALSE` if so.
+1. Then Click Submit Answer
+
+```{r prime-repeat, exercise = TRUE}
+is_prime <- function(x) {
+  n <- 1
+  repeat {
+    print(n)
+    
+    
+    n <- n + 1
+  }
+}
+```
+
+```{r prime-repeat-solution}
+is_prime <- function(x) {
+  n <- 2
+  repeat {
+    print(n)
+    if (n == x) return(TRUE)
+    if (x %% n == 0) return(FALSE)
+    n <- n + 1
+  }
+}
+```
+
+```{r prime-repeat-check}
+"The function works because a non-prime number will trigger the second if statement and return FALSE before the loop progresses to n = x. A prime number will reach n = x and return TRUE."
+```
+
+###  
+
+* Use `is_prime` to check whether or not 89 is a prime number. Click Submit Answer to run your code.
+
+```{r make-prime-repeat}
+is_prime <- function(x) {
+  n <- 2
+  repeat {
+    print(n)
+    if (n == x) return(TRUE)
+    if (x %% n == 0) return(FALSE)
+    n <- n + 1
+  }
+}
+```
+
+```{r eighty-nine, exercise = TRUE, exercise.setup = "make-prime-repeat"}
+```
+
+```{r eighty-nine-solution}
+is_prime(89)
+```
+
+```{r eighty-nine-check}
+"89 *is* prime. Now that you have a working prime function, let's modify it to use a more streamlined loop."
+```
+
+## while
+
+###  
+
+`while` loops run while a logical condition is true. 
+
+And, hey! So does our `repeat` loop! It runs _while_ n is less than x. How do you know? Because it stops and returns `TRUE` when n equals x.
+
+```{r eval = FALSE}
+is_prime <- function(x) {
+  n <- 2
+  repeat {
+    print(n)
+    if (n == x) return(TRUE)
+    if (x %% n == 0) return(FALSE)
+    n <- n + 1
+  }
+}
+```
+
+Let's replace `repeat` with `while`.
+
+###  
+
+`while` takes a logical test, like `if`, and a chunk of code, like `repeat`. `while` will repeat the code until the logical test returns `FALSE` (unless something in the code ends the loop first). 
+
+```{r}
+n <- 1
+while (n <= 5) {
+  print(n)
+  n <- n + 1
+}
+```
+
+You can read `while` as "while this condition is true, repeat that."
+
+### Can you use while?
+
+* Rewrite `is_prime` to use `while` instead of `repeat`. The new loop should run while n is less than x. 
+* Have `is_prime` return `TRUE` in its last line, after the loop is run. 
+    * Under which conditions, will the function return `TRUE`?
+* Then click Submit Answer.
+
+```{r prime-while, exercise = TRUE}
+is_prime <- function(x) {
+  n <- 2
+  repeat {
+    print(n)
+    if (n == x) return(TRUE)
+    if (x %% n == 0) return(FALSE)
+    n <- n + 1
+  }
+}
+```
+
+```{r prime-while-hint}
+"The new loop should run while n is less than x."
+```
+
+```{r prime-while-solution}
+is_prime <- function(x) {
+  n <- 2
+  while (n < x) {
+    print(n)
+    if (x %% n == 0) return(FALSE)
+    n <- n + 1
+  }
+  TRUE
+}
+```
+
+```{r prime-while-check}
+"`is_prime` will return TRUE if the loop comes to a natural end. That will only happen if `x` is a prime number."
+```
+
+###  
+
+Congratulations! Your `while` loop works.
+
+```{r echo = FALSE}
+is_prime <- function(x) {
+  n <- 2
+  while (n < x) {
+    print(n)
+    if (x %% n == 0) return(FALSE)
+    n <- n + 1
+  }
+  TRUE
+}
+```
+
+```{r}
+is_prime(7)
+```
+
+In fact, it does the same thing as your `repeat` loop. So why use `while`? 
+
+###  
+
+`while` loops can be easier to write than `repeat` loops; you do not need to insert your own `if` statement. 
+
+`while` loops are also easier to read: `while` makes the code author's intentions obvious.
+
+Now let's look at `for`. `for` loops provide the same advantages for a different situation. A for loop says "for each of these values do this." 
+
+## for
+
+###  
+
+A for loop takes a defined set of values and repeats the loop once for each of the values. 
+
+And, hey! So does our while loop! It runs once for each value in the set {2, 3, 4,  ...x}. How do you know? Because the loop begins with n = 2, increments n by one, and ends when n = x. 
+
+```{r eval = FALSE}
+is_prime <- function(x) {
+  n <- 2
+  while (n < x) {
+    print(n)
+    if (x %% n == 0) return(FALSE)
+    n <- n + 1
+  }
+  TRUE
+}
+```
+
+Let's replace `while` with `for`.
+
+
+### for syntax
+
+The syntax of `for` is similar to `while`, but instead of taking a logical test, `for` takes a three part statement:
+
+1. An object that may, or may not, be used in the code chunk that follows `for`.
+2. `in` (this never changes)
+3. A vector of values to iterate over. On each run of the loop, `for` will assign a different value of the vector to the object named in step 1.
+
+
+```{r}
+for (n in c(1, 2, 3, 4, 5)) {
+  print(n)
+}
+```
+
+`for` automatically ends the loop once it has iterated over each value in the vector.
+
+### for example
+
+`for` loops are very versatile. For example, `for` makes it easy to increment over strange sets of values:
+
+```{r}
+for (i in c(1, 10, 200)) {
+  print(i)
+}
+```
+
+### for the win
+
+You can also increment over "un-ordered" sets. You don't even need to stick to numbers:
+
+```{r}
+for (person in c("Betty", "Veronica", "Archie")) {
+  greeting <- paste("Hello", person)
+  print(greeting)
+}
+```
+
+### seq
+
+That's great! But how can you pass `for` the set {2, 3, 4,  ...x}? You'll need to do something like that to retool `is_prime`.
+
+One possibility is to use `seq(2, x)`, which creates a sequence of integers from 2 to x.
+
+```{r}
+seq(1, 10)
+```
+
+`seq`, `seq_len` and `seq_along` form a complete family of helper functions for creating sequences in R.
+
+### Can you use for?
+
+* Convert `is_prime` to use a for loop that iterates over `n in seq(2, x - 1)`. 
+    * Why wouldn't you want the loop to go all the way to n = x?
+* Then click Submit Answer.
+
+```{r for-1, exercise = TRUE}
+is_prime <- function(x) {
+  n <- 2
+  while (n < x) {
+    print(n)
+    if (x %% n == 0) return(FALSE)
+    n <- n + 1
+  }
+  TRUE
+}
+```
+
+```{r for-1-hint}
+"You no longer need to define n with an initial value, nor do you need to increment n."
+```
+
+```{r for-1-solution}
+is_prime <- function(x) {
+  for (n in seq(2, x - 1)) {
+    print(n)
+    if (x %% n == 0) return(FALSE)
+  }
+  TRUE
+}
+```
+
+```{r for-1-check}
+"You don't want the loop to continue to the case where n = x because x %% x always returns zero, even if x is prime, which means our function would always return FALSE. That wouldn't be good."
+```
+
+###  
+
+Here's an odd question: what if you wanted to skip some value in a loop?
+
+For example, what if  we wanted to skip n = 5 when we run our loop?
+
+You can do that with the last loop helper provided by R, `next`.
+
+### next
+
+When R encounters `next` in a loop, it will move on to the next iteration of the loop without executing the rest of the loop. Here, when n = 5, `next` causes R to move on to the next iteration of the loop (where n will equal 6).
+
+```{r eval = FALSE}
+is_prime <- function(x) {
+  for (n in seq(2, x - 1)) {
+    if (n == 5) next
+    print(n)
+    if (x %% n == 0) return(FALSE)
+  }
+  TRUE
+}
+```
+
+If five is the last value in the loop, `next` will cause R to exit the loop.
+
+### Quiz
+
+```{r eval = FALSE}
+n <- 1
+while (n < 2) {
+  print(n)
+  next
+  n <- n + 1
+}
+```
+
+```{r next-quiz, echo = FALSE}
+question("Will this loop run forever?",
+         answer("No"),
+         answer("Yes", correct = TRUE, message = "n will never increment to two  because R will skip over the end of the loop each time it encounters next. Be thoughtful when you write loops!"),
+         allow_retry = TRUE)
+```
+
+## When to use loops
+
+###  
+
+I mentioned earlier that loops should not appear as frequently in your R code as they would in your C, C++, or python code. Why is this? Because R is an extremely vectorized language.
+
+### Vectorization
+
+By "vectorized" I mean that most R functions are designed to take vectors as input and to return vectors as output. So if, for example, you'd like to take the square root of every value in a vector, you do not need to loop over the values in the vector...
+
+```{r}
+x <- c(1, 2, 3, 4, 5)
+y <- double(length = 5)
+for (i in seq_along(x)) {
+  y[i] <- sqrt(i)
+}
+y
+```
+
+...you can just pass the vector to the square root function.
+
+```{r}
+sqrt(x)
+```
+
+And the best part about R's vectorization is that it is very fast!
+
+###  
+
+R's arithmetic operators are also vectorized. If you add two vectors, R will add each pair of elements in the vectors and return the results as a new vector.
+
+```{r}
+c(1, 2, 3, 4, 5) + c(1, 2, 3, 4, 5)
+```
+
+###  
+
+And if you use R functions to build your functions, then your functions will inherit R's vectorization:
+
+```{r}
+round_square <- function(vec) {
+  sqs <- sqrt(vec)
+  round(sqs, digits = 2)
+}
+round_square(x)
+```
+
+###   
+
+Vectorization reduces the need to use loops. You can think of each vectorized function as implementing a loop for you.
+
+### recursion
+
+Some problems cannot be solved with vectorized functions, but even for these you do not necessarily need to use a loop. 
+
+For example, we could solve the prime problem with recursion. This is the strategy of having a function call itself. Until one of the recursively recalled functions returns an answer that is then passed up the call stack.
+
+```{r}
+is_prime <- function(x, n = 2) {
+  if (n == x) return(TRUE)
+  else if (x %% n == 0) return(FALSE)
+  else is_prime(x, n = n + 1)
+}
+```
+
+```{r}
+is_prime(89)
+is_prime(88)
+```
+
+### map
+
+Or you could use a map function from the purrr package.
+
+It is all up to you. The moral is that loops are not an all purpose tool in R. They are best reserved for problems that are not easy to solve with a vectorized function.
+
+To learn more about when you definitely _should_ use a loop, check out Hadley Wickham's three suggestions in [Advanced R](http://adv-r.had.co.nz/Functionals.html#functionals-not) (be aware, it is advanced).
+
+## Using map_* functions and custom/anonymous functions to create list-columns
+
+
+Explore the `airquality` dataset using `skim()`.
+
+```{r exercise-1a, exercise = TRUE}
+
+```
+
+```{r exercise-1a-hint}
+skim(...)
+```
+
+Create a list-column of monthly temperatures called `monthly_temp`, grouping by `Month`. Save this new list-column in a dataframe called `y`.
+
+```{r exercise-2a, exercise = TRUE}
+
+```
+
+```{r exercise-2a-hint}
+# y <- airquality %>%
+#   group_by(Month) %>%
+#   mutate(monthly_temp = list(...))
+```
+
+```{r quiz-4}
+quiz(caption = "mutate(celsius = map(fahrenheit, ...)",
+  question("Which of the following possibilities for filling in the blank is syntactically correct and converts from Fahrenheit to Celsius?",
+           answer("(. - 32) * 5/9)"),
+           answer("- 32 * 5/9"),
+           answer("~ (. - 32) * 5/9)", correct = TRUE),
+           answer("~ (fahrenheit - 32) * 5/9)"))
+)
+```
+
+Use a `map_*` function to convert all of the temperatures in `monthly_temp` from Fahrenheit to Celsius, creating a new variable `temp_celsius`. Hint: Use the formula from the quiz above!
+
+```{r exercise-3a-setup}
+y <- airquality %>%
+  group_by(Month) %>%
+  mutate(monthly_temp = list(Temp))
+```
+
+```{r exercise-3a, exercise = TRUE}
+y <- y %>%
+  mutate(temp_celsius = map(...))
+```
+
+```{r exercise-3a-hint}
+y <- y %>%
+  mutate(temp_celsius = map(monthly_temp, ...))
+```
+
+Oops! The scientists made a mistake in which all of the temperatures were misrecorded. For temperatures recorded at or below 20 degrees Celsius, the true temperature is actually 1 degree Celsius lower. For temperatures recorded as higher than 20 degrees Celsius, the true temperature is actually 3 degrees Celsius higher.
+
+Write an anonymous function using base R that rectifies the scientists' mistake using `case_when()`.
+
+```{r exercise-4a, exercise=TRUE}
+function(x) 
+  case_when(...)
+```
+
+```{r exercise-4a-solution}
+function(x) 
+  case_when(x <= 20 ~ x - 1,
+            x > 20 ~ x + 3)
+```
+
+Now use this function along with `map()`, swapping out the base R for the `~` in the `map()` argument.
+
+```{r setup5a}
+y <- y %>%
+  mutate(temp_celsius = map(monthly_temp, ~ (. - 32)* 5/9))
+```
+
+```{r exercise-5a, exercise=TRUE, exercise.setup = "setup5a"}
+y <- y %>%
+  mutate(temp_celsius = map(temp_celsius, ~ ...))
+```
+
+```{r exercise-5a-hint}
+y %>%
+  mutate(temp_celsius = map(temp_celsius, ~ case_when(...)))
+```
+
+Now let's get a sense of the "corrected" data. Sort the temperatures from coldest to hottest each month.
+
+```{r exercise-6a, exercise=TRUE, exercise.setup = "setup5a"}
+
+```
+
+```{r exercise-6a-hint}
+y %>%
+  mutate(temp_celsius = map(temp_celsius, ~ sort(case_when(...))))
+```
+
+```{r quiz-5}
+quiz(
+  question("What is the coldest temperature in July?",
+           answer("25.78 degrees Celsius", correct = TRUE),
+           answer("30.33 degrees Celsius"),
+           answer("12.33 degrees Celsius"),
+           answer("26.33 degrees Celsius"))
+)
+```
+
+Let's reference the `gapminder` dataset. First, create a list-column named `gdpPercap_yearly` that lists the `gdpPercap` per year grouping by continent.
+
+```{r exercise-7a, exercise=TRUE}
+
+```
+
+```{r exercise-7a-hint}
+gapminder %>%
+  group_by(year, continent) %>%
+  mutate(gdpPercap_yearly = list(...))
+```
+
+Now, build upon the previous question's code and, instead of taking the `gdpPercap`, calculate the *total wealth of the country in that year*. Save this as a new dataframe named `wealth`.
+
+```{r exercise-8a, exercise=TRUE}
+
+```
+
+```{r exercise-8a-hint}
+wealth <- gapminder %>%
+  group_by(year, continent) %>%
+  mutate(gdpPercap_yearly = list(gdpPercap * ...))
+```
 
 ## Submit
 
