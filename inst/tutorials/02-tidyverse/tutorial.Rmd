@@ -9,12 +9,13 @@ description: "Chapter 2 tutorial"
 ---
 <!-- EF: Initial edit for PR --> 
 
-```{r context = "setup", include=FALSE}
+```{r setup, include=FALSE}
 library(tidyverse)
 library(learnr)
 library(learnrhash)
 library(shiny)
 knitr::opts_chunk$set(echo = FALSE, message = FALSE)
+options(tutorial.exercise.timelimit = 60)  
 ```
 
 ```{r, include = FALSE}
@@ -49,6 +50,18 @@ lexus_mileage <- vehicles %>%
   slice(3:9)
 ```
 
+## Introduction 
+
+``` {r name, echo=FALSE}
+question_text(
+  "Student Name:",
+  answer(NULL, correct = TRUE),
+  incorrect = "Ok",
+  try_again_button = "Modify your answer",
+  allow_retry = TRUE
+)
+```
+
 ## Summarize()
 
 ```{r name, echo=FALSE}
@@ -63,7 +76,7 @@ question_text(
 
 
 ### Exercise 1
-Load the `gapminder` package.
+Load the `gapminder` package. (Note: when you run your code chunk it will have no discernible output)
 ```{r question-1-1, exercise = TRUE}
 
 ```
@@ -245,7 +258,8 @@ quiz(
     answer("Americas"),
     answer("Asia"),
     answer("Europe"),
-    answer("Oceania", correct = TRUE)
+    answer("Oceania", correct = TRUE),
+    allow_retry = TRUE
   )
 )
 ```
@@ -430,7 +444,8 @@ quiz(
     answer("15"),
     answer("42"),
     answer("23"),
-    answer("32", correct = TRUE)
+    answer("32", correct = TRUE),
+    allow_retry = TRUE
   )
 )
 ```
@@ -465,7 +480,8 @@ quiz(
     answer("model"),
     answer("class"),
     answer("trans", correct = TRUE),
-    answer("drive")
+    answer("drive"),
+    allow_retry = TRUE
   )
 )
 ```
@@ -608,7 +624,8 @@ quiz(
     answer("15801"),
     answer("15920, 15801", correct = TRUE),
     answer("15801, 15920, 15921"),
-    answer("15685, 16039")
+    answer("15685, 16039"),
+    allow_retry = TRUE
   )
 )
 ```
@@ -620,7 +637,8 @@ quiz(
     answer("None", correct = TRUE),
     answer("16365, 16366"),
     answer("15920, 15801"),
-    answer("15801, 15922")
+    answer("15801, 15922"),
+    allow_retry = TRUE
   )
 )
 ```
@@ -640,7 +658,8 @@ quiz(
     answer("None"),
     answer("16365, 16366"),
     answer("15920, 15801", correct = TRUE),
-    answer("15801, 15922")
+    answer("15801, 15922"),
+    allow_retry = TRUE
   )
 )
 ```
@@ -660,7 +679,8 @@ quiz(
     answer("None", correct = TRUE),
     answer("All"),
     answer("15920, 15801"),
-    answer("15801, 15922")
+    answer("15801, 15922"),
+    allow_retry = TRUE
   )
 )
 
@@ -672,7 +692,8 @@ quiz(
     answer("None"),
     answer("All"),
     answer("15920, 15801", correct = TRUE),
-    answer("15801, 15922")
+    answer("15801, 15922"),
+    allow_retry = TRUE
   )
 )
 ```
@@ -683,7 +704,8 @@ quiz(
     answer("None"),
     answer("All"),
     answer("15920, 15801", correct = TRUE),
-    answer("15801, 15922")
+    answer("15801, 15922"),
+    allow_retry = TRUE
   )
 )
 ```
@@ -694,7 +716,8 @@ quiz(
     answer("None"),
     answer("All"),
     answer("15920, 15801", correct = TRUE),
-    answer("15801, 15922")
+    answer("15801, 15922"),
+    allow_retry = TRUE
   )
 )
 ```
@@ -705,7 +728,8 @@ quiz(
     answer("None", correct = TRUE),
     answer("All"),
     answer("15920, 15801"),
-    answer("15801, 15922")
+    answer("15801, 15922"),
+    allow_retry = TRUE
   )
 )
 ```
@@ -716,7 +740,8 @@ quiz(
     answer("None"),
     answer("All", correct = TRUE),
     answer("15920, 15801"),
-    answer("15801, 15922")
+    answer("15801, 15922"),
+    allow_retry = TRUE
   )
 )
 ```
@@ -727,7 +752,8 @@ quiz(
     answer("None"),
     answer("All"),
     answer("15920, 15801", correct = TRUE),
-    answer("15801, 15922")
+    answer("15801, 15922"),
+    allow_retry = TRUE
   )
 )
 ```
@@ -738,7 +764,8 @@ quiz(
     answer("id, hwy, cty"),
     answer("hwy, cty", correct = TRUE),
     answer("id, class, drive"),
-    answer("id, make, model, class, drive")
+    answer("id, make, model, class, drive"),
+    allow_retry = TRUE
   )
 )
 ```
@@ -749,7 +776,8 @@ quiz(
     answer("id, hwy, cty"),
     answer("hwy, cty"),
     answer("id, class, drive"),
-    answer("make, model, class, drive", correct = TRUE)
+    answer("make, model, class, drive", correct = TRUE),
+    allow_retry = TRUE
   )
 )
 ```
@@ -768,7 +796,8 @@ table1
 quiz(
   question("Is table1 in tidy format?",
   answer("Yes", correct = TRUE),
-  answer("No")
+  answer("No"),
+  allow_retry = TRUE
 )
 )
 
@@ -787,7 +816,8 @@ table2
 quiz(
   question("Is table2 in tidy format?",
   answer("Yes"),
-  answer("No", correct = TRUE)
+  answer("No", correct = TRUE),
+  allow_retry = TRUE
 )
 )
 ```
@@ -855,4 +885,5 @@ output$downloadData <- downloadHandler(
     }
   )
 ```
+
 
