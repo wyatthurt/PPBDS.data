@@ -74,7 +74,7 @@ foo <- function() {
 ```
 
 ```{r foo-hint}
-body(...)
+# body(...)
 ```
 
 ## Using map_* functions to create list columns
@@ -409,11 +409,12 @@ a
 ```
 
 ```{r quiz-1b, echo = FALSE}
-question("",
+quiz(
+  question("",
          answer("1", correct = TRUE, message = "What happens in a function, stays in the function. foo() will not change the value of a outside of foo()."),
          answer("10"),
          answer("Running a will return an error."),
-         allow_retry = TRUE)
+         allow_retry = TRUE))
 ```
 
 To make this real, put yourself in the shoes of a teacher: You've given your students 10 homework assignments and announced that you will drop their lowest homework score. Their final grade will be the average score of the remaining homeworks.
@@ -422,7 +423,7 @@ To make your life easier, you want to write an R function that will take a vecto
 
 1. Create a real R object (or set of objects) to use with your function
 
-* Create an object named `x` that contains the vector `c(100, 100, 100, 100, 100, 100, 100, 100, 100, 90)` (hint: use copy and paste!). Then click Submit Answer. `x` will be the grades of your test student. 
+* Create an object named `x` that contains the vector `c(100, 100, 100, 100, 100, 100, 100, 100, 100, 90)` (hint: use copy and paste!).  `x` will be the grades of your test student. 
 
 ```{r obj, exercise = TRUE}
 ```
@@ -437,7 +438,7 @@ x <- c(100, 100, 100, 100, 100, 100, 100, 100, 100, 90)
 
 * Recall the grading scheme: the final grade is the average homework score after you drop the lowest score. Since there are many ways to calculate this, let's be specific and end up on the same page.
 
-* Use `sum()`, `min()`, `/`, `9` and parentheses to calculate the final grade for student `x`. Click Submit Answer to check that your code works.
+* Use `sum()`, `min()`, `/`, `9` and parentheses to calculate the final grade for student `x`.
 
 ```{r make-x, echo = FALSE}
 x <- c(100, 100, 100, 100, 100, 100, 100, 100, 100, 90)
@@ -491,7 +492,7 @@ grade <- function(...) {
 
 Good job! You can now have a finished `grade()` function that you can use to calculate the final grade of _any_ vector (I mean, student). Try it out.
 
-* Calculate the final grade of the vector `c(100, 90, 90, 90, 90, 90, 90, 90, 90, 80)`. Then click Submit Answer.
+* Calculate the final grade of the vector `c(100, 90, 90, 90, 90, 90, 90, 90, 90, 80)`. 
 
 ```{r make-grade}
 grade <- function(x) { 
@@ -506,7 +507,7 @@ grade <- function(x) {
 grade(x = c(100, 90, 90, 90, 90, 90, 90, 90, 90, 80))
 ```
 
-```{r recap, exercise=TRUE}
+```{r recap}
 quiz(
   question("Which is not a step of the best practice workflow for writing functions?",
          allow_retry = TRUE, random_answer_order = TRUE,
@@ -532,7 +533,7 @@ question("Do you have a test vector that you can use?",
 
 ###
 
-* Write a piece of code that uses `max()` to double count the highest score in `x` and then takes the average of the 11 results. Click Submit Answer to check that your code works.
+* Write a piece of code that uses `max()` to double count the highest score in `x` and then takes the average of the 11 results.
 
 ```{r e3, exercise = TRUE, exercise.setup = "make-x"}
 x
@@ -548,7 +549,6 @@ x
 
 * Wrap your code in `function()` and save it to the name `grade2`.
 * Then define the argument(s) for the function.
-* Then click Submit Answer.
 
 ```{r e4, exercise = TRUE}
 (sum(x) + max(x)) / 11
@@ -589,9 +589,11 @@ quiz(
          correct = "Good job! R can match values to arguments in three ways, but some of these methods are more foolproof then others."))
 ```
 
+###
+
 What will the following code return?
 
-```{r eval = FALSE}
+```{r eval = FALSE, echo = TRUE}
 f <- function(a, b, c) {
   a
   b
@@ -600,7 +602,7 @@ f <- function(a, b, c) {
 f(1, 2, 3)
 ```
 
-```{r quiz-2b, echo = FALSE}
+```{r quiz-2b}
 question("",
          answer("1"),
          answer("2"),
@@ -614,11 +616,11 @@ question("",
 
 It's time to put it all together. 
 
-* Use the code block below to develop a function named `l2` that calculates the Euclidean distance, or L~2~ norm ($\|x||_{2}$), of a vector of numbers named `x`. The L~2~ norm is the square root of the sum of the squared values in the vector, i.e.
+Use the code block below to develop a function named `l2` that calculates the Euclidean distance, or L~2~ norm ($\|x||_{2}$), of a vector of numbers named `x`. The L~2~ norm is the square root of the sum of the squared values in the vector, i.e.
 
 $$\| x \|_{2} = \sqrt{\sum_{i = 1}^{n} x_{i}^{2}}$$
 
-* When you are finished, reduce your code to just the definition of your function. Then click Submit Answer.
+When you are finished, reduce your code to just the definition of your function.
 
 ```{r e5, exercise = TRUE}
 ```
@@ -756,6 +758,15 @@ quiz(
 
 ### Checks using `stopifnot()`, and `stop()`
 
+<!-- EC: Need more stopifnot() questions -->
+
+```{r echo=TRUE, eval=FALSE}
+impatient_square <- function(x) {
+  return(x)
+  x^2
+}
+```
+
 ```{r return-quiz, echo = FALSE}
 quiz(
   question("Which value will `impatient_square(2)` return?",
@@ -768,7 +779,7 @@ quiz(
            allow_retry = TRUE))
 ```
 
-`stop()` behaves like `return()`, but instead of returning a value, `stop()` returns an error, complete with a custom error message. Can you tell how it works?
+###
 
 ```{r eval = FALSE, echo=TRUE}
 immovable_square <- function(x) {
@@ -777,16 +788,15 @@ immovable_square <- function(x) {
 }
 ```
 
-```{r stop-quiz, echo = FALSE}
-question("What does `immovable_square(2)` return?",
+```{r stop-quiz}
+quiz(
+  question("What does `immovable_square(2)` return?",
          answer("4", message = 'R will stop executing `immovable_square()` and throw an error when it comes to `stop("I refuse to proceed.")`.'),
          answer("Error in immovable_square(2) : I refuse to proceed.", correct = TRUE, message = 'R will stop executing `immovable_square()` and throw an error when it comes to `stop("I refuse to proceed")`. The error message will look just like this answer; R inserts the message that you pass as a character string to `stop()`.'),
-         allow_retry = TRUE)
+         allow_retry = TRUE))
 ```
 
-## Using map_* functions and custom/anonymous functions to create list-columns
-
-### Conditional Functions
+### Combining Checks and Conditional Functions
 
 ```{r if-quiz, echo = FALSE}
 question("Which describes `if`'s behavior? (Check all that apply).",
@@ -813,7 +823,7 @@ clean(-99)
 
 ###  
 
-Add an `if` statement to the beginning of `clean()`. Your statement should assign NA to x if x equals -99. Then click Submit Answer.
+Add an `if` statement to the beginning of `clean()`. Your statement should assign NA to x if x equals -99.
 
 ```{r clean-setup}
 x <- -99
@@ -833,28 +843,6 @@ clean <- function(x) {
 }
 ```
 
-###
-
-Here is a second version of `clean()` that uses on a new command. Can you tell what `else` does?  Run `clean()` with several different values, `22`, `-99`, `3`. What does `clean()` return in each case?
-
-```{r echo=TRUE}
-clean <- function(x) {
-  if (x == -99) NA else x
-}
-```
-
-```{r else-setup}
-clean <- function(x) {
-  if (x == -99) NA 
-  else x
-}
-```
-
-```{r else, exercise = TRUE}
-```
-
-###  
-
 ```{r else-quiz, echo = FALSE}
 question("Which describes `else`? (Check all that apply).",
          answer("R interprets `else` as a continuation of the `if` statement that immediately precedes it.", correct = TRUE, message = "`else` always follows an `if` statement (if not, `else` returns an error), and R always sees the combined `if` and `else` statements as a single statement."),
@@ -863,44 +851,6 @@ question("Which describes `else`? (Check all that apply).",
          answer("`else` executes the piece of code if the `if` condition returns FALSE.", correct = TRUE),
          answer("`else` does not execute the piece of code if the `if` condition returns TRUE.", correct = TRUE, message = "Think of a combined `if` `else` statement as a complete description: if the logical test at the start of the statement returns TRUE, R will run the code that follows `if` (but not the code that follows `else`). If the condition returns FALSE, R will run the code that follows `else` (but not the code that follows `if`)."),
          allow_retry = TRUE)
-```
-
-SAS often saves missing values as `"."`.
-
-* Write a function named `clean2` that takes a value named `x` and returns an NA if the value is `"."` (and returns the value of `x` otherwise).
-
-```{r clean2-setup}
-x <- "."
-```
-
-```{r clean2, exercise = TRUE}
-```
-
-```{r clean2-solution}
-clean <- function(x) {
-  if (x == ".") NA 
-  else x
-}
-```
-
-* Write a function named `clean()` that uses `if`, `else`, and `else if` statements to replace the following four values with NA before returning x, `-99`, `"."`, `""`, `"NaN"`. Then click Submit Answer.
-
-```{r clean3-setup}
-x <- ""
-```
-
-
-```{r clean3, exercise = TRUE}
-```
-
-```{r clean3-solution}
-clean <- function(x) {
-  if (x == -99) NA 
-  else if (x == ".") NA
-  else if (x == "") NA
-  else if (x == "NaN") NA
-  else x
-}
 ```
 
 ### Combining `stopifnot()` and  conditional statements
@@ -942,7 +892,7 @@ quiz(
 
 ###  
 
-Replace the `if` + `stop()` statement in `clean()` with `stopifnot()`. Then click Submit Answer.
+Replace the `if` + `stop()` statement in `clean()` with `stopifnot()`. 
 
 ```{r stopifnot, exercise = TRUE}
 clean <- function(x) {
@@ -1087,10 +1037,6 @@ clean <- function(x) {
 }
 ```
 
-```{r or-hint}
-"Like |, || expects a _complete_ logical test on each side of ||."
-```
-
 ```{r or-solution}
 clean <- function(x) {
   stopifnot(!is.null(x))
@@ -1118,6 +1064,8 @@ question("What will `clean(c(-99, 0, 1))` return?",
          allow_retry = TRUE)
 ```
 
+## Using custom and anonymous functions with `map_*` functions and list-columns
+
 Explore the `airquality` dataset using `skim()`.
 
 ```{r exercise-1a, exercise = TRUE}
@@ -1128,20 +1076,29 @@ Explore the `airquality` dataset using `skim()`.
 skim(...)
 ```
 
-Create a list-column of monthly temperatures called `monthly_temp`, grouping by `Month`. Save this new list-column in a dataframe called `y`.
+Create a list-column of monthly temperatures called `monthly_temp`, grouping by `Month`.
 
 ```{r exercise-2a, exercise = TRUE}
 
 ```
 
 ```{r exercise-2a-hint}
-# y <- airquality %>%
-#   group_by(Month) %>%
-#   mutate(monthly_temp = list(...))
+airquality %>%
+   group_by(Month) %>%
+   mutate(monthly_temp = list(...))
+```
+
+###
+
+```{r echo=TRUE, eval=FALSE}
+airquality %>%
+   group_by(Month) %>%
+   mutate(monthly_temp = list(Temp)) %>%
+   mutate(celsius = map(fahrenheit, ...)
 ```
 
 ```{r quiz-4}
-quiz(caption = "mutate(celsius = map(fahrenheit, ...)",
+quiz(caption = "",
   question("Which of the following possibilities for filling in the blank is syntactically correct and converts from Fahrenheit to Celsius?",
            answer("(. - 32) * 5/9)"),
            answer("- 32 * 5/9"),
@@ -1150,21 +1107,21 @@ quiz(caption = "mutate(celsius = map(fahrenheit, ...)",
 )
 ```
 
+###
+
 Use a `map_*` function to convert all of the temperatures in `monthly_temp` from Fahrenheit to Celsius, creating a new variable `temp_celsius`. Hint: Use the formula from the quiz above!
 
-```{r exercise-3a-setup}
-y <- airquality %>%
-  group_by(Month) %>%
-  mutate(monthly_temp = list(Temp))
-```
-
 ```{r exercise-3a, exercise = TRUE}
-y <- y %>%
-  mutate(temp_celsius = map(...))
+airquality %>%
+  group_by(Month) %>%
+  mutate(monthly_temp = list(Temp)) %>%
+  mutate(...)
 ```
 
 ```{r exercise-3a-hint}
-y <- y %>%
+airquality %>%
+  group_by(Month) %>%
+  mutate(monthly_temp = list(Temp)) %>%
   mutate(temp_celsius = map(monthly_temp, ...))
 ```
 
@@ -1183,42 +1140,208 @@ function(x)
             x > 20 ~ x + 3)
 ```
 
+###
+
 Now use this function along with `map()`, swapping out the base R for the `~` in the `map()` argument.
 
-```{r setup5a}
-y <- y %>%
-  mutate(temp_celsius = map(monthly_temp, ~ (. - 32)* 5/9))
-```
-
-```{r exercise-5a, exercise=TRUE, exercise.setup = "setup5a"}
-y <- y %>%
+```{r exercise-5a, exercise=TRUE}
+airquality %>%
+  group_by(Month) %>%
+  mutate(monthly_temp = list(Temp)) %>%
+  mutate(temp_celsius = map(monthly_temp, ~ (. - 32)* 5/9)) %>%
   mutate(temp_celsius = map(temp_celsius, ~ ...))
 ```
 
 ```{r exercise-5a-hint}
-y %>%
+airquality %>%
+  group_by(Month) %>%
+  mutate(monthly_temp = list(Temp)) %>%
+  mutate(temp_celsius = map(monthly_temp, ~ (. - 32)* 5/9)) %>%
   mutate(temp_celsius = map(temp_celsius, ~ case_when(...)))
 ```
 
+###
+
 Now let's get a sense of the "corrected" data. Sort the temperatures from coldest to hottest each month.
 
-```{r exercise-6a, exercise=TRUE, exercise.setup = "setup5a"}
-
+```{r exercise-6a, exercise=TRUE}
+airquality %>%
+  group_by(Month) %>%
+  mutate(monthly_temp = list(Temp)) %>%
+  mutate(temp_celsius = map(monthly_temp, ~ (. - 32)* 5/9)) %>%
+  mutate(temp_celsius = map(temp_celsius, ~ case_when(. <= 20 ~ . - 1,
+            . > 20 ~ . + 3)))
 ```
 
-```{r exercise-6a-hint}
-y %>%
-  mutate(temp_celsius = map(temp_celsius, ~ sort(case_when(...))))
+```{r exercise-6a-solution}
+airquality %>%
+  group_by(Month) %>%
+  mutate(monthly_temp = list(Temp)) %>%
+  mutate(temp_celsius = map(monthly_temp, ~ (. - 32)* 5/9)) %>%
+  mutate(temp_celsius = map(temp_celsius, ~ sort(case_when(. <= 20 ~ . - 1,
+            . > 20 ~ . + 3))))
 ```
 
 ```{r quiz-5}
 quiz(
   question("What is the coldest temperature in July?",
-           answer("25.78 degrees Celsius", correct = TRUE),
+           answer("25.78 degrees Celsius", correct = TRUE, message = "Great job! Now let's move on to another practice exercise."),
            answer("30.33 degrees Celsius"),
            answer("12.33 degrees Celsius"),
            answer("26.33 degrees Celsius"))
 )
+```
+
+<<<<<<< HEAD
+###
+
+Let's say you are trying to create a function, `coin_flip()`, that takes an input `n` of the number of times to flip a coin and adds up the number of Tails.
+
+Let's start by creating a minimally viable function called `starter_coin()` that flips one coin once and prints out `H` or `T`. Remember: You can paste vectors as an argument into `sample()`!
+
+```{r coin1, exercise=TRUE}
+
+```
+
+```{r coin1-hint}
+starter_coin <- function() sample(c("H", "T"), ...)
+```
+
+###
+
+Now let's take it up a notch and add in a formal argument `n` that specifies the number of times to flip the coin.
+
+```{r coin2, exercise=TRUE}
+
+```
+
+```{r coin2-hint}
+starter_coin <- function(n) sample(c("H", "T"), n, replace = ...)
+```
+
+###
+
+Add in a sensible `stopifnot()` to your function that checks whether the input `n` is numeric.
+
+```{r coin3, exercise=TRUE}
+
+```
+
+```{r coin3-hint}
+starter_coin <- function(n) {
+  stopifnot(is.numeric(...))
+  sample(c("H", "T"), n, replace = TRUE)
+}
+```
+
+###
+
+Great! Now we should be able to create `coin_flip()`, which counts the number of Tails for `n` flips. Set the default value of `n` to 1.
+
+```{r coin4, exercise=TRUE}
+coin_flip <- function(n = 1) {
+  ...
+}
+```
+
+```{r coin4-hint-1}
+# Use the code from starter_coin() and sum().
+```
+
+```{r coin4-hint-2}
+coin_flip <- function(n = 1) {
+  stopifnot(is.numeric(n))
+  sum(sample(c("H", "T"), n, replace = TRUE) == ...)
+}
+```
+
+###
+
+Now let's create a function called `five_flips` that counts how many Tails occur in five coin flips, or the equivalent of `coin_flip(5)`, but calls it `n` times.
+* Set the default value of `n` separate flips to 1.
+* Use a `map_*` function to apply the `rep()` function to `coin_flip()` `n` times.
+
+```{r coin5, exercise=TRUE}
+five_flips <- function(n = 1) {
+  ...
+}
+```
+
+```{r coin5-hint-1}
+# The map function you are looking for is map_int().
+```
+
+```{r coin5-hint-2}
+# rep(x,n) means that you are flipping x coins n times.
+```
+
+```{r coin5-hint-3}
+five_flips <- function(n = 1) {
+  stopifnot(is.numeric(n))
+  map_int(rep(5, n), ...)
+}
+```
+
+###
+
+Create a tibble named `x` with one variable: `flips`. `flips` is a list column of 10 observations, each element of which is result of flipping 5 coins 10 times. 
+
+```{r coin-quiz}
+quiz(
+  question("Select all that apply: Which of the following is equivalent to flipping 5 coins 10 times?",
+           answer("five_flips(10)", correct = TRUE, message = "Use this function for the next exercise!"),
+           answer("five_flips(5, 10)"),
+           answer("five_flips(5)"),
+           allow_retry = TRUE,
+           random_answer_order = TRUE))
+```
+
+Create `x` as specified above. Make sure to use the correct `map_*` function.
+
+```{r coin7, exercise=TRUE}
+x <- tibble(flips = ...)
+```
+
+```{r coin7-hint}
+x <- tibble(flips = map(rep(10, 10), ...))
+```
+
+###
+
+Now we are interested in finding the `mean()`, `min()`, and `max()` of each row. Use the appropriate `map_*` functions to create new columns named `average`, `minimum`, and `maximum`, using the aforementioned functions respectively.
+
+```{r coinsetup}
+x <- tibble(flips = map(rep(10, 10), five_flips))
+```
+
+```{r coin8, exercise=TRUE, exercise.setup = "coinsetup}
+x %>%
+  mutate(...)
+```
+
+```{r coin8-hint}
+x %>%
+  mutate(average = map_dbl(...),
+         minimum = map_dbl(...),
+         maximum = map_dbl(...))
+```
+
+###
+
+That seems kind of clunky to create three new columns. What if I wanted to return a single new list-column named `descriptive_stats` that contained a list of the mean, minimum, and maximum values? Time to write a function!
+
+```{r coin8-hint}
+stat_ops <- function(x) {
+  a <- mean(x)
+  b <- min(x)
+  c <- max(x)
+  return(a,b,c)
+}
+```
+
+```{r coin8-hint}
+#x %>%
+  # mutate(descriptive_stats = map(flips, stat_ops))
 ```
 
 ## Submit
