@@ -1,0 +1,105 @@
+---
+title: "Introduction"
+output:
+  learnr::tutorial:
+      progressive: true
+      allow_skip: true
+runtime: shiny_prerendered
+description: "Chapter 0 tutorial"
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(learnr)
+library(learnrhash)
+library(shiny)
+knitr::opts_chunk$set(echo = FALSE, message = FALSE)
+options(tutorial.exercise.timelimit = 60)  
+```
+
+## Introduction 
+
+``` {r name, echo=FALSE}
+question_text(
+  "Student Name:",
+  answer(NULL, correct = TRUE),
+  incorrect = "Ok",
+  try_again_button = "Modify your answer",
+  allow_retry = TRUE
+)
+```
+
+### Exercise 1
+Check the version of R running on your computer. You can do this by typing `version[['version.string']]` in your console. Is this the right version?
+```{r question-1-1, exercise = TRUE}
+
+```
+
+```{r question-1-1-hint, silent = TRUE}
+version[['version.string']]
+```
+
+### Exercise 2
+Install the "gt" package. Hint: you don't need to install this one from GitHub. 
+```{r question-1-2, exercise = TRUE}
+
+```
+
+```{r question-1-2-hint, silent = TRUE}
+install.packages("tidyverse")
+```
+
+### Exercise 3
+Check if your computer is set to download R packages in binary by typing in `options("pkgType")`. Does it say binary?
+```{r question-1-3, exercise = TRUE}
+
+```
+
+```{r question-1-3-hint, silent = TRUE}
+options("pkgType")
+```
+
+## Submit
+
+```{r encode, echo=FALSE}
+learnrhash::encoder_ui(
+  ui_before = shiny::div(
+    "When you have completed this tutorial, follow these steps:",
+        br(),
+    tags$ol(
+       tags$li("Click Generate Submission"),
+       tags$li("Copy and paste the hash generated into the \"Hash\" textbox"),
+       tags$li("Press 'Create responses.rds'. Nothing will pop up, but this will create an .rds file of your hashed responses."),
+       tags$li("Download the .rds file. A window will pop up asking you where to place the downloaded file. Upload this file to the appropriate Canvas assignment."))
+  )
+)
+```
+
+```{r context="setup"}
+fluidPage(
+    mainPanel(
+          div(id = "form",
+            textInput("hash", "Hash", ""),
+            actionButton("submit", "Create responses.rds", class = "btn-primary"),
+            downloadButton("downloadData", "Download responses.rds")
+          )
+        )
+    )
+```
+
+```{r context="server"}
+
+learnrhash::encoder_logic()
+
+ observeEvent(input$submit,{
+        hash_id <<- input$hash
+        responses <<- data.frame("Hash" = hash_id)
+ })
+output$downloadData <- downloadHandler(
+      filename = "responses.rds",
+      content = function(file) {
+      write_rds(responses, file)
+    }
+  )
+```
+

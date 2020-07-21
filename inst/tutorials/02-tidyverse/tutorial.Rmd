@@ -64,17 +64,6 @@ question_text(
 
 ## Summarize()
 
-```{r name, echo=FALSE}
-question_text(
-  "Student Name:",
-  answer(NULL, correct = TRUE),
-  incorrect = "Ok",
-  try_again_button = "Modify your answer",
-  allow_retry = TRUE
-)
-```
-
-
 ### Exercise 1
 Load the `gapminder` package. (Note: when you run your code chunk it will have no discernible output)
 ```{r question-1-1, exercise = TRUE}

@@ -9,43 +9,252 @@ description: "Chapter 3 tutorial"
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, message = FALSE)
 library(tidyverse)
-library(PPBDS.data)
 library(learnr)
 library(learnrhash)
 library(shiny)
+library(gt)
+knitr::opts_chunk$set(echo = FALSE, message = FALSE)
+options(tutorial.exercise.timelimit = 60)  
 ```
 
 ```{r echo=FALSE}
 knitr::include_graphics("images/don_rubin.jpg", dpi = 100)
 ```
 
-<!-- Copied set up from Jessica -->
-<!-- Ch. 3 tutorial questions written by Cassidy Bargell  -->
-<!-- Also taken from rstudio/learnr and rstudio-education/primers GitHub repos -->
+## Introduction
+
+``` {r name, echo=FALSE}
+question_text(
+  "Student Name:",
+  answer(NULL, correct = TRUE),
+  incorrect = "Ok",
+  try_again_button = "Modify your answer",
+  allow_retry = TRUE
+)
+```
 
 ## What is a causal effect?
 
-```{r quiz1, echo=FALSE}
-quiz(caption = "Quiz - Causal Effects",
-  question("What is the Fundamental Problem of Causal Inference?",
+Answer the following questions about this Ideal Preceptor Table.
+
+```{r question-1-1}
+
+question("What is the Fundamental Problem of Causal Inference?",
     answer("It is impossible to observe multiple potential outcomes at once.", correct = TRUE, message = "Nice!"),
     answer("We don't know the potential outcomes for people not surveyed.", message = "Close, missing data is at the heart of inference, but this is not the Fundamental Problem of *Causal* Inference."), 
     allow_retry = TRUE
-  ),
-  question("How do we estimate causal effect?",
+  )
+
+question("How do we estimate causal effect?",
     answer("Observe someone's potential outcome under treatment and compare it to their potential outcome as control.", message = "Remember the Fundamental Problem of Causal Inference is that we cannot *observe* both potential outcomes, but you're on the right track."),
     answer("Only through lots of complicated coding.", message = "We can describe the process of finding the causal effect without any real code!"),
     answer("Find the difference between potential outcomes under treatment and potential outcomes under control.", correct = TRUE),
     allow_retry = TRUE
-  ),
-  question("What is $Y$? (Multi-response question with 2 right answers!)", type = "multiple",
+  )
+
+question("What is $Y$? (Multi-response question with 2 right answers!)", type = "multiple",
     answer("Response variable", correct = TRUE),
     answer("The variable we want to explain through experimentation", correct = TRUE),
     answer("Causal Effect", message = "Not quite!" ),
     allow_retry = TRUE
   )
+
+```
+
+```{r question-1-2-setup, echo = FALSE}
+
+tibble(subject = c("Yao", "Emma", "Cassidy", "Tahmid", "Diego"),
+       ytreat = c("11", "13", "10", "8", "6"),
+       ycontrol = c("9", "10", "11", "10", "4"),
+       ydiff = c("?", "?", "?", "?", "?")) %>%
+  gt() %>%
+  cols_label(subject = md("$$\\mathbf{Subject}$$"),
+                ytreat = md("$$Y_t(u)$$"),
+                ycontrol = md("$$Y_c(u)$$"),
+                ydiff = md("$$Y_t(u) - Y_c(u)$$")) %>%
+  tab_style(cell_borders(sides = "right"),
+            location = cells_body(columns = vars(subject))) %>%
+  tab_style(cell_text(weight = "bold"),
+            location = cells_body(columns = vars(subject))) %>%
+  cols_align(align = "center", columns = TRUE) %>%
+  fmt_markdown(columns = TRUE)
+```
+
+```{r question-1-2}
+quiz(
+  question("What is the casual effect of the treatment on Yao?",
+    answer("-2"),
+    answer("+9"),
+    answer("+2", correct = TRUE),
+    answer("-9"),
+    allow_retry = TRUE
+  ),
+  question("How many of these people experienced a positive causal effect?",
+    answer("1"),
+    answer("2"),
+    answer("3", correct = TRUE),
+    answer("4"),
+    answer("5"),
+    allow_retry = TRUE
+  ),
+  question("On whom did the treatment have the most negative causal effect?",
+    answer("Tahmid", correct = TRUE),
+    answer("Diego"),
+    answer("Cassidy"),
+    answer("Emma"),
+    answer("Yao"),
+    allow_retry = TRUE
+  )
 )
+
+```
+
+## How do we fill in the missing values?
+
+```{r question-2-1-setup, echo = FALSE}
+
+tibble(subject = c("Yao", "Emma", "Cassidy", "Tahmid", "Diego"),
+       ytreat = c("11", "13", "?", "?", "6"),
+       ycontrol = c("?", "?", "11", "10", "?"),
+       ydiff = c("?", "?", "?", "?", "?")) %>%
+  gt() %>%
+  cols_label(subject = md("$$\\mathbf{Subject}$$"),
+                ytreat = md("$$Y_t(u)$$"),
+                ycontrol = md("$$Y_c(u)$$"),
+                ydiff = md("$$Y_t(u) - Y_c(u)$$")) %>%
+  tab_style(cell_borders(sides = "right"),
+            location = cells_body(columns = vars(subject))) %>%
+  tab_style(cell_text(weight = "bold"),
+            location = cells_body(columns = vars(subject))) %>%
+  cols_align(align = "center", columns = TRUE) %>%
+  fmt_markdown(columns = TRUE)
+```
+
+Do the math in the console to calculate for the ATE for the data given to you in this Preceptor Table.
+```{r question-2-1, exercise = TRUE}
+
+```
+
+```{r question-2-1-hint, silent = TRUE}
+("Average of Treated Values" - "Average of Control Values")
+```
+
+```{r question-2-2}
+
+quiz(
+  question("Calculate the ATE based on the data given to you in this Preceptor Table.",
+    answer("-0.5", correct = TRUE),
+    answer("+1"),
+    answer("-1.33"),
+    answer("+2"),
+    allow_retry = TRUE
+  ),
+  question("What would be Cassidy's treated value be after applying the ATE?",
+    answer("11.5"),
+    answer("10.5", correct = TRUE),
+    answer("11"),
+    answer("10"),
+    allow_retry = TRUE
+  ),
+  question("What is the treatment effect for the males in the sample?",
+    answer("+2"),
+    answer("-2"),
+    answer("-1.5", correct = TRUE),
+    answer("+1.5"),
+    allow_retry = TRUE
+  )
+)
+
+```
+
+## Missing Data
+
+## Uncertainty and Confounding
+
+```{r question-4-1}
+
+quiz(
+  question("Which of the following is NOT a good reason to doubt the certainty of your ATE?",
+    answer("The ATE wasn't calculated using an equal number of control and treatment observations", correct = TRUE),
+    answer("The sample used to calculate the ATE is too small"),
+    answer("The sample used to calculaate the ATE was not random"),
+    answer("The ATE doesn't account for individual variation in each observation"),
+    allow_retry = TRUE
+  ),
+  question("In the context of the trains dataset, which of the following describes selection bias, a key problem to avoid when establishing an assignment mechanism?",
+    answer("The study selected a specific train station rather than measuring the effect across many"),
+    answer("Spanish speakers do not choose which platforms to sit on randomly despite the assignment mechanism assuming so", correct = TRUE),
+    answer("The individuals who were selected for interviews were disproportionately non-Spanish speakers.")
+    allow_retry = TRUE
+  ),
+  question("Which of the following would make the calculated ATE closer to the true ATE of a sample? (Select all that apply)",
+    answer("A truly random asssignment mechanism", correct = TRUE)),
+    answer("An equal number of control and treatment observations in the sample"),
+    answer("Less variance in what is being measured", correct = TRUE)),
+    answer("A larger sample", correct = TRUE)),
+    allow_retry = TRUE
+  )
+)
+
+```
+
+The following model uses party as an explanatory variable for age. Displayed is a Preceptor Table showing the outcome variable for this model, age. 
+
+```{r question-4-2-setup}
+
+lm(data = trains, age ~ party - 1)
+
+tibble(subject = c("1", "2", "...", "55", "...", "204", "205", "...", "1,627", "...", "N"),
+       age = c("34", "?", "...", "36", "...", "44", "?",  "...", "50", "...", "?")) %>%
+  gt() %>%
+  cols_label(subject = md("**ID**"),
+             age = md("**Age**")) %>%
+  tab_style(cell_borders(sides = "right"),
+            location = cells_body(columns = vars(subject))) %>%
+  cols_align(align = "center", columns = TRUE) %>%
+  tab_header("Preceptor Table of age ~ party") %>%
+  fmt_markdown(columns = TRUE)
+
+```
+
+```{r question-4-2}
+
+question("Is this model predictive or causal?",
+    answer("Causal"),
+    answer("Predictive", correct = TRUE),
+    allow_retry = TRUE
+  )
+
+```
+
+## Other issues with causal inference
+
+```{r context="setup"}
+fluidPage(
+    mainPanel(
+          div(id = "form",
+            textInput("hash", "Hash", ""),
+            actionButton("submit", "Create responses.rds", class = "btn-primary"),
+            downloadButton("downloadData", "Download responses.rds")
+          )
+        )
+    )
+```
+
+```{r context="server"}
+
+learnrhash::encoder_logic()
+
+ observeEvent(input$submit,{
+        hash_id <<- input$hash
+        responses <<- data.frame("Hash" = hash_id)
+ })
+output$downloadData <- downloadHandler(
+      filename = "responses.rds",
+      content = function(file) {
+      write_rds(responses, file)
+    }
+  )
 ```
 
