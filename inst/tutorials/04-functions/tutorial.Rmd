@@ -22,7 +22,7 @@ library(gapminder)
 knitr::opts_chunk$set(echo = FALSE, message = FALSE)
 ```
 
-## Using map_* functions to create list columns
+## Introduction to Functions
 
 ```{r name, echo=FALSE}
 question_text(
@@ -33,6 +33,51 @@ question_text(
   allow_retry = TRUE
 )
 ```
+
+```{r firstquiz}
+quiz(caption = "Concept Check: Function Basics",
+  question("Select all that apply: Which of the following operations requires running a function in R?",
+           answer("Taking a log value", correct = TRUE),
+           answer("Fitting a linear model", correct = TRUE),
+           answer("Adding two numbers", correct = TRUE)),
+  question("Which of the following is not a part of a function?",
+         allow_retry = TRUE,
+         random_answer_order = TRUE,
+         answer("A name", correct = TRUE, message = "That's right, functions contain a code body, a set of formal arguments, and an environment, but not a name. They just happen to inherit a name from the object they are stored in."),
+         answer("A code body", message = "Functions do require a code body! You can inspect this part of the function by using the helper function body()."),
+         answer("A (potentially empty) set of formal arguments", message = "Functions do require formal arguments, even if they are empty! You can inspect this part of the function by using the helper function formals()."),
+         answer("An environment", message = "Functions do require an environment, which is a self-contained space to look up the values of any objects within it. You can inspect this part of the function by using the helper function environment().")),
+  question("Suppose you need to run the following code on 20 different objects, `sqrt(sum(x^2))`. Why would you not want to rewrite the code 20 times? (Check all that apply)",
+     answer("Retyping code takes time.", correct = TRUE),
+     answer("Typing the code 20 times creates 20 chances to make a typo.", correct = TRUE),
+     answer("If you need to change the code later, you'll need to change it in 20 different places.", correct = TRUE),
+     allow_retry = TRUE, 
+     type = "multiple", 
+     incorrect = "Did you check ALL that applied?",
+     correct = "Good job! You can avoid these outcomes by turning your code into a function. A good rule is to turn a piece of code into a function whenever you find yourself re-using the code more than three times."),
+    question("Which of these will run the `Sys.time` function?",
+         answer("Sys.time"),
+         answer("Sys.time()", correct = TRUE, 
+         message = "The open and closed parentheses tell R to execute the code in the code body of the function stored in the object names Sys.time.")))
+```
+
+Find the code body of `foo`. Use the helper function `body()`.
+
+```{r foo, exercise = TRUE}
+```
+
+```{r foo-setup}
+foo <- function() {
+  a <- 10
+  a
+}
+```
+
+```{r foo-hint}
+body(...)
+```
+
+## Using map_* functions to create list columns
 
 <!-- EC: Insert one question about lists -->
 
@@ -66,8 +111,6 @@ quiz(caption = "Concept Check: Map functions and list-columns",
 )
 ```
 
-List-Columns
-
 ### 
 
 Create a list-column called `col_2` using `str_split()` that splits the phrases into "Government", "Data Science", "Preceptor", and "Primer".
@@ -83,6 +126,8 @@ tibble(col_1 = c("Government and Data Science", "Preceptor and Primer")) %>%
   mutate(col_2 = str_split(..., " and ")) %>%
   str()
 ```
+
+###
 
 Explore the `ChickWeight` dataset using `skim()`.
 
@@ -158,6 +203,8 @@ quiz(
   )
 ```
 
+###
+
 Now let's use a `map_*` function to find the highest weight per `Diet` + `Time` combination. First, let's sort from highest to lowest weight and create a new column named `sorted_weight`.
 
 ```{r exercise-5, exercise = TRUE, exercise.setup = "setup4"}
@@ -197,51 +244,143 @@ quiz(
 )
 ```
 
+###
+
+Let's reference the `gapminder` dataset. First, create a list-column named `gdpPercap_yearly` that lists the `gdpPercap` per year grouping by continent.
+
+```{r exercise-7a, exercise=TRUE}
+
+```
+
+```{r exercise-7a-hint}
+gapminder %>%
+  group_by(year, continent) %>%
+  mutate(gdpPercap_yearly = list(...))
+```
+
+###
+
+Now, build upon the previous question's code and, instead of taking the `gdpPercap`, calculate the *annual GDP of the country* in a new variable called `annual_gdp`.
+
+```{r exercise-8a, exercise=TRUE}
+gapminder %>%
+  group_by(year, continent) %>%
+  mutate(annual_gdp = list(...))
+```
+
+```{r exercise-8a-hint}
+gapminder %>%
+  group_by(year, continent) %>%
+  mutate(annual_gdp = list(gdpPercap * ...))
+```
+
+###
+
+What was the lowest GDP in each `year` x `continent` category? Create a new column named `lowest` of data type "double" that contains the lowest GDP per year/continent. Pay attention to the `map_*` function you use.
+
+```{r exercise-9a, exercise=TRUE}
+gapminder %>%
+  group_by(year, continent) %>%
+  mutate(annual_gdp = list(gdpPercap * pop)) %>%
+  mutate(lowest = ...)
+```
+
+```{r exercise-9a-hint}
+gapminder %>%
+  group_by(year, continent) %>%
+  mutate(annual_gdp = list(gdpPercap * pop)) %>%
+  mutate(lowest = map_dbl(annual_gdp, ...))
+```
+
+###
+
+What was the lowest GDP for a country in the Americas in 1992?
+
+```{r exercise-10a, exercise = TRUE}
+gapminder %>%
+  group_by(year, continent) %>%
+  mutate(annual_gdp = list(gdpPercap * pop)) %>%
+  mutate(lowest = map_dbl(annual_gdp, min))
+```
+
+```{r exercise-10a-hint, exercise = TRUE}
+gapminder %>%
+  group_by(year, continent) %>%
+  mutate(annual_gdp = list(gdpPercap * pop)) %>%
+  mutate(lowest = map_dbl(annual_gdp, min)) %>%
+  filter(...)
+```
+
+```{r wealthmin}
+quiz(
+  question("What was the lowest GDP for a South American country in 1992?",
+         answer("Choose a name, then type <- function(){", message = "You shouldn't type function() until you have code that works with a real test case."),
+         answer("$8,719,537,248", correct = TRUE),
+         answer("$4,353,422,616"),
+         answer("$6,567,086,330"),
+         answer("$4,129,281,353"),
+         allow_retry = TRUE,
+         random_answer_order = TRUE))
+```
+
+###
+
+Now let's examine what the highest GDP was per year/continent. Create a new column named `highest` of data type "double" that contains the lowest GDP per year/continent. Pay attention to the `map_*` function you use.
+
+```{r exercise-11a, exercise=TRUE}
+gapminder %>%
+  group_by(year, continent) %>%
+  mutate(annual_gdp = list(gdpPercap * pop)) %>%
+  mutate(highest = ...)
+```
+
+```{r exercise-11a-hint}
+gapminder %>%
+  group_by(year, continent) %>%
+  mutate(annual_gdp = list(gdpPercap * pop)) %>%
+  mutate(highest = map_dbl(annual_gdp, ...))
+```
+
+###
+
+What was the highest GDP for an African country in 2007?
+
+```{r exercise-12a, exercise = TRUE}
+gapminder %>%
+  group_by(year, continent) %>%
+  mutate(annual_gdp = list(gdpPercap * pop)) %>%
+  mutate(highest = map_dbl(annual_gdp, max))
+```
+
+```{r exercise-12a-hint}
+gapminder %>%
+  group_by(year, continent) %>%
+  mutate(annual_gdp = list(gdpPercap * pop)) %>%
+  mutate(highest = map_dbl(annual_gdp, max)) %>%
+  filter(...)
+```
+
+```{r wealthmax}
+quiz(
+  question("What was the highest GDP for an African country in 2007?",
+         answer("$2,204,242,423,150"),
+         answer("$447,970,942,205", correct = TRUE),
+         answer("$6,539,500,929,092"),
+         answer("$67,406,033,606"),
+         allow_retry = TRUE,
+         random_answer_order = TRUE))
+```
+
 ## Built-In Functions and Custom Functions
 
 ```{r builtinfunctions}
 quiz(
-  question("Select all that apply: Which of the following operations requires running a function in R?",
-           answer("Taking a log value", correct = TRUE),
-           answer("Fitting a linear model", correct = TRUE),
-           answer("Adding two numbers", correct = TRUE)),
-  question("Which of the following is not a part of a function?",
-         allow_retry = TRUE,
-         random_answer_order = TRUE,
-         answer("A name", correct = TRUE, message = "That's right, functions contain a code body, a set of formal arguments, and an environment, but not a name. They just happen to inherit a name from the object they are stored in."),
-         answer("A code body", message = "Functions do require a code body! You can inspect this part of the function by using the helper function body()."),
-         answer("A (potentially empty) set of formal arguments", message = "Functions do require formal arguments, even if they are empty! You can inspect this part of the function by using the helper function formals()."),
-         answer("An environment", message = "Functions do require an environment, which is a self-contained space to look up the values of any objects within it. You can inspect this part of the function by using the helper function environment().")),
-  question("Which of these will run the `Sys.time` function?",
-         answer("Sys.time"),
-         answer("Sys.time()", correct = TRUE, 
-         message = "The open and closed parentheses tell R to execute the code in the code body of the function stored in the object names Sys.time.")),
-  question("Suppose you need to run the following code on 20 different objects, `sqrt(sum(x^2))`. Why would you not want to rewrite the code 20 times? (Check all that apply)",
-     answer("Retyping code takes time.", correct = TRUE),
-     answer("Typing the code 20 times creates 20 chances to make a typo.", correct = TRUE),
-     answer("If you need to change the code later, you'll need to change it in 20 different places.", correct = TRUE),
-     allow_retry = TRUE, 
-     type = "multiple", 
-     incorrect = "Did you check ALL that applied?",
-     correct = "Good job! You can avoid these outcomes by turning your code into a function. A good rule is to turn a piece of code into a function whenever you find yourself re-using the code more than three times."),
   question("What is the first step of writing a function?",
          answer("Choose a name, then type <- function(){", message = "You shouldn't type function() until you have code that works with a real test case."),
          answer("Create a real R object (or set of objects)", correct = TRUE, message = "You can then use the object to test your code."),
          answer("Assign argument names to your function"),
          answer("Write a help page that describes how your function will work."),
          allow_retry = TRUE))
-```
-
-Find the code body of `foo`
-
-```{r foo, exercise = TRUE}
-```
-
-```{r foo-setup}
-foo <- function() {
-  a <- 10
-  a
-}
 ```
 
 ```{r foo-solution}
@@ -611,33 +750,6 @@ quiz(
           answer("[1] 2 3 with the names b c above the values", correct = TRUE, message = "Remember that `...` only captures _unmatched_ values. Now that `a` is a formal argument, `a = 1` will be matched to it, leaving `b = 2` and `c = 3` to be captured and passed on."),
          answer("An error."),
          allow_retry = TRUE))
-```
-
-### Environments
-
-Thanks to the previous tutorials, you can write and execute functions, but can you predict how a function will work? 
-
-To do that precisely, you need to know how R will look up the values of objects that appear in the function.
-
-Consider the code below, which defines and then calls the function `foo()`. With its last line, `foo()` returns the value of `z`, but what will the value be?
-
-```{r eval = FALSE}
-z <- 1
-foo <- function(z = 2) {
-  z <- 3
-  z
-}
-foo(z = 4)
-```
-
-```{r q1-environments, echo = FALSE}
-question("What will the value of `z` be?",
-         answer("`1`, because we define `z <- 1` before defining the function."),
-         answer("`2`, because `2` is the default value of the `z` argument."),
-         answer("`3`, because the function runs `z <- 3`", correct = TRUE, message = "R can look for the value of z in many places, so it is important to know where R will look and why."),
-         answer("`4`, because we define `z = 4` when we call the function."),
-         allow_retry = TRUE, 
-         incorrect = "Not Quite.")
 ```
 
 ## Formal Testing
@@ -1107,30 +1219,6 @@ quiz(
            answer("12.33 degrees Celsius"),
            answer("26.33 degrees Celsius"))
 )
-```
-
-Let's reference the `gapminder` dataset. First, create a list-column named `gdpPercap_yearly` that lists the `gdpPercap` per year grouping by continent.
-
-```{r exercise-7a, exercise=TRUE}
-
-```
-
-```{r exercise-7a-hint}
-gapminder %>%
-  group_by(year, continent) %>%
-  mutate(gdpPercap_yearly = list(...))
-```
-
-Now, build upon the previous question's code and, instead of taking the `gdpPercap`, calculate the *total wealth of the country in that year*. Save this as a new dataframe named `wealth`.
-
-```{r exercise-8a, exercise=TRUE}
-
-```
-
-```{r exercise-8a-hint}
-wealth <- gapminder %>%
-  group_by(year, continent) %>%
-  mutate(gdpPercap_yearly = list(gdpPercap * ...))
 ```
 
 ## Submit
