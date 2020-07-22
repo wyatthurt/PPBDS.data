@@ -1,3 +1,26 @@
+# Next Meeting
+
+* Make this look better:
+
+Data sets in package ‘PPBDS.data’:
+
+cces                           Polling data from the Cooperative Congressional Election
+                               Study.
+kenya                          Electoral Administration in Fledgling Democracies:
+                               Experimental Evidence from Kenya
+nes                            American National Election Survey Data
+nhanes                         National Health and Nutrition Examination Survey
+qscores                        Harvard student feedback on courses
+shaming                        Shaming Your Neighbor - A Catalyst to Civic Action?
+sps                            A Randomised Assessment of the Mexican Universal Health
+                               Insurance Programme. (2009)
+trains                         Attitude changes toward immigration.
+
+
+* World Values
+
+http://www.worldvaluessurvey.org/wvs.jsp
+
 # Priorities
 
 Let's take a careful tour of the data we have and make sure it is all good and sensible (sort of). Take ownership! No blaming your predecessors! As part of this, learn about making test cases from [R Packages](https://r-pkgs.org/tests.html) and add at least one test case for each data set. (Be smart in making these. It is OK to have a test case which tests the number of rows in trains because trains will always have 115 rows. It would be bad (or maybe not?) to have a test case like that for cces since the number of rows for will change once we add next year's data to it.)
