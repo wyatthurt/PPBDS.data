@@ -13,6 +13,8 @@ description: "Chapter 1 tutorial"
 
 ```{r setup, include=FALSE}
 library(tidyverse)
+library(ggthemes)
+library(viridis)
 library(nycflights13)
 library(PPBDS.data)
 library(learnr)
@@ -104,75 +106,12 @@ Wow! `lm()` runs a lot of code. What does it do? Open the help page for `lm()` i
 
 ```
 
-```{r functions-4-solution}
-?lm
-```
-
-```{r functions-4-check}
-"Good job! `lm()` is R's function for fitting basic linear models. No wonder it runs so much code."
-```
-
 ### Code comments
 
 What do you think the chunk below will return? Run it and see. The result should be nothing. R will not run anything on a line after a `#` symbol. This is useful because it lets you write human readable comments in your code: just place the comments after a `#`. Now delete the `#` and re-run the chunk. You should see a result.
 
 ```{r functions-5, exercise = TRUE}
 # sqrt(961)
-```
-
-```{r functions-5-solution}
-sqrt(961)
-```
-
-### Arguments
-
-`rnorm()` is a function that generates random variables from a normal distribution. Find the arguments of `rnorm()`.
-
-```{r arguments-1, exercise = TRUE}
-
-```
-
-```{r arguments-1-solution}
-args(rnorm)
-```
-
-```{r arguments-1-check}
-"Good job! `n` specifies the number of random normal variables to generate. `mean` and `sd` describe the distribution to generate the random values with." 
-```
-
-#### optional arguments
-
-```{r arguments-2, echo = FALSE}
-question("Which arguments of R norm are optional?",
-         answer("n"),
-         answer("mean", correct = TRUE),
-         answer("sd", correct = TRUE),
-         allow_retry = TRUE,
-         correct = "`n` is not an optional argument because it does not have a default value.")
-```
-
-#### rnorm() 1
-
-Use `rnrom()` to generate 100 random normal values with a mean of 100 and a standard deviation of 15.
-
-```{r arguments-3, exercise = TRUE}
-
-```
-
-```{r arguments-3-solution}
-rnorm(100, mean = 100, sd = 50)
-```
-
-#### rnorm() 2
-
-Can you spot the error in the code below? Fix the code and then re-run it.
-
-```{r arguments-4, exercise = TRUE}
-rnorm(100, mu = 100, sd = 50)
-```
-
-```{r arguments-4-solution}
-rnorm(100, mean = 100, sd = 50)
 ```
 
 ### Objects
@@ -202,11 +141,6 @@ In the code chunk below, save the results of `rnorm(100, mean = 100, sd = 15)` t
 
 ```
 
-```{r objects-2-solution}
-data <- rnorm(100, mean = 100, sd = 15)
-hist(data)
-```
-
 #### What if?
 
 What do you think would happen if you assigned `data` to a new object named `copy`, like this? Run the code and then inspect both `data` and `copy`.
@@ -214,13 +148,6 @@ What do you think would happen if you assigned `data` to a new object named `cop
 ```{r objects-3, exercise = TRUE}
 data <- rnorm(100, mean = 100, sd = 15)
 copy <- data
-```
-
-```{r objects-3-solution}
-data <- rnorm(100, mean = 100, sd = 15)
-copy <- data
-data
-copy
 ```
 
 ```{r objects-3-check}
@@ -235,34 +162,6 @@ Objects provide an easy way to store data sets in R. In fact, R comes with many 
 
 ```
 
-```{r objects-4-solution}
-iris
-```
-
-```{r objects-4-check}
-"Good job! You can learn more about iris by examining its help page with `?iris`."
-```
-
-#### rm()
-
-What if you accidentally overwrite an object? If that object came with R or one of its packages, you can restore the original version of the object by removing your version with `rm()`. Run `rm()` on `iris` below to restore the iris data set.
-
-```{r objects-5, exercise = TRUE}
-iris <- 1
-iris
-```
-
-```{r objects-5-solution}
-iris <- 1
-iris
-rm(iris)
-iris
-```
-
-```{r objects-5-check}
-"Good job! Unfortunately, `rm()` cannot help you if you overwrite one of your own objects."
-```
-
 ### Vectors
 
 #### Create a vector
@@ -273,8 +172,8 @@ In the chunk below, create a vector that contains the integers from one to ten.
 
 ```
 
-```{r vectors-1-solution}
-c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+```{r vectors-1-hint}
+c(....)
 ```
 
 #### :
@@ -283,10 +182,6 @@ If your vector contains a sequence of contiguous integers, you can create it wit
 
 ```{r vectors-2, exercise = TRUE}
 
-```
-
-```{r vectors-2-solution}
-1:10
 ```
 
 #### []
@@ -299,11 +194,6 @@ Use the chunk below to extract the fourth element of `vec`.
 vec <- c(1, 2, 4, 8, 16)
 ```
 
-```{r vectors-3-solution}
-vec <- c(1, 2, 4, 8, 16)
-vec[4]
-```
-
 #### More []
 
 You can also use `[]` to extract multiple elements of a vector. Place the vector `c(1,2,5)` between the brackets below. What does R return?
@@ -311,11 +201,6 @@ You can also use `[]` to extract multiple elements of a vector. Place the vector
 ```{r vectors-4, exercise = TRUE}
 vec <- c(1, 2, 4, 8, 16)
 vec[]
-```
-
-```{r vectors-4-solution}
-vec <- c(1, 2, 4, 8, 16)
-vec[c(1,2,5)]
 ```
 
 #### Names
@@ -326,11 +211,6 @@ Extract the element named gamma from the vector below.
 
 ```{r vectors-5, exercise = TRUE}
 vec2 <- c(alpha = 1, beta = 2, gamma = 3)
-```
-
-```{r vectors-5-solution}
-vec2 <- c(alpha = 1, beta = 2, gamma = 3)
-vec2["gamma"]
 ```
 
 #### Vectorised operations
@@ -386,44 +266,6 @@ There are three other common types of variables that aren't used in this dataset
 
 This row of data types is unique to tibbles and is one of the ways that tibbles try to be more user-friendly than data frames.
 
-#### What type?
-
-```{r types2, echo = FALSE}
-question('What type of data is `"1L"`',
-         answer("numeric/double"),
-         answer("integer", message = "Close. `1L` would be an integer, but look closer."),
-         answer("character", correct = TRUE),
-         answer("logical"),
-         allow_retry = TRUE)
-```
-
-#### Integers
-
-Create a vector of integers from one to five. Can you imagine why you might want to use integers instead of numbers/doubles?
-
-```{r types3, exercise = TRUE}
-
-```
-
-```{r types3-solution}
-c(1L, 2L, 3L, 4L, 5L)
-```
-
-#### Floating point arithmetic
-
-Computers must use a finite amount of memory to store decimal numbers (which can sometimes require infinite precision). As a result, some decimals can only be saved as very precise approximations. From time to time you'll notice side effects of this imprecision, like below.
-
-Compute the square root of two,square the answer (e.g. multiply the square root of two by the square root of two), and then subtract two from the result. What answer do you expect? What answer do you get?
-
-```{r types4, exercise = TRUE}
-
-```
-
-```{r types4-solution}
-sqrt(2) * sqrt(2) - 2
-sqrt(2)^2 - 2
-```
-
 #### Vectors
 
 ```{r types5, echo = FALSE}
@@ -470,21 +312,12 @@ Make a list that contains the elements `1001`, `TRUE`, and `"stories"`. Give eac
 
 ```
 
-```{r lists2-solution}
-list(number = 1001, logical = TRUE, string = "stories")
-```
-
 #### Extract an element
 
 Extract the number 1001 from the list below.
 
 ```{r lists3, exercise = TRUE}
 things <- list(number = 1001, logical = TRUE, string = "stories")
-```
-
-```{r lists3-solution}
-things <- list(number = 1001, logical = TRUE, string = "stories")
-things$number
 ```
 
 #### Data Frames
@@ -497,17 +330,6 @@ logs <- c(TRUE, TRUE, FALSE, TRUE)
 strs <- c("apple", "banana", "carrot", "duck")
 ```
 
-```{r lists4-solution}
-nums <- c(1, 2, 3, 4)
-logs <- c(TRUE, TRUE, FALSE, TRUE)
-strs <- c("apple", "banana", "carrot", "duck")
-data.frame(numbers = nums, logicals = logs, strings = strs)
-```
-
-```{r lists4-check}
-"Good Job. When you make a data frame, you must follow one rule: each column vector should be the same length."
-```
-
 #### Extract a column
 
 Given that a data frame is a type of list (with named elements), how could you extract the strings column of the `df` data frame below? Do it.
@@ -517,10 +339,6 @@ nums <- c(1, 2, 3, 4)
 logs <- c(TRUE, TRUE, FALSE, TRUE)
 strs <- c("apple", "banana", "carrot", "duck")
 df <- data.frame(numbers = nums, logicals = logs, strings = strs)
-```
-
-```{r lists5-solution}
-df$strings
 ```
 
 ## What are R packages?
@@ -545,19 +363,9 @@ In the code chunk below, load the `tidyverse` package. Whenever you load a packa
 
 ```
 
-```{r packages2-solution}
-library(tidyverse)
-```
-
-```{r packages2-check}
-"Good job! R will keep the packages loaded until you close your R session. When you re-open R, you'll need to reload you packages."
-```
-
 #### Quotes
 
 Did you know, `library()` is a special function in R? You can pass `library()` a package name in quotes, like `library("tidyverse")`, or not in quotes, like `library(tidyverse)`---both will work! That's often not the case with R functions.
-
-In general, you should always use quotes unless you are writing the _name_ of something that is already loaded into R's memory, like a function, vector, or data frame.
 
 #### Install packages
 
@@ -565,10 +373,6 @@ But what if the package that you want to load is not installed on your computer?
 
 ```{r packages3, exercise = TRUE}
 
-```
-
-```{r packages3-solution}
-install.packages("dplyr")
 ```
 
 ```{r packages3-check}
@@ -1214,6 +1018,11 @@ To do this, we will use the `labs()` function. You can think of `labs()` as an a
 
 Give `labs()` a title argument to add a title.
 
+```{r}
+p <- ggplot(diamonds) +
+  geom_boxplot(mapping = aes(x = cut, y = price))
+```
+
 ```{r out.width = "80%"}
 p + labs(title = "The title appears here")
 ```
@@ -1456,7 +1265,7 @@ You may have noticed that color and fill legends take two forms. If you map colo
 
 If you map color (or fill) to a continuous legend, your legend will look like a colorbar. This is the case in the top legend below. The color bar helps convey the continuous nature of the variable.
 
-```{r plegend}
+```{r plegend-setup}
 p_legend <- ggplot(data = mpg) + 
   geom_jitter(mapping = aes(x = displ, y = hwy, color = class, fill = hwy), 
               shape = 21, size = 3, stroke = 1) +
@@ -1473,7 +1282,7 @@ You can use the `guides()` function to change the type or presence of each legen
 * `"colorbar"` - to force a legend to appear as a colorbar instead of a standard legend. Note: this can only be used when the legend can be printed as a colorbar (in which case the default will be colorbar).
 * `"none"` - to remove the legend entirely. This is useful when you have redundant aesthetic mappings, but it may make your plot indecipherable otherwise.
 
-```{r out.width = "80%"}
+```{r plegend, out.width = "80%"}
 p_legend + guides(fill = "legend", color = "none")
 ```
 
@@ -1699,10 +1508,10 @@ p_cont
 
 #### Discrete vs. continuous in action
 
-If we apply `scale_color_brewer()` to our new plot, we get an error message that confirms what you know: you cannot use a scale that is built for discrete variables to customize the mapping to a continuous variable.
+If we apply `scale_color_brewer()` to our new plot, we get an error message that confirms what you know: you cannot use a scale that is built for discrete variables to customize the mapping to a continuous variable. Uncomment the code to see the error.
 
-```{r}
-p_cont + scale_color_brewer()
+```{r cont, exercise = TRUE}
+# p_cont + scale_color_brewer()
 ```
 
 #### distiller
