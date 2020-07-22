@@ -14,6 +14,7 @@ library(learnr)
 library(learnrhash)
 library(shiny)
 library(gt)
+library(PPBDS.data)
 knitr::opts_chunk$set(echo = FALSE, message = FALSE)
 options(tutorial.exercise.timelimit = 60)  
 ```
@@ -105,6 +106,14 @@ quiz(
     answer("Emma"),
     answer("Yao"),
     allow_retry = TRUE
+  ),
+  question("What was the treatment effect percentage on Diego?",
+    answer("Tahmid"),
+    answer("Diego"),
+    answer("Cassidy"),
+    answer("Emma"),
+    answer("Yao", correct = TRUE),
+    allow_retry = TRUE
   )
 )
 
@@ -137,7 +146,7 @@ Do the math in the console to calculate for the ATE for the data given to you in
 ```
 
 ```{r question-2-1-hint, silent = TRUE}
-("Average of Treated Values" - "Average of Control Values")
+ "Average of Treated Values" - "Average of Control Values"
 ```
 
 ```{r question-2-2}
@@ -185,14 +194,30 @@ quiz(
   question("In the context of the trains dataset, which of the following describes selection bias, a key problem to avoid when establishing an assignment mechanism?",
     answer("The study selected a specific train station rather than measuring the effect across many"),
     answer("Spanish speakers do not choose which platforms to sit on randomly despite the assignment mechanism assuming so", correct = TRUE),
-    answer("The individuals who were selected for interviews were disproportionately non-Spanish speakers.")
+    answer("The individuals who were selected for interviews were disproportionately non-Spanish speakers."),
     allow_retry = TRUE
   ),
   question("Which of the following would make the calculated ATE closer to the true ATE of a sample? (Select all that apply)",
-    answer("A truly random asssignment mechanism", correct = TRUE)),
+    answer("A truly random asssignment mechanism", correct = TRUE),
     answer("An equal number of control and treatment observations in the sample"),
-    answer("Less variance in what is being measured", correct = TRUE)),
-    answer("A larger sample", correct = TRUE)),
+    answer("Less variance in what is being measured", correct = TRUE),
+    answer("A larger sample", correct = TRUE),
+    answer("The individuals who were selected for interviews were disproportionately non-Spanish speakers."),
+    allow_retry = TRUE
+  ),
+  question("Which of the following would make the calculated ATE closer to the true ATE of a sample? (Select all that apply)",
+    answer("A truly random asssignment mechanism", correct = TRUE),
+    answer("An equal number of control and treatment observations in the sample"),
+    answer("Less variance in what is being measured", correct = TRUE),
+    answer("A larger sample", correct = TRUE),
+    answer("The individuals who were selected for interviews were disproportionately non-Spanish speakers."),
+    allow_retry = TRUE
+  ),
+  question("Which of the following would make the calculated ATE closer to the true ATE of a sample? (Select all that apply)",
+    answer("A truly random asssignment mechanism", correct = TRUE),
+    answer("An equal number of control and treatment observations in the sample"),
+    answer("Less variance in what is being measured", correct = TRUE),
+    answer("A larger sample", correct = TRUE),
     allow_retry = TRUE
   )
 )
@@ -230,6 +255,20 @@ question("Is this model predictive or causal?",
 
 ## Other issues with causal inference
 
+```{r encode, echo=FALSE}
+learnrhash::encoder_ui(
+  ui_before = shiny::div(
+    "When you have completed this tutorial, follow these steps:",
+        br(),
+    tags$ol(
+       tags$li("Click Generate Submission"),
+       tags$li("Copy and paste the hash generated into the \"Hash\" textbox"),
+       tags$li("Press 'Create responses.rds'. Nothing will pop up, but this will create an .rds file of your hashed responses."),
+       tags$li("Download the .rds file. A window will pop up asking you where to place the downloaded file. Upload this file to the appropriate Canvas assignment."))
+  )
+)
+```
+
 ```{r context="setup"}
 fluidPage(
     mainPanel(
@@ -257,4 +296,3 @@ output$downloadData <- downloadHandler(
     }
   )
 ```
-
