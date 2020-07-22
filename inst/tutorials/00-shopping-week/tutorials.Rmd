@@ -1,11 +1,11 @@
 ---
-title: "Introduction"
+title: "Shopping Week"
 output:
   learnr::tutorial:
       progressive: true
       allow_skip: true
 runtime: shiny_prerendered
-description: "Chapter 0 tutorial"
+description: "Complete a simple tutorial during the first class to ensure your computer is set up correctly."
 ---
 
 ```{r setup, include=FALSE}
