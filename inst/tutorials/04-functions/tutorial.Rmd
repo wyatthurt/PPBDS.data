@@ -1192,7 +1192,6 @@ quiz(
 )
 ```
 
-<<<<<<< HEAD
 ###
 
 Let's say you are trying to create a function, `coin_flip()`, that takes an input `n` of the number of times to flip a coin and adds up the number of Tails.
@@ -1314,7 +1313,7 @@ Now we are interested in finding the `mean()`, `min()`, and `max()` of each row.
 x <- tibble(flips = map(rep(10, 10), five_flips))
 ```
 
-```{r coin8, exercise=TRUE, exercise.setup = "coinsetup}
+```{r coin8, exercise=TRUE, exercise.setup = "coinsetup"}
 x %>%
   mutate(...)
 ```
@@ -1330,18 +1329,23 @@ x %>%
 
 That seems kind of clunky to create three new columns. What if I wanted to return a single new list-column named `descriptive_stats` that contained a list of the mean, minimum, and maximum values? Time to write a function!
 
-```{r coin8-hint}
+```{r coin9setup, exercise.setup = "coinsetup"}
 stat_ops <- function(x) {
   a <- mean(x)
   b <- min(x)
   c <- max(x)
-  return(a,b,c)
+  return(c(a,b,c))
 }
 ```
 
-```{r coin8-hint}
-#x %>%
-  # mutate(descriptive_stats = map(flips, stat_ops))
+```{r coin9, exercise = TRUE, exercise.setup = "coin9setup"}
+x %>%
+   mutate(descriptive_stats = ...)
+```
+
+```{r coin9-hint}
+x %>%
+   mutate(descriptive_stats = map(flips, ...))
 ```
 
 ## Submit
