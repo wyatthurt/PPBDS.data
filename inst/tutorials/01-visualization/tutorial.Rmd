@@ -1010,13 +1010,20 @@ We can add more layers in order to customize the look and feel of your plots. Th
 
 #### labs()
 
+Let's use the `diamonds` dataset to make a plot that uses boxplots to display the relationship between the `cut` and `price` variables from the diamonds dataset. This plot has been created and saved as an object called `p`.
+
 The relationship in our plot is now easier to see, but that doesn't mean that everyone who sees our plot will spot it. We can draw their attention to the relationship with a label, like a title or a caption.
 
 To do this, we will use the `labs()` function. You can think of `labs()` as an all purpose function for adding labels to a ggplot2 plot.
 
 #### Titles
 
-Give `labs()` a title argument to add a title.
+Give `labs()` a `title` argument to add a title.
+
+```{r}
+p <- ggplot(diamonds) +
+  geom_boxplot(mapping = aes(x = cut, y = price))
+```
 
 ```{r}
 p <- ggplot(diamonds) +
@@ -1029,7 +1036,7 @@ p + labs(title = "The title appears here")
 
 #### Subtitles
 
-Give `labs()` a subtitle argument to add a subtitle. If you use multiple arguments, remember to separate them with a comma.
+Give `labs()` a `subtitle` argument to add a subtitle. If you use multiple arguments, remember to separate them with a comma.
 
 ```{r out.width = "80%"}
 p + labs(title = "The title appears here",
@@ -1038,7 +1045,7 @@ p + labs(title = "The title appears here",
 
 #### Captions
 
-Give `labs()` a caption argument to add a caption. I like to use captions to cite my data source.
+Give `labs()` a `caption` argument to add a caption. I like to use captions to cite my data source.
 
 ```{r out.width = "80%"}
 p + labs(title = "The title appears here",
@@ -1046,9 +1053,9 @@ p + labs(title = "The title appears here",
          caption = "Captions appear at the bottom.")
 ```
 
-#### Exercise 2 - Labels
+#### Exercise - Labels
 
-Plot `p` with a set of informative labels. for learning purposes, be sure to use a title, subtitle, and caption.
+Plot `p` with a set of informative labels. For learning purposes, be sure to use a title, subtitle, and caption.
 
 ```{r r5-setup}
 p <- ggplot(diamonds) +
@@ -1056,19 +1063,8 @@ p <- ggplot(diamonds) +
   coord_cartesian(ylim = c(0, 7500))
 ```
 
-
 ```{r r5, exercise = TRUE}
 
-```
-
-```{r r5-solution}
-p + labs(title = "Diamond prices by cut",
-         subtitle = "Fair cut diamonds fetch the highest median price. Why?",
-         caption = "Data collected by Hadley Wickham")
-```
-
-```{r r5-check}
-"Good job! By the way, why *do* fair cut diamonds fetch the highest price?"
 ```
 
 #### Exercise 3 - Carat size? 
@@ -1083,16 +1079,10 @@ If you are looking for a way to start, I recommend using a smooth line with colo
 
 ```
 
-```{r r6-solution}
+```{r r6-hint}
 ggplot(data = diamonds, mapping = aes(x = carat, y = price)) +
   geom_smooth(mapping = aes(color = cut), se = FALSE) + 
-  labs(title = "Carat size vs. Price",
-       subtitle = "Fair cut diamonds tend to be large, but they fetch the lowest prices for most carat sizes.",
-       caption = "Data by Hadley Wickham")
-```
-
-```{r r6-check}
-"Good job! The plot corroborates our hypothesis."
+  labs(....)
 ```
 
 #### p1
@@ -1106,20 +1096,6 @@ p1 <- ggplot(data = diamonds, mapping = aes(x = carat, y = price)) +
        subtitle = "Fair cut diamonds tend to be large, but they fetch the lowest prices for most carat sizes.",
        caption = "Data by Hadley Wickham")
 ```
-
-#### annotate()
-
-`annotate()` provides a final way to label your graph: it adds a single geom to your plot. When you use `annotate()`, you must first choose which type of geom to add. Next, you must manually supply a value for each aesthetic required by the geom.
-
-So for example, we could use `annotate()` to add text to our plot. 
-
-```{r}
-p1 + annotate("text", x = 4, y = 7500, label = "There are no cheap,\nlarge diamonds")
-```
-
-Notice that I select `geom_text()` with `"text"`, the suffix of the function name in quotation marks.
-
-In practice, I find `annotate()` time consuming to work with, but you can accomplish quite a lot with `annotate()` if you take the time.
 
 ### Themes
 
@@ -1153,14 +1129,6 @@ Use the box below to plot `p1` with each of the themes. Which theme do you prefe
 p1 + theme_bw()
 ```
 
-```{r r7-solution}
-p1 + theme_classic()
-```
-
-```{r r7-check}
-"Good Job! ggplot2 uses theme_gray()` by default."
-```
-
 #### ggthemes
 
 If you would like to give your graph a more complete makeover, the **ggthemes** package provides extra themes that imitate the graph styles of popular software packages and publications. These include:
@@ -1190,14 +1158,6 @@ Try plotting `p1` with at least two or three of the themes mentioned above.
 
 ```{r r8, exercise = TRUE}
 p1
-```
-
-```{r r8-solution}
-p1 + theme_wsj()
-```
-
-```{r r8-check}
-"Good Job! Notice that each theme supplies its own font sizes, which means that your captions might run off the page for some themes. In practice, you can fix this by resizing your graph window."
 ```
 
 #### Update p1
@@ -1236,14 +1196,6 @@ Try this now. Move the legend in `p_cont` to the bottom of the graph.
 
 ```{r r14, exercise = TRUE}
 
-```
-
-```{r r14-solution}
-p_cont + theme(legend.position = "bottom")
-```
-
-```{r r14-check}
-"Good job! If you move the legend to the top or bottom of the plot, ggplot2 will reogranize the orientation of the legend from vertical to horizontal."
 ```
 
 #### theme() vs. themes
@@ -1292,14 +1244,6 @@ Use `guides()` to remove each legend from the `p_legend` plot.
 
 ```{r r16, exercise = TRUE, exercise.setup = "plegend"}
 
-```
-
-```{r r16-solution}
-p_legend + guides(fill = "none", color = "none")
-```
-
-```{r r16-check}
-"Good job! If you move the legend to the top or bottom of the plot, ggplot2 will reogranize the orientation of the legend from vertical to horizontal."
 ```
 
 #### Labels
@@ -1355,14 +1299,9 @@ Use the list of scale defaults above to relabel the legend in `p_cont`. The lege
 p_cont
 ```
 
-```{r r17-solution}
-p_cont + scale_color_continuous(name = "Highway MPG") + theme(legend.position = "top")
+```{r r17-hint}
+p_cont + scale_color_continuous(...) + theme(...)
 ```
-
-```{r r17-check}
-"Good job!"
-```
-
 
 #### Axis labels
 
@@ -1441,10 +1380,6 @@ p1 <- ggplot(data = diamonds, mapping = aes(x = carat, y = price)) +
 p1 + scale_color_brewer()
 ```
 
-```{r r9-check}
-"Good job! scale_color_brewer() applies a color palette from the RColorBrewer package, a package that specializes in attractive color palettes." 
-```
-
 #### RColorBrewer
 
 The RColorBrewer package contains a variety of palettes developed by Cynthis Brewer. Each palette is designed to look pleasing as well as to differentiate between the values represented by the palette. You can learn more about the color brewer project at [colorbrewer2.org](http://colorbrewer2.org).
@@ -1453,14 +1388,6 @@ Altogether, the RColorBrewer package contains 35 palettes. You can see each pale
 
 ```{r r10, exercise = TRUE, warning = FALSE, message = FALSE, fig.width=4, fig.height = 7}
 
-```
-
-```{r r10-check}
-"Good job! Our graph above used the Blues palette (the default)." 
-```
-
-```{r r10-solution}
-RColorBrewer::display.brewer.all()
 ```
 
 #### Brewer palettes
@@ -1484,12 +1411,8 @@ p1 + scale_color_brewer(palette = "Spectral")
 
 ```
 
-```{r r11-solution}
-p1 + scale_color_brewer(palette = "Spectral")
-```
-
-```{r r11-check}
-"Good job! scale_color_brewer() is one of the most useful functions for customizing colors in ggplot2 because it does for you the hard work of selecting a pleasing combination of colors. If you'd like to select individual colors yourself, try the scale_color_manual() function."
+```{r r11-hint}
+palette = "Spectral"
 ```
 
 #### Continuous colors
@@ -1538,14 +1461,6 @@ p_cont + scale_color_distiller(palette = "BrBG")
 
 ```
 
-```{r r12-solution}
-p_cont + scale_color_distiller(palette = "BrBG")
-```
-
-```{r r12-check}
-"Good job! ggplot2 also supplies scale_color_gradient(), scale_color_gradient2(), and scale_color_gradientn(), which you can use to  construct gradients manually between 2, 3, and n colors."
-```
-
 #### viridis
 
 The viridis package contains a collection of very good looking color palettes for continuous variables. Each palette is designed to show the gradation of continuous values in an attractive, and perceptionally uniform way (no range of values appears more important than another). As a bonus, the palettes are both color blind and black and white printer friendly!
@@ -1566,14 +1481,6 @@ Try each option with `p_cont` below. Determine which is the default.
 
 ```{r r13, exercise = TRUE, warning = FALSE, message = FALSE, exercise.setup="make_p1"}
 
-```
-
-```{r r13-solution}
-p_cont + scale_color_viridis(option = "D")
-```
-
-```{r r13-check}
-"Good job! Option D is the default if you do not select an option."
 ```
 
 ### Positions
