@@ -1556,7 +1556,7 @@ learnrhash::encoder_logic()
         responses <<- data.frame("Hash" = hash_id)
  })
 output$downloadData <- downloadHandler(
-      filename = "responses.rds",
+      filename = "tutorial_1_responses.rds",
       content = function(file) {
       write_rds(responses, file)
     }
