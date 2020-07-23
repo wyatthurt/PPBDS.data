@@ -15,7 +15,15 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Depends: R (>= 2.10)
 Imports:
-    learnr (>= 0.10.1)
+    tidyverse (>= 1.3.0),
+    shiny (>= 1.4.0.2),
+    gapminder,
+    skimr (>= 2.1.1),
+    viridis (>= 0.5.1),
+    ggthemes (>= 4.2.0),
+    nycflights13,
+    gt (>= 0.2.1)
 Remotes:
-    rundel/learnrhash
+    rundel/learnrhash,
+    rstudio/learnr (>= 0.10.1.9)
 BugReports: https://github.com/davidkane9/PPBDS.data/issues
