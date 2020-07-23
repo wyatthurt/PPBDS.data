@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>National Health and Nutrition Examination Survey — nhanes • PPBDS.data</title>
+<title>DW-Nominate data for US Congressional ideological ratings — nominate • PPBDS.data</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,15 @@
 
 
 
-<meta property="og:title" content="National Health and Nutrition Examination Survey — nhanes" />
-<meta property="og:description" content="See NHANES for background and details." />
+<meta property="og:title" content="DW-Nominate data for US Congressional ideological ratings — nominate" />
+<meta property="og:description" content="This dataset is from Voteview, a website by political
+scientists Keith Poole and Howard Rosenthal that freely provides information on
+congressional roll call votes in the United States. The data goes back to the first
+U.S. congress in 1789, and includes votes from both the Senate and the House of
+Representatives. In addition the the votes themselves, Voteview's datasets include
+indicators of politicians' ideological positions, which have been estimated using
+NOMINATE. See also the
+'Details' section below." />
 
 
 
@@ -111,55 +118,57 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>National Health and Nutrition Examination Survey</h1>
-    <small class="dont-index">Source: <a href='https://github.com/davidkane9/PPBDS.data/blob/master/R/nhanes.R'><code>R/nhanes.R</code></a></small>
-    <div class="hidden name"><code>nhanes.Rd</code></div>
+    <h1>DW-Nominate data for US Congressional ideological ratings</h1>
+    <small class="dont-index">Source: <a href='https://github.com/davidkane9/PPBDS.data/blob/master/R/nominate.R'><code>R/nominate.R</code></a></small>
+    <div class="hidden name"><code>nominate.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>See <a href='https://www.cdc.gov/nchs/nhanes/index.htm'>NHANES</a> for background and details.</p>
+    <p>This dataset is from <a href='https://voteview.com/'>Voteview</a>, a website by political
+scientists Keith Poole and Howard Rosenthal that freely provides information on
+congressional roll call votes in the United States. The data goes back to the first
+U.S. congress in 1789, and includes votes from both the Senate and the House of
+Representatives. In addition the the votes themselves, Voteview's datasets include
+indicators of politicians' ideological positions, which have been estimated using
+<a href='https://en.wikipedia.org/wiki/NOMINATE_(scaling_method)'>NOMINATE</a>. See also the
+'Details' section below.</p>
     </div>
 
-    <pre class="usage"><span class='kw'>nhanes</span></pre>
+    <pre class="usage"><span class='kw'>nominate</span></pre>
 
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A tibble with 10,000 observations and 14 variables:</p><dl>
-<dt>gender</dt><dd><p>character variable with values "male" and "female"</p></dd>
-<dt>survey_year</dt><dd><p>integer variable with the year the survey was conducted in. Most tests were
-conducted across two years, so the earlier year is used.</p></dd>
-<dt>age</dt><dd><p>character variable for age in years</p></dd>
-<dt>race</dt><dd><p>character variable with values "white", "black", "hispanic", "mexican", and "other"</p></dd>
-<dt>education</dt><dd><p>character variable with values "middle school", "high school", "some college", "college"</p></dd>
-<dt>income</dt><dd><p>integer variable for household income groups ranked from 1 to 5. 0 corresponds to "other".</p></dd>
-<dt>weight</dt><dd><p>double variable for weight in kilograms</p></dd>
-<dt>height</dt><dd><p>double variable for height in centimeters</p></dd>
-<dt>bmi</dt><dd><p>double variable for body mass index</p></dd>
-<dt>pulse</dt><dd><p>integer variable for pulse in beats per minute or bpm</p></dd>
-<dt>general_health</dt><dd><p>integer variable for general health ranked from 1-5. 1 maps to "poor", 2 is "fair", 3 is "good", 4 is "very good", and 5 is "excellent".</p></dd>
-<dt>depressed</dt><dd><p>character variable answering question how often patient feels depressed.
-Includes values "several", "none", "most"</p></dd>
-<dt>pregnancies</dt><dd><p>integer variable for number of pregnanices.
-NA if the individual, regardless of gender, hasn't experienced a pregnancy</p></dd>
-<dt>sleep_night_hrs</dt><dd><p>integer value for hours of sleep per night on average</p></dd>
-
+    <p>A tibble with 49,361 observations and 9 variables:</p><dl>
+<dt>congress</dt><dd><p>integer variable indicating the number of a member's congress,
+e.g. 116 for the 116th congress (2019-2021)</p></dd>
+<dt>chamber</dt><dd><p>character variable indicating the chamber in which a member served</p></dd>
+<dt>state</dt><dd><p>character variable indicating the state a member represented</p></dd>
+<dt>party</dt><dd><p>character variable indicating a member's party</p></dd>
+<dt>name</dt><dd><p>character variable in the format "last, first" indicating a member's name</p></dd>
+<dt>born</dt><dd><p>double variable indicating a member's year of birth</p></dd>
+<dt>died</dt><dd><p>double variable indicating a member's year of death</p></dd>
+<dt>nominate_dim1</dt><dd><p>double variable in the range of [-1,1] indicating a member's ideological position on
+economic matters, also referred to as the 'left-right' spectrum. Lower values indicate
+left-wing positions, higher values indicate right-wing positions.</p></dd>
+<dt>nominate_dim2</dt><dd><p>double variable in the range of [-1,1] indicating a member's ideological position on societal
+matters, e.g. LBGT rights or slavery. Lower values indicate anti-establishment positions,
+higher values indicate pro-establishment positions.</p></dd>
 
 </dl>
 
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
-    <p><a href='https://cran.r-project.org/web/packages/NHANES/NHANES.pdf'>https://cran.r-project.org/web/packages/NHANES/NHANES.pdf</a></p>
+    <p><a href='https://voteview.com/data'>https://voteview.com/data</a></p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The National Health and Nutrition Examination Survey (NHANES) is a research survey
-distributed to adults and children across the United States to examine health
-and nutritional status nationwide. It is unique in that it conducts both interviews
-and physical examination to produce their data. The survey is run by the National
-Center for Health Statistics (NCHS), a part of the Centers for Disease Control and Prevention.</p>
-<p>In order to get a demographically diverse range of responses, minority groups were surveyed
-more heavily. However, this skewed the survey results to have an inaccurate demographic makeup.
-To address this, some observations of more common groups are resampled in the data.</p>
+    <p>At its core, NOMINATE is a scaling procedure that uses algorithms to arrange politicians
+in a two-dimensional coordinate system based on their voting behaviour and how they compare
+to others. The x-axis indicates politicians' positions on ideological matters, and
+the y-axis indicates positions on societal issues, thereby 'mapping' legislatures. For a
+detailed explanation of the technical background, see the original paper
+<a href='http://dx.doi.org/10.2307/2111172'>"A Spatial
+Model for Legislative Roll Call Analysis"</a> by Poole and Rosenthal (1983).</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
