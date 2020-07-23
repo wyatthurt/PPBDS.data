@@ -1,4 +1,4 @@
-#' Ideological positions among members of the U.S. Congress
+#' DW-Nominate data for US Congressional ideological ratings
 #'
 #' This dataset is from \href{https://voteview.com/}{Voteview}, a website by political
 #' scientists Keith Poole and Howard Rosenthal that freely provides information on

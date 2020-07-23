@@ -1,4 +1,4 @@
-#' Harvard student feedback on courses
+#' Student course evaluations from Harvard
 #'
 #' Data for student feedback on Harvard courses. After each semester, the office
 #' of the Registrar at Harvard sends all students the

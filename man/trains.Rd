@@ -3,7 +3,7 @@
 \docType{data}
 \name{trains}
 \alias{trains}
-\title{Attitude changes toward immigration.}
+\title{Experimental effects on attitudes toward immigration}
 \format{
 A tibble with 115 observations and 8 variables:
 \describe{

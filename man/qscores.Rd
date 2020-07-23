@@ -3,7 +3,7 @@
 \docType{data}
 \name{qscores}
 \alias{qscores}
-\title{Harvard student feedback on courses}
+\title{Student course evaluations from Harvard}
 \format{
 A tibble with 748 observations and 8 variables:
 \describe{

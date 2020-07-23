@@ -3,7 +3,7 @@
 \docType{data}
 \name{cces}
 \alias{cces}
-\title{Polling data from the Cooperative Congressional Election Study.}
+\title{Data from the Cooperative Congressional Election Study}
 \format{
 A tibble with 452755 observations and 16 variables:
 \describe{

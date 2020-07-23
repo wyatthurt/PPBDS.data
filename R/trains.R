@@ -1,4 +1,4 @@
-#' Attitude changes toward immigration.
+#' Experimental effects on attitudes toward immigration
 #'
 #' Data for attitudes toward immigration-related policies, both before and after
 #' an experiment which randomly exposed a treated group to Spanish-speakers on a

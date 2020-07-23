@@ -1,4 +1,4 @@
-#' Polling data from the Cooperative Congressional Election Study.
+#' Data from the Cooperative Congressional Election Study
 #'
 #' Data for the approval ratings of voters to various government positions
 #' combined with the demographic background of the voter. See

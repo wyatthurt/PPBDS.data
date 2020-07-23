@@ -3,7 +3,7 @@
 \docType{data}
 \name{nes}
 \alias{nes}
-\title{American National Election Survey Data}
+\title{American National Election Survey}
 \format{
 A tibble with 39,220 observations and  10 variables:
 \describe{

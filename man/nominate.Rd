@@ -3,7 +3,7 @@
 \docType{data}
 \name{nominate}
 \alias{nominate}
-\title{Ideological positions among members of the U.S. Congress}
+\title{DW-Nominate data for US Congressional ideological ratings}
 \format{
 A tibble with 49,361 observations and 9 variables:
 \describe{

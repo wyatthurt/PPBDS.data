@@ -3,8 +3,7 @@
 \docType{data}
 \name{sps}
 \alias{sps}
-\title{A Randomised Assessment of the Mexican Universal Health Insurance Programme.
-(2009)}
+\title{Public health experiment in Mexico}
 \format{
 A tibble with 27,569 observations and 8 variables: \describe{
 \item{age}{integer variable with raw age values of respondents}
@@ -27,7 +26,7 @@ health-related expenses in the last month in pesos}
 sps
 }
 \description{
-Data for a randomised assessment of the Mexican universal health insurance
+Data for a randomized assessment of the Mexican universal health insurance
 programme, both before and after a study which randomly assigned
 treatment within 74 matched pairs of health clusters --- representing 118,569
 households in seven Mexican states. See

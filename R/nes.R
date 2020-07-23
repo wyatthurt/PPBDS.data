@@ -1,4 +1,4 @@
-#' American National Election Survey Data
+#' American National Election Survey
 #'
 #' Data from the American National Election Survey cumulative data file complete through 2016. See
 #' \href{https://electionstudies.org/data-center/anes-time-series-cumulative-data-file/}{NES CDF 2016}

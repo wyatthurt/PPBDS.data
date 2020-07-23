@@ -3,7 +3,7 @@
 \docType{data}
 \name{kenya}
 \alias{kenya}
-\title{Electoral Administration in Fledgling Democracies: Experimental Evidence from Kenya}
+\title{Kenya voter registration experiment}
 \format{
 A tibble with 1,989,680 observations and 11 variables:
 \describe{
@@ -33,7 +33,7 @@ See \href{https://dataverse.harvard.edu/dataset.xhtml;jsessionid=786d92e2aec3933
 This dataset is from a study entitled "Electoral Administration in Fledgling Democracies:
 Experimental Evidence from Kenya". The study worked with Kenya's electoral commission in
 1,674 communities by assigning individuals to either a control/status quo group or one of
-several interventions to encourage voter registeration: SMS reminders, a local administrator
+several interventions to encourage voter registration: SMS reminders, a local administrator
 at a polling station, canvassing, a local admin and canvassing, or a local admin and SMS.
 
 CHECK IF REG/RV13 desceriptions are right, and also date descriptions

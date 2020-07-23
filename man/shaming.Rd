@@ -3,7 +3,7 @@
 \docType{data}
 \name{shaming}
 \alias{shaming}
-\title{Shaming Your Neighbor - A Catalyst to Civic Action?}
+\title{Michigan voting experiment with social shaming}
 \format{
 A tibble with 344,084 observations and 10 variables:
 \describe{

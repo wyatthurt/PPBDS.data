@@ -1,4 +1,4 @@
-#' Shaming Your Neighbor - A Catalyst to Civic Action?
+#' Michigan voting experiment with social shaming
 #'
 #' This is a dataset corresponding to the paper "Social Pressure and Voter
 #' Turnout: Evidence from a Large-Scale Field Experiment" by
