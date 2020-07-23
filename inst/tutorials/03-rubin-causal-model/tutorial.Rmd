@@ -8,8 +8,9 @@ runtime: shiny_prerendered
 description: "Chapter 3 tutorial"
 ---
 
-<!-- MB: HOW TO ADD WHITESPACE for paragraph submissions?? -->
-<!-- MB: How to not say submisions are incorrect -->
+<!-- MB: Cannot add white space to paragraph answers -->
+<!-- MB: Submissions say "OK" instead of "incorrect". -->
+<!-- MB: ATE hat in math notation throws an error everytime -->
 
 ```{r setup, include=FALSE}
 library(tidyverse)
@@ -29,7 +30,8 @@ options(tutorial.exercise.timelimit = 60)
 question_text(
   "Student Name:",
   answer(NULL, correct = TRUE),
-  allow_retry = TRUE
+  allow_retry = TRUE,
+  incorrect = "Ok"
 )
 ```
 
@@ -50,8 +52,8 @@ question("What is the Fundamental Problem of Causal Inference?",
 question_text(
     "In your own words, what is a 'counterfactual'?",
     allow_retry = T,
-    trim = FALSE,
-    answer(NULL, correct = T)
+    answer(NULL, correct = T),
+    incorrect = "Ok"
   )
 )
 ```
@@ -83,10 +85,11 @@ quiz(
 question_text(
     "In your own words, what is a Preceptor Table?",
     allow_retry = T,
-    answer(NULL, correct = T)
+    answer(NULL, correct = T),
+    incorrect = "Ok"
   ),
 question("What is the casual effect of the treatment on Yao (answer as +/-X)?",
-    answer("+2", correct = T)
+    answer("+2", correct = T),
     allow_retry = TRUE
   ),
 question("For how many of the five is the casual effect of the treatment positive?",
@@ -107,7 +110,8 @@ question("What was the treatment effect percentage on Diego? (answer as +/-X0%)"
   ),
 question_text("Define an estimand in your own words.",
     allow_retry = T,
-    answer(NULL, correct = T)
+    answer(NULL, correct = T),
+    incorrect = "Ok"
   )
 )
 
@@ -153,9 +157,7 @@ question("Which of the following equations is incorrect?",
 
 ```
 
-<!-- MB: This table won't show up for some reason? -->
-
-```{r question-2-2-setup, echo = FALSE}
+```{r question-setup, echo = FALSE}
 
 tibble(subject = c("Yao", "Emma", "Cassidy", "Tahmid", "Diego"),
        ytreat = c("11", "13", "?", "?", "6"),
@@ -194,7 +196,7 @@ question("Calculate the ATE based on the data given to you in this Preceptor Tab
     answer("+2"),
     allow_retry = TRUE
   ),
-question_text("Before assigning any number to our causal effect, let's work using a single causal effect for everyone called $//tau$. What would be Yao's $Y_c(u)$ using $//tau$ in your answer. You can write tau for $//tau$. Don't put spaces in your answer",
+question_text("Before assigning any number to our causal effect, let's work using a single causal effect for everyone called $\\tau$. What would be Yao's $Y_c(u)$ using $\\tau$ in your answer. You can write tau for $\\tau$. Don't put spaces in your answer.$",
     allow_retry = T,
     answer("13-tau", correct = T)
   ),
@@ -239,24 +241,27 @@ Answer the following questions on treatment effects.
 ```{r question-2-4-quiz}
 
 quiz(
-question("Which of the following is NOT a reason why $\widehat{ATE}$ a useful estimand?",
+question("Which of the following is NOT a reason why ATE-hat a useful estimand?",
     answer("It captures a clear and useful estimator"),
     answer("If the treatment is randomly assigned, the estimator is unbiased"),
     answer("You can use to fill out Preceptor Table if you assume the treatment effect is the same for everyone"),
-    answer("$\widehat{ATE}$ always captures the correct sign (+ or -) of the true ATE", correct = TRUE),
+    answer("ATE-hat always captures the correct sign (+ or -) of the true ATE", correct = TRUE, message = "Nice! This is untrue. Our estimates for ATE can often get even the direction of the ATE wrong."),
     allow_retry = TRUE
   ),
-question_text("How is $\widehat{ATE}$ different than ATE.",
+question_text("What is the difference between ATE-hat and ATE.", #MB: $\widehat{ATE}$ is throwing an error every time
     allow_retry = T,
-    answer(NULL, correct = T)
+    answer(NULL, correct = T),
+    incorrect = "Ok"
   ),
 question_text("Describe the heterogeneous treatment effect for the variation between individuals.",
     allow_retry = T,
-    answer(NULL, correct = T)
+    answer(NULL, correct = T),
+    incorrect = "Ok"
   ),
 question_text("Describe heterogeneous treatment effect for the variation between different sub-groups or variables.",
     allow_retry = T,
-    answer(NULL, correct = T)
+    answer(NULL, correct = T),
+    incorrect = "Ok"
   )
 )
 
@@ -271,7 +276,8 @@ Answer the following questions on missing data.
 quiz(
 question_text("In addition to not being able to observe counterfactal outcomes, what is another source of missing data in Preceptor Tables?",
     allow_retry = T,
-    answer(NULL, correct = T)
+    answer(NULL, correct = T),
+    incorrect = "Ok"
   ),
 question_text("In order to apply the causal effect of a sample to the general population, our samaple must be ______ of the population.",
     allow_retry = T,
@@ -279,19 +285,23 @@ question_text("In order to apply the causal effect of a sample to the general po
   ),
 question_text("Explain representativeness as a concept in sampling.",
     allow_retry = T,
-    answer(NULL, correct = T)
+    answer(NULL, correct = T),
+    incorrect = "Ok"
   ),
 question_text("Describe an Infinite Preceptor Table in a few sentences. Use the word 'assumption' in your answer.",
     allow_retry = T,
-    answer(NULL, correct = T)
+    answer(NULL, correct = T),
+    incorrect = "Ok"
   ),
 question_text("Is it fair to assume that the causal effect on Sam for now would be the same as the causal effect if we treated him in some amount of time? Explain why or why not.",
     allow_retry = T,
-    answer(NULL, correct = T)
+    answer(NULL, correct = T),
+    incorrect = "Ok"
   ),
 question_text("Why might Infinite Preceptor Tables include additional treatment columns?",
     allow_retry = T,
-    answer(NULL, correct = T)
+    answer(NULL, correct = T),
+    incorrect = "Ok"
   ),
 question_text("When you begin working on a causal question, one begins with the idea of an Infinite Preceptor Table. What three assumptions do you make to narrow this idea down to a Preceptor Table you can work with?",
     allow_retry = T,
@@ -303,7 +313,7 @@ question_text("When you begin working on a causal question, one begins with the 
 
 ## Uncertainty and Confounding
 
-<!-- MB: section of book so this must be updated to match. Needs to focus less on parameter uncertainty and more on the perfect doctor idea -- you never know if you are assigning the treatments to a truly random selection of people  -->
+<!-- MB: Cass section of book so this must be updated to match. Needs to focus less on parameter uncertainty and more on the perfect doctor idea -- you never know if you are assigning the treatments to a truly random selection of people  -->
 
 Answer the following questions on uncertainty and confounding.
 
@@ -314,7 +324,8 @@ Answer the following questions on uncertainty and confounding.
 quiz(
 question_text("Describe the two main forms of uncertainty with using ATE as a uniform measure of causal effect.",
     allow_retry = T,
-    answer(NULL, correct = T)
+    answer(NULL, correct = T),
+    incorrect = "Ok"
   ),
 question("Which of the following is NOT a good reason to doubt the certainty of your ATE?",
     answer("The ATE wasn't calculated using an equal number of control and treatment observations", correct = TRUE),
@@ -323,20 +334,22 @@ question("Which of the following is NOT a good reason to doubt the certainty of 
     answer("The ATE doesn't account for individual variation in each observation"),
     allow_retry = TRUE
   ),
-question("Which of the following would make the $\widehat{ATE}$ of a sample closer to the true ATE of a sample? (Select all that apply)",
+question("Which of the following would make the ATE-hat of a sample closer to the true ATE of a sample? (Select all that apply)",
     answer("A truly random asssignment mechanism", correct = TRUE),
     answer("Less variance in what is being measured", correct = TRUE),
     answer("A larger sample", correct = TRUE),
-    answer("The individuals who were selected for interviews were disproportionately non-Spanish speakers."),
+    answer("Adding more Spanish speakers to the platform.", message = "Being exposed to more Spanish speakers doesn't necessarily matter if their prescence already served as an effective treatment."),
     allow_retry = TRUE
   ),
 question_text("Explain what 'confounding' means in the context of an assignment mechanism.",
     allow_retry = T,
-    answer(NULL, correct = T)
+    answer(NULL, correct = T),
+    incorrect = "Ok"
   ),
 question_text("The trains experiment is redone so that everyone in a certain region of the train platform is treated and another region is not. Is this a confounding element? Why?",
     allow_retry = T,
-    answer(NULL, correct = T)
+    answer(NULL, correct = T),
+    incorrect = "Ok"
   ),
 question("In the context of the trains dataset, which of the following describes selection bias, a key problem to avoid when establishing an assignment mechanism?",
     answer("The study selected a specific train station rather than measuring the effect across many"),
@@ -355,15 +368,18 @@ Answer the following questions about block randomized assignment.
 quiz(
 question_text("You are told to redo the train experiment using block randomized assignment. You have 150 commuters and the ability to sort them into 3 different platforms. How many commuters do you put on each of the 3 platforms and how many recieve the treatment?",
     allow_retry = T,
-    answer(NULL, correct = T)
+    answer(NULL, correct = T),
+    incorrect = "Ok"
   ),
 question_text("Explain in a few sentences why a researcher may want to use block randomized assignment.",
     allow_retry = T,
-    answer(NULL, correct = T)
+    answer(NULL, correct = T),
+    incorrect = "Ok"
   ),
 question_text("A few of the platforms in the station are too loud for the Spanish-speakers to be heard by those around them. How might this jeopardize randomization and serve as a confounding factor?",
     allow_retry = T,
-    answer(NULL, correct = T)
+    answer(NULL, correct = T),
+    incorrect = "Ok"
   )
 )
 
@@ -413,30 +429,39 @@ tibble(Permutation = c("#1", "#2", "#3", "#4", "#5", "#6"),
 quiz(
 question_text("Explain briefly how the row #1 represents the original observations in the table above.",
     allow_retry = T,
-    answer(NULL, correct = T)
+    answer(NULL, correct = T),
+    incorrect = "Ok"
   ),
 question_text("What do rows #2 through #6 represent? Why do we need them to perform a permutation test?",
     allow_retry = T,
-    answer(NULL, correct = T)
+    answer(NULL, correct = T),
+    incorrect = "Ok"
   ),
 question_text("In one sentence, what is the purpose of a permutation test?",
     allow_retry = T,
-    answer(NULL, correct = T)
+    answer(NULL, correct = T),
+    incorrect = "Ok"
   ),
 question_text("What does the variation in the final column tell us about the reliability of our ATE?",
     allow_retry = T,
-    answer(NULL, correct = T)
+    answer(NULL, correct = T),
+    incorrect = "Ok"
   )
 )
 
 ```
 
-Answer the following questions on external validity and scale.
+Answer the following questions on validity, scale, and humility.
 
 ```{r question-4-4-quiz}
 
 quiz(
-question("What is external validity?",
+  question_text("Describe validity in a few sentences. Give an example of a mistake the researchers could make that would call the validity of the model into question.", #MB: Cass
+    answer(NULL, correct = TRUE),
+    allow_retry = TRUE,
+    incorrect = "Ok"
+  ),
+  question("What is external validity?",
     answer("The data we are collecting is a legitimate measure of what we are trying to observe"),
     answer("The population used in the study is representative of the population we hope to generalize the findings to", correct = TRUE),
     answer("It is when the findings of a study affirm what is already known in exisiting literature"),
@@ -444,20 +469,38 @@ question("What is external validity?",
   ),
 question_text("What is the Hawthorne effect?",
       allow_retry = T,
-      answer(NULL, correct = T)
+      answer(NULL, correct = T),
+    incorrect = "Ok"
+  ),
+question_text("A drug is being used to test weight loss, however it can only be used on subjects 3, 4, and 5, as subjects 1 and 2 have a disease that keeps the drug from being safe for them. Should all 5 subjects be used to calculate the causal effect of the weight loss drug, or just subjects 3, 4, and 5? Why?", # MB: CASS
+      allow_retry = T,
+      answer(NULL, correct = T),
+    incorrect = "Ok"
+  ),
+question_text("In the train experiment, there were people in the experiement who waited in their cars, therefore didn't hear Spanish speakers before stepping onto the train. Should their results have been measured and included in the data? Compare this situation to the one in the previous question in your answer.", # MB: Cass
+    answer(NULL, correct = TRUE),
+    allow_retry = TRUE,
+    incorrect = "Ok"
+  ),
+question_text("Humility is a key step in modelling and data analysis where we acknowledge all of the things in the real world that may have messed up our experiment or predictions. Use humility and discuss one of these things in a few sentences.", # MB: CASS. examples: headphgones in couldnt hear spanish, etc
+      allow_retry = T,
+      answer(NULL, correct = T),
+    incorrect = "Ok"
   )
 )
 
 ```
 
-<!-- MB: Rework this. Do weight loss example instead. Add more people? Whether or not the out of bounds number is possible vs impossible is another thing. Introduce the table better-->
+<!-- MB: Reworked so that the out of bounds number is possible rather. The OOB being impossible is another matter.-->
+
+Miro and Jessica are two mice being given a weight-increasing drug with a causal effect of +2 oz. Miro weighs 13 oz and Jessica weighs 4 oz prior to treatment. However, their scale only goes up to 14 oz. 
 
 ```{r question-4-5-setup, echo=FALSE}
 
 tibble(subject = c("Jessica", "Miro"),
        ytreat = c("?", "?"),
        ycontrol = c("4", "13"),
-       ydiff = c("-1.5", "-1.5")) %>%
+       ydiff = c("+2", "+2")) %>%
   gt() %>%
   cols_label(subject = md("$$\\mathbf{Subject}$$"),
                 ytreat = md("$$Y_t(u)$$"),
@@ -472,29 +515,37 @@ tibble(subject = c("Jessica", "Miro"),
 
 ```
 
+Leave out units in all answers.
+
 ```{r question-4-5-quiz}
 
 quiz(
+  question_text("What is Jessica's $Y_t(u)$ assuming $Y_t(u) - Y_c(u)$ to be his treatment effect?",
+    answer("6", correct = TRUE),
+    allow_retry = TRUE
+  ),
 question_text("What is Miro's $Y_t(u)$ assuming $Y_t(u) - Y_c(u)$ to be his treatment effect?",
-    answer("11.67", correct = TRUE),
+    answer("15", correct = TRUE),
     allow_retry = TRUE
   ),
-question_text("What is Jessica's $Y_t(u)$ assuming $Y_t(u) - Y_c(u)$ to be his treatment effect?",
-    answer("2.67", correct = TRUE),
+question_text("What does Miro's scale say at the end of the experiment, assuming $Y_t(u) - Y_c(u)$ to be his treatment effect?",
+    answer("14", correct = TRUE),
     allow_retry = TRUE
   ),
-question("Which of the two went go off the scale of 3-15 after applying the treatment effect?",
-    answer("Miro"),
-    answer("Jessica", correct = TRUE),
+question("Which of the two went go off the scale after applying the treatment effect?",
+    answer("Miro", correct = TRUE),
+    answer("Jessica"),
     allow_retry = TRUE
   ),
-question_text("Write a few sentences describing censoring in statistics?",
+question_text("Write a few sentences describing censoring in statistics.",
       allow_retry = T,
-      answer(NULL, correct = T)
+      answer(NULL, correct = T),
+    incorrect = "Ok"
   ),
-question_text("If many of the observations were as low as Jessica's, is it the problem of the scale in the study? Why?",
+question_text("If many of the observations were as high as Miro's, is it the problem of the scale in the study? Why?",
       allow_retry = T,
-      answer(NULL, correct = T)
+      answer(NULL, correct = T),
+    incorrect = "Ok"
   )
 )
 
@@ -519,6 +570,8 @@ tibble(subject = c("1", "2", "...", "55", "...", "204", "205", "...", "1,627", "
 
 ```{r question-4-6-quiz}
 
+# MB: Cass. Talk about the math at this point. Any mathmathical thing stops at the first eq. Redo formnula to annotate. FORMULA IS THE SAME. use equation, then replace variables with words
+
 quiz(
 question("Is this model predictive or causal?",
     answer("Causal"),
@@ -527,11 +580,15 @@ question("Is this model predictive or causal?",
   ),
 question_text("Explain your answer above.",
     allow_retry = T,
-    answer(NULL, correct = T)
+    answer(NULL, correct = T),
+    incorrect = "Ok"
+  ),
+question_text("Is the equation for a predictive model different from that of a causal model?",
+    answer("No", message = "They are the same! The only difference is how you interpret and use the numbers"),
+    answer("Yes", correct = TRUE),
+    allow_retry = TRUE
   )
 )
-
-# MORE QUESTIONS ON Predictive vs Causal
 
 ```
 
@@ -544,11 +601,13 @@ Answer the following questions.
 quiz(
 question_text("Give an example of a poor causal study because it violates the the phrase, 'no causation without manipulation'",
     allow_retry = T,
-    answer(NULL, correct = T)
+    answer(NULL, correct = T),
+    incorrect = "Ok"
   ),
 question_text("Why is the phrase 'no causation without manipulation' more complicated when dealing with matters of race, sex, and gender?",
     allow_retry = T,
-    answer(NULL, correct = T)
+    answer(NULL, correct = T),
+    incorrect = "Ok"
   )
 )
 
@@ -580,7 +639,8 @@ tibble(subject = c("Yao"),
 quiz(
 question_text("Describe the stable unit treatment value assumption, or SUTVA.",
     allow_retry = T,
-    answer(NULL, correct = T)
+    answer(NULL, correct = T),
+    incorrect = "Ok"
   ),
 
 question_text("What is the causal effect of the treatment on Yao?",
