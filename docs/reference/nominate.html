@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Changelog • PPBDS.data</title>
+<title>DW-Nominate data for US Congressional ideological ratings — nominate • PPBDS.data</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,15 @@
 
 
 
-<meta property="og:title" content="Changelog" />
+<meta property="og:title" content="DW-Nominate data for US Congressional ideological ratings — nominate" />
+<meta property="og:description" content="This dataset is from Voteview, a website by political
+scientists Keith Poole and Howard Rosenthal that freely provides information on
+congressional roll call votes in the United States. The data goes back to the first
+U.S. congress in 1789, and includes votes from both the Senate and the House of
+Representatives. In addition the the votes themselves, Voteview's datasets include
+indicators of politicians' ideological positions, which have been estimated using
+NOMINATE. See also the
+'Details' section below." />
 
 
 
@@ -58,7 +66,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-news">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -110,34 +118,64 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/davidkane9/PPBDS.data/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+    <h1>DW-Nominate data for US Congressional ideological ratings</h1>
+    <small class="dont-index">Source: <a href='https://github.com/davidkane9/PPBDS.data/blob/master/R/nominate.R'><code>R/nominate.R</code></a></small>
+    <div class="hidden name"><code>nominate.Rd</code></div>
     </div>
 
-    <div id="ppbdsdata-020" class="section level2">
-<h2 class="hasAnchor">
-<a href="#ppbdsdata-020" class="anchor"></a>PPBDS.data 0.2.0</h2>
-<hr>
-<ul>
-<li>Adds the <code>nominate</code> dataset.</li>
-</ul>
-</div>
-    <div id="ppbdsdata-010" class="section level2">
-<h2 class="hasAnchor">
-<a href="#ppbdsdata-010" class="anchor"></a>PPBDS.data 0.1.0</h2>
-<hr>
-<ul>
-<li>First release of ‘Data for Preceptor’s Primer for Bayesian Data Science’.</li>
-</ul>
-</div>
-  </div>
+    <div class="ref-description">
+    <p>This dataset is from <a href='https://voteview.com/'>Voteview</a>, a website by political
+scientists Keith Poole and Howard Rosenthal that freely provides information on
+congressional roll call votes in the United States. The data goes back to the first
+U.S. congress in 1789, and includes votes from both the Senate and the House of
+Representatives. In addition the the votes themselves, Voteview's datasets include
+indicators of politicians' ideological positions, which have been estimated using
+<a href='https://en.wikipedia.org/wiki/NOMINATE_(scaling_method)'>NOMINATE</a>. See also the
+'Details' section below.</p>
+    </div>
 
+    <pre class="usage"><span class='kw'>nominate</span></pre>
+
+
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>A tibble with 49,361 observations and 9 variables:</p><dl>
+<dt>congress</dt><dd><p>integer variable indicating the number of a member's congress,
+e.g. 116 for the 116th congress (2019-2021)</p></dd>
+<dt>chamber</dt><dd><p>character variable indicating the chamber in which a member served</p></dd>
+<dt>state</dt><dd><p>character variable indicating the state a member represented</p></dd>
+<dt>party</dt><dd><p>character variable indicating a member's party</p></dd>
+<dt>name</dt><dd><p>character variable in the format "last, first" indicating a member's name</p></dd>
+<dt>born</dt><dd><p>double variable indicating a member's year of birth</p></dd>
+<dt>died</dt><dd><p>double variable indicating a member's year of death</p></dd>
+<dt>nominate_dim1</dt><dd><p>double variable in the range of [-1,1] indicating a member's ideological position on
+economic matters, also referred to as the 'left-right' spectrum. Lower values indicate
+left-wing positions, higher values indicate right-wing positions.</p></dd>
+<dt>nominate_dim2</dt><dd><p>double variable in the range of [-1,1] indicating a member's ideological position on societal
+matters, e.g. LBGT rights or slavery. Lower values indicate anti-establishment positions,
+higher values indicate pro-establishment positions.</p></dd>
+
+</dl>
+
+    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
+
+    <p><a href='https://voteview.com/data'>https://voteview.com/data</a></p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>At its core, NOMINATE is a scaling procedure that uses algorithms to arrange politicians
+in a two-dimensional coordinate system based on their voting behaviour and how they compare
+to others. The x-axis indicates politicians' positions on ideological matters, and
+the y-axis indicates positions on societal issues, thereby 'mapping' legislatures. For a
+detailed explanation of the technical background, see the original paper
+<a href='http://dx.doi.org/10.2307/2111172'>"A Spatial
+Model for Legislative Roll Call Analysis"</a> by Poole and Rosenthal (1983).</p>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
-
 </div>
 
 
