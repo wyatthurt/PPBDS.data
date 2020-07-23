@@ -25,5 +25,5 @@ Imports:
     gt (>= 0.2.1)
 Remotes:
     rundel/learnrhash,
-    rstudio/learnr (>= 0.10.1.9)
+    rstudio/learnr
 BugReports: https://github.com/davidkane9/PPBDS.data/issues
