@@ -96,7 +96,7 @@
 <a href="#loading-preceptors-data" class="anchor"></a>Loading Preceptor’s Data</h2>
 <p>After installing the package, it loads as any package should.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw">tidyverse</span>) 
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://tidyverse.tidyverse.org">tidyverse</a></span>) 
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw">PPBDS.data</span>)
 
 <span class="kw">qscores</span>
@@ -122,13 +122,13 @@
 <p>Once the library is loaded and you have confirmed that it can be accessed in your local environment, the data sets can be called as objects and used like any other data you would otherwise read in and assign to an object manually. See the following example of a plot using <code><a href="reference/qscores.html">PPBDS.data::qscores</a></code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit">
 
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw">ggplot2</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span>)
 
 <span class="kw">qscores</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="kw">department</span> <span class="op">==</span> <span class="st">"GOV"</span>) <span class="op">%&gt;%</span>
-  <span class="fu">ggplot</span>(<span class="fu">aes</span>(y = <span class="kw">workload</span>, x = <span class="kw">enrollment</span>)) <span class="op">+</span> 
-  <span class="fu">geom_point</span>(<span class="fu">aes</span>(color = <span class="kw">term</span>)) <span class="op">+</span> 
-  <span class="fu">labs</span>(
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(y = <span class="kw">workload</span>, x = <span class="kw">enrollment</span>)) <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>(<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(color = <span class="kw">term</span>)) <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span>(
     title = <span class="st">"Rudimentary Graphic to Test Function"</span>,
     subtitle = <span class="st">"Better graphic, potentially from 1005 work coming"</span>,
     caption = <span class="st">"Never forget to cite"</span>)
