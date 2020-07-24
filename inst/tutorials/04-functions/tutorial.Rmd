@@ -805,10 +805,6 @@ quiz(caption = "",
 
 ## Formal Testing
 
-### Checks using `stopifnot()`, and `stop()`
-
-<!-- EC: Need more stopifnot() questions, need testthat questions -->
-
 ```{r echo=TRUE, eval=FALSE}
 impatient_square <- function(x) {
   return(x)
@@ -845,7 +841,117 @@ quiz(caption = "",
          allow_retry = TRUE))
 ```
 
-### Combining Checks and Conditional Functions
+###
+
+This function is called `angry()`. Add a line of code that throws the message "Wrong! I am angry!" using `stop()`.
+
+```{r angry, exercise = TRUE}
+angry <- function(x) {
+  x
+}
+```
+
+```{r angry-hint}
+angry <- function(x) {
+  ...("Wrong! I am angry!")
+  x
+}
+```
+
+Nice, now we have an appropriately angry function that always yells at us. This isn't particularly useful. Make it so that `angry()` only yells at us if the x input is not a character. Also change the error message to something more useful: "x must be a character." This method is also known as the "if then stop".
+
+```{r ifthenstop, exercise = TRUE}
+angry <- function(x) {
+  x
+}
+```
+
+```{r ifthenstop-hint}
+angry <- function(x) {
+  if (!is.character(x)){
+    ...("x must be a character.")
+  }
+  x
+}
+```
+
+###
+
+What if we wanted to incorporate `testthat`? Use the `showfailure()` function to see what happens when we plug in `x = 1` to `angry()`.
+
+```{r showfailure-setup}
+library(testthat)
+angry <- function(x) {
+  if (!is.character(x)){
+    stop("x must be a character.")
+  }
+  x
+}
+```
+
+```{r showfailure, exercise = TRUE}
+show_failure(...)
+```
+
+```{r showfailure-hint}
+show_failure(angry(x=...))
+```
+
+Run the following function, which we've pre-defined behind the scenes.
+
+```{r mysteryfunc-setup}
+library(testthat)
+mystery <- function(x = 15) {
+  if (!is.numeric(x)){
+    stop("x must be a number.")
+  }
+  if (x <= 10){
+    stop("x must be greater than 10.")
+  }
+  if (x == 13){
+    stop("13 is an unlucky number. Choose a different number.")
+  }
+  sqrt(x)
+}
+```
+
+```{r mysteryfunc, exercise = TRUE}
+mystery()
+```
+
+```{r mysteryfunction}
+quiz(
+  question("Select all that apply. Which of the following happens when you run mystery()?",
+           answer("When you run mystery(13), you get an error that says: \"13 is an unlucky number. Choose a different number.\"", correct = TRUE),
+           answer("When you run mystery(), you get no error.", correct = TRUE),
+           answer("When you run mystery(10), you get no error"),
+           answer("When you run mystery(\"a\"), you get an error that says: \"x must be a number.\"", correct = TRUE),
+           allow_retry = TRUE))
+```
+
+```{r mysteryfunc2-setup, exercise.setup = "mysteryfunc-setup"}
+
+```
+
+```{r mysteryfunc2, exercise = TRUE}
+test_that('invalid args are detected', {
+  expect_error(mystery(-1))
+  expect_error(mystery(15))
+})
+```
+
+```{r mysteryfunction2}
+quiz(
+  question("When you run the following formal unit test, what do you get?",
+           answer("Nothing. This means the test worked as expected and no news is good news."),
+           answer("Error: Test failed: 'invalid args are detected' * `mystery(15)` did not throw an error.", correct = TRUE),
+           answer("Nothing. However, no result is a bad result and we have to peek under the hood further."),
+           answer("Error: Test failed: 'invalid args are detected' * `mystery(-1)` did not throw an error."),
+           allow_retry = TRUE,
+           random_answer_order = TRUE))
+```
+
+### Handling NAs
 
 ```{r if-quiz, echo = FALSE}
 question("Which describes `if`'s behavior? (Check all that apply).",
@@ -1502,44 +1608,10 @@ rvs <- tibble(trials = map(rep(3, 25), ...))
 
 ## Submit
 
-```{r encode, echo=FALSE}
-learnrhash::encoder_ui(
-  ui_before = shiny::div(
-    "When you have completed this tutorial, follow these steps:",
-        br(),
-    tags$ol(
-       tags$li("Click Generate Submission"),
-       tags$li("Copy and paste the hash generated into the \"Hash\" textbox"),
-       tags$li("Press 'Create responses.rds'. Nothing will pop up, but this will create an .rds file of your hashed responses."),
-       tags$li("Download the .rds file. A window will pop up asking you where to place the downloaded file. Upload this file to the appropriate Canvas assignment."))
-  )
-)
-```
-
 ```{r context="setup"}
-fluidPage(
-    mainPanel(
-          div(id = "form",
-            textInput("hash", "Hash", ""),
-            actionButton("submit", "Create responses.rds", class = "btn-primary"),
-            downloadButton("downloadData", "Download responses.rds")
-          )
-        )
-    )
+submission_ui
 ```
 
 ```{r context="server"}
-
-learnrhash::encoder_logic()
-
- observeEvent(input$submit,{
-        hash_id <<- input$hash
-        responses <<- data.frame("Hash" = hash_id)
- })
-output$downloadData <- downloadHandler(
-      filename = "tutorial_4_responses.rds",
-      content = function(file) {
-      write_rds(responses, file)
-    }
-  )
+submission_server()
 ```
