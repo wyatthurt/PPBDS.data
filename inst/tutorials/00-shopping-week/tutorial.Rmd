@@ -13,6 +13,7 @@ library(tidyverse)
 library(learnr)
 library(learnrhash)
 library(shiny)
+library(PPBDS.data)
 knitr::opts_chunk$set(echo = FALSE, message = FALSE)
 options(tutorial.exercise.timelimit = 60)  
 ```
@@ -93,48 +94,12 @@ Check if your computer is set to download R packages in binary by typing in `opt
 ```{r question-1-5-hint, silent = TRUE}
 options("pkgType")
 ```
-
 ## Submit
 
-```{r encode, echo=FALSE}
-learnrhash::encoder_ui(
-  ui_before = shiny::div(
-    "When you have completed this tutorial, follow these steps:",
-        br(),
-    tags$ol(
-       tags$li("Click Generate Submission"),
-       tags$li("Copy and paste the hash generated into the \"Hash\" textbox"),
-       tags$li("Press 'Create responses.rds'. Nothing will pop up, but this will create an .rds file of your hashed responses."),
-       tags$li("Download the .rds file. A window will pop up asking you where to place the downloaded file. Upload this file to the appropriate Canvas assignment."))
-  )
-)
-```
-
 ```{r context="setup"}
-fluidPage(
-    mainPanel(
-          div(id = "form",
-            textInput("hash", "Hash", ""),
-            actionButton("submit", "Create responses.rds", class = "btn-primary"),
-            downloadButton("downloadData", "Download responses.rds")
-          )
-        )
-    )
+submission_ui
 ```
 
 ```{r context="server"}
-
-learnrhash::encoder_logic()
-
- observeEvent(input$submit,{
-        hash_id <<- input$hash
-        responses <<- data.frame("Hash" = hash_id)
- })
-output$downloadData <- downloadHandler(
-      filename = "tutorial_0_responses.rds",
-      content = function(file) {
-      write_rds(responses, file)
-    }
-  )
+submission_server()
 ```
-
