@@ -22,7 +22,9 @@ Imports:
     viridis (>= 0.5.1),
     ggthemes (>= 4.2.0),
     nycflights13,
-    gt (>= 0.2.1)
+    gt (>= 0.2.1),
+    learnr,
+    learnrhash
 Remotes:
     rundel/learnrhash,
     rstudio/learnr

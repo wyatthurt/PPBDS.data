@@ -24,8 +24,8 @@ submission_server <- function() {
     encoded_txt = shiny::eventReactive(
       input$hash_generate,
       {
-        objs = learnr:::get_all_state_objects(session)
-        objs = learnr:::submissions_from_state_objects(objs)
+        objs = learnr::get_all_state_objects(session)
+        objs = learnr::submissions_from_state_objects(objs)
 
         learnrhash::encode_obj(objs)
       }
@@ -86,3 +86,5 @@ submission_ui <- shiny::div(
     )
   )
 )
+
+utils::globalVariables(c("input", "session", "downloadHandler", "write_rds"))
