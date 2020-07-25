@@ -150,10 +150,6 @@ data <- rnorm(100, mean = 100, sd = 15)
 copy <- data
 ```
 
-```{r objects-3-check}
-"Good job! R saves a copy of the contents in data to copy."
-```
-
 #### Data sets
 
 Objects provide an easy way to store data sets in R. In fact, R comes with many toy data sets pre-loaded. Examine the contents of `iris` to see a classic toy data set. Hint: how could you learn more about the `iris` object?
@@ -221,20 +217,12 @@ Predict what the code below will return. Then look at the result.
 c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10) + c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 ```
 
-```{r vectors-6-check}
-"Good job! Like many R functions, R's math operators are vectorised: they're designed to work with vectors by repeating the operation for each pair of elements."
-```
-
 #### Vector recycling
 
 Predict what the code below will return. Then look at the result.
 
 ```{r vectors-7, exercise = TRUE}
 1 + c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
-```
-
-```{r vectors-7-check}
-"Good job! Whenever you try to work with vectors of varying lengths (recall that `1` is a vector of length one), R will repeat the shorter vector as needed to compute the result."
 ```
 
 ### Types
@@ -373,10 +361,6 @@ But what if the package that you want to load is not installed on your computer?
 
 ```{r packages3, exercise = TRUE}
 
-```
-
-```{r packages3-check}
-"Good job! You only need to install a package once, unless you wish to update your local copying by reinstalling the package. Notice that `install.packages()` _always_ requires quotes around the package name."
 ```
 
 ### Test your knowledge
@@ -672,7 +656,7 @@ A better way to deal with overplotting due to large data is to visualize a summa
 
 ## Linegraphs
 
-```{r linegraphs-setup, include = FALSE}
+```{r, include = FALSE}
 cces_data <- cces %>%
   filter(approval_ch %in% c("Approve / Somewhat Approve", "Disapprove / Somewhat Disapprove")) %>%
   group_by(year, approval_ch) %>%
@@ -681,11 +665,18 @@ cces_data <- cces %>%
 
 *The `cces` dataset in the `PPBDS.data` package has been changed to show the average age of voters per year based on their approval of the president that year. The `cces` dataset was manipulated using the `filter()`, `group_by`, and `summarize()` functions within the `tidyverse` package, which you will learn how to use in the next chapter.*
 
-```{r gov_qscores, echo = TRUE}
+```{r, echo = TRUE}
 cces_data
 ```
 
 *Use the `ggplot()` function to create a linegraph with the dataset called `cces_data` with `year` on the x-axis, `avg_age` on the y-axis, and `approval_ch` as the color aesthetic.*
+
+```{r exercise-11-setup, include = FALSE}
+cces_data <- cces %>%
+  filter(approval_ch %in% c("Approve / Somewhat Approve", "Disapprove / Somewhat Disapprove")) %>%
+  group_by(year, approval_ch) %>%
+  summarize(avg_age = mean(age))
+```
 
 ```{r exercise-11, exercise = TRUE, exercise.lines = 5}
 
@@ -739,7 +730,7 @@ ggplot(data = ..., mapping = aes(x = ...)) + ...
 
 ```{r quiz-10, echo = FALSE}
 quiz(
-  question_text("What is the default value of bins for this histogram?",
+  question_text("What is the default value of `bins` for this histogram? (Hint: all geoms have the same default values)",
                 answer("30", correct = TRUE), 
                 allow_retry = TRUE)
 )
@@ -750,12 +741,12 @@ quiz(
 *Add white vertical borders demarcating the bins by adding `color = "powderblue"` and `fill = "violet"` arguments to `geom_histogram()`.*
 
 ```{r exercise-13, exercise = TRUE, exercise.lines = 5}
-ggplot(data = qscores, mapping = aes(x = overall)) +
+ggplot(data = qscores, mapping = aes(x = rating)) +
   geom_histogram()
 ```
 
 ```{r exercise-13-hint}
-ggplot(data = qscores, mapping = aes(x = overall)) + 
+ggplot(data = qscores, mapping = aes(x = rating)) + 
   geom_histogram(color = ..., fill = ...)
 ```
 
@@ -764,12 +755,12 @@ ggplot(data = qscores, mapping = aes(x = overall)) +
 *Specify the number of bins to be 10 via the `bins` argument and the `color` as "white" in `geom_histogram()`.*
 
 ```{r exercise-14, exercise = TRUE, exercise.lines = 5}
-ggplot(data = qscores, mapping = aes(x = overall)) +
+ggplot(data = qscores, mapping = aes(x = rating)) +
   geom_histogram()
 ```
 
 ```{r exercise-14-hint}
-ggplot(data = qscores, mapping = aes(x = overall)) +
+ggplot(data = qscores, mapping = aes(x = rating)) +
   geom_histogram(bins = ..., color = ...)
 ```
 
@@ -778,12 +769,12 @@ ggplot(data = qscores, mapping = aes(x = overall)) +
 *Specify the width of the bins to be 1 via the `binwidth` argument and the `color` as "white" in `geom_histogram()`.*
 
 ```{r exercise-15, exercise = TRUE, exercise.lines = 5}
-ggplot(data = qscores, mapping = aes(x = overall)) +
+ggplot(data = qscores, mapping = aes(x = rating)) +
   geom_histogram()
 ```
 
 ```{r exercise-15-hint}
-ggplot(data = qscores, mapping = aes(x = overall)) +
+ggplot(data = qscores, mapping = aes(x = rating)) +
   geom_histogram(binwidth = ..., color = ...)
 ```
 
@@ -804,7 +795,7 @@ quiz(
 
 *Let's keep playing with the `qscores` dataset in the `PPBDS.data` package. We have filtered the dataset using the `tidyverse` package based on the five departments with the classes with the most enrollment: ECON, COMPSCI, STAT, GOV, and MATH. (You will learn how to do this in the next chapter). The filtered dataset is called `top_five_qscores`.*
 
-```{r boxplot-setup, include = FALSE}
+```{r boxplot, include = FALSE}
 top_five_enrolled <- qscores %>% 
   group_by(department) %>%
   summarize(enrollment = sum(enrollment)) %>% 
@@ -814,11 +805,22 @@ top_five_enrolled <- qscores %>%
 top_five_qscores <- qscores %>% filter(department %in% top_five_enrolled[0:5])
 ```
 
-```{r boxplot-top-five-qscores, echo = TRUE}
+```{r, echo = TRUE}
 top_five_qscores
 ```
 
-*Using the `top_five_qscores` dataset and `ggplot()`, make a boxplot where `department` is on the x-axis and `overall` is on the y-axis.*
+*Using the `top_five_qscores` dataset and `ggplot()`, make a boxplot where `department` is on the x-axis and `rating` is on the y-axis.*
+
+```{r exercise-16-setup, include = FALSE}
+top_five_enrolled <- qscores %>% 
+  group_by(department) %>%
+  summarize(enrollment = sum(enrollment)) %>% 
+  arrange(desc(enrollment)) %>%
+  pull(department)
+
+top_five_qscores <- qscores %>% filter(department %in% top_five_enrolled[0:5])
+```
+
 
 ```{r exercise-16, exercise = TRUE, exercise.lines = 5}
 
@@ -872,7 +874,7 @@ quiz(
 
 *We can now use a barplot to plot how many students are enrolled in classes per department. We will use the `top_five_qscores` dataset again to look at the five largest departments.*
 
-```{r barplot-setup, include = FALSE}
+```{r barplot, include = FALSE}
 top_five_enrolled <- qscores %>% 
   group_by(department) %>%
   summarize(enrollment = sum(enrollment)) %>% 
@@ -888,6 +890,16 @@ top_five_qscores
 
 *Use `ggplot()` and `geom_bar()` to plot `department` on the x-axis to see the number of classes in each department.*
 
+```{r exercise-17-setup, include = FALSE}
+top_five_enrolled <- qscores %>% 
+  group_by(department) %>%
+  summarize(enrollment = sum(enrollment)) %>% 
+  arrange(desc(enrollment)) %>%
+  pull(department)
+
+top_five_qscores <- qscores %>% filter(department %in% top_five_enrolled[0:5])
+```
+
 ```{r exercise-17, exercise = TRUE, exercise.lines = 5}
 
 ```
@@ -901,16 +913,30 @@ ggplot(data = ..., mapping = aes(x = ...)) +
 
 *We can then count the number of classes per department in order to use the `geom_col()` layer instead. We do this using the `group_by()` and `count()` functions in the `tidyverse` package, which you will learn how to use in the next chapter. Our new data frame is stored as `top_five_qscores_counted`.*
 
-```{r classes-counted-setup, include = FALSE}
+```{r classes-counted, include = FALSE}
 top_five_qscores_counted <- top_five_qscores %>% 
   group_by(department) %>% count() %>% rename(count = n)
 ```
 
-```{r avg-workload-setup, echo = TRUE}
+```{r avg-workload, echo = TRUE}
 top_five_qscores_counted
 ```
 
 *Use `ggplot()` and `geom_col()` to plot `department` on the x-axis and `count` on the y-axis to see the number of classes in each department.*
+
+```{r exercise-18-setup, include = FALSE}
+top_five_enrolled <- qscores %>% 
+  group_by(department) %>%
+  summarize(enrollment = sum(enrollment)) %>% 
+  arrange(desc(enrollment)) %>%
+  pull(department)
+
+top_five_qscores <- qscores %>% filter(department %in% top_five_enrolled[0:5])
+
+top_five_qscores_counted <- top_five_qscores %>% 
+  group_by(department) %>% count() %>% rename(count = n)
+```
+
 
 ```{r exercise-18, exercise = TRUE, exercise.lines = 5}
 
