@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Changelog • PPBDS.data</title>
+<title>Tutorial submission functions — submission_server • PPBDS.data</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,17 @@
 
 
 
-<meta property="og:title" content="Changelog" />
+<meta property="og:title" content="Tutorial submission functions — submission_server" />
+<meta property="og:description" content="The following function has modified from Colin
+Rundel's learnrhash package, available at
+https://github.com/rundel/learnrhash. Many thanks to Professor Rundel, who
+has developed a fantastic tool for courses that teach R and use the learnr
+package.
+This note is also modified from Professor Rundel's description: Note that when
+including these functions in a learnr Rmd document it is necessary that the
+server function, submission_server(), be included in an R chunk where
+context=&quot;server&quot;. Conversely, any of the ui functions, *_ui(), must not
+be included in an R chunk with a context." />
 
 
 
@@ -58,7 +68,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-news">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -110,50 +120,39 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/davidkane9/PPBDS.data/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+    <h1>Tutorial submission functions</h1>
+    <small class="dont-index">Source: <a href='https://github.com/davidkane9/PPBDS.data/blob/master/R/submission_functions.R'><code>R/submission_functions.R</code></a></small>
+    <div class="hidden name"><code>submission_functions.Rd</code></div>
     </div>
 
-    <div id="ppbds-data-0-3-1" class="section level2">
-<h2 class="hasAnchor">
-<a href="#ppbds-data-0-3-1" class="anchor"></a>PPBDS.data 0.3.1</h2>
-<hr>
-<ul>
-<li>Minor improvements to the <code>qscores</code> dataset. The ‘course_name’ and ‘course_number’ variables have been renamed to course ‘name’ and ‘number’; whitespaces at the beginning of each course name have been removed; course terms are now in the format ‘2020-Spring’ instead of ‘2020S’.</li>
-</ul>
-</div>
-    <div id="ppbds-data-0-3-0" class="section level2">
-<h2 class="hasAnchor">
-<a href="#ppbds-data-0-3-0" class="anchor"></a>PPBDS.data 0.3.0</h2>
-<hr>
-<ul>
-<li>Adds the <code>governors</code> dataset.</li>
-</ul>
-</div>
-    <div id="ppbds-data-0-2-0" class="section level2">
-<h2 class="hasAnchor">
-<a href="#ppbds-data-0-2-0" class="anchor"></a>PPBDS.data 0.2.0</h2>
-<hr>
-<ul>
-<li>Adds the <code>nominate</code> dataset.</li>
-</ul>
-</div>
-    <div id="ppbds-data-0-1-0" class="section level2">
-<h2 class="hasAnchor">
-<a href="#ppbds-data-0-1-0" class="anchor"></a>PPBDS.data 0.1.0</h2>
-<hr>
-<ul>
-<li>First release of ‘Data for Preceptor’s Primer for Bayesian Data Science’.</li>
-</ul>
-</div>
-  </div>
+    <div class="ref-description">
+    <p>The following function has modified from Colin
+Rundel's learnrhash package, available at
+https://github.com/rundel/learnrhash. Many thanks to Professor Rundel, who
+has developed a fantastic tool for courses that teach R and use the learnr
+package.</p>
+<p>This note is also modified from Professor Rundel's description: Note that when
+including these functions in a learnr Rmd document it is necessary that the
+server function, <code>submission_server()</code>, be included in an R chunk where
+<code>context="server"</code>. Conversely, any of the ui functions, <code>*_ui()</code>, must <em>not</em>
+be included in an R chunk with a <code>context</code>.</p>
+    </div>
 
+    <pre class="usage"><span class='fu'>submission_server</span>()
+
+<span class='no'>submission_ui</span></pre>
+
+
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>An object of class <code>shiny.tag</code> of length 3.</p>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
-
 </div>
 
 

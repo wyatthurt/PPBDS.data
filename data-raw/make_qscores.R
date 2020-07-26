@@ -1,4 +1,4 @@
-# script to include data from qscore database, credits to Aurash Vatan '23. The
+# Script to include data from qscore database, credits to Aurash Vatan '23. The
 # goal here is to get nicely accesible data on course names and their subsequent
 # popularity. There's also maybe a few other variables we can look at.
 
@@ -9,22 +9,22 @@
 # messiness to the data! There are a few more tables in the file, but they were
 # purely for the functioning of the website and so are irrelevant.
 
-# required packages
+# Required packages
 
-# library(dbplyr)
-# library(RSQLite)
+library(dbplyr)
+library(RSQLite)
 library(usethis)
 library(tidyverse)
 
-# create connection to DB
+# Create connection to DB
 
 con <- DBI::dbConnect(RSQLite::SQLite(), "data-raw/info.db")
 
-# join people, professors, and classes table, save results, and disconnect.
+# Join people, professors, and classes table, save results, and disconnect.
 # Handy to have this data saved as a "raw" dataset so that we don't have to
 # re-download each time we change the wrangling in the main code block.
 
-# the data is a little bit limited in the fact that courses with sections only
+# The data is a little bit limited in the fact that courses with sections only
 # have the main section displayed. This makes courses like Expos impossible to
 # see section-level data -- and aggregate data isn't in this dataset across the
 # sections.
@@ -49,12 +49,12 @@ res <- dbSendQuery(
       ON class_id = classes.id"
 )
 
-# get raw data and then disconnect
+# Get raw data and then disconnect
 raw <- dbFetch(res)
 dbClearResult(res)
 dbDisconnect(con)
 
-# editing to create new tibble
+# Rditing to create new tibble
 
 x <- raw %>%
 
@@ -69,7 +69,7 @@ x <- raw %>%
          workload != "N/A",
          !is.na(term)) %>%
 
-  # removing janky names from course_names (i.e. any name that appears after
+  # Removing janky names from course_names (i.e. any name that appears after
   # Department ##: )
 
   mutate(
@@ -80,11 +80,11 @@ x <- raw %>%
     ))
   ) %>%
 
-  # we only need columns not for internal sql use
+  # We only need columns not for internal sql use
 
   select(-class_id, -id) %>%
 
-  # setting the columns to right variable types
+  # Setting the columns to right variable types
 
   mutate(
     enrollment = as.integer(enrollment),
@@ -100,7 +100,7 @@ x <- raw %>%
   filter(!str_detect(course_name, "Direction of Doctoral")) %>%
   filter(!str_detect(course_name, "ECON 3000: TIME")) %>%
 
-  # only have one row for each course
+  # Only have one row for each course
 
   distinct(course_name, term, .keep_all = T) %>%
 
@@ -117,7 +117,7 @@ x <- raw %>%
     ))
   ) %>%
 
-  # setting minimum threshold "N" for courses to show up & for us to only have
+  # Setting minimum threshold "N" for courses to show up & for us to only have
   # "lecture" style courses. I set this threshold at 15 for now.
 
   filter(enrollment > 15) %>%
@@ -126,7 +126,7 @@ x <- raw %>%
          hours = workload,
          instructor = prof_name) %>%
 
-  # AW: I don't know how much more helpful data from the Registrar would be.
+  # I don't know how much more helpful data from the Registrar would be.
   # Only additional information is enrollment breakdown by school, as well as
   # what the overarching department is.
 
@@ -136,10 +136,27 @@ x <- raw %>%
 
   select(course_name, department, course_number, term, department,
          enrollment, hours, rating, instructor) %>%
-  as_tibble()
+  as_tibble() %>%
 
 
-# saving data. still need to fix course_name; and change to name; course_number to number
+  # Removing whitespaces at the beginning of course names.
+
+  mutate(course_name = str_trim(course_name)) %>%
+
+
+  # Recoding term descriptions.
+
+  mutate(term = str_replace(term, "S", "-Spring"),
+         term = str_replace(term, "F", "-Fall")) %>%
+
+
+  # Renaming variables.
+
+  rename(name = "course_name",
+         number = "course_number")
+
+
+# Saving data.
 
 qscores <- x
 

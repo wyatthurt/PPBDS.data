@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Changelog • PPBDS.data</title>
+<title>Election results and longevity of politicians — governors • PPBDS.data</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,15 @@
 
 
 
-<meta property="og:title" content="Changelog" />
+<meta property="og:title" content="Election results and longevity of politicians — governors" />
+<meta property="og:description" content="This is a dataset corresponding to the paper &quot;Longevity Returns to Political
+Office&quot; by Barfort, Klemmensen &amp;amp;
+Larsen (2019). The purpose of this study was to find out whether and how
+winning an election influences the lifespan of politicians. To answer this
+question, the authors collected data on all U.S. gubernatorial elections from
+1945 to 2012. In addition to the names and votes of the running candidates, the
+data includes information on their pre- and post-election life spans. See also the
+'Details' section below." />
 
 
 
@@ -58,7 +66,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-news">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -110,50 +118,63 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/davidkane9/PPBDS.data/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+    <h1>Election results and longevity of politicians</h1>
+    <small class="dont-index">Source: <a href='https://github.com/davidkane9/PPBDS.data/blob/master/R/governors.R'><code>R/governors.R</code></a></small>
+    <div class="hidden name"><code>governors.Rd</code></div>
     </div>
 
-    <div id="ppbds-data-0-3-1" class="section level2">
-<h2 class="hasAnchor">
-<a href="#ppbds-data-0-3-1" class="anchor"></a>PPBDS.data 0.3.1</h2>
-<hr>
-<ul>
-<li>Minor improvements to the <code>qscores</code> dataset. The ‘course_name’ and ‘course_number’ variables have been renamed to course ‘name’ and ‘number’; whitespaces at the beginning of each course name have been removed; course terms are now in the format ‘2020-Spring’ instead of ‘2020S’.</li>
-</ul>
-</div>
-    <div id="ppbds-data-0-3-0" class="section level2">
-<h2 class="hasAnchor">
-<a href="#ppbds-data-0-3-0" class="anchor"></a>PPBDS.data 0.3.0</h2>
-<hr>
-<ul>
-<li>Adds the <code>governors</code> dataset.</li>
-</ul>
-</div>
-    <div id="ppbds-data-0-2-0" class="section level2">
-<h2 class="hasAnchor">
-<a href="#ppbds-data-0-2-0" class="anchor"></a>PPBDS.data 0.2.0</h2>
-<hr>
-<ul>
-<li>Adds the <code>nominate</code> dataset.</li>
-</ul>
-</div>
-    <div id="ppbds-data-0-1-0" class="section level2">
-<h2 class="hasAnchor">
-<a href="#ppbds-data-0-1-0" class="anchor"></a>PPBDS.data 0.1.0</h2>
-<hr>
-<ul>
-<li>First release of ‘Data for Preceptor’s Primer for Bayesian Data Science’.</li>
-</ul>
-</div>
-  </div>
+    <div class="ref-description">
+    <p>This is a dataset corresponding to the paper "Longevity Returns to Political
+Office" by <a href='https://doi.org/10.1017/psrm.2019.63'>Barfort, Klemmensen &amp;
+Larsen (2019)</a>. The purpose of this study was to find out whether and how
+winning an election influences the lifespan of politicians. To answer this
+question, the authors collected data on all U.S. gubernatorial elections from
+1945 to 2012. In addition to the names and votes of the running candidates, the
+data includes information on their pre- and post-election life spans. See also the
+'Details' section below.</p>
+    </div>
 
+    <pre class="usage"><span class='no'>governors</span></pre>
+
+
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>A tibble with 1,092 observations and 11 variables:</p><dl'>
+<dt>state</dt><dd><p>character variable indicating the state in which an election took place</p></dd>
+<dt>year</dt><dd><p>integer variable indicating the year in which an election took place</p></dd>
+<dt>first_name</dt><dd><p>character variable indicating the first name of a candidate</p></dd>
+<dt>last_name</dt><dd><p>character variable indicating the last name of a candidate</p></dd>
+<dt>party</dt><dd><p>character variable indicating a member's party</p></dd>
+<dt>sex</dt><dd><p>character variable indicating a member's sex</p></dd>
+<dt>died</dt><dd><p>date variable indicating the candidate's date of death</p></dd>
+<dt>status</dt><dd><p>character variable indicating whether a candidate was the challenger or incumbent</p></dd>
+<dt>win_margin</dt><dd><p>double variable indicating the percentage margin by which the election was won
+(positive values) or lost (negative values)</p></dd>
+<dt>alive_post</dt><dd><p>integer variable indicating the number of days a candidate lived after
+the election took place</p></dd>
+<dt>alive_pre</dt><dd><p>integer variable indicating the number of days a candidate lived before
+the election took place</p></dd>
+
+</dl>
+
+    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
+
+    <p><a href='https://doi.org/10.7910/DVN/IBKYRX'>https://doi.org/10.7910/DVN/IBKYRX</a></p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>To facilitate subsequent analysis, the raw data collected by the authors was
+edited in three ways. First, for a given election, only the two candidates who
+received the highest number of votes were included. Second, candidates with unknown
+dates of death were excluded, resulting in fewer observations for elections in
+recent years. Third, in a few instances, only the year of birth or death could
+be determined; in these cases, the date was taken to be July 1 of that year.</p>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
-
 </div>
 
 
