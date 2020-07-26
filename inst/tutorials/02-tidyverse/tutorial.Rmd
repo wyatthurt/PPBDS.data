@@ -24,7 +24,7 @@ options(tutorial.exercise.timelimit = 60)
 library(fueleconomy)
 library(dslabs)
 murders <- as_tibble(murders)
-states <- murders$states
+states <- murders$state
 states2 <- murders %>%
   select(state, abb)
 
@@ -841,3 +841,4 @@ submission_ui
 ```{r context="server"}
 submission_server()
 ```
+
