@@ -24,8 +24,7 @@ Imports:
     nycflights13,
     gt (>= 0.2.1),
     learnr,
-    learnrhash
+    base64enc
 Remotes:
-    rundel/learnrhash,
     rstudio/learnr
 BugReports: https://github.com/davidkane9/PPBDS.data/issues

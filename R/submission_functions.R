@@ -27,7 +27,7 @@ submission_server <- function() {
         objs = learnr:::get_all_state_objects(session)
         objs = learnr:::submissions_from_state_objects(objs)
 
-        learnrhash::encode_obj(objs)
+        encode_obj(objs)
       }
     )
 
@@ -67,6 +67,21 @@ is_server_context <- function(.envir) {
   inherits(.envir$input,   "reactivevalues") &
     inherits(.envir$output,  "shinyoutput")    &
     inherits(.envir$session, "ShinySession")
+}
+
+#' Encode an R object into hashed text; from github::rundel/learnrhash
+#'
+#' @param obj R object
+#' @param compress Compression method.
+#'
+#' @export
+encode_obj = function(obj, compress = c("bzip2", "gzip", "xz", "none"))  {
+  compress = match.arg(compress)
+
+  raw = serialize(obj, NULL)
+  comp_raw = memCompress(raw, type = compress)
+
+  base64enc::base64encode(comp_raw)
 }
 
 #' @rdname submission_functions
