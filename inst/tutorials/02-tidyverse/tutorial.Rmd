@@ -19,7 +19,7 @@ knitr::opts_chunk$set(echo = FALSE, message = FALSE)
 options(tutorial.exercise.timelimit = 60)  
 ```
 
-```{r, stringr-objects}
+```{r stringr-objects}
 library(dslabs)
 murders <- as_tibble(murders)
 states <- murders$state
