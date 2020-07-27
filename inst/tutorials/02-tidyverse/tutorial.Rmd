@@ -19,15 +19,16 @@ knitr::opts_chunk$set(echo = FALSE, message = FALSE)
 options(tutorial.exercise.timelimit = 60)  
 ```
 
-```{r}
-# library(gapminder)
-library(fueleconomy)
+```{r, stringr-objects}
 library(dslabs)
 murders <- as_tibble(murders)
 states <- murders$state
 states2 <- murders %>%
   select(state, abb)
+```
 
+```{r cars}
+library(fueleconomy)
 lexus_2000 <- vehicles %>%
   filter(year == 2000,
          make == "Lexus") %>%
@@ -257,7 +258,7 @@ quiz(
 
 ## stringr wrangling
 Use `str_detect()` on `states` to find state that contain the pattern "ana":
-```{r exercise-2-1, exercise = TRUE}
+```{r exercise-2-1, exercise = TRUE, exercise.setup = "stringr-objects"}
 
 ```
 
@@ -266,7 +267,7 @@ str_detect(..., pattern = ...)
 ```
 
 Now use `str_subset()` with `states` to find the names of the states that contain the pattern "ana" instead of just the boolean values: 
-```{r exercise-2-2, exercise = TRUE}
+```{r exercise-2-2, exercise = TRUE, exercise.setup = "stringr-objects"}
 
 ```
 
@@ -275,7 +276,7 @@ str_subset(..., pattern = ...)
 ```
 
 Use `str_subset()` to find `states` that have two a's in their name:
-```{r exercise-2-3, exercise = TRUE}
+```{r exercise-2-3, exercise = TRUE, exercise.setup = "stringr-objects"}
 
 ```
 
@@ -288,7 +289,7 @@ str_subset(..., pattern = ...)
 ```
 
 `str_split()` `states` that are two or more words:
-```{r exercise-2-4, exercise = TRUE}
+```{r exercise-2-4, exercise = TRUE, exercise.setup = "stringr-objects"}
 
 ```
 
@@ -297,7 +298,7 @@ str_split(..., pattern = ...)
 ```
 
 `str_split_fixed()` `states` into two words. What will happen to `District of Columbia`?
-```{r exercise-2-5, exercise = TRUE}
+```{r exercise-2-5, exercise = TRUE, exercise.setup = "stringr-objects"}
 
 ```
 
@@ -306,7 +307,7 @@ str_split_fixed(..., pattern = ..., n = ...)
 ```
 
 Collapse `states` using `str_c()`, and separate them with a comma.
-```{r exercise-2-6, exercise = TRUE}
+```{r exercise-2-6, exercise = TRUE, exercise.setup = "stringr-objects"}
 
 ```
 
@@ -315,7 +316,7 @@ str_c(states, collapse = ",")
 ```
 
 Use `str_c` to collapse states into the form `state1 & state2`. Combine the first 1-25 states with states 26-50. Note that we have to exclude the 51st state.
-```{r exercise-2-7, exercise = TRUE}
+```{r exercise-2-7, exercise = TRUE, exercise.setup = "stringr-objects"}
 
 ```
 
@@ -324,7 +325,7 @@ str_c(..., ..., sep = ...)
 ```
 
 Use `str_replace()` to replace the pattern `North` with `N.`. For example, transform North Carolina into N. Carolina.
-```{r exercise-2-8, exercise = TRUE}
+```{r exercise-2-8, exercise = TRUE, exercise.setup = "stringr-objects"}
 
 ```
 
@@ -333,7 +334,7 @@ str_replace(..., pattern = ..., replacement = ...)
 ```
 
 Use `str_subset()` to find `states` that contain the letter a and then one or more characters and another a.
-```{r exercise-2-9, exercise = TRUE}
+```{r exercise-2-9, exercise = TRUE, exercise.setup = "stringr-objects"}
 
 ```
 
@@ -346,7 +347,7 @@ str_subset(..., pattern = ...)
 ```
 
 Does capitalization matter? Repeat the previous question but replace the first letter with a capital "A". 
-```{r exercise-2-10, exercise = TRUE}
+```{r exercise-2-10, exercise = TRUE, exercise.setup = "stringr-objects"}
 
 ```
 
@@ -355,7 +356,7 @@ str_subset(..., pattern = ...)
 ```
 
 `glimpse()` the `states2` tibble. 
-```{r exercise-2-11, exercise = TRUE}
+```{r exercise-2-11, exercise = TRUE, exercise.setup = "stringr-objects"}
 
 ```
 
@@ -364,7 +365,7 @@ glimpse(states2)
 ```
 
 `mutate()` the `states2` dataset so that it contains a column `state_length` that takes the `str_length()` of each `state`. Then, `arrange()` the dataset from the state with the longest name to that with the shortest.
-```{r exercise-2-12, exercise = TRUE}
+```{r exercise-2-12, exercise = TRUE, exercise.setup = "stringr-objects"}
 
 ```
 
@@ -375,7 +376,7 @@ states2 %>%
 ```
 
 Now compare the previous question by the `states2` dataset arranged by `desc(state)`. How does this arrangement differ from the previous one?
-```{r exercise-2-13, exercise = TRUE}
+```{r exercise-2-13, exercise = TRUE, exercise.setup = "stringr-objects"}
 
 ```
 
@@ -385,7 +386,7 @@ Now compare the previous question by the `states2` dataset arranged by `desc(sta
 ```
 
 `mutate()` the `state` column of `states2` to only contain the first two letters of each state name. Reassign this as `states2`.
-```{r exercise-2-14, exercise = TRUE}
+```{r exercise-2-14, exercise = TRUE, exercise.setup = "stringr-objects"}
 
 ```
 
@@ -393,12 +394,13 @@ Now compare the previous question by the `states2` dataset arranged by `desc(sta
 ... <- states2 %>% mutate(... = str_sub(...))
 ```
 
-```{r exercise-2-15-setup}
-staes2 <- states2 %>% mutate(state = str_sub(state, 1, 2))
+```{r exercise-2-15-setup, exercise.setup = "stringr-objects"}
+states2 <- states2 %>%
+  mutate(state = str_sub(state, 1, 2))
 ```
 
 Now use `str_to_upper()` and `mutate()` to make both of the first two letters of the states capital letters. Reassign this as `states2`.
-```{r exercise-2-15, exercise = TRUE }
+```{r exercise-2-15, exercise = TRUE}
 
 ```
 
@@ -406,8 +408,10 @@ Now use `str_to_upper()` and `mutate()` to make both of the first two letters of
 ... <- states2 %>% mutate(... = str_to_upper(...))
 ```
 
-```{r exercise-2-16-setup}
-states2 <- states2 %>% mutate(state = str_to_upperstate)
+```{r exercise-2-16-setup, exercise.setup = "stringr-objects"}
+states2 <- states2 %>% 
+  mutate(state = str_sub(state, 1, 2)) %>% 
+  mutate(state = str_to_upper(state))
 ```
 
 `mutate()` a new column called `match` that creates a TRUE or FALSE value if the first two letters of the state name (the `state` column) and the `abb` column match.
@@ -419,6 +423,12 @@ states2 <- states2 %>% mutate(state = str_to_upperstate)
 states2 %>% mutate(match = (... == ...))
 ```
 
+```{r exercise-2-17-setup, exercise.setup = "stringr-objects"}
+states2 <- states2 %>%
+  mutate(state = str_sub(state, 1, 2)) %>% 
+  mutate(state = str_to_upper(state)) %>%
+  mutate(match = (state == abb))
+```
 `count()` the `match` column.
 ```{r exercise-2-17, exercise = TRUE}
 
@@ -444,7 +454,7 @@ quiz(
 ### bind_rows()
 ### Exercise 1
 Run `lexus_2000` in this code chunk:
-```{r exercise-3-1, exercise = TRUE}
+```{r exercise-3-1, exercise = TRUE, exercise.setup = "cars"}
 
 ```
 
@@ -454,7 +464,7 @@ lexus_2000
 
 ### Exercise 2
 Run `lexus_1999` in the code chunk: 
-```{r exercise-3-2, exercise = TRUE}
+```{r exercise-3-2, exercise = TRUE, exercise.setup = "cars"}
 
 ```
 
@@ -481,7 +491,7 @@ What do you think will happen we try to bind the rows?
 
 Use `bind_rows()` to bind `lexus_1999` and `lexus_2000`:
 What happens to the `trans` column?
-```{r question-3-3, exercise = TRUE}
+```{r question-3-3, exercise = TRUE, exercise.setup = "cars"}
 
 ```
 
@@ -492,7 +502,7 @@ bind_rows(..., ...)
 ### Exercise 4 
 
 Run `lexus_1998` in the following code chunk:
-```{r question-3-4, exercise = TRUE}
+```{r question-3-4, exercise = TRUE, exercise.setup = "cars"}
 
 ```
 What is the discrepancy between the columns of `lexus_1998` and `lexus_1999`. How do you think this will affect binding the rows of the two dataframes?
@@ -500,7 +510,7 @@ What is the discrepancy between the columns of `lexus_1998` and `lexus_1999`. Ho
 ### Exercise 5
 
 Bind the two dataframes `lexus_1998` and `lexus_1999`:
-```{r question-3-5, exercise = TRUE}
+```{r question-3-5, exercise = TRUE, exercise.setup = "cars"}
 bind_rows(lexus_1998, lexus_1999)
 ```
 
@@ -511,7 +521,7 @@ bind_rows(..., ...)
 ### Exercise 6
 
 Use the `rename()` function to change the `type` variable to `class` in the `lexus_1998` dataframe. Use the assignment operator to reassign the changed dataframe to `lexus_1998`. 
-```{r question-3-6, exercise = TRUE}
+```{r question-3-6, exercise = TRUE, exercise.setup = "cars"}
 
 ```
 
@@ -522,7 +532,7 @@ Use the `rename()` function to change the `type` variable to `class` in the `lex
 
 ### Exercise 7
 
-```{r question-3-7-setup}
+```{r question-3-7-setup, exercise.setup = "cars"}
 lexus_1998 <- lexus_1998 %>%
   rename("class" = type)
 ```
@@ -538,7 +548,7 @@ Use `bind_rows` to bind `lexus_1998` and `lexus_1999` again. Assign this datafra
 
 ### Exercise 8
 
-```{r question-3-8-setup}
+```{r question-3-8-setup, exercise.setup = "cars"}
 lexus_1998 <- lexus_1998 %>%
   rename("class" = type)
 lexus_two_year <- bind_rows(lexus_1998, lexus_1999)
@@ -552,28 +562,26 @@ Now bind the rows of `lexus_two_year` with `lexus_2000`. Use the assignment oper
 ... <- bind_rows(..., ...)
 ```
 
-### Exercise 8
+### Exercise 9
 
-```{r question-3-9-setup}
+```{r question-3-9-setup, exercise.setup = "cars"}
 lexus_1998 <- lexus_1998 %>%
   rename("class" = type)
 lexus_two_year <- bind_rows(lexus_1998, lexus_1999)
 lexus <- bind_rows(lexus_two_year, lexus_2000)
 ```
 
-### Exercise 10 
-
 Now, `unite()` the `make` and `model` columns of the `lexus` dataframe. Name this united column `vehicle`, and make the separator between the previous columns a space.
-```{r question-3-10, exercise = TRUE}
+```{r question-3-9, exercise = TRUE, exercise.setup = "cars"}
 
 ```
 
-```{r question-3-10-hint-1}
+```{r question-3-9-hint-1}
 lexus %>%
   unite(..., ..., ..., sep = ...)
 ```
 
-```{r question-3-10-hint-2}
+```{r question-3-9-hint-2}
 lexus %>%
   unite("vehicle", ..., ..., sep = " ")
 ```
@@ -583,7 +591,7 @@ lexus %>%
 ### Exercise 11 
 
 Let's return to the `lexus_2000` data. `glimpse()` both the `lexus_2000` dataframe and the `lexus_mileage` dataframe.
-```{r question-3-11, exercise = TRUE}
+```{r question-3-11, exercise = TRUE, exercise.setup = "cars"}
 
 ```
 
@@ -596,7 +604,7 @@ glimpse(...)
 ### Exercise 12
 
 Now use the extraction operator `$` on the `id` columns of both `lexus_2000` and `lexus_mileage`.
-```{r question-3-12, exercise = TRUE}
+```{r question-3-12, exercise = TRUE, exercise.setup = "cars"}
 
 ```
 
@@ -633,7 +641,7 @@ quiz(
 )
 ```
 `full_join()` the `lexus_2000` and `lexus_mileage` dataframes by the `id` columns. Visually confirm your answer to the question above.
-```{r question-3-13, exercise = TRUE}
+```{r question-3-13, exercise = TRUE, exercise.setup = "cars"}
 
 ```
 
@@ -654,7 +662,7 @@ quiz(
 )
 ```
 `inner_join()` the `lexus_2000` and `lexus_mileage` dataframes by the `id` columns. Visually confirm your answer to the question above.
-```{r question-3-14, exercise = TRUE}
+```{r question-3-14, exercise = TRUE, exercise.setup = "cars"}
 
 ```
 
