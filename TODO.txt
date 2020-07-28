@@ -1,5 +1,7 @@
 # Next Meeting
 
+Number of names in household should only exist for neighborhood. Should be NA otherwise.
+
 # Priorities
 
 Let's take a careful tour of the data we have and make sure it is all good and sensible (sort of). Take ownership! No blaming your predecessors! As part of this, learn about making test cases from [R Packages](https://r-pkgs.org/tests.html) and add at least one test case for each data set. (Be smart in making these. It is OK to have a test case which tests the number of rows in trains because trains will always have 115 rows. It would be bad (or maybe not?) to have a test case like that for cces since the number of rows for will change once we add next year's data to it.)
@@ -35,25 +37,12 @@ Provide instruction in the lower part of this document about the release cycle. 
 
 ## Other
 
-* Why doesn't the web page seem to update?
+* Add gender column to qscores, created by using names, which will probably involve creating a first name column, which we will not keep.
 
 * Add inst/papers with all the relevant papers. Then from the help pages to these locations?
 
-* Should we re-create all the data sets each time we run R CMD package check? This would not take too much time and would ensure that everything us ship-shape.
+* Should we re-create all the data sets each time we run R CMD package check? This would not take too much time and would ensure that everything is ship-shape.
 
-* Standardize https://davidkane9.github.io/PPBDS.data/reference/index.html by ensuring that help files title are similar in style, and meet R Package guidelines.
-
-* When I pkgdown::build_site(), I see:
-
-Reading 'man/nes.Rd'
-Writing 'reference/nes.html'
-Reading 'man/nhanes.Rd'
-Writing 'reference/nhanes.html'
-Reading 'man/qscores.Rd'
-Reading 'man/shaming.Rd'
-Reading 'man/sps.Rd'
-
-It seems weird that references in nhanes work one way and in shaming another. We should standardize this.
 
 
 * pkgdown
@@ -62,11 +51,7 @@ It seems weird that references in nhanes work one way and in shaming another. We
 
   - Look nice themes or yaml option
 
-  - Discuss logo. Ullyseus and the Sirens, with url
-
   - Nicer graphics on home page.
-
-  - Annoying to maintain the bullet points for tibble descriptions on main page. Can't we just print the first paragraph from the description, i.e., the same thing which appears on the top of the help page?
 
   - Instead, we could have an "Article" which provided a list of all the tibbles along with the one paragraph description. Then, the front page could just have a basic blurb and one nice graphic.
 

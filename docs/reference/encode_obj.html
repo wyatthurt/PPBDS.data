@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Tutorial submission functions — submission_server • PPBDS.data</title>
+<title>Encode an R object into hashed text; from github::rundel/learnrhash — encode_obj • PPBDS.data</title>
 
 
 <!-- jquery -->
@@ -39,17 +39,8 @@
 
 
 
-<meta property="og:title" content="Tutorial submission functions — submission_server" />
-<meta property="og:description" content="The following function has modified from Colin
-Rundel's learnrhash package, available at
-https://github.com/rundel/learnrhash. Many thanks to Professor Rundel, who
-has developed a fantastic tool for courses that teach R and use the learnr
-package.
-This note is also modified from Professor Rundel's description: Note that when
-including these functions in a learnr Rmd document it is necessary that the
-server function, submission_server(), be included in an R chunk where
-context=&quot;server&quot;. Conversely, any of the ui functions, *_ui(), must not
-be included in an R chunk with a context." />
+<meta property="og:title" content="Encode an R object into hashed text; from github::rundel/learnrhash — encode_obj" />
+<meta property="og:description" content="Encode an R object into hashed text; from github::rundel/learnrhash" />
 
 
 
@@ -120,32 +111,30 @@ be included in an R chunk with a context." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Tutorial submission functions</h1>
+    <h1>Encode an R object into hashed text; from github::rundel/learnrhash</h1>
     <small class="dont-index">Source: <a href='https://github.com/davidkane9/PPBDS.data/blob/master/R/submission_functions.R'><code>R/submission_functions.R</code></a></small>
-    <div class="hidden name"><code>submission_functions.Rd</code></div>
+    <div class="hidden name"><code>encode_obj.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The following function has modified from Colin
-Rundel's learnrhash package, available at
-https://github.com/rundel/learnrhash. Many thanks to Professor Rundel, who
-has developed a fantastic tool for courses that teach R and use the learnr
-package.</p>
-<p>This note is also modified from Professor Rundel's description: Note that when
-including these functions in a learnr Rmd document it is necessary that the
-server function, <code><a href='https://rdrr.io/pkg/PPBDS.data/man/submission_functions.html'>submission_server()</a></code>, be included in an R chunk where
-<code>context="server"</code>. Conversely, any of the ui functions, <code>*_ui()</code>, must <em>not</em>
-be included in an R chunk with a <code>context</code>.</p>
+    <p>Encode an R object into hashed text; from github::rundel/learnrhash</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/PPBDS.data/man/submission_functions.html'>submission_server</a></span>()
+    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/PPBDS.data/man/encode_obj.html'>encode_obj</a></span>(<span class='kw'>obj</span>, compress = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"bzip2"</span>, <span class='st'>"gzip"</span>, <span class='st'>"xz"</span>, <span class='st'>"none"</span>))</pre>
 
-<span class='kw'>submission_ui</span></pre>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>obj</th>
+      <td><p>R object</p></td>
+    </tr>
+    <tr>
+      <th>compress</th>
+      <td><p>Compression method.</p></td>
+    </tr>
+    </table>
 
-
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
-
-    <p>An object of class <code>shiny.tag</code> of length 3.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
