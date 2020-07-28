@@ -115,3 +115,4 @@ x <- read_rds("data-raw/cumulative_2006_2018.rds") %>%
 cces <- x
 
 usethis::use_data(cces, overwrite = TRUE)
+
