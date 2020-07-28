@@ -5,7 +5,7 @@
 \alias{cces}
 \title{Data from the Cooperative Congressional Election Study}
 \format{
-A tibble with 452755 observations and 16 variables:
+A tibble with 452,755 observations and 16 variables:
 \describe{
 \item{year}{integer variable for year of survey}
 \item{state}{character variable for state of residence for observation}

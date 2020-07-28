@@ -41,12 +41,16 @@ x <- read_rds("data-raw/cumulative_2006_2018.rds") %>%
   # Below, I convert some of the numerical representations of the data into
   # consistent character variables.
 
+  # There is a trickiness is the value 3 for approval. You need to include both
+  # "Never Heard / Not Sure" and "Neither Approve Nor Disapprove" since the
+  # latter seemed to be used in only one year in the survey.
+
   mutate(approval = case_when(
     approval_ch == 1 ~ 5,
     approval_ch == 2 ~ 4,
     approval_ch == 3 ~ 2,
     approval_ch == 4 ~ 1,
-    approval_ch == 5 ~ NA_real_,
+    approval_ch == 5 ~ 3,
     approval_ch == 6 ~ 3)) %>%
   mutate(approval_ch = case_when(
     approval_ch == 1 ~ "Strongly Approve",
@@ -100,12 +104,13 @@ x <- read_rds("data-raw/cumulative_2006_2018.rds") %>%
   # I am a little confused about how ideology ends up as a factor. Should clean
   # this up.
 
-  mutate(education = factor(education, levels = c("No HS",
-                                           "High School Graduate",
-                                           "Some College",
-                                           "2-Year",
-                                           "4-Year",
-                                           "Post-Grad")))
+  mutate(education = factor(education,
+                            levels = c("No HS",
+                                       "High School Graduate",
+                                       "Some College",
+                                       "2-Year",
+                                       "4-Year",
+                                       "Post-Grad")))
 
 
 
