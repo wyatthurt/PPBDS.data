@@ -1,5 +1,7 @@
+#' @title
 #' Election results and longevity of politicians
 #'
+#' @description
 #' This is a dataset corresponding to the paper "Longevity Returns to Political
 #' Office" by \href{https://doi.org/10.1017/psrm.2019.63}{Barfort, Klemmensen &
 #' Larsen (2019)}. The purpose of this study was to find out whether and how
@@ -9,6 +11,7 @@
 #' data includes information on their pre- and post-election life spans. See also the
 #' 'Details' section below.
 #'
+#' @details
 #' To facilitate subsequent analysis, the raw data collected by the authors was
 #' edited in three ways. First, for a given election, only the two candidates who
 #' received the highest number of votes were included. Second, candidates with unknown
@@ -16,6 +19,11 @@
 #' recent years. Third, in a few instances, only the year of birth or death could
 #' be determined; in these cases, the date was taken to be July 1 of that year.
 #'
+#' &nbsp;
+#'
+#' ```{r, echo = FALSE}
+#' skimr::skim(governors)
+#' ```
 #'
 #' @format A tibble with 1,092 observations and 11 variables:
 #' \describe{
@@ -35,6 +43,11 @@
 #'                    the election took place}
 #
 #' }
-#' @source \url{https://doi.org/10.7910/DVN/IBKYRX}
+#'
+#' @author
+#' David Kane
+#'
+#' @source
+#' \url{https://doi.org/10.7910/DVN/IBKYRX}
 #'
 "governors"

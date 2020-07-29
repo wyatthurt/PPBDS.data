@@ -21,11 +21,11 @@ Let's take a careful tour of the data we have and make sure it is all good and s
 
 The definition of a "careful tour" is that you have looked at make_* for a data set, regenerated it, and added at least two test cases about it. You should certainly use any current stopifnot() as test cases and then remove them from the make_* files.
 
-* Clean up make_nes, make_nhanes for future you.
+* Clean up make_nes, make_nhanes for future you. --[Done]
 
 * Clean up `sps`. Which variables do we need? What do they show? What should they be called?
 
-* Use the Kieran Healy trick of calling skimr::skim() in the help page. E-mail him to thank him.
+* Use the Kieran Healy trick of calling skimr::skim() in the help page. E-mail him to thank him. --[Done]
 
 
 * World Values

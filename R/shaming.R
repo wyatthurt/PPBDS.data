@@ -1,5 +1,7 @@
+#' @title
 #' Michigan voting experiment with social shaming
 #'
+#' @description
 #' This is a dataset corresponding to the paper "Social Pressure and Voter
 #' Turnout: Evidence from a Large-Scale Field Experiment" by
 #' \href{https://doi.org/10.1017/S000305540808009X}{Gerber, Green, and Larimer
@@ -8,21 +10,27 @@
 #' pressure. To answer this question, the authors conducted a field experiment
 #' prior to the August 2006 primary election in Michigan. A total of 180,000
 #' households were randomly assigned to either a control group or one of four
-#' treatment groups. The control group consisted of approximately 100,000
-#' households and was observed without further intervention.
+#' treatment groups.
 #'
-#' The treatment groups consisted of about 20,000 households each, and were sent
-#' one mailing 11 days prior to the primary election. The first treatment group,
-#' named “Civic Duty”, received a letter that only reminded them to "do their
-#' civic duty and vote". The second treatment group, named "Hawthorne", received
-#' the same message with an additional notice that they are being studied by
-#' researchers. The letter sent to the third group, named "Self", included the
-#' content in the Hawthorne letter, but added a notice that every household
-#' member would be notified of each others' voting behaviour after the election
-#' (this information is public). The last group, "Neighbors", finally listed not
-#' only the household's voting records but also the voting records of those
-#' nearby. As in the "Self" group, everyone on the list would be notified of
-#' their voting behaviour after the primary.
+#' @details
+#' The control group consisted of approximately 100,000 households and was observed
+#' without further intervention.The treatment groups consisted of about 20,000 households
+#' each, and were sent one mailing 11 days prior to the primary election. The first
+#' treatment group, named “Civic Duty”, received a letter that only reminded them to
+#' "do their civic duty and vote". The second treatment group, named "Hawthorne",
+#' received the same message with an additional notice that they are being studied by
+#' researchers. The letter sent to the third group, named "Self", included the content
+#' in the Hawthorne letter, but added a notice that every household member would be
+#' notified of each others' voting behaviour after the election (this information is
+#' public). The last group, "Neighbors", finally listed not only the household's voting
+#' records but also the voting records of those nearby. As in the "Self" group, everyone
+#' on the list would be notified of their voting behaviour after the primary.
+#'
+#' &nbsp;
+#'
+#' ```{r, echo = FALSE}
+#' skimr::skim(shaming)
+#' ```
 #'
 #' @format A tibble with 344,084 observations and 10 variables:
 #' \describe{
@@ -40,6 +48,11 @@
 #'   \item{no_of_names}{integer variable indicating the number of names listed on the letter if the
 #'                      respondent was in the "Neighbours" group}
 #' }
-#' @source \url{https://doi.org/10.1017/S000305540808009X}
+#'
+#' @author
+#' David Kane
+#'
+#' @source
+#' \url{https://doi.org/10.1017/S000305540808009X}
 #'
 "shaming"

@@ -49,3 +49,6 @@ stopifnot(is.character(x$block))
 kenya <- x
 usethis::use_data(kenya, overwrite = TRUE)
 
+
+# Todo: Check if reg/rv13 descriptions and date descriptions ar right.
+

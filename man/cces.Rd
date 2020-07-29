@@ -35,12 +35,53 @@ cces
 \description{
 Data for the approval ratings of voters to various government positions
 combined with the demographic background of the voter. See
-\href{https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/II2DB6}{Kuriwaki (2018)}
-for background and details. Raw code available at Kuriwaki's
-\href{https://github.com/kuriwaki/cces_cumulative}{Github.}
+\href{https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/II2DB6}{Kuriwaki
+(2018)} for background and details. The raw code that was used to produce
+the data is accesible at Kuriwaki's \href{https://github.com/kuriwaki/cces_cumulative}{Github.}
 }
 \details{
-"Cumulative CCES Common Content (2006-2018)," by Shiro Kuriwaki, 2018,
-Harvard Dataverse, V4.
+Table: Data summary\tabular{ll}{
+    \tab  \cr
+   Name \tab cces \cr
+   Number of rows \tab 452755 \cr
+   Number of columns \tab 12 \cr
+   _______________________ \tab  \cr
+   Column type frequency: \tab  \cr
+   character \tab 7 \cr
+   factor \tab 2 \cr
+   numeric \tab 3 \cr
+   ________________________ \tab  \cr
+   Group variables \tab None \cr
+}
+
+
+\strong{Variable type: character}\tabular{lrrrrrrr}{
+   skim_variable \tab n_missing \tab complete_rate \tab min \tab max \tab empty \tab n_unique \tab whitespace \cr
+   state \tab 0 \tab 1.00 \tab 4 \tab 20 \tab 0 \tab 51 \tab 0 \cr
+   gender \tab 0 \tab 1.00 \tab 4 \tab 6 \tab 0 \tab 2 \tab 0 \cr
+   race \tab 0 \tab 1.00 \tab 5 \tab 15 \tab 0 \tab 8 \tab 0 \cr
+   marstat \tab 1555 \tab 1.00 \tab 7 \tab 22 \tab 0 \tab 6 \tab 0 \cr
+   news \tab 37007 \tab 0.92 \tab 10 \tab 17 \tab 0 \tab 5 \tab 0 \cr
+   econ \tab 850 \tab 1.00 \tab 8 \tab 31 \tab 0 \tab 6 \tab 0 \cr
+   approval_ch \tab 735 \tab 1.00 \tab 16 \tab 32 \tab 0 \tab 6 \tab 0 \cr
+}
+
+
+\strong{Variable type: factor}\tabular{lrrlrl}{
+   skim_variable \tab n_missing \tab complete_rate \tab ordered \tab n_unique \tab top_counts \cr
+   ideology \tab 1774 \tab 1 \tab FALSE \tab 6 \tab Mod: 141633, Con: 105268, Lib: 79591, Ver: 52243 \cr
+   education \tab 67 \tab 1 \tab FALSE \tab 6 \tab Hig: 125323, Som: 112290, 4-Y: 103011, Pos: 54519 \cr
+}
+
+
+\strong{Variable type: numeric}\tabular{lrrrrrrrrrl}{
+   skim_variable \tab n_missing \tab complete_rate \tab mean \tab sd \tab p0 \tab p25 \tab p50 \tab p75 \tab p100 \tab hist \cr
+   year \tab 0 \tab 1 \tab 2012.68 \tab 3.72 \tab 2006 \tab 2010 \tab 2013 \tab 2016 \tab 2018 \tab ▅▃▅▃▇ \cr
+   age \tab 0 \tab 1 \tab 49.61 \tab 16.45 \tab 18 \tab 36 \tab 51 \tab 62 \tab 109 \tab ▆▇▇▂▁ \cr
+   approval \tab 735 \tab 1 \tab 2.68 \tab 1.67 \tab 1 \tab 1 \tab 2 \tab 4 \tab 5 \tab ▇▂▁▅▃ \cr
+}
+}
+\author{
+David Kane
 }
 \keyword{datasets}

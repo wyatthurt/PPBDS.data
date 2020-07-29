@@ -1,5 +1,7 @@
+#' @title
 #' Experimental effects on attitudes toward immigration
 #'
+#' @description
 #' Data for attitudes toward immigration-related policies, both before and after
 #' an experiment which randomly exposed a treated group to Spanish-speakers on a
 #' Boston commuter train platform. See
@@ -8,8 +10,13 @@
 #' "Treated" were exposed to two Spanish-speakers on their regular commute.
 #' "Control" individuals were not.
 #'
-#' "Causal effect of intergroup contact on attitudes," by Ryan D. Enos,
-#' Proceedings of the National Academy of Sciences, Mar 2014, 111 (10).
+#' @details
+#'
+#' &nbsp;
+#'
+#' ```{r, echo = FALSE}
+#' skimr::skim(trains)
+#' ```
 #'
 #' @format A tibble with 115 observations and 8 variables:
 #' \describe{
@@ -24,6 +31,11 @@
 #'   \item{att_end}{Ending attitude toward immigration issues. Uses a 3 to 15 scale,
 #'                  with higher numbers meaning more conservative}
 #' }
-#' @source \url{https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/DOP4UB}
+#'
+#' @author
+#' David Kane
+#'
+#' @source
+#' \url{https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/DOP4UB}
 #'
 "trains"

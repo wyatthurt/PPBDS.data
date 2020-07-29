@@ -5,22 +5,23 @@
 \alias{nhanes}
 \title{National Health and Nutrition Examination Survey}
 \format{
-A tibble with 10,000 observations and 14 variables:
+A tibble with 10,000 observations and 15 variables:
 \describe{
-\item{gender}{character variable with values "male" and "female"}
-\item{survey_year}{integer variable with the year the survey was conducted in. Most tests were
+\item{gender}{character variable with values "Male" and "Female"}
+\item{survey}{integer variable with the year the survey was conducted in. Most tests were
 conducted across two years, so the earlier year is used.}
 \item{age}{character variable for age in years}
-\item{race}{character variable with values "white", "black", "hispanic", "mexican", and "other"}
-\item{education}{character variable with values "middle school", "high school", "some college", "college"}
-\item{income}{integer variable for household income groups ranked from 1 to 5. 0 corresponds to "other". }
+\item{race}{character variable with values "White", "Black", "Hispanic", "Mexican", and "Other"}
+\item{education}{ordered factor variable with levels "Middle school" < "High school" < "Some college" < "College"}
+\item{hh_income}{ordered factor variable for household income groups with levels "0-4999" < \link{...} < "over 99999"}
 \item{weight}{double variable for weight in kilograms}
 \item{height}{double variable for height in centimeters}
 \item{bmi}{double variable for body mass index}
 \item{pulse}{integer variable for pulse in beats per minute or bpm}
+\item{diabetes}{integer variable with values 0/1 indicating whether patient suffers from diabetes}
 \item{general_health}{integer variable for general health ranked from 1-5. 1 maps to "poor", 2 is "fair", 3 is "good", 4 is "very good", and 5 is "excellent".}
 \item{depressed}{character variable answering question how often patient feels depressed.
-Includes values "several", "none", "most"}
+Includes values "Several", "None", "Most"}
 \item{pregnancies}{integer variable for number of pregnanices.
 NA if the individual, regardless of gender, hasn't experienced a pregnancy}
 \item{sleep_night_hrs}{integer value for hours of sleep per night on average}
@@ -34,17 +35,64 @@ NA if the individual, regardless of gender, hasn't experienced a pregnancy}
 nhanes
 }
 \description{
-See \href{https://www.cdc.gov/nchs/nhanes/index.htm}{NHANES} for background and details.
+The \href{https://www.cdc.gov/nchs/nhanes/index.htm}{National Health and Nutrition
+Examination Survey} (NHANES) is a research survey distributed to adults and children
+across the United States to examine health and nutritional status nationwide. It is
+unique in that it conducts both interviews and physical examination to produce their data.
+The survey is run by the National Center for Health Statistics (NCHS), a part of the
+Centers for Disease Control and Prevention.
 }
 \details{
-The National Health and Nutrition Examination Survey (NHANES) is a research survey
-distributed to adults and children across the United States to examine health
-and nutritional status nationwide. It is unique in that it conducts both interviews
-and physical examination to produce their data. The survey is run by the National
-Center for Health Statistics (NCHS), a part of the Centers for Disease Control and Prevention.
-
 In order to get a demographically diverse range of responses, minority groups were surveyed
 more heavily. However, this skewed the survey results to have an inaccurate demographic makeup.
 To address this, some observations of more common groups are resampled in the data.
+
+ 
+
+Table: Data summary\tabular{ll}{
+    \tab  \cr
+   Name \tab nhanes \cr
+   Number of rows \tab 10000 \cr
+   Number of columns \tab 14 \cr
+   _______________________ \tab  \cr
+   Column type frequency: \tab  \cr
+   character \tab 2 \cr
+   factor \tab 2 \cr
+   numeric \tab 10 \cr
+   ________________________ \tab  \cr
+   Group variables \tab None \cr
+}
+
+
+\strong{Variable type: character}\tabular{lrrrrrrr}{
+   skim_variable \tab n_missing \tab complete_rate \tab min \tab max \tab empty \tab n_unique \tab whitespace \cr
+   gender \tab 0 \tab 1 \tab 4 \tab 6 \tab 0 \tab 2 \tab 0 \cr
+   race \tab 0 \tab 1 \tab 5 \tab 8 \tab 0 \tab 5 \tab 0 \cr
+}
+
+
+\strong{Variable type: factor}\tabular{lrrlrl}{
+   skim_variable \tab n_missing \tab complete_rate \tab ordered \tab n_unique \tab top_counts \cr
+   education \tab 4877 \tab 0.51 \tab TRUE \tab 3 \tab som: 2267, hig: 1517, mid: 1339 \cr
+   depressed \tab 3327 \tab 0.67 \tab TRUE \tab 3 \tab non: 5246, sev: 1009, mos: 418 \cr
+}
+
+
+\strong{Variable type: numeric}\tabular{lrrrrrrrrrl}{
+   skim_variable \tab n_missing \tab complete_rate \tab mean \tab sd \tab p0 \tab p25 \tab p50 \tab p75 \tab p100 \tab hist \cr
+   year \tab 0 \tab 1.00 \tab 2010.00 \tab 1.00 \tab 2009.00 \tab 2009.00 \tab 2010.00 \tab 2011.00 \tab 2011.00 \tab ▇▁▁▁▇ \cr
+   age \tab 0 \tab 1.00 \tab 36.74 \tab 22.40 \tab 0.00 \tab 17.00 \tab 36.00 \tab 54.00 \tab 80.00 \tab ▇▇▇▆▅ \cr
+   income \tab 4091 \tab 0.59 \tab 3.46 \tab 1.51 \tab 1.00 \tab 2.00 \tab 4.00 \tab 5.00 \tab 5.00 \tab ▃▃▃▃▇ \cr
+   weight \tab 78 \tab 0.99 \tab 70.98 \tab 29.13 \tab 2.80 \tab 56.10 \tab 72.70 \tab 88.90 \tab 230.70 \tab ▂▇▂▁▁ \cr
+   height \tab 353 \tab 0.96 \tab 161.88 \tab 20.19 \tab 83.60 \tab 156.80 \tab 166.00 \tab 174.50 \tab 200.40 \tab ▁▁▁▇▂ \cr
+   bmi \tab 366 \tab 0.96 \tab 26.66 \tab 7.38 \tab 12.88 \tab 21.58 \tab 25.98 \tab 30.89 \tab 81.25 \tab ▇▆▁▁▁ \cr
+   health \tab 2461 \tab 0.75 \tab 3.38 \tab 0.94 \tab 1.00 \tab 3.00 \tab 3.00 \tab 4.00 \tab 5.00 \tab ▁▃▇▇▂ \cr
+   pregnancies \tab 7396 \tab 0.26 \tab 3.03 \tab 1.80 \tab 1.00 \tab 2.00 \tab 3.00 \tab 4.00 \tab 32.00 \tab ▇▁▁▁▁ \cr
+   sleep \tab 2245 \tab 0.78 \tab 6.93 \tab 1.35 \tab 2.00 \tab 6.00 \tab 7.00 \tab 8.00 \tab 12.00 \tab ▁▅▇▁▁ \cr
+   pulse \tab 1437 \tab 0.86 \tab 73.56 \tab 12.16 \tab 40.00 \tab 64.00 \tab 72.00 \tab 82.00 \tab 136.00 \tab ▂▇▃▁▁ \cr
+}
+}
+\author{
+David Kane
 }
 \keyword{datasets}

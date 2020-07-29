@@ -35,7 +35,50 @@ Boston commuter train platform. See
 "Control" individuals were not.
 }
 \details{
-"Causal effect of intergroup contact on attitudes," by Ryan D. Enos,
-Proceedings of the National Academy of Sciences, Mar 2014, 111 (10).
+Table: Data summary\tabular{ll}{
+    \tab  \cr
+   Name \tab trains \cr
+   Number of rows \tab 115 \cr
+   Number of columns \tab 8 \cr
+   _______________________ \tab  \cr
+   Column type frequency: \tab  \cr
+   character \tab 2 \cr
+   factor \tab 1 \cr
+   logical \tab 1 \cr
+   numeric \tab 4 \cr
+   ________________________ \tab  \cr
+   Group variables \tab None \cr
+}
+
+
+\strong{Variable type: character}\tabular{lrrrrrrr}{
+   skim_variable \tab n_missing \tab complete_rate \tab min \tab max \tab empty \tab n_unique \tab whitespace \cr
+   gender \tab 0 \tab 1 \tab 4 \tab 6 \tab 0 \tab 2 \tab 0 \cr
+   party \tab 0 \tab 1 \tab 8 \tab 10 \tab 0 \tab 2 \tab 0 \cr
+}
+
+
+\strong{Variable type: factor}\tabular{lrrlrl}{
+   skim_variable \tab n_missing \tab complete_rate \tab ordered \tab n_unique \tab top_counts \cr
+   treatment \tab 0 \tab 1 \tab FALSE \tab 2 \tab Con: 64, Tre: 51 \cr
+}
+
+
+\strong{Variable type: logical}\tabular{lrrrl}{
+   skim_variable \tab n_missing \tab complete_rate \tab mean \tab count \cr
+   liberal \tab 0 \tab 1 \tab 0.44 \tab FAL: 64, TRU: 51 \cr
+}
+
+
+\strong{Variable type: numeric}\tabular{lrrrrrrrrrl}{
+   skim_variable \tab n_missing \tab complete_rate \tab mean \tab sd \tab p0 \tab p25 \tab p50 \tab p75 \tab p100 \tab hist \cr
+   age \tab 0 \tab 1 \tab 42.37 \tab 12.20 \tab 20 \tab 33 \tab 43 \tab 52 \tab 68 \tab ▆▇▇▇▃ \cr
+   income \tab 0 \tab 1 \tab 141813.04 \tab 74476.64 \tab 23500 \tab 87500 \tab 135000 \tab 135000 \tab 300000 \tab ▅▇▇▁▆ \cr
+   att_start \tab 0 \tab 1 \tab 9.19 \tab 3.10 \tab 3 \tab 7 \tab 9 \tab 11 \tab 15 \tab ▃▃▇▅▃ \cr
+   att_end \tab 0 \tab 1 \tab 9.14 \tab 2.87 \tab 3 \tab 7 \tab 9 \tab 11 \tab 15 \tab ▂▃▇▃▃ \cr
+}
+}
+\author{
+David Kane
 }
 \keyword{datasets}

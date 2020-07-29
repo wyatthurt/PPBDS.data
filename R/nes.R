@@ -1,23 +1,47 @@
-#' American National Election Survey
+#' @title
+#' American National Election Studies
 #'
-#' Data from the American National Election Survey cumulative data file complete through 2016. See
-#' \href{https://electionstudies.org/data-center/anes-time-series-cumulative-data-file/}{NES CDF 2016}
-#' for background and details. Dataset begins in  , see appendices for variations in questions
-#' and other metrics over time. Current as of 05/24/2020.
+#' @description
+#' This dataset is from the \href{https://electionstudies.org/}{American National
+#' Election Studies (ANES)}, a survey that aims to provide insights into voter
+#' behavior. It has been conducted since 1948 before and after each presidential
+#' election, and combines questions about voters' political attitudes with extensive
+#' biographical information. Current as of 07/29/2020.
 #'
-#' @format A tibble with 39,220 observations and  10 variables:
+#' @details
+#' Some of the questions aksed in the survey have changed slightly over time. The
+#' \href{https://electionstudies.org/wp-content/uploads/2018/12/anes_timeseries_cdf_codebook_var.pdf}{ANES
+#' codebook} provides further information on this issue.
+#'
+#' &nbsp;
+#'
+#' ```{r, echo = FALSE}
+#' skimr::skim(nes)
+#' ```
+#'
+#' @format A tibble with 38,558 observations and 10 variables:
 #' \describe{
-#'   \item{gender}{character variable with values "Male" and "Female"}
-#'   \item{income}{integer variable representing 5 income groups: 1 as 0-16th percentile, 2 as 17-33rd, 3 as 34 to 67, 4 as 68 to 95, 5 as 96 to 100}
-#'   \item{ideology}{integer variable representing party identification from 1 to 7 party, with 1 corresponding to strongly Democrat and 7 corresponding to strongly Republican and 0 if NA.}
 #'   \item{year}{integer variable for year of study}
-#'   \item{race}{character variable for race / ethnicity respondent identification}
-#'   \item{educ}{ordered factor variable with a 7 tier delineation of educational achievement}
 #'   \item{state}{character variable for the 2-letter abbreviation of the state of the interview of a respondent}
+#'   \item{gender}{character variable with values "Male", "Female", and "Other"}
+#'   \item{income}{ordered factor variable for respondents' income percentile group. Has 5 levels:
+#'                 0-16th percentile, 17-33rd, 34-67th, 68-95th, 96-100th}
+#'   \item{age}{ordered factor variable of respondents' age ranges, 75+ is accurate except for year 1954}
+#'   \item{education}{ordered factor variable with a 7 tier delineation of educational achievement}
+#'   \item{race}{character variable for respondants' race / ethnicity identification}
+#'   \item{ideology}{integer variable for party identification from -3 to 3. Lower values correspond to
+#'                  Democrats, higher values correspond to Republicans}
+#'   \item{pres_appr}{character variable of respondents' self-reported approval of the sitting president. Question
+#'                    was not asked before 1972}
 #'   \item{voted}{character variable indicating whether the respondent voted in the national elections}
-#'   \item{age}{ordered factor of respondents' age ranges, 75+ is accurate except for year 1954}
-#'   \item{pres_appr}{character variable of respondents' self-reported approval of the sitting president}
 #' }
-#' @source \url{https://electionstudies.org/data-center/anes-time-series-cumulative-data-file/}
+#'
+#' @author
+#' David Kane
+#'
+#' @source
+#' \url{https://electionstudies.org/data-center/anes-time-series-cumulative-data-file/}
+#'
+#'
 #'
 "nes"

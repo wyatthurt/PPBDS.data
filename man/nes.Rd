@@ -3,20 +3,23 @@
 \docType{data}
 \name{nes}
 \alias{nes}
-\title{American National Election Survey}
+\title{American National Election Studies}
 \format{
-A tibble with 39,220 observations and  10 variables:
+A tibble with 38,558 observations and 10 variables:
 \describe{
-\item{gender}{character variable with values "Male" and "Female"}
-\item{income}{integer variable representing 5 income groups: 1 as 0-16th percentile, 2 as 17-33rd, 3 as 34 to 67, 4 as 68 to 95, 5 as 96 to 100}
-\item{ideology}{integer variable representing party identification from 1 to 7 party, with 1 corresponding to strongly Democrat and 7 corresponding to strongly Republican and 0 if NA.}
 \item{year}{integer variable for year of study}
-\item{race}{character variable for race / ethnicity respondent identification}
-\item{educ}{ordered factor variable with a 7 tier delineation of educational achievement}
 \item{state}{character variable for the 2-letter abbreviation of the state of the interview of a respondent}
+\item{gender}{character variable with values "Male", "Female", and "Other"}
+\item{income}{ordered factor variable for respondents' income percentile group. Has 5 levels:
+0-16th percentile, 17-33rd, 34-67th, 68-95th, 96-100th}
+\item{age}{ordered factor variable of respondents' age ranges, 75+ is accurate except for year 1954}
+\item{education}{ordered factor variable with a 7 tier delineation of educational achievement}
+\item{race}{character variable for respondants' race / ethnicity identification}
+\item{ideology}{integer variable for party identification from -3 to 3. Lower values correspond to
+Democrats, higher values correspond to Republicans}
+\item{pres_appr}{character variable of respondents' self-reported approval of the sitting president. Question
+was not asked before 1972}
 \item{voted}{character variable indicating whether the respondent voted in the national elections}
-\item{age}{ordered factor of respondents' age ranges, 75+ is accurate except for year 1954}
-\item{pres_appr}{character variable of respondents' self-reported approval of the sitting president}
 }
 }
 \source{
@@ -26,9 +29,59 @@ A tibble with 39,220 observations and  10 variables:
 nes
 }
 \description{
-Data from the American National Election Survey cumulative data file complete through 2016. See
-\href{https://electionstudies.org/data-center/anes-time-series-cumulative-data-file/}{NES CDF 2016}
-for background and details. Dataset begins in  , see appendices for variations in questions
-and other metrics over time. Current as of 05/24/2020.
+This dataset is from the \href{https://electionstudies.org/}{American National
+Election Studies (ANES)}, a survey that aims to provide insights into voter
+behavior. It has been conducted since 1948 before and after each presidential
+election, and combines questions about voters' political attitudes with extensive
+biographical information. Current as of 07/29/2020.
+}
+\details{
+Some of the questions aksed in the survey have changed slightly over time. The
+\href{https://electionstudies.org/wp-content/uploads/2018/12/anes_timeseries_cdf_codebook_var.pdf}{ANES
+codebook} provides further information on this issue.
+
+ 
+
+Table: Data summary\tabular{ll}{
+    \tab  \cr
+   Name \tab nes \cr
+   Number of rows \tab 38558 \cr
+   Number of columns \tab 10 \cr
+   _______________________ \tab  \cr
+   Column type frequency: \tab  \cr
+   character \tab 5 \cr
+   factor \tab 2 \cr
+   numeric \tab 3 \cr
+   ________________________ \tab  \cr
+   Group variables \tab None \cr
+}
+
+
+\strong{Variable type: character}\tabular{lrrrrrrr}{
+   skim_variable \tab n_missing \tab complete_rate \tab min \tab max \tab empty \tab n_unique \tab whitespace \cr
+   state \tab 110 \tab 1.00 \tab 2 \tab 2 \tab 0 \tab 50 \tab 0 \cr
+   gender \tab 141 \tab 1.00 \tab 4 \tab 6 \tab 0 \tab 3 \tab 0 \cr
+   race \tab 287 \tab 0.99 \tab 5 \tab 8 \tab 0 \tab 6 \tab 0 \cr
+   pres_appr \tab 9646 \tab 0.75 \tab 6 \tab 10 \tab 0 \tab 3 \tab 0 \cr
+   voted \tab 4078 \tab 0.89 \tab 2 \tab 3 \tab 0 \tab 2 \tab 0 \cr
+}
+
+
+\strong{Variable type: factor}\tabular{lrrlrl}{
+   skim_variable \tab n_missing \tab complete_rate \tab ordered \tab n_unique \tab top_counts \cr
+   age \tab 450 \tab 0.99 \tab TRUE \tab 7 \tab 25 : 7669, 35 : 7342, 45 : 6545, 55 : 6021 \cr
+   education \tab 397 \tab 0.99 \tab TRUE \tab 7 \tab hs : 9269, som: 8540, col: 5540, som: 4688 \cr
+}
+
+
+\strong{Variable type: numeric}\tabular{lrrrrrrrrrl}{
+   skim_variable \tab n_missing \tab complete_rate \tab mean \tab sd \tab p0 \tab p25 \tab p50 \tab p75 \tab p100 \tab hist \cr
+   year \tab 0 \tab 1.00 \tab 1989.40 \tab 20.50 \tab 1952 \tab 1972 \tab 1992 \tab 2012 \tab 2016 \tab ▃▃▃▃▇ \cr
+   income \tab 2517 \tab 0.93 \tab 2.86 \tab 1.15 \tab 1 \tab 2 \tab 3 \tab 4 \tab 5 \tab ▅▅▇▇▁ \cr
+   ideology \tab 619 \tab 0.98 \tab 3.62 \tab 2.09 \tab 1 \tab 2 \tab 3 \tab 6 \tab 7 \tab ▇▂▂▂▅ \cr
+}
+}
+\author{
+David Kane
 }
 \keyword{datasets}

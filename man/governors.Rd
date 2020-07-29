@@ -46,5 +46,50 @@ received the highest number of votes were included. Second, candidates with unkn
 dates of death were excluded, resulting in fewer observations for elections in
 recent years. Third, in a few instances, only the year of birth or death could
 be determined; in these cases, the date was taken to be July 1 of that year.
+
+ 
+
+Table: Data summary\tabular{ll}{
+    \tab  \cr
+   Name \tab governors \cr
+   Number of rows \tab 1092 \cr
+   Number of columns \tab 11 \cr
+   _______________________ \tab  \cr
+   Column type frequency: \tab  \cr
+   character \tab 6 \cr
+   Date \tab 1 \cr
+   numeric \tab 4 \cr
+   ________________________ \tab  \cr
+   Group variables \tab None \cr
+}
+
+
+\strong{Variable type: character}\tabular{lrrrrrrr}{
+   skim_variable \tab n_missing \tab complete_rate \tab min \tab max \tab empty \tab n_unique \tab whitespace \cr
+   state \tab 0 \tab 1 \tab 4 \tab 14 \tab 0 \tab 50 \tab 0 \cr
+   first_name \tab 0 \tab 1 \tab 2 \tab 11 \tab 0 \tab 299 \tab 0 \cr
+   last_name \tab 0 \tab 1 \tab 3 \tab 11 \tab 0 \tab 615 \tab 0 \cr
+   party \tab 0 \tab 1 \tab 8 \tab 11 \tab 0 \tab 3 \tab 0 \cr
+   sex \tab 0 \tab 1 \tab 4 \tab 6 \tab 0 \tab 2 \tab 0 \cr
+   status \tab 0 \tab 1 \tab 9 \tab 10 \tab 0 \tab 2 \tab 0 \cr
+}
+
+
+\strong{Variable type: Date}\tabular{lrrlllr}{
+   skim_variable \tab n_missing \tab complete_rate \tab min \tab max \tab median \tab n_unique \cr
+   died \tab 0 \tab 1 \tab 1946-12-21 \tab 2019-08-18 \tab 1996-07-20 \tab 683 \cr
+}
+
+
+\strong{Variable type: numeric}\tabular{lrrrrrrrrrl}{
+   skim_variable \tab n_missing \tab complete_rate \tab mean \tab sd \tab p0 \tab p25 \tab p50 \tab p75 \tab p100 \tab hist \cr
+   year \tab 0 \tab 1 \tab 1964.85 \tab 13.38 \tab 1945.00 \tab 1954.00 \tab 1962.00 \tab 1974.00 \tab 2011 \tab ▇▆▃▂▁ \cr
+   win_margin \tab 0 \tab 1 \tab 3.22 \tab 26.07 \tab -82.43 \tab -9.87 \tab 0.97 \tab 12.18 \tab 100 \tab ▁▃▇▁▁ \cr
+   alive_post \tab 0 \tab 1 \tab 10309.56 \tab 4885.95 \tab 46.00 \tab 6418.75 \tab 10811.00 \tab 14123.75 \tab 22067 \tab ▃▆▇▆▂ \cr
+   alive_pre \tab 0 \tab 1 \tab 18892.42 \tab 3181.47 \tab 11450.00 \tab 16561.00 \tab 18757.50 \tab 20995.75 \tab 30633 \tab ▂▇▆▂▁ \cr
+}
+}
+\author{
+David Kane
 }
 \keyword{datasets}

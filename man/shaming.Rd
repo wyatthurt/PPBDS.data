@@ -37,21 +37,64 @@ find out whether and to what extent people are motivated to vote by social
 pressure. To answer this question, the authors conducted a field experiment
 prior to the August 2006 primary election in Michigan. A total of 180,000
 households were randomly assigned to either a control group or one of four
-treatment groups. The control group consisted of approximately 100,000
-households and was observed without further intervention.
+treatment groups.
 }
 \details{
-The treatment groups consisted of about 20,000 households each, and were sent
-one mailing 11 days prior to the primary election. The first treatment group,
-named “Civic Duty”, received a letter that only reminded them to "do their
-civic duty and vote". The second treatment group, named "Hawthorne", received
-the same message with an additional notice that they are being studied by
-researchers. The letter sent to the third group, named "Self", included the
-content in the Hawthorne letter, but added a notice that every household
-member would be notified of each others' voting behaviour after the election
-(this information is public). The last group, "Neighbors", finally listed not
-only the household's voting records but also the voting records of those
-nearby. As in the "Self" group, everyone on the list would be notified of
-their voting behaviour after the primary.
+The control group consisted of approximately 100,000 households and was observed
+without further intervention.The treatment groups consisted of about 20,000 households
+each, and were sent one mailing 11 days prior to the primary election. The first
+treatment group, named “Civic Duty”, received a letter that only reminded them to
+"do their civic duty and vote". The second treatment group, named "Hawthorne",
+received the same message with an additional notice that they are being studied by
+researchers. The letter sent to the third group, named "Self", included the content
+in the Hawthorne letter, but added a notice that every household member would be
+notified of each others' voting behaviour after the election (this information is
+public). The last group, "Neighbors", finally listed not only the household's voting
+records but also the voting records of those nearby. As in the "Self" group, everyone
+on the list would be notified of their voting behaviour after the primary.
+
+ 
+
+Table: Data summary\tabular{ll}{
+    \tab  \cr
+   Name \tab shaming \cr
+   Number of rows \tab 344084 \cr
+   Number of columns \tab 10 \cr
+   _______________________ \tab  \cr
+   Column type frequency: \tab  \cr
+   character \tab 5 \cr
+   factor \tab 1 \cr
+   numeric \tab 4 \cr
+   ________________________ \tab  \cr
+   Group variables \tab None \cr
+}
+
+
+\strong{Variable type: character}\tabular{lrrrrrrr}{
+   skim_variable \tab n_missing \tab complete_rate \tab min \tab max \tab empty \tab n_unique \tab whitespace \cr
+   sex \tab 0 \tab 1 \tab 4 \tab 6 \tab 0 \tab 2 \tab 0 \cr
+   primary_02 \tab 0 \tab 1 \tab 2 \tab 3 \tab 0 \tab 2 \tab 0 \cr
+   general_02 \tab 0 \tab 1 \tab 2 \tab 3 \tab 0 \tab 2 \tab 0 \cr
+   primary_04 \tab 0 \tab 1 \tab 2 \tab 3 \tab 0 \tab 2 \tab 0 \cr
+   general_04 \tab 0 \tab 1 \tab 3 \tab 3 \tab 0 \tab 1 \tab 0 \cr
+}
+
+
+\strong{Variable type: factor}\tabular{lrrlrl}{
+   skim_variable \tab n_missing \tab complete_rate \tab ordered \tab n_unique \tab top_counts \cr
+   treatment \tab 0 \tab 1 \tab FALSE \tab 5 \tab Con: 191243, Civ: 38218, Sel: 38218, Haw: 38204 \cr
+}
+
+
+\strong{Variable type: numeric}\tabular{lrrrrrrrrrl}{
+   skim_variable \tab n_missing \tab complete_rate \tab mean \tab sd \tab p0 \tab p25 \tab p50 \tab p75 \tab p100 \tab hist \cr
+   birth_year \tab 0 \tab 1 \tab 1956.21 \tab 14.45 \tab 1900 \tab 1947 \tab 1956 \tab 1965 \tab 1986 \tab ▁▁▅▇▃ \cr
+   primary_06 \tab 0 \tab 1 \tab 0.32 \tab 0.46 \tab 0 \tab 0 \tab 0 \tab 1 \tab 1 \tab ▇▁▁▁▃ \cr
+   hh_size \tab 0 \tab 1 \tab 2.18 \tab 0.79 \tab 1 \tab 2 \tab 2 \tab 2 \tab 8 \tab ▇▂▁▁▁ \cr
+   no_of_names \tab 0 \tab 1 \tab 20.93 \tab 0.51 \tab 1 \tab 21 \tab 21 \tab 21 \tab 21 \tab ▁▁▁▁▇ \cr
+}
+}
+\author{
+David Kane
 }
 \keyword{datasets}

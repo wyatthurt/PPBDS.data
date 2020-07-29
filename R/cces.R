@@ -1,13 +1,20 @@
+#' @title
 #' Data from the Cooperative Congressional Election Study
 #'
+#' @description
 #' Data for the approval ratings of voters to various government positions
 #' combined with the demographic background of the voter. See
-#' \href{https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/II2DB6}{Kuriwaki (2018)}
-#' for background and details. Raw code available at Kuriwaki's
-#'  \href{https://github.com/kuriwaki/cces_cumulative}{Github.}
+#' \href{https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/II2DB6}{Kuriwaki
+#' (2018)} for background and details. The raw code that was used to produce
+#' the data is accesible at Kuriwaki's \href{https://github.com/kuriwaki/cces_cumulative}{Github.}
 #'
-#' "Cumulative CCES Common Content (2006-2018)," by Shiro Kuriwaki, 2018,
-#' Harvard Dataverse, V4.
+#' @details
+#'
+#' &nbsp;
+#'
+#' ```{r, echo = FALSE}
+#' skimr::skim(cces)
+#' ```
 #'
 #' @format A tibble with 452,755 observations and 16 variables:
 #' \describe{
@@ -29,7 +36,12 @@
 #'   \item{approval}{numeric variable of approval for the current president on a 1-5 scale
 #'    with higher numbers indicating greater approval}
 #' }
-#' @source \url{https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/II2DB6}
+#'
+#' @author
+#' David Kane
+#'
+#' @source
+#' \url{https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/II2DB6}
 #'
 #'
 "cces"

@@ -1,14 +1,20 @@
+#' @title
 #' Kenya voter registration experiment
 #'
-#' See \href{https://dataverse.harvard.edu/dataset.xhtml;jsessionid=786d92e2aec3933f01bd0af48ec0?persistentId=doi%3A10.7910%2FDVN%2FUT25HQ&version=&q=&fileTypeGroupFacet=%22Code%22&fileAccess=&fileTag=&fileSortField=&fileSortOrder=}{Harris, Kamindo, and Windt (2020)} for background and details.
+#' @description
+#' This dataset is from a study entitled \href{https://dx.doi.org/10.2139/ssrn.3520421}{"Electoral
+#' Administration in Fledgling Democracies:Experimental Evidence from Kenya"}. The study worked with
+#' Kenya's electoral commission in 1,674 communities by assigning individuals to either a control/status
+#' quo group or one of several interventions to encourage voter registration: SMS reminders, a local
+#' administrator at a polling station, canvassing, a local admin and canvassing, or a local admin and SMS.
 #'
-#' This dataset is from a study entitled "Electoral Administration in Fledgling Democracies:
-#' Experimental Evidence from Kenya". The study worked with Kenya's electoral commission in
-#' 1,674 communities by assigning individuals to either a control/status quo group or one of
-#' several interventions to encourage voter registration: SMS reminders, a local administrator
-#' at a polling station, canvassing, a local admin and canvassing, or a local admin and SMS.
+#' @details
 #'
-#' CHECK IF REG/RV13 desceriptions are right, and also date descriptions
+#' &nbsp;
+#'
+#' ```{r, echo = FALSE}
+#' skimr::skim(kenya)
+#' ```
 #'
 #' @format A tibble with 1,989,680 observations and 11 variables:
 #' \describe{
@@ -24,6 +30,11 @@
 #'   \item{reg_byrv13}{a double variable for registered voters at polling location during intervention
 #'                     period divided by registered voters at polling location during 2013}
 #' }
-#' @source \url{https://pdfs.semanticscholar.org/be58/c86f2366d5281d4800411d2dfcecd1a5c16a.pdf?_ga=2.260073289.590691361.1594131808-281689301.1594131808}
+#'
+#' @author
+#' David Kane
+#'
+#' @source
+#' \url{https://pdfs.semanticscholar.org/be58/c86f2366d5281d4800411d2dfcecd1a5c16a.pdf?_ga=2.260073289.590691361.1594131808-281689301.1594131808}
 #'
 "kenya"
