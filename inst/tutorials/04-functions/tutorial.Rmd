@@ -60,7 +60,7 @@ quiz(caption = "Concept Check: Function Basics",
          message = "The open and closed parentheses tell R to execute the code in the code body of the function stored in the object names Sys.time.")))
 ```
 
-## Using map_* functions to create list columns
+## Lists and list-columns
 
 ```{r quiz-1}
 quiz(caption = "Concept Check: Map functions and list-columns",
@@ -375,7 +375,7 @@ quiz(caption = "",
          random_answer_order = TRUE))
 ```
 
-## Built-In Functions and Custom Functions
+## Custom Functions
 
 ```{r builtinfunctions}
 quiz(caption = "",
@@ -1614,6 +1614,120 @@ rvs <- tibble(...)
 
 ```{r lastq-hint}
 rvs <- tibble(trials = map(rep(3, 25), ...))
+```
+
+## The Crooked Casino
+
+Recall the function we wrote in the chapter to model a crooked game of craps. `crooked_craps()` is expected to return a winning 7 or 11 only *half* of the time the sum is actually 7 or 11. Instead, the other half of the time, it is supposed ot return a 2.
+
+```{r echo=TRUE}
+crooked_dice <- function(n = 1) {
+  stopifnot(is.numeric(n))
+  stopifnot(n >= 0)
+  roll <- sum(sample(1:6, n, replace = TRUE))
+  ifelse((roll == 7 | roll == 11) && runif(1) >= 0.5, 2, roll)
+}
+crooked_craps <- function(n = 1) {
+  stopifnot(is.numeric(n))
+  map_dbl(rep(2, n), crooked_dice)
+}
+```
+
+Let's put our visualization skills to the test.
+
+###
+
+Create a tibble with column "games" and run `crooked_craps()` 100 times.
+
+```{r crooked-1, exercise=TRUE}
+
+```
+
+```{r crooked-1-hint}
+tibble(games = crooked_craps(...))
+```
+
+###
+
+Using `geom_bar()` and the `games` variable as the `x` aesthetic, create a bar plot.
+
+```{r crooked-2, exercise=TRUE}
+tibble(games = crooked_craps(100))
+```
+
+###
+
+Now, use `scale_x_continuous()` to make the the x-axis go from 2 to 12 by integers.
+
+```{r crooked-3, exercise=TRUE}
+tibble(games = crooked_craps(100)) %>%
+  ggplot(aes(x = games)) +
+  geom_bar()
+```
+
+```{r crooked-3-hint}
+tibble(games = crooked_craps(100)) %>%
+  ggplot(aes(x = games)) +
+  geom_bar() %>%
+  scale_x_continuous(breaks = seq(...))
+```
+
+Great! Hmm... we're not entirely sure this plot is representative. It does look like what we'd expect, but running `crooked_craps()` 10 times feels safer than running it just once. Use an appropriate `map_*` function and `rep()` to call `crooked_craps(100)` 10 times. Create a tibble named `x` with a column named `games`.
+
+```{r crooked-4, exercise=TRUE}
+
+```
+
+```{r crooked-4-hint}
+x <- tibble(games = map(rep(100, 10), ...))
+```
+
+Inside each of these iterations of 100 rolls, we want to count the number of 3's and 11's. Technically, with a fair die one would expect as many 11's to appear as 3's. 11's can be obtained in two different ways: by adding 5 + 6 and 6 + 5. The same goes for 3's: by adding 1 + 2 and 2 + 1.
+
+First, count the number of 3's. You can do so by using a the appropriate `map_*` function and an anonymous function defined as `sum(. == 3)`.
+
+```{r crooked-5, exercise=TRUE}
+x <- tibble(games = map(rep(100, 10), crooked_craps)) %>%
+  mutate(counts = ...)
+```
+
+```{r crooked-5-hint}
+x <- tibble(games = map(rep(100, 10), crooked_craps)) %>%
+  mutate(counts = map_int(games, ~(...)))
+```
+
+###
+
+Now, modify `counts` so that it is a list-column of 2 elements per list: The number of 3's, then the number of 11's.
+
+```{r crooked-6, exercise = TRUE}
+x <- tibble(games = map(rep(100, 10), crooked_craps)) %>%
+  mutate(counts = map_int(games, ~sum(. == 3)))
+```
+
+```{r crooked-6-hint}
+x <- tibble(games = map(rep(100, 10), crooked_craps)) %>%
+  mutate(counts = map(games, ~list(sum(. == 3), ...)))
+```
+
+###
+
+Finally, view the tibble with `str()`.
+
+```{r crooked-7, exercise = TRUE}
+x <- tibble(games = map(rep(100, 10), crooked_craps)) %>%
+  mutate(counts = map(games, ~list(sum(. == 3), sum(. == 11))))
+```
+
+```{r finalquiz}
+quiz(caption = "",
+     question("Based off of your observations and prior knowledge, is our crooked_craps() function truly crooked (compared to what we'd expect from a game of craps with two fair dice)?",
+     allow_retry = TRUE,
+     random_answer_order = TRUE,
+     answer("Yes, because the number of 3's rolled seems to generally be higher than the number of 7's rolled.", correct = TRUE, message = "Exactly! This might've been a different story if we didn't know the contents of the crooked_craps() function, since the difference between the number of 3's and the number of 11's rolled could be chalked up to natural variation. However, we wrote the function to be crooked."),
+     answer("Yes, because there will always be more 3's than 11's rolled in 100 rolls", message = "While that could have been the case for your 10 different trials, imagine if you ran 1000 or 1 million trials. Could you say with absolute confidence that not a single trial would yield more 11's than 3's?"),
+     answer("No, because there are not necessarily always more 3's rolled than 11's out of 100 rolls"),
+     answer("No, because it's possible to get such a lower number of 7's and 11's and high number of 2's even with fair dice", message = "While it is certainly correct that natural variation and randomness could lead to a lower-than-expected number of 7's and 11's and a higher-than-expected number of 2's, this doesn't mean that our function isn't crooked. You wrote the function to be crooked, right! If it were fair, we would have left the function at simply adding two dice. Instead, we added an ifelse to check whether the roll waw a 7 or 11. Therefore, it was our tampering that made crooked_craps() crooked!")))
 ```
 
 ## Submit
