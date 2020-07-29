@@ -40,7 +40,12 @@
 
 
 <meta property="og:title" content="National Health and Nutrition Examination Survey — nhanes" />
-<meta property="og:description" content="See NHANES for background and details." />
+<meta property="og:description" content="The National Health and Nutrition
+Examination Survey (NHANES) is a research survey distributed to adults and children
+across the United States to examine health and nutritional status nationwide. It is
+unique in that it conducts both interviews and physical examination to produce their data.
+The survey is run by the National Center for Health Statistics (NCHS), a part of the
+Centers for Disease Control and Prevention." />
 
 
 
@@ -117,7 +122,12 @@
     </div>
 
     <div class="ref-description">
-    <p>See <a href='https://www.cdc.gov/nchs/nhanes/index.htm'>NHANES</a> for background and details.</p>
+    <p>The <a href='https://www.cdc.gov/nchs/nhanes/index.htm'>National Health and Nutrition
+Examination Survey</a> (NHANES) is a research survey distributed to adults and children
+across the United States to examine health and nutritional status nationwide. It is
+unique in that it conducts both interviews and physical examination to produce their data.
+The survey is run by the National Center for Health Statistics (NCHS), a part of the
+Centers for Disease Control and Prevention.</p>
     </div>
 
     <pre class="usage"><span class='kw'>nhanes</span></pre>
@@ -125,21 +135,22 @@
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A tibble with 10,000 observations and 14 variables:</p><dl>
-<dt>gender</dt><dd><p>character variable with values "male" and "female"</p></dd>
-<dt>survey_year</dt><dd><p>integer variable with the year the survey was conducted in. Most tests were
+    <p>A tibble with 10,000 observations and 15 variables:</p><dl>
+<dt>gender</dt><dd><p>character variable with values "Male" and "Female"</p></dd>
+<dt>survey</dt><dd><p>integer variable with the year the survey was conducted in. Most tests were
 conducted across two years, so the earlier year is used.</p></dd>
 <dt>age</dt><dd><p>character variable for age in years</p></dd>
-<dt>race</dt><dd><p>character variable with values "white", "black", "hispanic", "mexican", and "other"</p></dd>
-<dt>education</dt><dd><p>character variable with values "middle school", "high school", "some college", "college"</p></dd>
-<dt>income</dt><dd><p>integer variable for household income groups ranked from 1 to 5. 0 corresponds to "other".</p></dd>
+<dt>race</dt><dd><p>character variable with values "White", "Black", "Hispanic", "Mexican", and "Other"</p></dd>
+<dt>education</dt><dd><p>ordered factor variable with levels "Middle school" &lt; "High school" &lt; "Some college" &lt; "College"</p></dd>
+<dt>hh_income</dt><dd><p>ordered factor variable for household income groups with levels "0-4999" &lt; <a href='https://rdrr.io/r/base/dots.html'>...</a> &lt; "over 99999"</p></dd>
 <dt>weight</dt><dd><p>double variable for weight in kilograms</p></dd>
 <dt>height</dt><dd><p>double variable for height in centimeters</p></dd>
 <dt>bmi</dt><dd><p>double variable for body mass index</p></dd>
 <dt>pulse</dt><dd><p>integer variable for pulse in beats per minute or bpm</p></dd>
+<dt>diabetes</dt><dd><p>integer variable with values 0/1 indicating whether patient suffers from diabetes</p></dd>
 <dt>general_health</dt><dd><p>integer variable for general health ranked from 1-5. 1 maps to "poor", 2 is "fair", 3 is "good", 4 is "very good", and 5 is "excellent".</p></dd>
 <dt>depressed</dt><dd><p>character variable answering question how often patient feels depressed.
-Includes values "several", "none", "most"</p></dd>
+Includes values "Several", "None", "Most"</p></dd>
 <dt>pregnancies</dt><dd><p>integer variable for number of pregnanices.
 NA if the individual, regardless of gender, hasn't experienced a pregnancy</p></dd>
 <dt>sleep_night_hrs</dt><dd><p>integer value for hours of sleep per night on average</p></dd>
@@ -152,14 +163,60 @@ NA if the individual, regardless of gender, hasn't experienced a pregnancy</p></
     <p><a href='https://cran.r-project.org/web/packages/NHANES/NHANES.pdf'>https://cran.r-project.org/web/packages/NHANES/NHANES.pdf</a></p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The National Health and Nutrition Examination Survey (NHANES) is a research survey
-distributed to adults and children across the United States to examine health
-and nutritional status nationwide. It is unique in that it conducts both interviews
-and physical examination to produce their data. The survey is run by the National
-Center for Health Statistics (NCHS), a part of the Centers for Disease Control and Prevention.</p>
-<p>In order to get a demographically diverse range of responses, minority groups were surveyed
+    <p>In order to get a demographically diverse range of responses, minority groups were surveyed
 more heavily. However, this skewed the survey results to have an inaccurate demographic makeup.
 To address this, some observations of more common groups are resampled in the data.</p>
+<p></p>
+<p>Table: Data summary</p><table class='table'>
+<tr><td></td><td></td></tr>
+<tr><td>Name</td><td>nhanes</td></tr>
+<tr><td>Number of rows</td><td>10000</td></tr>
+<tr><td>Number of columns</td><td>14</td></tr>
+<tr><td>_______________________</td><td></td></tr>
+<tr><td>Column type frequency:</td><td></td></tr>
+<tr><td>character</td><td>2</td></tr>
+<tr><td>factor</td><td>2</td></tr>
+<tr><td>numeric</td><td>10</td></tr>
+<tr><td>________________________</td><td></td></tr>
+<tr><td>Group variables</td><td>None</td></tr>
+</table>
+
+
+
+<p><strong>Variable type: character</strong></p><table class='table'>
+<tr><td>skim_variable</td><td>n_missing</td><td>complete_rate</td><td>min</td><td>max</td><td>empty</td><td>n_unique</td><td>whitespace</td></tr>
+<tr><td>gender</td><td>0</td><td>1</td><td>4</td><td>6</td><td>0</td><td>2</td><td>0</td></tr>
+<tr><td>race</td><td>0</td><td>1</td><td>5</td><td>8</td><td>0</td><td>5</td><td>0</td></tr>
+</table>
+
+
+
+<p><strong>Variable type: factor</strong></p><table class='table'>
+<tr><td>skim_variable</td><td>n_missing</td><td>complete_rate</td><td>ordered</td><td>n_unique</td><td>top_counts</td></tr>
+<tr><td>education</td><td>4877</td><td>0.51</td><td>TRUE</td><td>3</td><td>som: 2267, hig: 1517, mid: 1339</td></tr>
+<tr><td>depressed</td><td>3327</td><td>0.67</td><td>TRUE</td><td>3</td><td>non: 5246, sev: 1009, mos: 418</td></tr>
+</table>
+
+
+
+<p><strong>Variable type: numeric</strong></p><table class='table'>
+<tr><td>skim_variable</td><td>n_missing</td><td>complete_rate</td><td>mean</td><td>sd</td><td>p0</td><td>p25</td><td>p50</td><td>p75</td><td>p100</td><td>hist</td></tr>
+<tr><td>year</td><td>0</td><td>1.00</td><td>2010.00</td><td>1.00</td><td>2009.00</td><td>2009.00</td><td>2010.00</td><td>2011.00</td><td>2011.00</td><td>▇▁▁▁▇</td></tr>
+<tr><td>age</td><td>0</td><td>1.00</td><td>36.74</td><td>22.40</td><td>0.00</td><td>17.00</td><td>36.00</td><td>54.00</td><td>80.00</td><td>▇▇▇▆▅</td></tr>
+<tr><td>income</td><td>4091</td><td>0.59</td><td>3.46</td><td>1.51</td><td>1.00</td><td>2.00</td><td>4.00</td><td>5.00</td><td>5.00</td><td>▃▃▃▃▇</td></tr>
+<tr><td>weight</td><td>78</td><td>0.99</td><td>70.98</td><td>29.13</td><td>2.80</td><td>56.10</td><td>72.70</td><td>88.90</td><td>230.70</td><td>▂▇▂▁▁</td></tr>
+<tr><td>height</td><td>353</td><td>0.96</td><td>161.88</td><td>20.19</td><td>83.60</td><td>156.80</td><td>166.00</td><td>174.50</td><td>200.40</td><td>▁▁▁▇▂</td></tr>
+<tr><td>bmi</td><td>366</td><td>0.96</td><td>26.66</td><td>7.38</td><td>12.88</td><td>21.58</td><td>25.98</td><td>30.89</td><td>81.25</td><td>▇▆▁▁▁</td></tr>
+<tr><td>health</td><td>2461</td><td>0.75</td><td>3.38</td><td>0.94</td><td>1.00</td><td>3.00</td><td>3.00</td><td>4.00</td><td>5.00</td><td>▁▃▇▇▂</td></tr>
+<tr><td>pregnancies</td><td>7396</td><td>0.26</td><td>3.03</td><td>1.80</td><td>1.00</td><td>2.00</td><td>3.00</td><td>4.00</td><td>32.00</td><td>▇▁▁▁▁</td></tr>
+<tr><td>sleep</td><td>2245</td><td>0.78</td><td>6.93</td><td>1.35</td><td>2.00</td><td>6.00</td><td>7.00</td><td>8.00</td><td>12.00</td><td>▁▅▇▁▁</td></tr>
+<tr><td>pulse</td><td>1437</td><td>0.86</td><td>73.56</td><td>12.16</td><td>40.00</td><td>64.00</td><td>72.00</td><td>82.00</td><td>136.00</td><td>▂▇▃▁▁</td></tr>
+</table>
+
+
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>David Kane</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
