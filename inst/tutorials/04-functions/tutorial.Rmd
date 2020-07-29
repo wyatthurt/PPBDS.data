@@ -60,22 +60,6 @@ quiz(caption = "Concept Check: Function Basics",
          message = "The open and closed parentheses tell R to execute the code in the code body of the function stored in the object names Sys.time.")))
 ```
 
-Find the code body of `foo`. Use the helper function `body()`.
-
-```{r foo, exercise = TRUE}
-```
-
-```{r foo-setup}
-foo <- function() {
-  a <- 10
-  a
-}
-```
-
-```{r foo-hint}
-# body(...)
-```
-
 ## Using map_* functions to create list columns
 
 ```{r quiz-1}
@@ -114,11 +98,24 @@ Create a list-column called `col_2` using `str_split()` that splits the phrases 
 
 ```{r exercise-0, exercise = TRUE}
 tibble(col_1 = c("Government and Data Science", "Preceptor and Primer")) %>%
-  mutate(col_2 = ...) %>%
-  str()
+  mutate(col_2 = ...)
 ```
 
 ```{r exercise-0-hint}
+tibble(col_1 = c("Government and Data Science", "Preceptor and Primer")) %>%
+  mutate(col_2 = str_split(..., " and "))
+```
+
+### 
+
+Now use `str()` to read the tibble contents.
+
+```{r exercise-1b, exercise = TRUE}
+tibble(col_1 = c("Government and Data Science", "Preceptor and Primer")) %>%
+  mutate(col_2 = str_split(col_1, " and "))
+```
+
+```{r exercise-1b-hint}
 tibble(col_1 = c("Government and Data Science", "Preceptor and Primer")) %>%
   mutate(col_2 = str_split(..., " and ")) %>%
   str()
@@ -136,52 +133,55 @@ Explore the `ChickWeight` dataset using `skim()`.
 skim(...)
 ```
 
-Create a list-column of `weight`s using `mutate()`called `weight_groups`, grouping by `Diet` and `Time`. Save this list-column in a new dataframe called `x`.
+Create a list-column of `weight`s using `mutate()`called `weight_groups`, grouping by `Diet` and `Time`.
 
 ```{r exercise-2, exercise = TRUE}
-x <- ChickWeight %>%
+ChickWeight %>%
   group_by(Diet, Time) %>%
   mutate(...)
 ```
 
 ```{r exercise-2-hint}
-x <- ChickWeight %>%
+ChickWeight %>%
   group_by(Diet, Time) %>%
   mutate(weight_groups = list(...))
 ```
 
+###
+
 Use a `map_*` function to find the mean weight per row in the new list-column. Name this new column `mean_weight`.
 
-```{r setup3}
-x <- ChickWeight %>%
+```{r exercise-3, exercise = TRUE}
+ChickWeight %>%
   group_by(Diet, Time) %>%
-  mutate(weight_groups = list(weight))
-```
-
-```{r exercise-3, exercise = TRUE, exercise.setup = "setup3"}
-x <- x %>%
+  mutate(weight_groups = list(weight)) %>%
   mutate(mean_weight = map_dbl(...))
 ```
 
 ```{r exercise-3-hint}
-x <- x %>%
+ChickWeight %>%
+  group_by(Diet, Time) %>%
+  mutate(weight_groups = list(weight)) %>%
   mutate(mean_weight = map_dbl(weight_groups, ...))
 ```
 
+###
+
 Now let's use `map_dbl()` to round each `mean_weight` to the nearest integer. Name this new column `rounded_mean`. 
 
-```{r setup4, exercise.setup = "setup3"}
-x <- x %>%
-  mutate(mean_weight = map_dbl(weight_groups, mean))
-```
-
-```{r exercise-4, exercise = TRUE, exercise.setup = "setup4"}
-x %>%
+```{r exercise-4, exercise = TRUE}
+ChickWeight %>%
+  group_by(Diet, Time) %>%
+  mutate(weight_groups = list(weight)) %>%
+  mutate(mean_weight = map_dbl(weight_groups, mean)) %>%
   mutate(rounded_mean = map_dbl(...))
 ```
 
 ```{r exercise-4-hint}
-x %>%
+ChickWeight %>%
+  group_by(Diet, Time) %>%
+  mutate(weight_groups = list(weight)) %>%
+  mutate(mean_weight = map_dbl(weight_groups, mean)) %>%
   mutate(rounded_mean = map_dbl(mean_weight, ...))
 ```
 
@@ -204,30 +204,37 @@ quiz(caption = "",
 
 Now let's use a `map_*` function to find the highest weight per `Diet` + `Time` combination. First, let's sort from highest to lowest weight and create a new column named `sorted_weight`.
 
-```{r exercise-5, exercise = TRUE, exercise.setup = "setup4"}
-x <- x %>%
+```{r exercise-5, exercise = TRUE}
+ChickWeight %>%
+  group_by(Diet, Time) %>%
+  mutate(weight_groups = list(weight)) %>%
   mutate(sorted_weight = map(weight_groups, ...))
 ```
 
 ```{r exercise-5-hint}
-x <- x %>%
+ChickWeight %>%
+  group_by(Diet, Time) %>%
+  mutate(weight_groups = list(weight)) %>%
   mutate(sorted_weight = map(weight_groups, ..., decreasing = TRUE))
 ```
 
-Next, return the highest weight in each row of the `sorted_weight` list-column in a new column named `heaviest`.
+###
 
-```{r setup6}
-x <- x %>%
-  mutate(sorted_weight = map(weight_groups, sort, decreasing = TRUE))
-```
+Return the highest weight in each row of the `sorted_weight` list-column in a new column named `heaviest`.
 
-```{r exercise-6, exercise = TRUE, exercise.setup = "setup6"}
-x %>%
+```{r exercise-6, exercise = TRUE}
+ChickWeight %>%
+  group_by(Diet, Time) %>%
+  mutate(weight_groups = list(weight)) %>%
+  mutate(sorted_weight = map(weight_groups, ..., decreasing = TRUE)) %>%
   mutate(heaviest = map_dbl(...))
 ```
 
 ```{r exercise-6-hint}
-x %>%
+ChickWeight %>%
+  group_by(Diet, Time) %>%
+  mutate(weight_groups = list(weight)) %>%
+  mutate(sorted_weight = map(weight_groups, ..., decreasing = TRUE)) %>%
   mutate(heaviest = map_dbl(...,  ~ .[1]))
 ```
 
@@ -380,7 +387,7 @@ quiz(caption = "",
          allow_retry = TRUE))
 ```
 
-Recall the code in `foo`:
+Here is a custom function we will call `foo`:
 
 ```{r echo = FALSE}
 foo <- function() {
