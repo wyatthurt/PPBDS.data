@@ -7,7 +7,7 @@
 
 * Upgrade R to 4.0.2
 
-* Add yourself as maintainer in DESCRIPTION
+* Add yourself as contriburtor in DESCRIPTION
 
 * Clean up `sps`. Which variables do we need? What do they show? What should they be called?
 
