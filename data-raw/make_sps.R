@@ -1,25 +1,13 @@
 library(tidyverse)
-# library(haven)
-# library(janitor)
+library(haven)
+library(janitor)
 
-# Public policy for the poor? A randomised assessment of the Mexican universal
-# health insurance programme (2009)
-
+# This dataset is from the paper "Public policy for the poor? A randomised
+# assessment of the Mexican universal health insurance programme (2009)."
 # The treatment consisted of encouragement to enroll in a health-insurance
 # programme and upgraded medical facilities. Participant states also received
 # funds to improve health facilities and to provide medications for services in
 # treated clusters.
-
-# The outcome variables:
-
-# Catastrophic expenditures decreased w/ treatment
-# Effect in poor households was 3·0% points -- 30%
-# Effect in experimental compliers was 6·5% points -- 59%
-
-
-#  intention-to-treat effect on health spending in poor households was 426
-#  pesos (39–812), and the complier average causal eff ect was 915 pesos
-#  (147–1684)
 
 
 
@@ -129,17 +117,12 @@ x <- read_dta("data-raw/sps.dta") %>%
   select(age, sex, education, treatment, health_exp_3m, t2_health_exp_3m, health_exp_1m, t2_health_exp_1m) %>%
 
 # From the readme on dataverse: A codebook for the survey questionnaire appears
-# in both Spanish and English. The survey question codes appear in the
-# questionnaire exactly as they appear in the dataset.  (Note, however, that on
-# the English form the questions above Section 7 should be labeled one section
-# higher; e.g., the code for Question 7.1 is P08D01, not P07D01).
+# in both Spanish and English. However, the English version cannot be found. I
+# managed to translate the Spanish codebook to English and saved it as a .xlsx file
+# name "sps_codebook". See /data-raw for a copy of it. Make sure to open it in Excel,
+# since it contains merged cells which are messed up by R.
 
-# I was a bit confused on the note about the difference in code for the English
-# and Spanish version because it is not clear which codebook the data file uses.
-# What I did: I identified that the questionnaire is divided into sections. P is
-# the section and 'd' is the question itself. Using the english questionnaire, I
-# identified some variables I thought were interesting. These variables can
-# certainly change to fit the needs and interests of the class.
+
 
 
   drop_na()
