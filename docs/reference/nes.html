@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>American National Election Survey — nes • PPBDS.data</title>
+<title>American National Election Studies — nes • PPBDS.data</title>
 
 
 <!-- jquery -->
@@ -39,11 +39,12 @@
 
 
 
-<meta property="og:title" content="American National Election Survey — nes" />
-<meta property="og:description" content="Data from the American National Election Survey cumulative data file complete through 2016. See
-NES CDF 2016
-for background and details. Dataset begins in  , see appendices for variations in questions
-and other metrics over time. Current as of 05/24/2020." />
+<meta property="og:title" content="American National Election Studies — nes" />
+<meta property="og:description" content="This dataset is from the American National
+Election Studies (ANES), a survey that aims to provide insights into voter
+behavior. It has been conducted since 1948 before and after each presidential
+election, and combines questions about voters' political attitudes with extensive
+biographical information. Current as of 07/29/2020." />
 
 
 
@@ -114,16 +115,17 @@ and other metrics over time. Current as of 05/24/2020." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>American National Election Survey</h1>
+    <h1>American National Election Studies</h1>
     <small class="dont-index">Source: <a href='https://github.com/davidkane9/PPBDS.data/blob/master/R/nes.R'><code>R/nes.R</code></a></small>
     <div class="hidden name"><code>nes.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Data from the American National Election Survey cumulative data file complete through 2016. See
-<a href='https://electionstudies.org/data-center/anes-time-series-cumulative-data-file/'>NES CDF 2016</a>
-for background and details. Dataset begins in  , see appendices for variations in questions
-and other metrics over time. Current as of 05/24/2020.</p>
+    <p>This dataset is from the <a href='https://electionstudies.org/'>American National
+Election Studies (ANES)</a>, a survey that aims to provide insights into voter
+behavior. It has been conducted since 1948 before and after each presidential
+election, and combines questions about voters' political attitudes with extensive
+biographical information. Current as of 07/29/2020.</p>
     </div>
 
     <pre class="usage"><span class='kw'>nes</span></pre>
@@ -131,23 +133,78 @@ and other metrics over time. Current as of 05/24/2020.</p>
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A tibble with 39,220 observations and  10 variables:</p><dl>
-<dt>gender</dt><dd><p>character variable with values "Male" and "Female"</p></dd>
-<dt>income</dt><dd><p>integer variable representing 5 income groups: 1 as 0-16th percentile, 2 as 17-33rd, 3 as 34 to 67, 4 as 68 to 95, 5 as 96 to 100</p></dd>
-<dt>ideology</dt><dd><p>integer variable representing party identification from 1 to 7 party, with 1 corresponding to strongly Democrat and 7 corresponding to strongly Republican and 0 if NA.</p></dd>
+    <p>A tibble with 38,558 observations and 10 variables:</p><dl>
 <dt>year</dt><dd><p>integer variable for year of study</p></dd>
-<dt>race</dt><dd><p>character variable for race / ethnicity respondent identification</p></dd>
-<dt>educ</dt><dd><p>ordered factor variable with a 7 tier delineation of educational achievement</p></dd>
 <dt>state</dt><dd><p>character variable for the 2-letter abbreviation of the state of the interview of a respondent</p></dd>
+<dt>gender</dt><dd><p>character variable with values "Male", "Female", and "Other"</p></dd>
+<dt>income</dt><dd><p>ordered factor variable for respondents' income percentile group. Has 5 levels:
+0-16th percentile, 17-33rd, 34-67th, 68-95th, 96-100th</p></dd>
+<dt>age</dt><dd><p>ordered factor variable of respondents' age ranges, 75+ is accurate except for year 1954</p></dd>
+<dt>education</dt><dd><p>ordered factor variable with a 7 tier delineation of educational achievement</p></dd>
+<dt>race</dt><dd><p>character variable for respondants' race / ethnicity identification</p></dd>
+<dt>ideology</dt><dd><p>integer variable for party identification from -3 to 3. Lower values correspond to
+Democrats, higher values correspond to Republicans</p></dd>
+<dt>pres_appr</dt><dd><p>character variable of respondents' self-reported approval of the sitting president. Question
+was not asked before 1972</p></dd>
 <dt>voted</dt><dd><p>character variable indicating whether the respondent voted in the national elections</p></dd>
-<dt>age</dt><dd><p>ordered factor of respondents' age ranges, 75+ is accurate except for year 1954</p></dd>
-<dt>pres_appr</dt><dd><p>character variable of respondents' self-reported approval of the sitting president</p></dd>
 
 </dl>
 
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
     <p><a href='https://electionstudies.org/data-center/anes-time-series-cumulative-data-file/'>https://electionstudies.org/data-center/anes-time-series-cumulative-data-file/</a></p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Some of the questions aksed in the survey have changed slightly over time. The
+<a href='https://electionstudies.org/wp-content/uploads/2018/12/anes_timeseries_cdf_codebook_var.pdf'>ANES
+codebook</a> provides further information on this issue.</p>
+<p></p>
+<p>Table: Data summary</p><table class='table'>
+<tr><td></td><td></td></tr>
+<tr><td>Name</td><td>nes</td></tr>
+<tr><td>Number of rows</td><td>38558</td></tr>
+<tr><td>Number of columns</td><td>10</td></tr>
+<tr><td>_______________________</td><td></td></tr>
+<tr><td>Column type frequency:</td><td></td></tr>
+<tr><td>character</td><td>5</td></tr>
+<tr><td>factor</td><td>2</td></tr>
+<tr><td>numeric</td><td>3</td></tr>
+<tr><td>________________________</td><td></td></tr>
+<tr><td>Group variables</td><td>None</td></tr>
+</table>
+
+
+
+<p><strong>Variable type: character</strong></p><table class='table'>
+<tr><td>skim_variable</td><td>n_missing</td><td>complete_rate</td><td>min</td><td>max</td><td>empty</td><td>n_unique</td><td>whitespace</td></tr>
+<tr><td>state</td><td>110</td><td>1.00</td><td>2</td><td>2</td><td>0</td><td>50</td><td>0</td></tr>
+<tr><td>gender</td><td>141</td><td>1.00</td><td>4</td><td>6</td><td>0</td><td>3</td><td>0</td></tr>
+<tr><td>race</td><td>287</td><td>0.99</td><td>5</td><td>8</td><td>0</td><td>6</td><td>0</td></tr>
+<tr><td>pres_appr</td><td>9646</td><td>0.75</td><td>6</td><td>10</td><td>0</td><td>3</td><td>0</td></tr>
+<tr><td>voted</td><td>4078</td><td>0.89</td><td>2</td><td>3</td><td>0</td><td>2</td><td>0</td></tr>
+</table>
+
+
+
+<p><strong>Variable type: factor</strong></p><table class='table'>
+<tr><td>skim_variable</td><td>n_missing</td><td>complete_rate</td><td>ordered</td><td>n_unique</td><td>top_counts</td></tr>
+<tr><td>age</td><td>450</td><td>0.99</td><td>TRUE</td><td>7</td><td>25 : 7669, 35 : 7342, 45 : 6545, 55 : 6021</td></tr>
+<tr><td>education</td><td>397</td><td>0.99</td><td>TRUE</td><td>7</td><td>hs : 9269, som: 8540, col: 5540, som: 4688</td></tr>
+</table>
+
+
+
+<p><strong>Variable type: numeric</strong></p><table class='table'>
+<tr><td>skim_variable</td><td>n_missing</td><td>complete_rate</td><td>mean</td><td>sd</td><td>p0</td><td>p25</td><td>p50</td><td>p75</td><td>p100</td><td>hist</td></tr>
+<tr><td>year</td><td>0</td><td>1.00</td><td>1989.40</td><td>20.50</td><td>1952</td><td>1972</td><td>1992</td><td>2012</td><td>2016</td><td>▃▃▃▃▇</td></tr>
+<tr><td>income</td><td>2517</td><td>0.93</td><td>2.86</td><td>1.15</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>▅▅▇▇▁</td></tr>
+<tr><td>ideology</td><td>619</td><td>0.98</td><td>3.62</td><td>2.09</td><td>1</td><td>2</td><td>3</td><td>6</td><td>7</td><td>▇▂▂▂▅</td></tr>
+</table>
+
+
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>David Kane</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
