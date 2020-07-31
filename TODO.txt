@@ -3,11 +3,11 @@
 
 # Priorities
 
-* Add testcase for the tutorials. Learn about testthat. Maybe the test is a simple: Does this file knit or does it fail? If it fails then the test fails.
+* Add testcase for the tutorials. Learn about testthat. Maybe the test is a simple: Does this file knit or does it fail? If it fails then the test fails. --[In progress]
 
-* Upgrade R to 4.0.2
+* Upgrade R to 4.0.2 --[Done]
 
-* Add yourself as contriburtor in DESCRIPTION
+* Add yourself as contributor in DESCRIPTION --[Done]
 
 * Clean up `sps`. Which variables do we need? What do they show? What should they be called?
 
@@ -17,10 +17,11 @@
 
 * Investigate "Note: found 217 marked UTF-8 strings"
 
-
 * World Values
 
 http://www.worldvaluessurvey.org/wvs.jsp
+
+* See https://msberends.github.io/AMR for some ideas to improve website.
 
 
 ## Previous
@@ -50,7 +51,7 @@ Provide instruction in the lower part of this document about the release cycle. 
 
   - Start using a release and development branch?
 
-  - Look nice themes or yaml option
+  - Look for nice themes or yaml options
 
   - Nicer graphics on home page.
 
@@ -60,8 +61,6 @@ Provide instruction in the lower part of this document about the release cycle. 
 
 
 ### Data Sets
-
-* Clean up qscores. Note the text misformating in course names. Semester should be something easier to read, like Fall-2018, Spring 2019.
 
 * Science experiment: https://science.sciencemag.org/content/358/6364/776/tab-figures-data
 
