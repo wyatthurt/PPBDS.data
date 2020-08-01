@@ -27,6 +27,10 @@
 # think. Be good to figure this out before we write a few hundred more questions
 # . . .
 
+# Advice. Create a new tutorial with just one question which has a ... If we
+# can't get that to render() within the testing environment, we have a problem.
+# Maybe ask at RStudio Community.
+
 context("Tutorials")
 library(PPBDS.data)
 
