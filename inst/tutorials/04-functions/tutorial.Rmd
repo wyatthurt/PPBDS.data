@@ -10,6 +10,10 @@ description: "Chapter 4 tutorial"
 
 <!-- Ch. 4 tutorial questions taken from rstudio-education/primers GitHub repo and list-column/mapping questions written by Evelyn Cai -->
 
+<!-- Issues: -->
+
+<!-- Does it make sense for exercise set-up chunks to ever have eval=FALSE? That seems weird to me. What is the point of a set-up chunk if it is not run? -->
+
 ```{r setup, include=FALSE}
 library(tidyverse)
 library(PPBDS.data)
@@ -1478,11 +1482,6 @@ Now we are interested in finding the `mean()`, `min()`, and `max()` of each row.
 x <- tibble(flips = map(rep(10, 10), five_flips))
 ```
 
-```{r coin8, exercise=TRUE, exercise.setup = "coinsetup"}
-x %>%
-  mutate(...)
-```
-
 ```{r coin8-hint, eval=FALSE}
 x %>%
   mutate(average = map_dbl(...),
@@ -1503,7 +1502,7 @@ stat_ops <- function(x) {
 }
 ```
 
-```{r coin9, exercise=TRUE, eval=FALSE,, exercise.setup = "coin9setup"}
+```{r coin9, exercise=TRUE, eval=FALSE, exercise.setup = "coin9setup"}
 x %>%
    mutate(descriptive_stats = ...)
 ```
