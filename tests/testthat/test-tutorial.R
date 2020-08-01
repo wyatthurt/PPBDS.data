@@ -1,7 +1,8 @@
 # Zero, testing is hard, as a deleted comment mentions. The environment when
 # executing interactively is not the same as the one for R CMD check. See
 # comments below. Interactive use seems OK with ... put any old place. R CMD
-# check is not.
+# check is not OK with this, which is a problem since we have it everywhere . .
+# .
 
 # First, we have the problem of finding all the Rmd files which we want to test.
 # There are three approaches to finding files in a package when you don't know
@@ -9,7 +10,7 @@
 # can be tricky because you don't quite know where the process will be located
 # when it runs the tests. Second, you can use "system.file" as we do below. This
 # is OK, but you can't use wild cards, which would make this code more elegant.
-# Third, I bet the **here** package could solve this, but I was hestitant to go
+# Third, I bet the **here** package could solve this, but I was hesitant to go
 # down that road.
 
 # Second, once you know where the Rmd file is, you have to "test" it somehow. As
@@ -20,6 +21,11 @@
 # Third, might we do more here? For example, what we really want to confirm is
 # that, when a student presses the "Run Document" button, things will work. I am
 # not sure if render() is the same thing.
+
+# Fourth, for now the real problem is that we can't even get this hack working
+# with tutorials after zero, mainly because they have ... in lots of hints, I
+# think. Be good to figure this out before we write a few hundred more questions
+# . . .
 
 context("Tutorials")
 library(PPBDS.data)
@@ -62,5 +68,13 @@ test_that(".Rmd of tutorial 0 knits without error", {
 #                 "tutorial.html")
 # })
 
-# And then we need 4.
+# Works interactive. Fails with  '...' used in an incorrect context when a
+# button is pressed.
+
+# tut.4.Rmd <- system.file(package = "PPBDS.data", "tutorials/04-functions/tutorial.Rmd")
+#
+# test_that(".Rmd of tutorial 4 knits without error", {
+#   expect_output(rmarkdown::render(tut.4.Rmd, output_file = "tutorial.html"),
+#                 "tutorial.html")
+# })
 
