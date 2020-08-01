@@ -1,3 +1,15 @@
+## PPBDS.data 0.3.2
+
+---
+
+- Improvements to the `nes` dataset. The 'state' variable now also includes non-state territories of the US; 'income' is now a factor which explicitly shows all income percentiles; the 'idology' variable now ranges from -3 to 3 to ease interpretation; values of character variables have been capitalized.
+- Improvements to the `nhanes` dataset. A 'diabetes' variable has been added to the dataset; 'income' has been renamed to 'hh_income' and is now an ordered factor which explicitly shows all income intervals; values of character variables have been capitalized.
+- Minor improvements to the `shaming` dataset. The 'no_of_names' variable now shows NAs for people not in the Neighbors group to avoid confusion.
+
+
+
+
+
 ## PPBDS.data 0.3.1
 
 ---

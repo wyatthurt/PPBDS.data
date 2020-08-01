@@ -3,17 +3,17 @@ library(tidyverse)
 # This dataset is from Gerber, Green & Larimer (2008), and was originally
 # published as part of a study in the American Political Science Review.
 # The raw data and details of the study can be accessed at
-# https://isps.yale.edu/research/data/d001. [UPDATE: As of 07/08/20, the website
-# of Yale's Institute of Social and Policy Studies is currently not accessible.]
+# https://isps.yale.edu/research/data/d001.
 
 # Reading in the data. I excluded variables that represent internal IDs the
 # researchers assigned to households ("hh_id") and clusters of randomization
-# ("cluster"), as well as variables that show the mean voter turnout per household
-# in the 2004 elections ("p2004_mean" and "g2004_mean"). None of these are particularly
-# relevant for analyzing and interpreting the data. Furthermore, I also excluded two
-# variables that show the voting histories of the 2000 elections ("p2000" and "g2000").
-# They provide little insight in addition to the remaining histories from 2002 and 2004,
-# and we do not want to overwhelm people.
+# ("cluster"), as well as variables that show the mean voter turnout per
+# household in the 2004 elections ("p2004_mean" and "g2004_mean"). None of
+# these are particularly relevant for analyzing and interpreting the data.
+# Furthermore, I also excluded two variables that show the voting histories
+# of the 2000 elections ("p2000" and "g2000"). They provide little insight in
+# addition to the remaining histories from 2002 and 2004, and we do not want
+# to overwhelm people.
 
 x <- read_csv("data-raw/social_original.csv",
               col_types = cols(sex = col_character(),
@@ -27,10 +27,12 @@ x <- read_csv("data-raw/social_original.csv",
                                hh_size = col_integer(),
                                numberofnames = col_integer())) %>%
 
-  # Renaming variables. Remark: Don't be confused by only "Yes" in the 2004 general election,
-  # as abstainers were removed by the researchers. This was an election with a high turnout, so
-  # people who did not vote were likely to be "deadwood" (dead, moved away, registered under
-  # several names) and would therefore have falsified the results.
+
+  # Renaming variables. Remark: Don't be confused by only "Yes" in the 2004 general
+  # election, as abstainers were removed by the researchers. This was an election
+  # with a high turnout, so people who did not vote were likely to be "deadwood"
+  # (dead, moved away, registered under several names) and would therefore have
+  # falsified the results.
 
   rename(birth_year = yob,
          primary_02 = p2002,
@@ -39,7 +41,8 @@ x <- read_csv("data-raw/social_original.csv",
          general_04 = g2004,
          no_of_names = numberofnames) %>%
 
-  # Recoding character values.
+
+  # Recoding character variables.
 
   mutate(sex = str_to_title(sex),
          primary_02 = str_to_title(primary_02),
@@ -47,9 +50,19 @@ x <- read_csv("data-raw/social_original.csv",
          general_02 = str_to_title(general_02),
          general_04 = str_to_title(general_04)) %>%
 
-  # voted as 0/1 makes later analysis much easier.
+
+  # Recoding voted as 0/1, makes later analysis much easier.
 
   mutate(primary_06 = ifelse(voted == "Yes", 1L, 0L)) %>%
+
+
+  # Recoding no_of_names to be NA for every treatment group
+  # except neighbors. The number has no meaning for all other
+  # groups, and removing them avoids confusion.
+
+  mutate(no_of_names = ifelse(treatment != "Neighbors",
+                               NA_integer_, no_of_names)) %>%
+
 
   # Ordering variables.
 
@@ -60,9 +73,7 @@ x <- read_csv("data-raw/social_original.csv",
          hh_size, no_of_names)
 
 
-# Check and save.
-
-stopifnot(x %>% drop_na() %>% nrow() == 344084)
+# Save.
 
 shaming <- x
 
