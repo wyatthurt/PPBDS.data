@@ -169,7 +169,7 @@ In the chunk below, create a vector that contains the integers from one to ten.
 ```
 
 ```{r vectors-1-hint}
-c(....)
+c(...)
 ```
 
 #### :
@@ -1108,7 +1108,7 @@ If you are looking for a way to start, I recommend using a smooth line with colo
 ```{r r6-hint}
 ggplot(data = diamonds, mapping = aes(x = carat, y = price)) +
   geom_smooth(mapping = aes(color = cut), se = FALSE) + 
-  labs(....)
+  labs(...)
 ```
 
 #### p1

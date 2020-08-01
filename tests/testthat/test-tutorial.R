@@ -1,71 +1,66 @@
+# Zero, testing is hard, as a deleted comment mentions. The environment when
+# executing interactively is not the same as the one for R CMD check. See
+# comments below. Interactive use seems OK with ... put any old place. R CMD
+# check is not.
 
-# This file contains several tests to check if the tutorials
-# actually work. Whenever we run check() or hit the check
-# button in the 'Build' tab, R will automatically run all
-# tests contained in this test file. Note that each test is
-# run in its own environment to keep the whole process clean.
-# This means that all packages to be used in the tests must
-# be loaded within this file first. Also, all files to be
-# accessed must either be contained in the directory in which
-# the test is run (which is /testthat), or a relative path must
-# be provided to show where a file can be found (which is what
-# I did, see below).
+# First, we have the problem of finding all the Rmd files which we want to test.
+# There are three approaches to finding files in a package when you don't know
+# where the package is going to be. First, you can use relative paths, but that
+# can be tricky because you don't quite know where the process will be located
+# when it runs the tests. Second, you can use "system.file" as we do below. This
+# is OK, but you can't use wild cards, which would make this code more elegant.
+# Third, I bet the **here** package could solve this, but I was hestitant to go
+# down that road.
 
-# PROBLEM: Currently, the tests below succeed when running test(),
-# but they fail when using check(). The issue seems to be that the
-# two commands use different environments. This means that relative
-# file paths that work for one function, here test(), do not work
-# for the other. As a result, check() always returns an error as
-# it cannot find the tutorial.Rmd files at the indicated path. I
-# tried using absolute paths, but that caused both check() and test()
-# to fail. Need to find out what exactly check() does with directories
-# like /inst and /tests - see this https://bit.ly/3fpX62t.
+# Second, once you know where the Rmd file is, you have to "test" it somehow. As
+# you can see, our definition of "test" is to be knittable without causing an
+# error. There is no check to see if "tutorial.html" looks OK, just that that
+# string is returned.
 
-# I turned the tests to comments until this is fixed, otherwise we'll
-# get some errors whenever running check(). However, when removing
-# the # below, you can already run the tests by using test().
+# Third, might we do more here? For example, what we really want to confirm is
+# that, when a student presses the "Run Document" button, things will work. I am
+# not sure if render() is the same thing.
 
 context("Tutorials")
 library(PPBDS.data)
-library(fueleconomy)
-library(learnr)
 
+tut.0.Rmd <- system.file(package = "PPBDS.data", "tutorials/00-shopping-week/tutorial.Rmd")
 
-# Tutorial 0.
+test_that(".Rmd of tutorial 0 knits without error", {
+  expect_output(rmarkdown::render(tut.0.Rmd, output_file = "tutorial.html"),
+                "tutorial.html")
+})
 
-# test_that(".Rmd of tutorial 0 is knitted", {
-#   expect_output(rmarkdown::render("../../inst/tutorials/00-shopping-week/tutorial.Rmd"), "tutorial.html")
+# Both 1 and 3 work interactively, but not with R CMD check. Error for both is:
+
+# '...' used in an incorrect context
+
+# THIS MAKES ME NERVOUS. We use ... in lots of hints. Maybe we shouldn't?
+
+#
+# tut.1.Rmd <- system.file(package = "PPBDS.data", "tutorials/01-visualization/tutorial.Rmd")
+#
+# test_that(".Rmd of tutorial 1 knits without error", {
+#   expect_output(rmarkdown::render(tut.1.Rmd, output_file = "tutorial.html"),
+#                 "tutorial.html")
 # })
 
-
-# Tutorial 1.
-
-# test_that(".Rmd of tutorial 1 is knitted", {
-#   expect_output(rmarkdown::render("../../inst/tutorials/01-visualization/tutorial.Rmd"), "tutorial.html")
+# tut.2.Rmd <- system.file(package = "PPBDS.data", "tutorials/02-tidyverse/tutorial.Rmd")
+#
+# test_that(".Rmd of tutorial 2 knits without error", {
+#   expect_output(rmarkdown::render(tut.2.Rmd, output_file = "tutorial.html"),
+#                 "tutorial.html")
 # })
 
+# This works interactively, but not with R CMD check. Error is:
+# non-numeric argument to binary operator
 
-# Tutorial 2.
-
-# test_that(".Rmd of tutorial 2 is knitted", {
-#   expect_output(rmarkdown::render("../../inst/tutorials/02-tidyverse/tutorial.Rmd"), "tutorial.html")
+# tut.3.Rmd <- system.file(package = "PPBDS.data", "tutorials/03-rubin-causal-model/tutorial.Rmd")
+#
+# test_that(".Rmd of tutorial 3 knits without error", {
+#   expect_output(rmarkdown::render(tut.3.Rmd, output_file = "tutorial.html"),
+#                 "tutorial.html")
 # })
 
-
-# Tutorial 3.
-
-# test_that(".Rmd of tutorial 3 is knitted", {
-#   expect_output(rmarkdown::render("../../inst/tutorials/03-rubin-causal-model/tutorial.Rmd"), "tutorial.html")
-# })
-
-
-# Tutorial 4.
-
-# test_that(".Rmd of tutorial 4 is knitted", {
-#   expect_output(rmarkdown::render("../../inst/tutorials/04-functions/tutorial.Rmd"), "tutorial.html")
-# })
-
-
-
-
+# And then we need 4.
 
