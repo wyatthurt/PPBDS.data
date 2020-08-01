@@ -36,4 +36,5 @@ Remotes:
     rstudio/learnr
 BugReports: https://github.com/davidkane9/PPBDS.data/issues
 Suggests: 
-    testthat
+    testthat,
+    fs
