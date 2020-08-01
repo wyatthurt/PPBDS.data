@@ -2,9 +2,11 @@
 
 Talk about Open Policing. Maybe San Antonia?
 
+No more variable name changes. Need to steady state for the creation of tutorials. OK to add more variables.
+
 # Priorities
 
-* Add testcase for the tutorials. Learn about testthat. Maybe the test is a simple: Does this file knit or does it fail? If it fails then the test fails. --[In progress]
+* Add testcase for the tutorials. Learn about testthat. Maybe the test is a simple: Does this file knit or does it fail? If it fails then the test fails. --[Done]
 
 * Upgrade R to 4.0.2 --[Done]
 
