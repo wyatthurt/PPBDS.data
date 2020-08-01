@@ -1,12 +1,18 @@
 Package: PPBDS.data
 Title: Data for Preceptor's Primer for Bayesian Data Science
-Version: 0.3.1.9000
-Authors@R: 
+Version: 0.3.2.9000
+Authors@R: c(
     person(given = "David",
            family = "Kane",
            role = c("aut", "cre"),
            email = "dave.kane@gmail.com",
-           comment = c(ORCID = "0000-0002-6660-3934"))
+           comment = c(ORCID = "0000-0002-6660-3934")),
+    person(given = "Thomas",
+           family = "Weiss",
+           role = c("ctb"),
+           email = "tcweiss@protonmail.com",
+           comment = c(ORCID = "0000-0003-4084-4868"))
+           )
 Description: Data for Gov 50: Data, a course at Harvard University.
 License: MIT + file LICENSE
 Encoding: UTF-8
@@ -29,3 +35,5 @@ Imports:
 Remotes:
     rstudio/learnr
 BugReports: https://github.com/davidkane9/PPBDS.data/issues
+Suggests: 
+    testthat
