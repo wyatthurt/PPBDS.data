@@ -50,8 +50,8 @@ Table: Data summary\tabular{ll}{
    _______________________ \tab  \cr
    Column type frequency: \tab  \cr
    character \tab 5 \cr
-   factor \tab 2 \cr
-   numeric \tab 3 \cr
+   factor \tab 3 \cr
+   numeric \tab 2 \cr
    ________________________ \tab  \cr
    Group variables \tab None \cr
 }
@@ -61,7 +61,7 @@ Table: Data summary\tabular{ll}{
    skim_variable \tab n_missing \tab complete_rate \tab min \tab max \tab empty \tab n_unique \tab whitespace \cr
    state \tab 110 \tab 1.00 \tab 2 \tab 2 \tab 0 \tab 50 \tab 0 \cr
    gender \tab 141 \tab 1.00 \tab 4 \tab 6 \tab 0 \tab 3 \tab 0 \cr
-   race \tab 287 \tab 0.99 \tab 5 \tab 8 \tab 0 \tab 6 \tab 0 \cr
+   race \tab 287 \tab 0.99 \tab 5 \tab 15 \tab 0 \tab 6 \tab 0 \cr
    pres_appr \tab 9646 \tab 0.75 \tab 6 \tab 10 \tab 0 \tab 3 \tab 0 \cr
    voted \tab 4078 \tab 0.89 \tab 2 \tab 3 \tab 0 \tab 2 \tab 0 \cr
 }
@@ -69,16 +69,16 @@ Table: Data summary\tabular{ll}{
 
 \strong{Variable type: factor}\tabular{lrrlrl}{
    skim_variable \tab n_missing \tab complete_rate \tab ordered \tab n_unique \tab top_counts \cr
+   income \tab 2517 \tab 0.93 \tab TRUE \tab 5 \tab 34 : 11740, 68 : 9974, 0 -: 6300, 17 : 6213 \cr
    age \tab 450 \tab 0.99 \tab TRUE \tab 7 \tab 25 : 7669, 35 : 7342, 45 : 6545, 55 : 6021 \cr
-   education \tab 397 \tab 0.99 \tab TRUE \tab 7 \tab hs : 9269, som: 8540, col: 5540, som: 4688 \cr
+   education \tab 397 \tab 0.99 \tab TRUE \tab 7 \tab Hig: 9269, Som: 8540, Col: 5540, Som: 4688 \cr
 }
 
 
 \strong{Variable type: numeric}\tabular{lrrrrrrrrrl}{
    skim_variable \tab n_missing \tab complete_rate \tab mean \tab sd \tab p0 \tab p25 \tab p50 \tab p75 \tab p100 \tab hist \cr
    year \tab 0 \tab 1.00 \tab 1989.40 \tab 20.50 \tab 1952 \tab 1972 \tab 1992 \tab 2012 \tab 2016 \tab ▃▃▃▃▇ \cr
-   income \tab 2517 \tab 0.93 \tab 2.86 \tab 1.15 \tab 1 \tab 2 \tab 3 \tab 4 \tab 5 \tab ▅▅▇▇▁ \cr
-   ideology \tab 619 \tab 0.98 \tab 3.62 \tab 2.09 \tab 1 \tab 2 \tab 3 \tab 6 \tab 7 \tab ▇▂▂▂▅ \cr
+   ideology \tab 619 \tab 0.98 \tab -0.38 \tab 2.09 \tab -3 \tab -2 \tab -1 \tab 2 \tab 3 \tab ▇▂▂▂▅ \cr
 }
 }
 \author{

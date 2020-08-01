@@ -88,10 +88,10 @@ Table: Data summary\tabular{ll}{
 
 \strong{Variable type: numeric}\tabular{lrrrrrrrrrl}{
    skim_variable \tab n_missing \tab complete_rate \tab mean \tab sd \tab p0 \tab p25 \tab p50 \tab p75 \tab p100 \tab hist \cr
-   birth_year \tab 0 \tab 1 \tab 1956.21 \tab 14.45 \tab 1900 \tab 1947 \tab 1956 \tab 1965 \tab 1986 \tab ▁▁▅▇▃ \cr
-   primary_06 \tab 0 \tab 1 \tab 0.32 \tab 0.46 \tab 0 \tab 0 \tab 0 \tab 1 \tab 1 \tab ▇▁▁▁▃ \cr
-   hh_size \tab 0 \tab 1 \tab 2.18 \tab 0.79 \tab 1 \tab 2 \tab 2 \tab 2 \tab 8 \tab ▇▂▁▁▁ \cr
-   no_of_names \tab 0 \tab 1 \tab 20.93 \tab 0.51 \tab 1 \tab 21 \tab 21 \tab 21 \tab 21 \tab ▁▁▁▁▇ \cr
+   birth_year \tab 0 \tab 1.00 \tab 1956.21 \tab 14.45 \tab 1900 \tab 1947 \tab 1956 \tab 1965 \tab 1986 \tab ▁▁▅▇▃ \cr
+   primary_06 \tab 0 \tab 1.00 \tab 0.32 \tab 0.46 \tab 0 \tab 0 \tab 0 \tab 1 \tab 1 \tab ▇▁▁▁▃ \cr
+   hh_size \tab 0 \tab 1.00 \tab 2.18 \tab 0.79 \tab 1 \tab 2 \tab 2 \tab 2 \tab 8 \tab ▇▂▁▁▁ \cr
+   no_of_names \tab 305883 \tab 0.11 \tab 20.93 \tab 0.52 \tab 10 \tab 21 \tab 21 \tab 21 \tab 21 \tab ▁▁▁▁▇ \cr
 }
 }
 \author{
