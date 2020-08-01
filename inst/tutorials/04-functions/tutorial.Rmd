@@ -96,12 +96,12 @@ quiz(caption = "Concept Check: Map functions and list-columns",
 
 Create a list-column called `col_2` using `str_split()` that splits the phrases into "Government", "Data Science", "Preceptor", and "Primer".
 
-```{r exercise-0, exercise = TRUE}
+```{r exercise-0, exercise = TRUE, eval=FALSE}
 tibble(col_1 = c("Government and Data Science", "Preceptor and Primer")) %>%
   mutate(col_2 = ...)
 ```
 
-```{r exercise-0-hint}
+```{r exercise-0-hint, eval=FALSE}
 tibble(col_1 = c("Government and Data Science", "Preceptor and Primer")) %>%
   mutate(col_2 = str_split(..., " and "))
 ```
@@ -115,7 +115,7 @@ tibble(col_1 = c("Government and Data Science", "Preceptor and Primer")) %>%
   mutate(col_2 = str_split(col_1, " and "))
 ```
 
-```{r exercise-1b-hint}
+```{r exercise-1b-hint, eval=FALSE}
 tibble(col_1 = c("Government and Data Science", "Preceptor and Primer")) %>%
   mutate(col_2 = str_split(..., " and ")) %>%
   str()
@@ -129,19 +129,19 @@ Explore the `ChickWeight` dataset using `skim()`.
 
 ```
 
-```{r exercise-1-hint}
+```{r exercise-1-hint, eval=FALSE}
 skim(...)
 ```
 
 Create a list-column of `weight`s using `mutate()`called `weight_groups`, grouping by `Diet` and `Time`.
 
-```{r exercise-2, exercise = TRUE}
+```{r exercise-2, exercise=TRUE, eval=FALSE}
 ChickWeight %>%
   group_by(Diet, Time) %>%
   mutate(...)
 ```
 
-```{r exercise-2-hint}
+```{r exercise-2-hint, eval=FALSE}
 ChickWeight %>%
   group_by(Diet, Time) %>%
   mutate(weight_groups = list(...))
@@ -151,14 +151,14 @@ ChickWeight %>%
 
 Use a `map_*` function to find the mean weight per row in the new list-column. Name this new column `mean_weight`.
 
-```{r exercise-3, exercise = TRUE}
+```{r exercise-3, exercise=TRUE, eval=FALSE}
 ChickWeight %>%
   group_by(Diet, Time) %>%
   mutate(weight_groups = list(weight)) %>%
   mutate(mean_weight = map_dbl(...))
 ```
 
-```{r exercise-3-hint}
+```{r exercise-3-hint, eval=FALSE}
 ChickWeight %>%
   group_by(Diet, Time) %>%
   mutate(weight_groups = list(weight)) %>%
@@ -169,7 +169,7 @@ ChickWeight %>%
 
 Now let's use `map_dbl()` to round each `mean_weight` to the nearest integer. Name this new column `rounded_mean`. 
 
-```{r exercise-4, exercise = TRUE}
+```{r exercise-4, exercise=TRUE, eval=FALSE}
 ChickWeight %>%
   group_by(Diet, Time) %>%
   mutate(weight_groups = list(weight)) %>%
@@ -177,7 +177,7 @@ ChickWeight %>%
   mutate(rounded_mean = map_dbl(...))
 ```
 
-```{r exercise-4-hint}
+```{r exercise-4-hint, eval=FALSE}
 ChickWeight %>%
   group_by(Diet, Time) %>%
   mutate(weight_groups = list(weight)) %>%
@@ -204,14 +204,14 @@ quiz(caption = "",
 
 Now let's use a `map_*` function to find the highest weight per `Diet` + `Time` combination. First, let's sort from highest to lowest weight and create a new column named `sorted_weight`.
 
-```{r exercise-5, exercise = TRUE}
+```{r exercise-5, exercise = TRUE, eval=FALSE}
 ChickWeight %>%
   group_by(Diet, Time) %>%
   mutate(weight_groups = list(weight)) %>%
   mutate(sorted_weight = map(weight_groups, ...))
 ```
 
-```{r exercise-5-hint}
+```{r exercise-5-hint, eval=FALSE}
 ChickWeight %>%
   group_by(Diet, Time) %>%
   mutate(weight_groups = list(weight)) %>%
@@ -222,7 +222,7 @@ ChickWeight %>%
 
 Return the highest weight in each row of the `sorted_weight` list-column in a new column named `heaviest`.
 
-```{r exercise-6, exercise = TRUE}
+```{r exercise-6, exercise=TRUE, eval=FALSE}
 ChickWeight %>%
   group_by(Diet, Time) %>%
   mutate(weight_groups = list(weight)) %>%
@@ -230,7 +230,7 @@ ChickWeight %>%
   mutate(heaviest = map_dbl(...))
 ```
 
-```{r exercise-6-hint}
+```{r exercise-6-hint, eval=FALSE}
 ChickWeight %>%
   group_by(Diet, Time) %>%
   mutate(weight_groups = list(weight)) %>%
@@ -252,11 +252,11 @@ quiz(caption = "",
 
 Let's reference the `gapminder` dataset. First, create a list-column named `gdpPercap_yearly` that lists the `gdpPercap` per year grouping by continent.
 
-```{r exercise-7a, exercise=TRUE}
+```{r exercise-7a, exercise=TRUE, eval=FALSE}
 
 ```
 
-```{r exercise-7a-hint}
+```{r exercise-7a-hint, eval=FALSE}
 gapminder %>%
   group_by(year, continent) %>%
   mutate(gdpPercap_yearly = list(...))
@@ -266,13 +266,13 @@ gapminder %>%
 
 Now, build upon the previous question's code and, instead of taking the `gdpPercap`, calculate the *annual GDP of the country* in a new variable called `annual_gdp`.
 
-```{r exercise-8a, exercise=TRUE}
+```{r exercise-8a, exercise=TRUE, eval=FALSE}
 gapminder %>%
   group_by(year, continent) %>%
   mutate(annual_gdp = list(...))
 ```
 
-```{r exercise-8a-hint}
+```{r exercise-8a-hint, eval=FALSE}
 gapminder %>%
   group_by(year, continent) %>%
   mutate(annual_gdp = list(gdpPercap * ...))
@@ -282,14 +282,14 @@ gapminder %>%
 
 What was the lowest GDP in each `year` x `continent` category? Create a new column named `lowest` of data type "double" that contains the lowest GDP per year/continent. Pay attention to the `map_*` function you use.
 
-```{r exercise-9a, exercise=TRUE}
+```{r exercise-9a, exercise=TRUE, eval=FALSE}
 gapminder %>%
   group_by(year, continent) %>%
   mutate(annual_gdp = list(gdpPercap * pop)) %>%
   mutate(lowest = ...)
 ```
 
-```{r exercise-9a-hint}
+```{r exercise-9a-hint, eval=FALSE}
 gapminder %>%
   group_by(year, continent) %>%
   mutate(annual_gdp = list(gdpPercap * pop)) %>%
@@ -307,7 +307,7 @@ gapminder %>%
   mutate(lowest = map_dbl(annual_gdp, min))
 ```
 
-```{r exercise-10a-hint, exercise = TRUE}
+```{r exercise-10a-hint, eval=FALSE}
 gapminder %>%
   group_by(year, continent) %>%
   mutate(annual_gdp = list(gdpPercap * pop)) %>%
@@ -331,14 +331,14 @@ quiz(caption = "",
 
 Now let's examine what the highest GDP was per year/continent. Create a new column named `highest` of data type "double" that contains the lowest GDP per year/continent. Pay attention to the `map_*` function you use.
 
-```{r exercise-11a, exercise=TRUE}
+```{r exercise-11a, exercise=TRUE, eval=FALSE}
 gapminder %>%
   group_by(year, continent) %>%
   mutate(annual_gdp = list(gdpPercap * pop)) %>%
   mutate(highest = ...)
 ```
 
-```{r exercise-11a-hint}
+```{r exercise-11a-hint, eval=FALSE}
 gapminder %>%
   group_by(year, continent) %>%
   mutate(annual_gdp = list(gdpPercap * pop)) %>%
@@ -356,7 +356,7 @@ gapminder %>%
   mutate(highest = map_dbl(annual_gdp, max))
 ```
 
-```{r exercise-12a-hint}
+```{r exercise-12a-hint, eval=FALSE}
 gapminder %>%
   group_by(year, continent) %>%
   mutate(annual_gdp = list(gdpPercap * pop)) %>%
@@ -445,7 +445,7 @@ x <- c(100, 100, 100, 100, 100, 100, 100, 100, 100, 90)
 x
 ```
 
-```{r norm-hint}
+```{r norm-hint, eval=FALSE}
 (sum(x) - min(x)) / ...
 ```
 
@@ -457,7 +457,7 @@ Save the code below as a function named `grade`.
 (sum(x) - min(x)) / 9
 ```
 
-```{r grade-hint}
+```{r grade-hint, eval=FALSE}
 grade <- function() { 
   ...
 }
@@ -469,13 +469,13 @@ At the moment, your `grade()` function is reusable but not _generalizable_. Each
 
 Make `x` a formal argument.
 
-```{r exercise-random-name, exercise=TRUE}
+```{r exercise-random-name, exercise=TRUE, eval=FALSE}
 grade <- function() { 
   ...
 }
 ```
 
-```{r exercise-random-name-hint}
+```{r exercise-random-name-hint, eval=FALSE}
 grade <- function(...) { 
   (sum(x) - min(x)) / 9
 }
@@ -493,7 +493,7 @@ grade <- function(x) {
 ```{r make-grade, exercise = TRUE}
 ```
 
-```{r make-grade-hint}
+```{r make-grade-hint, eval=FALSE}
 # Use the provided vector!
 ```
 
@@ -536,7 +536,7 @@ Write a piece of code that uses `max()` to double count the highest score in `x`
 x
 ```
 
-```{r e3-hint}
+```{r e3-hint, eval=FALSE}
 (sum(x) + max(x)) / ...
 ```
 
@@ -548,7 +548,7 @@ Wrap your code in `function()` and save it to the name `grade2`. Then define the
 (sum(x) + max(x)) / 11
 ```
 
-```{r e4-hint}
+```{r e4-hint, eval=FALSE}
 grade2 <- function(x) {
   ...
 }
@@ -581,17 +581,17 @@ quiz(caption = "",
 
 Write a custom function named `add_rvs()` that adds together 1 random variable generated by `runif()` and 1 random variable generated by `rnorm()`. Use `n=1` and the default values for the other arguments.
 
-```{r rvs_q, exercise = TRUE}
+```{r rvs_q, exercise=TRUE, eval=FALSE}
 add_rvs <- function(){
   ...
 }
 ```
 
-```{r rvs_q-hint-1}
+```{r rvs_q-hint-1, eval=FALSE}
 # You can add random variables like so: runif(1) + rnorm(1)
 ```
 
-```{r rvs_q-hint-2}
+```{r rvs_q-hint-2, eval=FALSE}
 add_rvs <- function() {
   runif(1) + rnorm(...)
 }
@@ -599,13 +599,13 @@ add_rvs <- function() {
 
 What if you wanted to customize `n`? Add a formal argument `n` to your `add_rvs()` function with a default value of 1.
 
-```{r rvs_q2, exercise = TRUE}
+```{r rvs_q2, exercise=TRUE, eval=FALSE}
 add_rvs <- function() {
   ...
 }
 ```
 
-```{r rvs_q2-hint}
+```{r rvs_q2-hint, eval=FALSE}
 add_rvs <- function(n = 1) {
   runif(n) + rnorm(...)
 }
@@ -613,11 +613,11 @@ add_rvs <- function(n = 1) {
 
 We want to call `add_rvs()` twenty times. That is a lot of manual function calling! Let's make the function `replicate()` do the work for us instead. Call `add_rvs()` twenty times using `replicate()`. Use the default value of the `n` argument in `add_rvs()`.
 
-```{r replicate, exercise = TRUE}
+```{r replicate, exercise=TRUE, eval=FALSE}
 replicate(...)
 ```
 
-```{r replicate-hint}
+```{r replicate-hint, eval=FALSE}
 replicate(20, ...)
 # Remember to use the parentheses when calling a function from inside replicate()!
 ```
@@ -859,7 +859,7 @@ angry <- function(x) {
 }
 ```
 
-```{r angry-hint}
+```{r angry-hint, eval=FALSE}
 angry <- function(x) {
   ...("Wrong! I am angry!")
   x
@@ -874,7 +874,7 @@ angry <- function(x) {
 }
 ```
 
-```{r ifthenstop-hint}
+```{r ifthenstop-hint, eval=FALSE}
 angry <- function(x) {
   if (!is.character(x)){
     ...("x must be a character.")
@@ -897,11 +897,11 @@ angry <- function(x) {
 }
 ```
 
-```{r showfailure, exercise = TRUE}
+```{r showfailure, exercise=TRUE, eval=FALSE}
 show_failure(...)
 ```
 
-```{r showfailure-hint}
+```{r showfailure-hint, eval=FALSE}
 show_failure(angry(x=...))
 ```
 
@@ -923,7 +923,7 @@ mystery <- function(x = 15) {
 }
 ```
 
-```{r mysteryfunc, exercise = TRUE}
+```{r mysteryfunc, exercise=TRUE, eval=FALSE}
 mystery()
 ```
 
@@ -1100,7 +1100,7 @@ foo2 <- function(x) {
 }
 ```
 
-```{r foo_rewrite-hint-1}
+```{r foo_rewrite-hint-1, eval=FALSE}
 foo2 <- function(x) {
   case_when(
     x > 2  ~ "a",
@@ -1110,7 +1110,7 @@ foo2 <- function(x) {
 }
 ```
 
-```{r foo_rewrite-hint-2}
+```{r foo_rewrite-hint-2, eval=FALSE}
 foo2 <- function(x) {
   case_when(
     x > 2  ~ "a",
@@ -1135,7 +1135,7 @@ clean <- function(x) {
 }
 ```
 
-```{r when-hint}
+```{r when-hint, eval=FALSE}
 clean <- function(x) {
   case_when(
     x == -99 ~ NA_real_, 
@@ -1237,7 +1237,7 @@ Explore the `airquality` dataset using `skim()`.
 
 ```
 
-```{r exercise-1a-hint}
+```{r exercise-1a-hint, eval=FALSE}
 skim(...)
 ```
 
@@ -1247,7 +1247,7 @@ Create a list-column of monthly temperatures called `monthly_temp`, grouping by 
 
 ```
 
-```{r exercise-2a-hint}
+```{r exercise-2a-hint, eval=FALSE}
 airquality %>%
    group_by(Month) %>%
    mutate(monthly_temp = list(...))
@@ -1276,14 +1276,14 @@ quiz(caption = "",
 
 Use a `map_*` function to convert all of the temperatures in `monthly_temp` from Fahrenheit to Celsius, creating a new variable `temp_celsius`. Hint: Use the formula from the quiz above!
 
-```{r exercise-3a, exercise = TRUE}
+```{r exercise-3a, exercise=TRUE, eval=FALSE}
 airquality %>%
   group_by(Month) %>%
   mutate(monthly_temp = list(Temp)) %>%
   mutate(...)
 ```
 
-```{r exercise-3a-hint}
+```{r exercise-3a-hint, eval=FALSE}
 airquality %>%
   group_by(Month) %>%
   mutate(monthly_temp = list(Temp)) %>%
@@ -1294,7 +1294,7 @@ Oops! The scientists made a mistake in which all of the temperatures were mis-re
 
 Write an anonymous function using base R that rectifies the scientists' mistake using `case_when()`.
 
-```{r exercise-4a, exercise=TRUE}
+```{r exercise-4a, exercise=TRUE, eval=FALSE}
 function(x) 
   case_when(...)
 ```
@@ -1309,7 +1309,7 @@ function(x)
 
 Now use this function along with `map()`, swapping out the base R for the `~` in the `map()` argument.
 
-```{r exercise-5a, exercise=TRUE}
+```{r exercise-5a, exercise=TRUE, eval=FALSE}
 airquality %>%
   group_by(Month) %>%
   mutate(monthly_temp = list(Temp)) %>%
@@ -1317,7 +1317,7 @@ airquality %>%
   mutate(temp_celsius = map(temp_celsius, ~ ...))
 ```
 
-```{r exercise-5a-hint}
+```{r exercise-5a-hint, eval=FALSE}
 airquality %>%
   group_by(Month) %>%
   mutate(monthly_temp = list(Temp)) %>%
@@ -1329,7 +1329,7 @@ airquality %>%
 
 Now let's get a sense of the "corrected" data. Sort the temperatures from coldest to hottest each month.
 
-```{r exercise-6a, exercise=TRUE}
+```{r exercise-6a, exercise=TRUE, eval=FALSE}
 airquality %>%
   group_by(Month) %>%
   mutate(monthly_temp = list(Temp)) %>%
@@ -1363,11 +1363,11 @@ Let's say you are trying to create a function, `coin_flip()`, that takes an inpu
 
 Let's start by creating a minimally viable function called `starter_coin()` that flips one coin once and prints out `H` or `T`. Remember: You can paste vectors as an argument into `sample()`!
 
-```{r coin1, exercise=TRUE}
+```{r coin1, exercise=TRUE, eval=FALSE}
 
 ```
 
-```{r coin1-hint}
+```{r coin1-hint, eval=FALSE}
 starter_coin <- function() sample(c("H", "T"), ...)
 ```
 
@@ -1375,11 +1375,11 @@ starter_coin <- function() sample(c("H", "T"), ...)
 
 Now let's take it up a notch and add in a formal argument `n` that specifies the number of times to flip the coin.
 
-```{r coin2, exercise=TRUE}
+```{r coin2, exercise=TRUE, eval=FALSE}
 
 ```
 
-```{r coin2-hint}
+```{r coin2-hint, eval=FALSE}
 starter_coin <- function(n) sample(c("H", "T"), n, replace = ...)
 ```
 
@@ -1387,11 +1387,11 @@ starter_coin <- function(n) sample(c("H", "T"), n, replace = ...)
 
 Add in a sensible `stopifnot()` to your function that checks whether the input `n` is numeric.
 
-```{r coin3, exercise=TRUE}
+```{r coin3, exercise=TRUE, eval=FALSE}
 
 ```
 
-```{r coin3-hint}
+```{r coin3-hint, eval=FALSE}
 starter_coin <- function(n) {
   stopifnot(is.numeric(...))
   sample(c("H", "T"), n, replace = TRUE)
@@ -1402,17 +1402,17 @@ starter_coin <- function(n) {
 
 Great! Now we should be able to create `coin_flip()`, which counts the number of Tails for `n` flips. Set the default value of `n` to 1.
 
-```{r coin4, exercise=TRUE}
+```{r coin4, exercise=TRUE, eval=FALSE}
 coin_flip <- function(n = 1) {
   ...
 }
 ```
 
-```{r coin4-hint-1}
+```{r coin4-hint-1, eval=FALSE}
 # Use the code from starter_coin() and sum().
 ```
 
-```{r coin4-hint-2}
+```{r coin4-hint-2, eval=FALSE}
 coin_flip <- function(n = 1) {
   stopifnot(is.numeric(n))
   sum(sample(c("H", "T"), n, replace = TRUE) == ...)
@@ -1425,21 +1425,21 @@ Now let's create a function called `five_flips` that counts how many Tails occur
 * Set the default value of `n` separate flips to 1.
 * Use a `map_*` function to apply the `rep()` function to `coin_flip()` `n` times.
 
-```{r coin5, exercise=TRUE}
+```{r coin5, exercise=TRUE, eval=FALSE}
 five_flips <- function(n = 1) {
   ...
 }
 ```
 
-```{r coin5-hint-1}
+```{r coin5-hint-1, eval=FALSE}
 # The map function you are looking for is map_int().
 ```
 
-```{r coin5-hint-2}
+```{r coin5-hint-2, eval=FALSE}
 # rep(x,n) means that you are flipping x coins n times.
 ```
 
-```{r coin5-hint-3}
+```{r coin5-hint-3, eval=FALSE}
 five_flips <- function(n = 1) {
   stopifnot(is.numeric(n))
   map_int(rep(5, n), ...)
@@ -1462,11 +1462,11 @@ quiz(
 
 Create `x` as specified above. Make sure to use the correct `map_*` function.
 
-```{r coin7, exercise=TRUE}
+```{r coin7, exercise=TRUE, eval=FALSE}
 x <- tibble(flips = ...)
 ```
 
-```{r coin7-hint}
+```{r coin7-hint, eval=FALSE}
 x <- tibble(flips = map(rep(10, 10), ...))
 ```
 
@@ -1483,7 +1483,7 @@ x %>%
   mutate(...)
 ```
 
-```{r coin8-hint}
+```{r coin8-hint, eval=FALSE}
 x %>%
   mutate(average = map_dbl(...),
          minimum = map_dbl(...),
@@ -1503,12 +1503,12 @@ stat_ops <- function(x) {
 }
 ```
 
-```{r coin9, exercise = TRUE, exercise.setup = "coin9setup"}
+```{r coin9, exercise=TRUE, eval=FALSE,, exercise.setup = "coin9setup"}
 x %>%
    mutate(descriptive_stats = ...)
 ```
 
-```{r coin9-hint}
+```{r coin9-hint, eval=FALSE}
 x %>%
    mutate(descriptive_stats = map(flips, ...))
 ```
@@ -1521,14 +1521,14 @@ Remember when you wrote a function called `add_rvs()` that added two random vari
 
 Let's create `biggest()`, which takes the larger of two random variables. Use `n = 1` for both random variables.
 
-```{r biggest1, exercise = TRUE}
+```{r biggest1, exercise=TRUE, eval=FALSE}
 biggest <- function() {
   ...
 }
 
 ```
 
-```{r biggest1-hint}
+```{r biggest1-hint, eval=FALSE}
 biggest <- function() {
   max(runif(...), rnorm(...))
 }
@@ -1540,14 +1540,14 @@ Modify `biggest()` so that it prints out "Uniform" if the larger variable is the
 * Use `case_when()` with `TRUE ~ "Tie"`.
 * Remember that `runif()` and `rnorm()` generate *random* values every time they are called...
 
-```{r biggest2, exercise = TRUE}
+```{r biggest2, exercise=TRUE, eval=FALSE}
 biggest <- function() {
   ...
 }
 
 ```
 
-```{r biggest2-hint-1}
+```{r biggest2-hint-1, eval=FALSE}
 biggest <- function() {
   x <- runif(1)
   y <- rnorm(1)
@@ -1555,7 +1555,7 @@ biggest <- function() {
 }
 ```
 
-```{r biggest2-hint-2}
+```{r biggest2-hint-2, eval=FALSE}
 biggest <- function() {
   x <- runif(1)
   y <- rnorm(1)
@@ -1569,7 +1569,7 @@ biggest <- function() {
 
 We'd like for `biggest()` to return a vector of two elements: The name of the distribution of the larger random variable and its value. If the two values are identical, we'd like for the function to return "Tie" and the value of one of the variables (since they are identical).
 
-```{r biggest3, exercise = TRUE}
+```{r biggest3, exercise=TRUE, eval=FALSE}
 biggest <- function() {
   x <- runif(1)
   y <- rnorm(1)
@@ -1579,7 +1579,7 @@ biggest <- function() {
 }
 ```
 
-```{r biggest3-hint}
+```{r biggest3-hint, eval=FALSE}
 biggest <- function() {
   x <- runif(1)
   y <- rnorm(1)
@@ -1594,7 +1594,7 @@ biggest <- function() {
 Now we want to run `biggest()` to be run multiple times. Let's create a new function named `repeat_biggest()` that does so by calling `biggest()` `n` number of times.
 * Use `replicate()` to call the function multiple times.
 
-```{r newfunc, exercise = TRUE}
+```{r newfunc, exercise=TRUE, eval=FALSE}
 repeat_biggest <- function(n){
   replicate(...)
 }
@@ -1608,11 +1608,11 @@ repeat_biggest <- function(n = 1){
 
 Create a tibble named `rvs` with one variable: `trials`. `trials` is a list column of 25 observations, each element of which is a result of calling `repeat_biggest(3)`.
 
-```{r lastq, exercise = TRUE}
+```{r lastq, exercise=TRUE, eval=FALSE}
 rvs <- tibble(...)
 ```
 
-```{r lastq-hint}
+```{r lastq-hint, eval=FALSE}
 rvs <- tibble(trials = map(rep(3, 25), ...))
 ```
 
@@ -1639,11 +1639,11 @@ Let's put our visualization skills to the test.
 
 Create a tibble with column "games" and run `crooked_craps()` 100 times.
 
-```{r crooked-1, exercise=TRUE}
+```{r crooked-1, exercise=TRUE, eval=FALSE}
 
 ```
 
-```{r crooked-1-hint}
+```{r crooked-1-hint, eval=FALSE}
 tibble(games = crooked_craps(...))
 ```
 
@@ -1651,7 +1651,7 @@ tibble(games = crooked_craps(...))
 
 Using `geom_bar()` and the `games` variable as the `x` aesthetic, create a bar plot.
 
-```{r crooked-2, exercise=TRUE}
+```{r crooked-2, exercise=TRUE, eval=FALSE}
 tibble(games = crooked_craps(100))
 ```
 
@@ -1659,13 +1659,13 @@ tibble(games = crooked_craps(100))
 
 Now, use `scale_x_continuous()` to make the the x-axis go from 2 to 12 by integers.
 
-```{r crooked-3, exercise=TRUE}
+```{r crooked-3, exercise=TRUE, eval=FALSE}
 tibble(games = crooked_craps(100)) %>%
   ggplot(aes(x = games)) +
   geom_bar()
 ```
 
-```{r crooked-3-hint}
+```{r crooked-3-hint, eval=FALSE}
 tibble(games = crooked_craps(100)) %>%
   ggplot(aes(x = games)) +
   geom_bar() %>%
@@ -1674,11 +1674,11 @@ tibble(games = crooked_craps(100)) %>%
 
 Great! Hmm... we're not entirely sure this plot is representative. It does look like what we'd expect, but running `crooked_craps()` 10 times feels safer than running it just once. Use an appropriate `map_*` function and `rep()` to call `crooked_craps(100)` 10 times. Create a tibble named `x` with a column named `games`.
 
-```{r crooked-4, exercise=TRUE}
+```{r crooked-4, exercise=TRUE, eval=FALSE}
 
 ```
 
-```{r crooked-4-hint}
+```{r crooked-4-hint, eval=FALSE}
 x <- tibble(games = map(rep(100, 10), ...))
 ```
 
@@ -1686,12 +1686,12 @@ Inside each of these iterations of 100 rolls, we want to count the number of 3's
 
 First, count the number of 3's. You can do so by using a the appropriate `map_*` function and an anonymous function defined as `sum(. == 3)`.
 
-```{r crooked-5, exercise=TRUE}
+```{r crooked-5, exercise=TRUE, eval=FALSE}
 x <- tibble(games = map(rep(100, 10), crooked_craps)) %>%
   mutate(counts = ...)
 ```
 
-```{r crooked-5-hint}
+```{r crooked-5-hint, eval=FALSE}
 x <- tibble(games = map(rep(100, 10), crooked_craps)) %>%
   mutate(counts = map_int(games, ~(...)))
 ```
@@ -1705,7 +1705,7 @@ x <- tibble(games = map(rep(100, 10), crooked_craps)) %>%
   mutate(counts = map_int(games, ~sum(. == 3)))
 ```
 
-```{r crooked-6-hint}
+```{r crooked-6-hint, eval=FALSE}
 x <- tibble(games = map(rep(100, 10), crooked_craps)) %>%
   mutate(counts = map(games, ~list(sum(. == 3), ...)))
 ```

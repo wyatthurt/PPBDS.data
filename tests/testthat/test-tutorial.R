@@ -1,8 +1,23 @@
-# Zero, testing is hard, as a deleted comment mentions. The environment when
-# executing interactively is not the same as the one for R CMD check. See
-# comments below. Interactive use seems OK with ... put any old place. R CMD
-# check is not OK with this, which is a problem since we have it everywhere . .
-# .
+# Any code in a tutorial, including in a hint, which produces an error when run
+# on its own will cause an error if you use R CMD check. Most common example is
+# when you have ... to indicate to the student that they should replace the ...
+# with something. Best solution is to set eval=FALSE in all hint chunks.
+
+# Testing is hard. There are (at least) two different environments in which we
+# run tests. First, and most important, is when we run R CMD check. This is the
+# most rigorous check. Most importantly, it seems to require that code written
+# in hint code chunks work correctly. So, you can't just have things like
+# library(...) around, even though that is an extremely convenient way to
+# indicate to the student that they need to use the library function with some
+# argument. The second environment is when you press "Test Package". I think
+# that all this does is to source tests/testthat.R. (And this environment is
+# (mostly) the same as when you just execute tests interactively. At least, the
+# two give the same answer.) But, in this second case, the code in hint chunks
+# is not evaluated.
+
+# Side note: Because we use the system.package hack, we are only ever testing
+# the tutorials which are already installed. If you make a change in a file, you
+# need to reinstall before running the test.
 
 # First, we have the problem of finding all the Rmd files which we want to test.
 # There are three approaches to finding files in a package when you don't know
@@ -27,9 +42,6 @@
 # think. Be good to figure this out before we write a few hundred more questions
 # . . .
 
-# Advice. Create a new tutorial with just one question which has a ... If we
-# can't get that to render() within the testing environment, we have a problem.
-# Maybe ask at RStudio Community.
 
 context("Tutorials")
 library(PPBDS.data)
@@ -41,44 +53,32 @@ test_that(".Rmd of tutorial 0 knits without error", {
                 "tutorial.html")
 })
 
-# Both 1 and 3 work interactively, but not with R CMD check. Error for both is:
+tut.1.Rmd <- system.file(package = "PPBDS.data", "tutorials/01-visualization/tutorial.Rmd")
 
-# '...' used in an incorrect context
+test_that(".Rmd of tutorial 1 knits without error", {
+  expect_output(rmarkdown::render(tut.1.Rmd, output_file = "tutorial.html"),
+                "tutorial.html")
+})
 
-# THIS MAKES ME NERVOUS. We use ... in lots of hints. Maybe we shouldn't?
+tut.2.Rmd <- system.file(package = "PPBDS.data", "tutorials/02-tidyverse/tutorial.Rmd")
 
-#
-# tut.1.Rmd <- system.file(package = "PPBDS.data", "tutorials/01-visualization/tutorial.Rmd")
-#
-# test_that(".Rmd of tutorial 1 knits without error", {
-#   expect_output(rmarkdown::render(tut.1.Rmd, output_file = "tutorial.html"),
-#                 "tutorial.html")
-# })
+test_that(".Rmd of tutorial 2 knits without error", {
+  expect_output(rmarkdown::render(tut.2.Rmd, output_file = "tutorial.html"),
+                "tutorial.html")
+})
 
-# tut.2.Rmd <- system.file(package = "PPBDS.data", "tutorials/02-tidyverse/tutorial.Rmd")
-#
-# test_that(".Rmd of tutorial 2 knits without error", {
-#   expect_output(rmarkdown::render(tut.2.Rmd, output_file = "tutorial.html"),
-#                 "tutorial.html")
-# })
+tut.3.Rmd <- system.file(package = "PPBDS.data", "tutorials/03-rubin-causal-model/tutorial.Rmd")
 
-# This works interactively, but not with R CMD check. Error is:
-# non-numeric argument to binary operator
+test_that(".Rmd of tutorial 3 knits without error", {
+  expect_output(rmarkdown::render(tut.3.Rmd, output_file = "tutorial.html"),
+                "tutorial.html")
+})
 
-# tut.3.Rmd <- system.file(package = "PPBDS.data", "tutorials/03-rubin-causal-model/tutorial.Rmd")
-#
-# test_that(".Rmd of tutorial 3 knits without error", {
-#   expect_output(rmarkdown::render(tut.3.Rmd, output_file = "tutorial.html"),
-#                 "tutorial.html")
-# })
 
-# Works interactive. Fails with  '...' used in an incorrect context when a
-# button is pressed.
+tut.4.Rmd <- system.file(package = "PPBDS.data", "tutorials/04-functions/tutorial.Rmd")
 
-# tut.4.Rmd <- system.file(package = "PPBDS.data", "tutorials/04-functions/tutorial.Rmd")
-#
-# test_that(".Rmd of tutorial 4 knits without error", {
-#   expect_output(rmarkdown::render(tut.4.Rmd, output_file = "tutorial.html"),
-#                 "tutorial.html")
-# })
+test_that(".Rmd of tutorial 4 knits without error", {
+  expect_output(rmarkdown::render(tut.4.Rmd, output_file = "tutorial.html"),
+                "tutorial.html")
+})
 

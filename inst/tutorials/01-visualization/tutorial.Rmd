@@ -137,7 +137,7 @@ question("Which of these would be valid object names?",
 
 In the code chunk below, save the results of `rnorm(100, mean = 100, sd = 15)` to an object named `data`. Then, on a new line, call the `hist()` function on `data` to plot a histogram of the random values.
 
-```{r objects-2, exercise = TRUE}
+```{r objects-2, exercise=TRUE}
 
 ```
 
@@ -145,7 +145,7 @@ In the code chunk below, save the results of `rnorm(100, mean = 100, sd = 15)` t
 
 What do you think would happen if you assigned `data` to a new object named `copy`, like this? Run the code and then inspect both `data` and `copy`.
 
-```{r objects-3, exercise = TRUE}
+```{r objects-3, exercise=TRUE}
 data <- rnorm(100, mean = 100, sd = 15)
 copy <- data
 ```
@@ -168,7 +168,7 @@ In the chunk below, create a vector that contains the integers from one to ten.
 
 ```
 
-```{r vectors-1-hint}
+```{r vectors-1-hint, eval=FALSE}
 c(...)
 ```
 
@@ -564,7 +564,7 @@ quiz(
 
 ```
 
-```{r exercise-6-hint}
+```{r exercise-6-hint, eval=FALSE}
 library(...)
 
 ...
@@ -578,7 +578,7 @@ library(...)
 
 ```
 
-```{r exercise-7-hint}
+```{r exercise-7-hint, eval=FALSE}
 library(...)
 
 ggplot(data = qscores, mapping = aes(x = ..., y = ...)) +
@@ -594,7 +594,7 @@ ggplot(data = qscores, mapping = aes(x = rating, y = hours)) +
   geom_point()
 ```
 
-```{r exercise-8-hint}
+```{r exercise-8-hint, eval=FALSE}
 ggplot(data = qscores, mapping = aes(x = rating, y = hours, size = ...)) +
   geom_point()
 ```
@@ -632,7 +632,7 @@ ggplot(data = qscores, mapping = aes(x = rating, y = hours, size = enrollment)) 
   geom_point()
 ```
 
-```{r exercise-9-hint}
+```{r exercise-9-hint, eval=FALSE}
 ggplot(data = qscores, mapping = aes(x = rating, y = hours, size = enrollment)) +
   geom_point(alpha = ...)
 ```
@@ -682,7 +682,7 @@ cces_data <- cces %>%
 
 ```
 
-```{r exercise-11-hint}
+```{r exercise-11-hint, eval=FALSE}
 ggplot(data = cces_data, mapping = aes(x = ..., y = ..., color = ...)) +
   geom_line()
 ```
@@ -724,7 +724,7 @@ quiz(
 
 ```
 
-```{r exercise-12-hint}
+```{r exercise-12-hint, eval=FALSE}
 ggplot(data = ..., mapping = aes(x = ...)) + ...
 ```
 
@@ -745,7 +745,7 @@ ggplot(data = qscores, mapping = aes(x = rating)) +
   geom_histogram()
 ```
 
-```{r exercise-13-hint}
+```{r exercise-13-hint, eval=FALSE}
 ggplot(data = qscores, mapping = aes(x = rating)) + 
   geom_histogram(color = ..., fill = ...)
 ```
@@ -759,7 +759,7 @@ ggplot(data = qscores, mapping = aes(x = rating)) +
   geom_histogram()
 ```
 
-```{r exercise-14-hint}
+```{r exercise-14-hint, eval=FALSE}
 ggplot(data = qscores, mapping = aes(x = rating)) +
   geom_histogram(bins = ..., color = ...)
 ```
@@ -773,7 +773,7 @@ ggplot(data = qscores, mapping = aes(x = rating)) +
   geom_histogram()
 ```
 
-```{r exercise-15-hint}
+```{r exercise-15-hint, eval=FALSE}
 ggplot(data = qscores, mapping = aes(x = rating)) +
   geom_histogram(binwidth = ..., color = ...)
 ```
@@ -826,7 +826,7 @@ top_five_qscores <- qscores %>% filter(department %in% top_five_enrolled[0:5])
 
 ```
 
-```{r exercise-16-hint}
+```{r exercise-16-hint, eval=FALSE}
 ggplot(data = ..., mapping = aes(x = ..., y = ...)) +
   ...
 ```
@@ -904,7 +904,7 @@ top_five_qscores <- qscores %>% filter(department %in% top_five_enrolled[0:5])
 
 ```
 
-```{r exercise-17-hint}
+```{r exercise-17-hint, eval=FALSE}
 ggplot(data = ..., mapping = aes(x = ...)) +
   ...
 ```
@@ -942,7 +942,7 @@ top_five_qscores_counted <- top_five_qscores %>%
 
 ```
 
-```{r exercise-18-hint}
+```{r exercise-18-hint, eval=FALSE}
 ggplot(data = top_five_qscores_counted, mapping = aes(x = ..., y = ...)) +
   ...
 ```
@@ -966,7 +966,7 @@ quiz(
 
 ```
 
-```{r exercise-19-hint}
+```{r exercise-19-hint, eval=FALSE}
 ggplot(data = ..., mapping = aes(x = ...)) + ...
 ```
 
@@ -978,7 +978,7 @@ ggplot(data = ..., mapping = aes(x = ...)) + ...
 ggplot(data = trains, mapping = aes(x = treatment)) + geom_bar()
 ```
 
-```{r exercise-20-hint}
+```{r exercise-20-hint, eval=FALSE}
 ggplot(data = trains, mapping = aes(x = treatment, fill = ...)) + geom_bar()
 ```
 
@@ -999,7 +999,7 @@ ggplot(data = trains, mapping = aes(x = treatment, fill = party)) +
   geom_bar()
 ```
 
-```{r exercise-22-hint}
+```{r exercise-22-hint, eval=FALSE}
 ggplot(data = trains, mapping = aes(x = treatment, fill = party)) +
   geom_bar(position = ...)
 ```
@@ -1013,7 +1013,7 @@ ggplot(data = trains, mapping = aes(x = treatment)) +
   geom_bar()
 ```
 
-```{r exercise-23-hint}
+```{r exercise-23-hint, eval=FALSE}
 ggplot(data = trains, mapping = aes(x = treatment)) + geom_bar() + ...
 ```
 
@@ -1105,7 +1105,7 @@ If you are looking for a way to start, I recommend using a smooth line with colo
 
 ```
 
-```{r r6-hint}
+```{r r6-hint, eval=FALSE}
 ggplot(data = diamonds, mapping = aes(x = carat, y = price)) +
   geom_smooth(mapping = aes(color = cut), se = FALSE) + 
   labs(...)
@@ -1297,7 +1297,9 @@ In this case, you need to identify the default scale used by the plot and then m
 For example, our plot above relies on the default color scale for a discrete variable, which happens to be `scale_color_discrete()`. If you know this, you can relabel the legend like so:
 
 ```{r out.width = "80%"}
-p1 + scale_color_discrete(name = "Cut Grade", labels = c("Very Bad", "Bad", "Mediocre", "Nice", "Very Nice"))
+p1 + scale_color_discrete(name = "Cut Grade", 
+                          labels = c("Very Bad", "Bad", "Mediocre", 
+                                     "Nice", "Very Nice"))
 ```
 
 #### Scale defaults
@@ -1322,11 +1324,11 @@ shape	    | discrete	 | scale_shape()
 Use the list of scale defaults above to relabel the legend in `p_cont`. The legend should have the title "Highway MPG". Also place the legend at the top of the plot.
 
 ```{r r17, exercise = TRUE}
-p_cont
+p1
 ```
 
-```{r r17-hint}
-p_cont + scale_color_continuous(...) + theme(...)
+```{r r17-hint, eval=FALSE}
+p1 + scale_color_continuous(...) + theme(...)
 ```
 
 #### Axis labels
@@ -1334,7 +1336,9 @@ p_cont + scale_color_continuous(...) + theme(...)
 In ggplot2, the axes are the "legends" associated with the $x$ and $y$ aesthetics. As a result, you can control axes titles and labels in the same way as you control legend titles and labels:
 
 ```{r}
-p1 + scale_x_continuous(name = "Carat Size", labels = c("Zero", "One", "Two", "Three", "Four", "Five"))
+p1 + scale_x_continuous(name = "Carat Size", 
+                        labels = c("Zero", "One", "Two", 
+                                   "Three", "Four", "Five"))
 ```
 
 ### Scales
@@ -1437,7 +1441,7 @@ p1 + scale_color_brewer(palette = "Spectral")
 
 ```
 
-```{r r11-hint}
+```{r r11-hint, eval=FALSE}
 palette = "Spectral"
 ```
 
