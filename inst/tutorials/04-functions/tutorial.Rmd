@@ -431,6 +431,7 @@ Create an object named `x` that contains the vector `c(100, 100, 100, 100, 100, 
 *`x` will be the grades of your test student. 
 
 ```{r obj, exercise=TRUE}
+
 ```
 
 ```{r obj-solution}
@@ -495,6 +496,7 @@ grade <- function(x) {
 ```
 
 ```{r make-grade, exercise=TRUE}
+
 ```
 
 ```{r make-grade-hint, eval=FALSE}
@@ -1642,7 +1644,7 @@ Create a tibble with column "games" and run `crooked_craps()` 100 times.
 
 ```
 
-```{r crooked-1-hint}
+```{r crooked-1-hint, eval=FALSE}
 tibble(games = crooked_craps(...))
 ```
 
@@ -1678,7 +1680,6 @@ Great! Hmm... we're not entirely sure this plot is representative. It does look 
 ```
 
 ```{r crooked-4-hint, eval=FALSE}
->>>>>>> master
 x <- tibble(games = map(rep(100, 10), ...))
 ```
 
@@ -1691,7 +1692,7 @@ x <- tibble(games = map(rep(100, 10), crooked_craps)) %>%
   mutate(counts = ...)
 ```
 
-```{r crooked-5-hint}
+```{r crooked-5-hint, eval=FALSE}
 x <- tibble(games = map(rep(100, 10), crooked_craps)) %>%
   mutate(counts = map_int(games, ~(...)))
 ```
@@ -1706,7 +1707,7 @@ x <- tibble(games = map(rep(100, 10), crooked_craps)) %>%
   mutate(counts = map_int(games, ~sum(. == 3)))
 ```
 
-```{r crooked-6-hint}
+```{r crooked-6-hint, eval=FALSE}
 x <- tibble(games = map(rep(100, 10), crooked_craps)) %>%
   mutate(counts = map(games, ~list(sum(. == 3), ...)))
 ```
