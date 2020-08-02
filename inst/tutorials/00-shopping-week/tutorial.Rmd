@@ -27,6 +27,8 @@ Welcome to your first tutorial. The goal of this exercise is to answer some ques
 question_text(
   "Student Name:",
   answer(NULL, correct = TRUE),
+  incorrect = "Ok",
+  try_again_button = "Modify your answer",
   allow_retry = TRUE
 )
 ```

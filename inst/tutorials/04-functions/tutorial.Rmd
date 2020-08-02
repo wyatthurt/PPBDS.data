@@ -1619,7 +1619,7 @@ rvs <- tibble(trials = map(rep(3, 25), ...))
 
 Recall the function we wrote in the chapter to model a crooked game of craps. `crooked_craps()` is expected to return a winning 7 or 11 only *half* of the time the sum is actually 7 or 11. Instead, the other half of the time, it is supposed ot return a 2.
 
-```{r, echo=TRUE}
+```{r echo=TRUE}
 crooked_dice <- function(n = 1) {
   stopifnot(is.numeric(n))
   stopifnot(n >= 0)
@@ -1638,11 +1638,11 @@ Let's put our visualization skills to the test.
 
 Create a tibble with column "games" and run `crooked_craps()` 100 times.
 
-```{r crooked-1, exercise=TRUE, eval=FALSE}
+```{r crooked-1, exercise=TRUE}
 
 ```
 
-```{r crooked-1-hint, eval=FALSE}
+```{r crooked-1-hint}
 tibble(games = crooked_craps(...))
 ```
 
@@ -1678,6 +1678,7 @@ Great! Hmm... we're not entirely sure this plot is representative. It does look 
 ```
 
 ```{r crooked-4-hint, eval=FALSE}
+>>>>>>> master
 x <- tibble(games = map(rep(100, 10), ...))
 ```
 
@@ -1690,7 +1691,7 @@ x <- tibble(games = map(rep(100, 10), crooked_craps)) %>%
   mutate(counts = ...)
 ```
 
-```{r crooked-5-hint, eval=FALSE}
+```{r crooked-5-hint}
 x <- tibble(games = map(rep(100, 10), crooked_craps)) %>%
   mutate(counts = map_int(games, ~(...)))
 ```
@@ -1699,12 +1700,13 @@ x <- tibble(games = map(rep(100, 10), crooked_craps)) %>%
 
 Now, modify `counts` so that it is a list-column of 2 elements per list: The number of 3's, then the number of 11's.
 
-```{r crooked-6, exercise=TRUE}
+
+```{r crooked-6, exercise = TRUE}
 x <- tibble(games = map(rep(100, 10), crooked_craps)) %>%
   mutate(counts = map_int(games, ~sum(. == 3)))
 ```
 
-```{r crooked-6-hint, eval=FALSE}
+```{r crooked-6-hint}
 x <- tibble(games = map(rep(100, 10), crooked_craps)) %>%
   mutate(counts = map(games, ~list(sum(. == 3), ...)))
 ```
@@ -1713,7 +1715,7 @@ x <- tibble(games = map(rep(100, 10), crooked_craps)) %>%
 
 Finally, view the tibble with `str()`.
 
-```{r crooked-7, exercise=TRUE}
+```{r crooked-7, exercise = TRUE}
 x <- tibble(games = map(rep(100, 10), crooked_craps)) %>%
   mutate(counts = map(games, ~list(sum(. == 3), sum(. == 11))))
 ```
