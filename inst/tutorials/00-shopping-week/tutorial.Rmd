@@ -31,8 +31,8 @@ question_text(
 )
 ```
 
-### Exercise 1
-For our first exercise, we'll do some simple math in our console. We've already assigned variables x to 5 and y to 4. On the next line, add the two variables. Hit "Run Code" to see the output of your addition. Clicking "Hint" gives you a hint about what to type into the console. Clicking "Start Over" clears the console and allows you to begin again.
+
+For our first exercise, we'll do some simple math in our console. We've already assigned variables x to 5 and y to 4. On the next line, add the two variables by typing "x + y", but with no quotes. Hit "Run Code" to see the output of your addition. Clicking "Hint" gives you a hint about what to type into the console. Clicking "Start Over" clears the console and allows you to begin again.
 
 ```{r question-1-1, exercise = TRUE}
 x <- 5
@@ -44,8 +44,9 @@ x + y
 ```
 
 
-### Exercise 2
+
 Check the version of R running on your computer. You can do this by copy-pasting `version[['version.string']]` into your console and hit "Run Code". You will use the output of this line of code to answer the following question. 
+
 ```{r question-1-2, exercise = TRUE}
 
 ```
@@ -54,46 +55,32 @@ Check the version of R running on your computer. You can do this by copy-pasting
 version[['version.string']]
 ```
 
-Here is a different type of question you will encounter in tutorials: multiple choice. If you get the wrong answer for this question, you haven't installed the most recent version of R and should redo the steps from chapter 00.
-If you click the wrong answer in general on multiple choice questions, you can hit "Try Again" for another attempt. 
-```{r question-1-3}
+Here is a different type of question you will encounter in tutorials: multiple choice. If you get the wrong answer for this question, you haven't installed the most recent version of R and should redo the steps from chapter 00. If you click the wrong answer in general on multiple choice questions, you can hit "Try Again" for another attempt. 
 
+```{r question-1-3}
 question("What is the R version running on your computer?",
-    answer("4.0.2"),
-    answer("4.0.1", correct = TRUE),
+    answer("4.0.2", correct = TRUE),
+    answer("4.0.1"),
     answer("4.0.0"),
     answer("3.9.9"),
-    allow_retry = TRUE
-  )
-
+    allow_retry = TRUE)
 ```
 
-### Exercise 3
 
-At this point, we want to know if your machine saves your progress on tutorials. Close your tutorial and restart your R session, then open up this tutorial again. Was your progress on exercises 1 and 2 saved? If not, ask for help on setting up tutorials.
+At this point, we want to know if your machine saves your progress on tutorials. Close your tutorial and restart your R session, then open up this tutorial again. Was your progress on the first three questions saved? If not, ask for help on setting up tutorials. (Note that, if you are working on RStudio Cloud, progress will not be saved.)
 
-### Exercise 4
 Now, we are going to load our first dataset. We've already loaded the PPBDS.data in the package -- this is the package our dataset will come from. Type `trains` in the console and hit "Run Code". This should display some observations from the trains dataset. 
 
 ```{r question-1-4, exercise = TRUE}
 library(PPBDS.data)
+
 ```
 
 ```{r question-1-4-hint, silent = TRUE}
 trains
 ```
 
-<!-- Get rid of this exercise? -->
 
-### Exercise 5
-Check if your computer is set to download R packages in binary by typing in `options("pkgType")`. Does it say binary?
-```{r question-1-5, exercise = TRUE}
-
-```
-
-```{r question-1-5-hint, silent = TRUE}
-options("pkgType")
-```
 ## Submit
 
 ```{r context="setup"}
