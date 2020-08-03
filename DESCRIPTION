@@ -25,15 +25,14 @@ Imports:
     shiny (>= 1.4.0.2),
     gapminder,
     fueleconomy,
+    dslabs,
     skimr (>= 2.1.1),
     viridis (>= 0.5.1),
     ggthemes (>= 4.2.0),
     nycflights13,
     gt (>= 0.2.1),
-    learnr,
+    learnr (>= 0.10.1),
     base64enc
-Remotes:
-    rstudio/learnr
 BugReports: https://github.com/davidkane9/PPBDS.data/issues
 Suggests: 
     testthat,

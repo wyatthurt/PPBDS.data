@@ -18,7 +18,6 @@ description: "Chapter 4 tutorial"
 library(tidyverse)
 library(PPBDS.data)
 library(learnr)
-library(learnrhash)
 library(shiny)
 library(gapminder)
 library(skimr)
@@ -442,12 +441,8 @@ x <- c(100, 100, 100, 100, 100, 100, 100, 100, 100, 90)
 
 Use `sum()`, `min()`, `/`, `9` and parentheses to calculate the final grade for student `x`.
 
-```{r make-x, echo = FALSE}
+```{r norm, exercise=TRUE}
 x <- c(100, 100, 100, 100, 100, 100, 100, 100, 100, 90)
-```
-
-```{r norm, exercise=TRUE, setup = "make-x"}
-x
 ```
 
 ```{r norm-hint, eval=FALSE}
@@ -538,8 +533,8 @@ question("Do you have a test vector that you can use?",
 
 Write a piece of code that uses `max()` to double count the highest score in `x` and then takes the average of the 11 results.
 
-```{r e3, exercise=TRUE, exercise.setup = "make-x"}
-x
+```{r e3, exercise=TRUE}
+x <- c(100, 100, 100, 100, 100, 100, 100, 100, 100, 90)
 ```
 
 ```{r e3-hint, eval=FALSE}
@@ -943,8 +938,20 @@ quiz(
            allow_retry = TRUE))
 ```
 
-```{r mysteryfunc2-setup, exercise.setup = "mysteryfunc-setup"}
-
+```{r mysteryfunc2-setup}
+library(testthat)
+mystery <- function(x = 15) {
+  if (!is.numeric(x)){
+    stop("x must be a number.")
+  }
+  if (x <= 10){
+    stop("x must be greater than 10.")
+  }
+  if (x == 13){
+    stop("13 is an unlucky number. Choose a different number.")
+  }
+  sqrt(x)
+}
 ```
 
 ```{r mysteryfunc2, exercise=TRUE, eval=FALSE}
@@ -1480,11 +1487,8 @@ x <- tibble(flips = map(rep(10, 10), ...))
 
 Now we are interested in finding the `mean()`, `min()`, and `max()` of each row. Use the appropriate `map_*` functions to create new columns named `average`, `minimum`, and `maximum`, using the aforementioned functions respectively.
 
-```{r coinsetup}
-x <- tibble(flips = map(rep(10, 10), five_flips))
-```
-
 ```{r coin8-hint, eval=FALSE}
+x <- tibble(flips = map(rep(10, 10), five_flips))
 x %>%
   mutate(average = map_dbl(...),
          minimum = map_dbl(...),
@@ -1495,7 +1499,8 @@ x %>%
 
 That seems kind of clunky to create three new columns. What if I wanted to return a single new list-column named `descriptive_stats` that contained a list of the mean, minimum, and maximum values? Time to write a function!
 
-```{r coin9setup, exercise.setup = "coinsetup"}
+```{r coin9-setup}
+x <- tibble(flips = map(rep(10, 10), five_flips))
 stat_ops <- function(x) {
   a <- mean(x)
   b <- min(x)
@@ -1504,7 +1509,7 @@ stat_ops <- function(x) {
 }
 ```
 
-```{r coin9, exercise=TRUE, eval=FALSE, exercise.setup = "coin9setup"}
+```{r coin9, exercise=TRUE, eval=FALSE}
 x %>%
    mutate(descriptive_stats = ...)
 ```
@@ -1680,6 +1685,7 @@ Great! Hmm... we're not entirely sure this plot is representative. It does look 
 ```
 
 ```{r crooked-4-hint, eval=FALSE}
+>>>>>>> master
 x <- tibble(games = map(rep(100, 10), ...))
 ```
 
@@ -1707,7 +1713,7 @@ x <- tibble(games = map(rep(100, 10), crooked_craps)) %>%
   mutate(counts = map_int(games, ~sum(. == 3)))
 ```
 
-```{r crooked-6-hint, eval=FALSE}
+```{r crooked-6-hint}
 x <- tibble(games = map(rep(100, 10), crooked_craps)) %>%
   mutate(counts = map(games, ~list(sum(. == 3), ...)))
 ```

@@ -15,7 +15,6 @@ description: "Chapter 3 tutorial"
 ```{r setup, include=FALSE}
 library(tidyverse)
 library(learnr)
-library(learnrhash)
 library(shiny)
 library(gt)
 library(PPBDS.data)
