@@ -20,6 +20,19 @@ library(tidyverse)
 # "reg_midwest", "reg_northeast"). This adds little information, given that we already have
 # a variable indicating the federal state in which an election took place.
 
+# How accurate is this data? At random, I looked at Massachusetts and found two
+# years (1908, 1909) with only one candidate (Republican Eben Draper). Yet,
+# Wikipedia tells me that in 1908 and 1909 James H. Vahey ran against Draper.
+# Indeed, in 1909, there was an Independence Party candidate, William Osgood,
+# who got more than 5% of the vote. I have similar concerns about the 1854
+# election in New York, where only 1 of the four candidates who got more than 5%
+# of the vote is listed.  But there are (probably!) not enough omissions like
+# this to change the results . . .
+
+# Also, other data seems wrong. For example, David Williams, candidate for
+# Governor in Kentucky in 2011 is listed with a death date of 2016-01-01, but
+# Wikipedia lists him as alive. Other recent deaths check out. So, no worries?
+
 x <- read_csv("data-raw/longevity.csv",
               col_types = cols(area = col_character(),
                                year = col_integer(),
