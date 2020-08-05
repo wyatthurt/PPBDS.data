@@ -9,7 +9,7 @@
 An object of class \code{shiny.tag} of length 3.
 }
 \usage{
-submission_server()
+submission_server(input, output)
 
 submission_ui
 }

@@ -15,7 +15,7 @@
 #'
 #' @rdname submission_functions
 #' @export
-submission_server <- function() {
+submission_server <- function(input, output) {
   p = parent.frame()
   check_server_context(p)
 
@@ -33,8 +33,8 @@ submission_server <- function() {
 
     output$downloadData <- downloadHandler(
       filename = "tutorial_responses.rds",
-      responses <- encoded_txt(),
       content = function(file) {
+        responses <- encoded_txt()
         write_rds(responses, file)
       }
     )
