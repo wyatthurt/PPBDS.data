@@ -1,5 +1,5 @@
 ---
-title: "Tidyverse"
+title: "Wrangling"
 output:
   learnr::tutorial:
       progressive: true
