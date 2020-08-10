@@ -1,0 +1,39 @@
+---
+title: "One Parameter"
+output:
+  learnr::tutorial:
+      progressive: true
+      allow_skip: true
+runtime: shiny_prerendered
+description: "Chapter 7 tutorial"
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(PPBDS.data)
+library(learnr)
+library(shiny)
+knitr::opts_chunk$set(echo = FALSE, message = FALSE)
+```
+
+## Name
+
+```{r name, echo=FALSE}
+question_text(
+  "Student Name:",
+  answer(NULL, correct = TRUE),
+  incorrect = "Ok",
+  try_again_button = "Modify your answer",
+  allow_retry = TRUE
+)
+```
+
+## Submit
+
+```{r context="setup"}
+submission_ui
+```
+
+```{r context="server"}
+submission_server()
+```
