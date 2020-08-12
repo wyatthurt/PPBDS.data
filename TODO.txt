@@ -27,6 +27,8 @@ http://www.worldvaluessurvey.org/wvs.jsp
 * See https://msberends.github.io/AMR for some ideas to improve website.
 
 
+https://crimebythenumbers.com/
+
 ## Previous
 
 Is there an issue about having library(NHANES) and such in our make_* scripts causing warnings when students just want to library(PPBDS.data)? Maybe this would go away if we changed these make_* files from scripts to functions? We certainly do not want to require anyone who installs this package to have these libraries. That is too much, especially since we will have lots of students installing this package so they can do the tutorial.

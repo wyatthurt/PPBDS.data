@@ -1,17 +1,20 @@
 #' @title Tutorial submission functions
 #'
 #' @description
-#' The following function has modified from Colin
-#' Rundel's learnrhash package, available at
-#' https://github.com/rundel/learnrhash. Many thanks to Professor Rundel, who
-#' has developed a fantastic tool for courses that teach R and use the learnr
-#' package.
 #'
-#' This note is also modified from Professor Rundel's description: Note that when
-#' including these functions in a learnr Rmd document it is necessary that the
-#' server function, `submission_server()`, be included in an R chunk where
+#' The following function was modified from Colin Rundel's learnrhash package,
+#' available at https://github.com/rundel/learnrhash. Many thanks to Professor
+#' Rundel, who has developed a fantastic tool for courses that teach R and use
+#' the learnr package.
+#'
+#' This note is also modified from Professor Rundel's description: Note that
+#' when including these functions in a learnr Rmd document it is necessary that
+#' the server function, `submission_server()`, be included in an R chunk where
 #' `context="server"`. Conversely, any of the ui functions, `*_ui()`, must *not*
 #' be included in an R chunk with a `context`.
+#'
+#' @param input unused
+#' @param output unused
 #'
 #' @rdname submission_functions
 #' @export

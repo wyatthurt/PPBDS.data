@@ -24,15 +24,15 @@
 #'
 #' @format A tibble with 748 observations and 8 variables:
 #' \describe{
-#'   \item{course_name}{character variable with name of course}
-#'   \item{department}{character variable representing department of course}
-#'   \item{course_nunber}{character variable representing department course name listing}
-#'   \item{term}{character variable with values "2018F" and "2019S"}
-#'   \item{enrollment}{numeric variable for enrollment in course}
+#'   \item{name}{character variable with name of course}
+#'   \item{department}{character variable with course department}
+#'   \item{number}{character variable with course number}
+#'   \item{term}{character variable with values "2018-Fall" and "2019-Spring"}
+#'   \item{enrollment}{integer variable with course enrollment}
 #'   \item{hours}{numeric variable representing hours per week of workload, outside of class time}
 #'   \item{rating}{numeric variable representing average of students' rating of course
 #'            (1 to 5 scale), with higher numbers indicating a higher rating}
-#'   \item{instructor}{character variable representing name of instructor}
+#'   \item{instructor}{character variable with name of instructor}
 #' }
 #'
 #' @author

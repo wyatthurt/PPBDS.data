@@ -13,16 +13,20 @@ submission_server(input, output)
 
 submission_ui
 }
-\description{
-The following function has modified from Colin
-Rundel's learnrhash package, available at
-https://github.com/rundel/learnrhash. Many thanks to Professor Rundel, who
-has developed a fantastic tool for courses that teach R and use the learnr
-package.
+\arguments{
+\item{input}{unused}
 
-This note is also modified from Professor Rundel's description: Note that when
-including these functions in a learnr Rmd document it is necessary that the
-server function, \code{submission_server()}, be included in an R chunk where
+\item{output}{unused}
+}
+\description{
+The following function was modified from Colin Rundel's learnrhash package,
+available at https://github.com/rundel/learnrhash. Many thanks to Professor
+Rundel, who has developed a fantastic tool for courses that teach R and use
+the learnr package.
+
+This note is also modified from Professor Rundel's description: Note that
+when including these functions in a learnr Rmd document it is necessary that
+the server function, \code{submission_server()}, be included in an R chunk where
 \code{context="server"}. Conversely, any of the ui functions, \verb{*_ui()}, must \emph{not}
 be included in an R chunk with a \code{context}.
 }
