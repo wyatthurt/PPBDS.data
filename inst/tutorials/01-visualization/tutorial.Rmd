@@ -377,10 +377,10 @@ quiz(caption = "Quiz - `trains` dataset",
 ```{r quiz-5, echo = FALSE}
 quiz(
   question("Which of the following is NOT an identification variable? (choose 2)",
-           answer("`course_name`"),
+           answer("`name`"),
            answer("`department`", correct = TRUE),
            answer("`workload`", correct = TRUE),
-           answer("`course_number`"),
+           answer("`number`"),
            allow_retry = TRUE
   )
 )
@@ -2757,7 +2757,7 @@ For your final challenge, recreate the plot below. It was made from the data set
 ```{r}
 qscores %>% 
   filter(department == "ENGLISH") %>%
-    ggplot(aes(x = course_number, y = hours)) +
+    ggplot(aes(x = number, y = hours)) +
       geom_col() +
       theme(axis.text.x = element_text(size = 5)) + 
       labs(title = "Hours of Work in Harvard English Classes")
@@ -2815,7 +2815,7 @@ Good. Now, let's modify our plot so that `enrollment` goes on the y-axis instead
 Well done. Now, use what you know about `geom_col()` to replicate the plot below. Use `filter(department == "NEURO")`, and the variable `hours` for the y-axis.
 
 ```{r}
-qscores %>% filter(department == "NEURO") %>% ggplot(aes(x = course_name, y = hours)) +
+qscores %>% filter(department == "NEURO") %>% ggplot(aes(x = name, y = hours)) +
   geom_col() + 
   labs(title = "Weekly Workload Hours in Neurology Classes at Harvard", 
        x = "Class Name",
@@ -3431,9 +3431,9 @@ For your final challenge, recreate the graph below made from data set `nhanes`.
 
 ```{r}
 nhanes %>%
-  ggplot(aes(x=income,y=education)) +
+  ggplot(aes(x = hh_income, y = education)) +
     geom_bin2d() +
-    facet_wrap(~gender,ncol=2) + 
+    facet_wrap(~gender, ncol = 2) + 
     theme(axis.text.x = element_text(angle = 90))
 
 ```
