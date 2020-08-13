@@ -4,7 +4,7 @@ output:
   learnr::tutorial:
     progressive: true
     allow_skip: true
-author: Jessica Edwards, Connor Rust, Liam Rust
+author: Jessica Edwards
 runtime: shiny_prerendered
 description: "Gov 50: Data Chapter 1 Tutorial"
 ---
@@ -837,10 +837,10 @@ trains %>%
 
 Do you notice anything wrong with this graph? It appears to look fine, right? Try replacing `geom_point()` with `geom_jitter()`
 
-```{r jit-I-2, exercise=TRUE, exercise.lines=6}
+```{r jit-I-2, exercise=TRUE, exercise.lines=6, eval=FALSE}
 trains %>% 
-  ggplot(aes(x = att_start, y = att_end)) +
-    geom_...()
+  ggplot(aes(x = att_start, y = att_end))
+    
 
 ```
 
@@ -1100,7 +1100,7 @@ economics %>%
 
 Try changing the y axis variable to `unemploy`
 
-```{r line-I-2, exercise=TRUE, exercise.lines=6}
+```{r line-I-2, exercise=TRUE, exercise.lines=6, eval=FALSE}
 economics %>%
   ggplot(aes(x = date, y = ...)) + 
     geom_line()
@@ -1796,7 +1796,7 @@ trains %>%
 ###  
 
 Change the code for the previous graph so that `party` is on the x axis and `att_start` is on the y axis
-```{r box-I-2, exercise=TRUE, exercise.lines = 10}
+```{r box-I-2, exercise=TRUE, exercise.lines = 10, eval=FALSE}
 trains %>%
   ggplot(aes(x = ..., y = ...)) +
     geom_boxplot()
@@ -1811,7 +1811,7 @@ For dataset `governors`, create a boxplot where `party` is on the x axis and `wi
 
 ```
 
-```{r box-I-3-hint,eval=FALSE}
+```{r box-I-3-hint, eval=FALSE}
 ... %>%
   ggplot(aes(x = ..., y = ...)) +
     geom_boxplot()
@@ -2154,7 +2154,8 @@ diamonds %>%
 ###
 
 Try switching `price` for `carat` on the y axis
-```{r viol-I-2, exercise=TRUE, exercise.lines=8}
+
+```{r viol-I-2, exercise=TRUE, exercise.lines=8, eval=FALSE}
 diamonds %>% 
   ggplot(aes(x = clarity, y = ...)) +
     geom_violin()
@@ -2902,11 +2903,11 @@ nhanes %>%
 
 Now try adding `geom_smooth()` to the graph.
 
-```{r smooth-I-2, exercise=TRUE, exercise.lines=7}
+```{r smooth-I-2, exercise=TRUE, exercise.lines=7, eval=FALSE}
 nhanes %>%
   ggplot(aes(x = weight, y = height)) + 
-    geom_point() + 
-    geom_...()
+    geom_point()
+    
 
 ```
 
@@ -3350,7 +3351,7 @@ diamonds %>%
 ###
 
 Try changing the x axis variable to `price` and the y axis variable to `clarity`
-```{r bin-I-2, exercise=TRUE, exercise.lines=6}
+```{r bin-I-2, exercise=TRUE, exercise.lines=6, eval=FALSE}
 diamonds %>%
   ggplot(aes(x = ..., y = ...)) +
     geom_bin2d()
@@ -4726,20 +4727,25 @@ Well done. Now, use what you've learned about data wrangling to recreate the dat
 The dataset only takes into account classes with an enrollment of at least 25. To calculate the devation from the median of a variable, use `mad()`, which stands for Median Absolute Deviation
 
 ```{r}
-qscores %>% select(rating, department, enrollment) %>% filter(enrollment > 25) %>% group_by(department) %>% summarise(medianRating = median(rating), deviation = mad(rating))
+qscores %>% 
+  select(rating, department, enrollment) %>% 
+  filter(enrollment > 25) %>% 
+  group_by(department) %>% 
+  summarise(medianRating = median(rating), 
+            deviation = mad(rating))
 ```
 
 ```{r da-3-7, exercise=TRUE, exercise.lines = 5}
 
 ```
 
+## Submit
 
+```{r context="setup"}
+submission_ui
+```
 
-<!-- ## Submit -->
-<!-- ```{r context="setup"} -->
-<!-- submission_ui -->
-<!-- ``` -->
+```{r context="server"}
+submission_server()
+```
 
-<!-- ```{r context="server"} -->
-<!-- submission_server() -->
-<!-- ``` -->
