@@ -47,11 +47,11 @@ Table: Data summary\tabular{ll}{
     \tab  \cr
    Name \tab nes \cr
    Number of rows \tab 38558 \cr
-   Number of columns \tab 10 \cr
+   Number of columns \tab 11 \cr
    _______________________ \tab  \cr
    Column type frequency: \tab  \cr
    character \tab 5 \cr
-   factor \tab 3 \cr
+   factor \tab 4 \cr
    numeric \tab 2 \cr
    ________________________ \tab  \cr
    Group variables \tab None \cr
@@ -73,6 +73,7 @@ Table: Data summary\tabular{ll}{
    income \tab 2517 \tab 0.93 \tab TRUE \tab 5 \tab 34 : 11740, 68 : 9974, 0 -: 6300, 17 : 6213 \cr
    age \tab 450 \tab 0.99 \tab TRUE \tab 7 \tab 25 : 7669, 35 : 7342, 45 : 6545, 55 : 6021 \cr
    education \tab 397 \tab 0.99 \tab TRUE \tab 7 \tab Hig: 9269, Som: 8540, Col: 5540, Som: 4688 \cr
+   region \tab 0 \tab 1.00 \tab FALSE \tab 4 \tab Sou: 13680, Mid: 10072, Wes: 7428, Nor: 7378 \cr
 }
 
 
