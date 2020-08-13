@@ -34,6 +34,7 @@
 #'   \item{pres_appr}{character variable of respondents' self-reported approval of the sitting president. Question
 #'                    was not asked before 1972}
 #'   \item{voted}{character variable indicating whether the respondent voted in the national elections}
+#'   \item{region}{factor variable indicating the region corresponding to the voter's survey state}
 #' }
 #'
 #' @author
