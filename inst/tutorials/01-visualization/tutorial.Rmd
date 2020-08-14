@@ -4557,7 +4557,7 @@ Fantastic! Now use this tibble you created to make a bar plot with `department` 
 
 Awesome! Let's start fresh from the original `qscores` data set again. Word just came in that Harvard is switching to a rating scale out of 10 for the next term! Upper admin wants to be able to compare data from last year to the next term, so use mutate to overwrite the original `qscores` with the new variable `rating_2` equal to two times the variable `rating`. I have started it for you:
 
-```{r data-III-6, exercise=TRUE, exercise.lines=6}
+```{r data-III-6, exercise=TRUE, exercise.lines=6, eval=FALSE}
 qscores <- qscores %>%
 
 
@@ -4567,7 +4567,7 @@ qscores <- qscores %>%
 
 Now use summarize() to find the standard deviation of `rating_2`
 
-```{r data-III-7, exercise=TRUE, exercise.lines=6}
+```{r data-III-7, exercise=TRUE, exercise.lines=6, eval=FALSE}
 qscores <- qscores %>%
   mutate(rating_2 = rating * 2)
 
@@ -4606,7 +4606,7 @@ Use glimpse().
 ```
 
 ```{r da-1-3, exercise=TRUE, exercise.lines = 5}
-airquality %>% 
+airquality %>%
   select(Month, Day, Temp)
 ```
 
@@ -4619,7 +4619,7 @@ Use summarise(average = mean(...)).
 ```
 
 ```{r da-1-4, exercise=TRUE, exercise.lines = 5}
-airquality %>% 
+airquality %>%
   select(Month, Day, Temp)
 ```
 
@@ -4632,7 +4632,7 @@ You will use group_by(...) and arrange(desc()). If you are having more trouble, 
 ```
 
 ```{r da-1-5, exercise=TRUE, exercise.lines = 5, eval=FALSE}
-airquality %>% 
+airquality %>%
   select(Month, Day, Temp)
 ```
 
@@ -4697,11 +4697,11 @@ Excellent work. Now, use what you've learned about data wrangling to replicate t
 Information from the `compact` class in not in the final data set.
 
 ```{r}
-mpg %>% 
-  filter(class != "compact") %>% 
-  select(displ, manufacturer) %>% 
-  group_by(manufacturer) %>% 
-  summarize(displMedian = median(displ)) %>% 
+mpg %>%
+  filter(class != "compact") %>%
+  select(displ, manufacturer) %>%
+  group_by(manufacturer) %>%
+  summarize(displMedian = median(displ)) %>%
   arrange(desc(displMedian))
 ```
 
