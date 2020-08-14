@@ -26,25 +26,19 @@ knitr::opts_chunk$set(echo = FALSE, message = FALSE)
 options(tutorial.exercise.timelimit = 60)  
 ```
 
+## Welcome!
+
+Welcome to your first Gov 50 tutorial on Chapter 1: Visualization! We hope that this tutorial will be a great opportunity for you to learn and dive deeper into the course material. Most of these tutorial questions will be exercises in which you can put your coding skills to the test to practice all of the cool visualization techniques you read about in Chapter 1, but you will also test your knowledge in multiple choice and short answer questions. Let's get started!!
+
 ## How do I code in R?
 
-R is easiest to use when you know how the R language works. This tutorial will teach you the implicit background knowledge that informs every piece of R code. You'll learn about:
+R is easiest to use when you know how the R language works. Some of the basic programming topics in R include the following:
 
 * **functions** and their **arguments**
 * **objects**
 * R's basic **data types** 
 * R's basic data structures including **vectors** and **lists**
 * R's **package system**
-
-### A common error
-
-```{r packages1, echo = FALSE}
-question('What does this common error message suggest? `object _____ does not exist.`',
-         answer("You misspelled your object name"),
-         answer("You've forgot to load the package that ____ comes in"),
-         answer("Either", correct = TRUE),
-         allow_retry = TRUE)
-```
 
 ### Load a package
 
@@ -66,12 +60,13 @@ But what if the package that you want to load is not installed on your computer?
 
 ```
 
+### 
+
 *Load the `ggplot2` package using `library()`.*
 
 ```{r exercise-1, exercise = TRUE, exercise.lines = 3}
 
 ```
-
 
 ### Functions 
 
@@ -153,6 +148,16 @@ Objects provide an easy way to store data sets in R. In fact, R comes with many 
 
 ```
 
+#### A common error
+
+```{r packages1, echo = FALSE}
+question('What does this common error message suggest? `object _____ does not exist.`',
+         answer("You misspelled your object name"),
+         answer("You've forgot to load the package that ____ comes in"),
+         answer("Either", correct = TRUE),
+         allow_retry = TRUE)
+```
+
 ### Vectors
 
 #### Create a vector
@@ -167,7 +172,7 @@ In the chunk below, create a vector that contains the integers from one to ten.
 c(...)
 ```
 
-#### :
+#### `:`
 
 If your vector contains a sequence of contiguous integers, you can create it with the `:` shortcut. Run `1:10` in the chunk below. What do you get? What do you suppose `1:20` would return?
 
@@ -175,7 +180,7 @@ If your vector contains a sequence of contiguous integers, you can create it wit
 
 ```
 
-#### []
+#### `[]`
 
 You can extract any element of a vector by placing a pair of brackets behind the vector. Inside the brackets place the number of the element that you'd like to extract. For example, `vec[3]` would return the third element of the vector named `vec`.
 
@@ -185,7 +190,7 @@ Use the chunk below to extract the fourth element of `vec`.
 vec <- c(1, 2, 4, 8, 16)
 ```
 
-#### More []
+#### More `[]`
 
 You can also use `[]` to extract multiple elements of a vector. Place the vector `c(1,2,5)` between the brackets below. What does R return?
 
@@ -328,16 +333,16 @@ df <- data.frame(numbers = nums, logicals = logs, strings = strs)
 
 ### `trains` dataset
 
-*Load the `PPBDS.data` package to look at the `trains` dataset.*
+Load the `PPBDS.data` package to look at the `trains` dataset.
 ```{r exercise-2, exercise = TRUE, exercise.lines = 5}
 
   
 trains
 ```
 
-*Use the `glimpse()` function to look at the `trains` dataset. We already loaded the `dplyr` and `PPBDS.data` packages.*
+Use the `glimpse()` function to look at the `trains` dataset. We already loaded the `tidyverse` and `PPBDS.data` packages.
 ```{r exercise-4, exercise = TRUE, exercise.lines = 5}
-library(dplyr)
+library(tidyverse)
 library(PPBDS.data)
 
 
@@ -361,14 +366,14 @@ quiz(caption = "Quiz - `trains` dataset",
 )
 ```
 
-*Extract the `income` variable in the `trains` dataset using the `$` operator.*
+Extract the `income` variable in the `trains` dataset using the `$` operator.
 ```{r exercise-5, exercise = TRUE}
 
 ```
 
 ### `qscores` dataset
 
-*Look at the `qscores` dataset using `glimpse()`. We have loaded the `PPBDS.data` and the `dplyr` packages.*
+Look at the `qscores` dataset using `glimpse()`. We have loaded the `PPBDS.data` and the `tidyverse` packages.
 
 ```{r qscores, exercise = TRUE, exercise.lines = 5}
 
@@ -408,7 +413,7 @@ quiz(
 
 ### Components of a scatterplot
 
-*Look at this scatterplot made using the `trains` dataset. Higher numbers mean more conservative attitudes toward immigration-related policies on a 3 to 15 scale. Individuals with a treatment value of "Treated" were exposed to two Spanish-speakers on their regular commute. "Control" individuals were not.*
+Look at this scatterplot made using the `trains` dataset. Higher numbers mean more conservative attitudes toward immigration-related policies on a 3 to 15 scale. Individuals with a treatment value of "Treated" were exposed to two Spanish-speakers on their regular commute. "Control" individuals were not.
 
 ```{r trains}
 ggplot(data = trains, mapping = aes(x = att_start, y = att_end, color = treatment)) +
@@ -438,11 +443,61 @@ quiz(
 )
 ```
 
-## geom_point()
+## `geom_point()` I
+
+Let's make a scatterplot using the `iris` dataset. Hit the 'Run Code' button.
+
+```{r gp-1-1, exercise=TRUE, eval=FALSE}
+ggplot(data = iris, aes(x = Petal.Length, y = Petal.Width)) + 
+  geom_point()
+```
+
+###
+
+Great! Now try making a scatterplot with x = `Sepal.Length` and y = `Sepal.Width`.
+
+```{r gp-1-2-hint, eval=FALSE}
+ggplot(data = iris, aes(x = ..., y = ...)) + 
+  geom_point()
+```
+
+```{r gp-1-2, exercise=TRUE, exercise.lines = 5}
+  
+
+```
+
+###
+
+Excellent work! Now let's make a scatterplot with `Sepal.Length` on the x-axis, and `Petal.Length` on the y-axis. 
+
+```{r gp-1-3, exercise=TRUE, exercise.lines = 5}
+  
+
+```
+
+Wonderful. Now use what you've learned to recreate the plot below.
+
+```{r}
+ggplot(
+  data = iris, mapping = aes(x = Petal.Width, y = Sepal.Width)) +
+    geom_point() + 
+    labs(title = "Petal and Sepal Widths in Irises")
+```
+
+```{r gp-1-5-hint, eval=FALSE}
+To create a title, use labs(title = ...).
+```
+
+```{r gp-1-5, exercise=TRUE, exercise.lines = 5}
+  
+
+```
+
+## `geom_point()` II
 
 ### Scatterplot with the `qscores` dataset
 
-*Let's make a scatterplot using the `qscores` dataset. Load the `PPBDS.data` package and look at the `qscores` dataset by simply typing the name of the dataset.*
+Now let's make a scatterplot using the `qscores` dataset. Load the `PPBDS.data` package and look at the `qscores` dataset by simply typing the name of the dataset.
 
 ```{r exercise-6, exercise = TRUE, exercise.lines = 5}
 
@@ -456,7 +511,7 @@ library(...)
 
 ###
 
-*Load the `ggplot2` package. Use the `ggplot()` function to create a scatterplot using the `qscores` dataset, `rating` on the x-axis and `hours` on the y-axis. Is there a relationship between the rating of a Harvard course versus the average hours per week of workload?*
+Nice! Load the `ggplot2` package. Use the `ggplot()` function to create a scatterplot using the `qscores` dataset, `rating` on the x-axis and `hours` on the y-axis. Is there a relationship between the rating of a Harvard course versus the average hours per week of workload?
 
 ```{r exercise-7, exercise = TRUE, exercise.lines = 5}
 
@@ -471,7 +526,7 @@ ggplot(data = qscores, mapping = aes(x = ..., y = ...)) +
 
 ###
 
-*Now we want to add a `size` `aes`thetic based on the number of students enrolled in each course. Add `size = enrollment` to the other `aes`thetics of the points. Do larger classes have a higher average overall course rating? What about higher workload?*
+Awesome! Now we want to add a `size` `aes`thetic based on the number of students enrolled in each course. Add `size = enrollment` to the other `aes`thetics of the points. Do larger classes have a higher average overall course rating? What about higher workload?
 
 ```{r exercise-8, exercise = TRUE, exercise.lines = 5}
 ggplot(data = qscores, mapping = aes(x = rating, y = hours)) +
@@ -482,6 +537,50 @@ ggplot(data = qscores, mapping = aes(x = rating, y = hours)) +
 ggplot(data = qscores, mapping = aes(x = rating, y = hours, size = ...)) +
   geom_point()
 ```
+
+## `geom_point()` III
+
+###
+
+For the dataset `sps`, make a scatterplot with `age` on the x-axis and `health_exp_3m` on the y-axis.
+
+```{r point-I-2, exercise=TRUE, exercise.lines=5}
+
+```
+
+
+```{r point-I-2-hint, eval=FALSE}
+ggplot(data = sps, aes(x = ..., y = ...)) +
+  geom_point()
+```
+
+###
+
+Nice job! As you can see, our plot has many overlapping points making it hard to tell what's going on. Let's change the opacity by setting the `alpha` argument to 0.1.
+```{r point-I-3, exercise=TRUE, exercise.lines=8, eval=FALSE}
+ggplot(data = sps, aes(x = age, y = health_exp_3m)) +
+  geom_point()
+```
+
+```{r point-I-3-hint, eval=FALSE}
+Set the alpha argument inside of geom_point()
+```
+
+###
+
+Great! Now try mapping the `sex` variable to the `color` aesthetic.
+
+```{r point-I-4, exercise=TRUE, exercise.lines=10, eval=FALSE}
+ggplot(data = sps, aes(x = age, y = health_exp_3m)) +
+  geom_point()
+```
+
+```{r point-I-4-hint, eval=FALSE}
+ggplot(aes(x = age, y = health_exp_3m, color = ...))
+
+```
+
+## `geom_point()` IV
 
 ### Overplotting
 
@@ -521,7 +620,7 @@ ggplot(data = qscores, mapping = aes(x = rating, y = hours, size = enrollment)) 
   geom_point(alpha = ...)
 ```
 
-### Adjusting the position
+## `geom_jitter()` I
 
 A second strategy for dealing with overplotting due to rounding is to adjust the position of each point. `geom_jitter()` plots a scatterplot and then adds a small amount of random noise to each point in the plot. It is a shortcut for adding a "jitter" position adjustment to a points plot (i.e, `geom_point(position = "jitter")`). Since the noise is random, it is unlikely that two points rounded to the same location will also be jittered to the same location. The result is a jittered plot that displays more of the data and provides a simple way to inspect patterns that occur in heavily gridded or overlapping data. 
 
@@ -538,78 +637,43 @@ Alpha and jittering are less useful for large data. Jittering will not separate 
 
 A better way to deal with overplotting due to large data is to visualize a summary of the data, by using a histogram or a linegraph, for example.
 
-## geom_point() I
+## `geom_jitter()` II
 
 ###
 
-Press "Run Code"
+Do you notice anything wrong with this graph? It appears to look fine, right? Try replacing `geom_point()` with `geom_jitter()`.
 
-```{r point-I-1, exercise=TRUE, exercise.lines=10}
-qscores %>%
-  ggplot(aes(x = hours, y = rating)) +
-    geom_point()
-```
-
-###
-
-For data set `sps`, make a scatterplot with `age` on the x axis and `health_exp_3m` on the y axis.
-
-```{r point-I-2, exercise=TRUE, exercise.lines=5}
-
-```
-
-
-```{r point-I-2-hint, eval=FALSE}
-... %>%
-  ggplot(aes(x = ..., y = ...)) +
-    geom_point()
+```{r jit-I-1, exercise=TRUE, exercise.lines=6}
+ggplot(data = trains, aes(x = att_start, y = att_end)) +
+  geom_point()
 
 ```
 
 ###
 
-Nice job! As you can see, our plot has many overlapping points making it hard to tell what's going on. Let's change the opacity by setting `alpha argument` to 0.1.
-```{r point-I-3, exercise=TRUE, exercise.lines=8}
+As you can see, this changes things. The data on our graph was affected by overplotting, which is where points are plotted on top of each other. Jitter shifted them slightly from under each other. We can adjust the amount the points are jittered by setting the width. Set the width to .2:
+
+```{r jit-I-3, exercise=TRUE, exercise.lines=6}
+ggplot(data = trains, aes(x = att_start, y = att_end)) +
+  geom_jitter()
 
 ```
-
-```{r point-I-3-hint, eval=FALSE}
-Set the alpha argument inside of geom_point()
-
-```
-
 ###
 
-Great! Now try mapping the `sex` variable to the `color` aesthetic.
+Now set the color aesthetic to the `party` variable. 
 
-```{r point-I-4, exercise=TRUE, exercise.lines=10}
-
-
-```
-
-```{r point-I-4-hint, eval=FALSE}
-ggplot(aes(x = age, y = health_exp_3m, color = ...))
+```{r jit-I-4, exercise=TRUE, exercise.lines=6}
+ggplot(data = trains, aes(x = att_start, y = att_end)) +
+  geom_jitter()
 
 ```
 
-###
 
-Now add the label "Medical Expenses over 3 Months" to the y axis and the label "Age" to the x axis. Next, add the title "Age and Medical Expenses in Mexico".
-
-```{r point-I-5, exercise=TRUE, exercise.lines=10}
-
-
-
+```{r jit-I-4-hint, eval=FALSE}
+Because color is an aesthetic, set it inside of aes()
 ```
 
-```{r point-I-5-hint, eval=FALSE}
-Use labs()
-
-```
-
-## geom_point() II
-
-###
+## Advanced Plotting - `geom_point()`
 
 For data set `Orange`, create a scatterplot with `age` on the x axis and `circumference` on the y axis.
 
@@ -619,9 +683,8 @@ For data set `Orange`, create a scatterplot with `age` on the x axis and `circum
 ```
 
 ```{r point-II-1-hint, eval=FALSE}
-... %>%
-  ggplot(aes(x = ..., y = ..., color = ...)) +
-    geom_point()
+ggplot(data = Orange, aes(x = ..., y = ..., color = ...)) +
+  geom_point()
 ```
 
 ###
@@ -649,114 +712,13 @@ Now change the scale to square root (`sqrt`)
 
 ```{r point-II-3-hint, eval=FALSE}
 
-Use the scale_y_sqrt() function
+Use the scale_y_sqrt() function.
 
 ```
 
 ###
 
-Use the `annotate()` function to draw a yellow rectangle with an alpha of .1 around points that represent classes with over 400 students.
-
-```{r point-II-4, exercise=TRUE, exercise.lines=8}
-
-
-```
-
-```{r point-II-4-hint, eval=FALSE}
- annotate(geom = "...", xmin = ..., xmax = ..., ymin = ..., ymax = ..., fill = ..., alpha = ...)
-
-
-```
-
-###
-
-Awesome! Use `annotate()` again to label the rectangle with "high enrollment classes"
-
-```{r point-II-5, exercise=TRUE, exercise.lines=8}
-
-
-```
-
-```{r point-II-5-hint, eval=FALSE}
- annotate(geom = "...", x =, y = ..., label = "...")
-
-
-```
-
-## geom_point() III
-
-Let's make a scatterplot using `iris`. Hit the 'Run Code' button.
-
-```{r gp-1-1, exercise=TRUE, eval=FALSE}
-  iris %>% ggplot(aes(x = Petal.Length, y = Petal.Width)) +
-    geom_point()
-```
-
-###
-
-Great! Now try making a scatterplot with x = `Sepal.Length` and y = `Sepal.Width`.
-
-```{r gp-1-2-hint, eval=FALSE}
-iris %>% ggplot(aes(x = ..., y = ...)) +
-    geom_point()
-```
-
-```{r gp-1-2, exercise=TRUE, exercise.lines = 5}
-
-
-```
-
-###
-
-Excellent work! Now let's make a scatterplot with `Sepal.Length` on the x-axis, and `Petal.Length` on the y-axis.
-
-```{r gp-1-3, exercise=TRUE, exercise.lines = 5}
-
-
-```
-
-###
-
-Nice! Now let's make a scatterplot with x = Petal.Width, and y = Sepal.Length. While we're at it, let's also jitter the plot to reduce overplotting.
-
-```{r gp-1-4-hint, eval=FALSE}
-To make a jittered scatterplot, use geom_jitter().
-```
-
-```{r gp-1-4, exercise=TRUE, exercise.lines = 5}
-
-
-```
-
-
-Wonderful. Now use what you've learned to recreate the plot below.
-
-```{r}
-ggplot(
-  data = iris, mapping = aes(x = Petal.Width, y = Sepal.Width)) +
-    geom_point() +
-    labs(title = "Petal and Sepal Widths in Irises")
-```
-
-```{r gp-1-5-hint, eval=FALSE}
-To create a title, use labs(title = ...).
-```
-
-```{r gp-1-5, exercise=TRUE, exercise.lines = 5}
-
-
-```
-
-###
-
-## geom_point() IV
-
-Let's make a scatterplot using the `diamonds` data set, with `price` on the x-axis, and `carat` on the y-axis.
-
-```{r gp-2-1-hint, eval=FALSE}
-To learn about how to make a scatterplot, refer to textbook section 1.3.
-```
-
+Now let's make a scatterplot using the `diamonds` data set, with `price` on the x-axis, and `carat` on the y-axis.
 
 ```{r gp-2-1, exercise=TRUE, exercise.lines = 5}
 
@@ -773,7 +735,7 @@ Use the labs() function to create labels.
 
 
 ```{r gp-2-2, exercise=TRUE, exercise.lines = 5}
-  diamonds %>% ggplot(aes(x = price, y = carat)) + geom_point()
+ggplot(data = diamonds, aes(x = price, y = carat)) + geom_point()
 
 ```
 
@@ -787,12 +749,12 @@ Color and alpha can be set within aes(), like x and y.
 
 
 ```{r gp-2-3, exercise=TRUE, exercise.lines = 5}
-  diamonds %>% ggplot(aes(x = price, y = carat)) +
-    geom_point() +
-    labs(title = "Carats and Price in Diamonds", caption = "The relationship between price and carats in diamonds.")
+ggplot(data = diamonds, aes(x = price, y = carat)) + 
+  geom_point() + 
+  labs(title = "Carats and Price in Diamonds", caption = "The relationship between price and carats in diamonds.")
 ```
 
-Wonderful. Now, let's add a smooth trend line on top of the scatterplot, and  scale the x-axis to log10.
+Wonderful. Now, let's add a smooth trend line on top of the scatterplot, and scale the x-axis to log10.
 
 ```{r gp-2-4-hint, eval=FALSE}
 Use geom_smooth() to create a trendline, and scale_..._log10() to rescale the plot.
@@ -800,9 +762,9 @@ Use geom_smooth() to create a trendline, and scale_..._log10() to rescale the pl
 
 
 ```{r gp-2-4, exercise=TRUE, exercise.lines = 5}
-  diamonds %>% ggplot(aes(x = price, y = carat)) +
-     geom_point(aes(color = cut, alpha = 0.2)) +
-     labs(title = "Carats and Price in Diamonds", caption = "The relationship between price and carats in diamonds.")
+ggplot(data = diamonds, aes(x = price, y = carat)) + 
+  geom_point(aes(color = cut, alpha = 0.2)) + 
+  labs(title = "Carats and Price in Diamonds", caption = "The relationship between price and carats in diamonds.")
 ```
 
 Nice! Now, let's move the legend position to below the plot, and set the theme of the plot to `bw`.
@@ -820,64 +782,6 @@ Use theme(legend.position = ) and theme_...().
     labs(title = "Carats and Price in Diamonds", caption = "The relationship between price and carats in diamonds.")
 ```
 
-
-## geom_jitter() I
-
-###
-
-Welcome to geom_jitter() I! Let's start by looking at the data set `trains`, of which I have made a scatterplot below. Press "Run Code":
-
-```{r jit-I-1, exercise=TRUE, exercise.lines=6}
-trains %>%
-  ggplot(aes(x = att_start, y = att_end)) +
-    geom_point()
-
-```
-###
-
-Do you notice anything wrong with this graph? It appears to look fine, right? Try replacing `geom_point()` with `geom_jitter()`
-
-```{r jit-I-2, exercise=TRUE, exercise.lines=6, eval=FALSE}
-trains %>%
-  ggplot(aes(x = att_start, y = att_end))
-
-
-```
-
-###
-
-As you can see, this changes things. The data on our graph was affected by overplotting, which is where points are plotted on top of eachther. Jitter shifted them slightly from under each other. We can adjust the amount the points are jittered by setting the width. Set the width to .2:
-
-```{r jit-I-3, exercise=TRUE, exercise.lines=6}
-
-
-```
-###
-
-Now set the color aesthetic to the `party` variable.
-
-```{r jit-I-4, exercise=TRUE, exercise.lines=6}
-
-
-```
-
-
-```{r jit-I-4-hint, eval=FALSE}
-Because color is an aesthetic, set it inside of aes()
-```
-
-###
-
-Great! Now add the title "Attitudes"
-
-```{r jit-I-5, exercise=TRUE, exercise.lines=6}
-
-
-```
-
-```{r jit-I-5-hint, eval=FALSE}
-Use labs()
-```
 ## geom_jitter() II
 
 ###
@@ -4789,4 +4693,3 @@ submission_ui
 ```{r context="server"}
 submission_server()
 ```
-
