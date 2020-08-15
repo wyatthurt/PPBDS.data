@@ -443,7 +443,8 @@ quiz(
 )
 ```
 
-## `geom_point()` I
+## `geom_point()` 
+<!-- I -->
 
 Let's make a scatterplot using the `iris` dataset. Hit the 'Run Code' button.
 
@@ -493,7 +494,7 @@ To create a title, use labs(title = ...).
 
 ```
 
-## `geom_point()` II
+<!-- ## `geom_point()` II -->
 
 ### Scatterplot with the `qscores` dataset
 
@@ -538,7 +539,7 @@ ggplot(data = qscores, mapping = aes(x = rating, y = hours, size = ...)) +
   geom_point()
 ```
 
-## `geom_point()` III
+<!-- ## `geom_point()` III -->
 
 ###
 
@@ -557,6 +558,7 @@ ggplot(data = sps, aes(x = ..., y = ...)) +
 ###
 
 Nice job! As you can see, our plot has many overlapping points making it hard to tell what's going on. Let's change the opacity by setting the `alpha` argument to 0.1.
+
 ```{r point-I-3, exercise=TRUE, exercise.lines=8, eval=FALSE}
 ggplot(data = sps, aes(x = age, y = health_exp_3m)) +
   geom_point()
@@ -580,7 +582,7 @@ ggplot(aes(x = age, y = health_exp_3m, color = ...))
 
 ```
 
-## `geom_point()` IV
+<!-- ## `geom_point()` IV -->
 
 ### Overplotting
 
@@ -620,7 +622,8 @@ ggplot(data = qscores, mapping = aes(x = rating, y = hours, size = enrollment)) 
   geom_point(alpha = ...)
 ```
 
-## `geom_jitter()` I
+## `geom_jitter()` 
+<!-- I -->
 
 A second strategy for dealing with overplotting due to rounding is to adjust the position of each point. `geom_jitter()` plots a scatterplot and then adds a small amount of random noise to each point in the plot. It is a shortcut for adding a "jitter" position adjustment to a points plot (i.e, `geom_point(position = "jitter")`). Since the noise is random, it is unlikely that two points rounded to the same location will also be jittered to the same location. The result is a jittered plot that displays more of the data and provides a simple way to inspect patterns that occur in heavily gridded or overlapping data. 
 
@@ -637,7 +640,9 @@ Alpha and jittering are less useful for large data. Jittering will not separate 
 
 A better way to deal with overplotting due to large data is to visualize a summary of the data, by using a histogram or a linegraph, for example.
 
-## `geom_jitter()` II
+<!-- ## `geom_jitter()` II -->
+
+###
 
 Do you notice anything wrong with this graph? It appears to look fine, right? Try replacing `geom_point()` with `geom_jitter()`.
 
@@ -671,7 +676,7 @@ ggplot(data = trains, aes(x = att_start, y = att_end)) +
 Because color is an aesthetic, set it inside of aes()
 ```
 
-## geom_jitter() III
+<!-- ## `geom_jitter()` III -->
 
 Hit 'Run Code' to look at the following graph:
 
@@ -716,7 +721,8 @@ ggplot(data = diamonds, aes(x = depth, y = price)) +
 
 ```
 
-## `geom_line()` I
+## `geom_line()` 
+<!-- I -->
 
 ```{r, include = FALSE}
 cces_data <- cces %>%
@@ -764,7 +770,8 @@ quiz(
 )
 ```
 
-## `geom_line()` II
+<!-- ## `geom_line()` II -->
+###
 
 Run the following line graph, then try changing the y axis variable to `unemploy`.
 
@@ -822,7 +829,8 @@ Use labs()
 
 ```
 
-## `geom_histogram()` I
+## `geom_histogram()` 
+<!-- I -->
 
 ### Test your knowledge
 
@@ -895,7 +903,8 @@ ggplot(data = qscores, mapping = aes(x = rating)) +
   geom_histogram(binwidth = ..., color = ...)
 ```
 
-## `geom_histogram()` II
+<!-- ## `geom_histogram()` II -->
+###
 
 Let's make a histogram using geom_histogram() and the `mpg` tibble, which contains data on the fuel efficiency of different types of cars. Press 'Run Code' to continue.
 
@@ -939,7 +948,7 @@ ggplot(data = mpg, aes(x = ...)) +
 Very nice. Now, use what you've learned to recreate this graph.
 
 ```{r}
-mpg %>% ggplot(aes(x = displ)) +
+ggplot(data = mpg, aes(x = displ)) +
   geom_histogram(bins = 10) +
   labs(title = "Engine Size in Cars",
        x = "Engine Size (Liters)",
@@ -956,7 +965,8 @@ Use labs(title = ..., x = ..., y = ...) to add the labels.
 
 ```
 
-## geom_boxplot()
+## `geom_boxplot()` 
+<!-- I -->
 
 ```{r quiz-11, echo = FALSE}
 quiz(
@@ -971,9 +981,11 @@ quiz(
 )
 ```
 
-*Let's keep playing with the `qscores` dataset in the `PPBDS.data` package. We have filtered the dataset using the `tidyverse` package based on the five departments with the classes with the most enrollment: ECON, COMPSCI, STAT, GOV, and MATH. (You will learn how to do this in the next chapter). The filtered dataset is called `top_five_qscores`.*
+###
 
-```{r boxplot, include = FALSE}
+Let's keep playing with the `qscores` dataset in the `PPBDS.data` package. We have filtered the dataset using the `tidyverse` package based on the five departments with the classes with the most enrollment: ECON, COMPSCI, STAT, GOV, and MATH. The filtered dataset is called `top_five_qscores`.
+
+```{r, include = FALSE}
 top_five_enrolled <- qscores %>%
   group_by(department) %>%
   summarize(enrollment = sum(enrollment)) %>%
@@ -987,7 +999,9 @@ top_five_qscores <- qscores %>% filter(department %in% top_five_enrolled[0:5])
 top_five_qscores
 ```
 
-*Using the `top_five_qscores` dataset and `ggplot()`, make a boxplot where `department` is on the x-axis and `rating` is on the y-axis.*
+### 
+
+Using the `top_five_qscores` dataset and `ggplot()`, make a boxplot where `department` is on the x-axis and `rating` is on the y-axis.
 
 ```{r exercise-16-setup, include = FALSE}
 top_five_enrolled <- qscores %>%
@@ -1035,40 +1049,21 @@ quiz(
 )
 ```
 
-## geom_boxplot() I
-
+<!-- ## `geom_boxplot()` II -->
 ###
 
-Press "Run Code"
+Using the `trains` dataset, create a boxplot with `party` on the x-axis and `att_start` on the y-axis.
 
-```{r box-I-1, exercise=TRUE, exercise.lines=10}
-trains %>%
-  ggplot(aes(x = party, y = att_end)) +
-    geom_boxplot()
-```
-
-###
-
-Change the code for the previous graph so that `party` is on the x axis and `att_start` is on the y axis
 ```{r box-I-2, exercise=TRUE, exercise.lines = 10, eval=FALSE}
-trains %>%
-  ggplot(aes(x = ..., y = ...)) +
-    geom_boxplot()
 
 ```
 
 ###
 
-For dataset `governors`, create a boxplot where `party` is on the x axis and `win_margin` is on the y axis
+Using the dataset `governors`, create a boxplot where `party` is on the x-axis and `win_margin` is on the y-axis.
 
 ```{r box-I-3, exercise=TRUE, eval=FALSE, exercise.lines=10}
 
-```
-
-```{r box-I-3-hint, eval=FALSE}
-... %>%
-  ggplot(aes(x = ..., y = ...)) +
-    geom_boxplot()
 ```
 
 ###
@@ -1079,112 +1074,16 @@ Let's add some color! Change your previous boxplot so that it is outlined in blu
 ```
 
 ```{r box-I-4-hint,eval=FALSE}
-Use the color argument and remember to put "blue" in quotes
+Use the color argument and remember to put "blue" in quotes.
 ```
 
+<!-- ## `geom_boxplot()` III -->
 ###
 
-Nice! Now add a title and labels on both axes
-
-```{r box-I-5, exercise=TRUE, eval=FALSE, exercise.lines=10}
-
-```
-
-
-```{r add-label-hint,eval=FALSE}
-Use labs()
-```
-
-## geom_boxplot() II
-
-For dataset `diamonds`, create a boxplot with `clarity` on the x axis and `price` on the y axis
-
-###
-
-```{r box-II-1, exercise=TRUE, exercise.lines=10}
-
-```
-
-```{r box-II-1-hint, eval=FALSE}
-Review geom_boxplot I
-```
-###
-
-Try changing the scale of the y axis to log base 10
-
-```{r box-II-2, exercise=TRUE, exercise.lines=10}
-
-```
-
-```{r box-II-2-hint,eval=FALSE}
-Use the scale_y_log10() function
-```
-
-###
-
-Nice job! For now, I have set the scale on the y axis back to continuous. In our first diamonds boxplot, R automatically set labels on the tick marks at 0, 5000, 10000 and 15000. Try changing this so that we have labels at 0, 90000 and 18000. After this, add dollar signs to your labels. Note, this is different from and does not use labs()!
-
-```{r box-II-3, exercise=TRUE, exercise.lines=10}
-diamonds %>%
-  ggplot(aes(x = clarity, y = price))+
-    geom_boxplot()+
-    scale_y_continuous()
-```
-
-```{r box-II-3-hint,eval=FALSE}
-Add breaks in the scale function to change label location. Also in the scale function, use the scales library to add dollars signs
-```
-
-###
-Now facet the plot by `cut` and set the number of columns to 2
-
-```{r box-II-4, exercise=TRUE, exercise.lines=10}
-diamonds %>%
-  ggplot(aes(x = clarity, y = price)) +
-    geom_boxplot() +
-    scale_y_continuous(breaks = c(0,9000,18000),labels = scales::dollar)
-```
-
-```{r box-II-4-hint,eval=FALSE}
-Use facet_wrap() and set ncol to 2
-```
-
-###
-
-```{r}
-cces %>%
-  ggplot(aes(x = age, y = ideology)) +
-    geom_boxplot() +
-    facet_wrap(~ race, ncol = 2) +
-    labs(title = "Age, Ideology and Race in American Election Data")
-```
-
-
-Recreate the above boxplot from data set `cces`. Note that the plot is facetted by `race` with the number of columns set to 2.
-
-```{r box-II-5, exercise=TRUE, exercise.lines=10}
-
-```
-
-```{r box-II-5-hint, eval=FALSE}
-Use facet_wrap() to facet and labs() to create labels
-```
-
-## geom_boxplot() III
-
-Let's make a `boxplot()` using the `mpg` tibble, which shows the fuel efficiency for different types of cars. Hit Run Code.
-
-```{r gb-1-1, exercise=TRUE, exercise.lines = 5}
-mpg %>% ggplot(aes(x = class, y = cty)) +
-  geom_boxplot()
-```
-
-###
-
-Now make a `boxplot()` with x = `class`, and y = `hwy`. Feel free to use copy and paste from the previous question.
+Let's make a boxplot using the `mpg` tibble, which shows the fuel efficiency for different types of cars. Set x = `class`, and y = `hwy`.
 
 ```{r gb-1-2-hint, eval=FALSE}
-mpg %>% ggplot(aes(x = ... , y = ... )) +
+ggplot(data = mpg, aes(x = ... , y = ... )) +
   geom_boxplot()
 ```
 
@@ -1223,7 +1122,7 @@ labs(title = ...,
 Awesome! Now, use what you've learned to recreate this plot.
 
 ```{r}
-mpg %>% ggplot(aes(x = manufacturer, y = cty)) +
+ggplot(data = mpg, aes(x = manufacturer, y = cty)) +
   geom_boxplot(outlier.color = "blue") +
   labs(title = "City Fuel Effiecnecy by Car Manufacturer",
        x = "Manufacturer",
@@ -1234,74 +1133,19 @@ mpg %>% ggplot(aes(x = manufacturer, y = cty)) +
 
 ```
 
-## geom_boxplot() IV
-
-Make a `boxplot()` using the `diamonds` tibble with x = `cut`, and y = `price`. Which
-
-```{r gb-2-1, exercise=TRUE, exercise.lines = 5}
-
-```
-
-###
-
-Great! Now, use `coord_flip()` to convert the plot into a horizontal boxplot, and get rid of the outliers by setting `outlier.alpha` to 0. Note that you can also make outliers dissapear by setting `outlier.color` to "white".
-
-```{r gb-2-2, exercise=TRUE, exercise.lines = 5}
-
-```
-
-###
-
-Wonderful. Now, let's use `labs()` to add some labels to our plot. Title the plot "Diamond Price by Quality", call the x-axis "Price (US Dollars)", and call the y-axis "Quality".
-
-```{r gb-2-3, exercise=TRUE, exercise.lines = 5}
-
-```
-
-###
-
-Great! Now, let's zoom in on our plot by setting  `xlim()` to the vector `c(500, 7000)`. Remember that `xlim()` should be placed inside of the `coord_` function, in this case, `coord_flip`.
-
-```{r gb-2-4, exercise=TRUE, exercise.lines = 5}
-
-```
-
-###
-
-Nice! Note that you can also zoom in on a plot by using the `xlim()` or `ylim()` functions outside of the `coord_` function without using a vector, but this is not ideal because it will disregard points outside of the zoom when calculating the average and percentile lines of a `boxplot()`. You can try this yourself by deleting the argument from the last question, and adding '+ xlim(7500)' to our plot. Notice how the averages are slightly different?
-
-###
-
-Now, use what you've learned to recreate the plot below.
-
-```{r}
-diamonds %>% ggplot(aes(x = price, y = carat, group = cut_interval(price, n = 4))) +
-  geom_boxplot(outlier.alpha = 0.1, color = "red") +
-  labs(title = "Size and Quality in Diamonds",
-       x = "Price (US Dollars)",
-       y = "Size (Carats)")
-```
-
-```{r gb-2-5-hint, eval=FALSE}
-In order to use two continouous variables in a `boxplot()`, use the `group = cut_` function, in this case, `group = cut_interval(..., n = ...)`. Remember that this function must be inside of `aes()`.
-```
-
-```{r gb-2-5, exercise=TRUE, exercise.lines = 5}
-
-```
-
-## geom_violin() I
+## `geom_violin()` 
+<!-- I -->
 
 Let's use `geom_violin()` to make a plot with the `diamonds` tibble, which contains information about cut diamonds. Hit 'Run Code' to continue.
 
 ```{r gv-1-1, exercise=TRUE, exercise.lines = 5}
-diamonds %>% ggplot(aes(x = cut, y = price)) +
+ggplot(data = diamonds, aes(x = cut, y = price)) +
   geom_violin()
 ```
 
 ###
 
-Nice. Now, let's try changing the `color`, or outline, of our 'violins' to "red".
+Nice. Now, let's try changing the `color`, or outline, of our plot to "red" and the `fill` of the plots to "red3" within `geom_violin()`.
 
 ```{r gv-1-2, exercise=TRUE, exercise.lines = 5}
 
@@ -1309,15 +1153,7 @@ Nice. Now, let's try changing the `color`, or outline, of our 'violins' to "red"
 
 ###
 
-Great. Now, let's add some labels with `labs()`. Let's call our plot "Price and Quality in Diamonds", our x-axis "Diamond Quality", and our y-axis "Price (US Dollars)."
-
-```{r gv-1-3, exercise=TRUE, exercise.lines = 5}
-
-```
-
-###
-
-Cool. Now, let's use `draw_quantiles` to draw percentile lines on our violins, at 0.25, 0.5, and 0.75.
+Cool. Now, let's use `draw_quantiles` to draw percentile lines on our violins, at 0.25, 0.5, and 0.75. `draw_quantiles` is an argument that goes within the `geom_violin()` function.
 
 ```{r gv-1-4-hint, eval=FALSE}
 draw_quantiles = c(..., ..., ...)
@@ -1329,10 +1165,30 @@ draw_quantiles = c(..., ..., ...)
 
 ###
 
+Great! Now try doubling the bandwith using the `adjust` argument in `geom_violin()`.
+
+```{r viol-I-3, exercise=TRUE, exercise.lines=8}
+
+```
+
+```{r viol-I-3-hint, eval=FALSE}
+adjust = 2
+```
+
+###
+
+Nice! Now try setting the `kernel` argument in `geom_violin()` to "epanechnikov".
+
+```{r viol-I-4, exercise=TRUE, exercise.lines=8}
+
+```
+
+###
+
 Well done. Now, use what you've learned about `geom_violin()` to recreate this plot:
 
 ```{r}
-diamonds %>% ggplot(aes(x = cut, y = carat), color = "blue") +
+ggplot(data = diamonds, aes(x = cut, y = carat), color = "blue") +
   geom_violin() +
   labs(title = "Size and Quality in Diamonds",
        x = "Quality",
@@ -1343,146 +1199,11 @@ diamonds %>% ggplot(aes(x = cut, y = carat), color = "blue") +
 
 ```
 
-## geom_violin() II
+```{r gv-1-5-hint, eval=FALSE}
+aes(x = cut, y = carat)
 
-Let's use the `mpg` tibble, which tells us the fuel efficiency of different car models, to make a plot with `geom_violin()`. Let's map our x-axis to `class`, and our y-axis to `displ`.
-
-```{r gv-2-1, exercise=TRUE, exercise.lines = 5}
-
+labs(title = ..., x = ..., y = ...)
 ```
-
-###
-
-Well done. Now, let's add some percentile lines with `draw_quantiles` at 0.33 and 0.66.Let's also set `trim` to FALSE, to add tails to the violins.
-
-```{r gv-2-2-hint, eval=FALSE}
-draw_quantiles = c(..., ..., ...)
-```
-
-```{r gv-2-2, exercise=TRUE, exercise.lines = 5}
-
-```
-
-###
-
-Good. Now, let's add some labels with `labs()`. Let's title our plot "Engine Size by Car Type", our x-axis "Car Type", and our y-axis "Engine Size (Liters)". Let's also use `theme_void()` to give our plot a cleaner look.
-
-```{r gv-2-3, exercise=TRUE, exercise.lines = 5}
-
-```
-
-###
-
-Nice Work. Now, let's try using layers to give our plot a bit more information. Use `geom_jitter()` to add a new layer to our plot, and map `color` to `maufacturer`, so we can get a sense of how car brand has to do with engine size. We use `geom_jitter()` over `geom_point()` in this scenario because it will spread points that occupy the same coordinates, making it easier to visualize the distribution of data. That being said, let's set `height` to 0, so all of the data points are accurate to their actual `displ` values. We can also set `width` to 0.2, so that the points stay more or less within the violins.
-
-```{r gv-2-4, exercise=TRUE, exercise.lines = 5}
-
-```
-
-###
-
-Cool. Now use what you've learned to replicate the plot below.
-
-```{r}
-mpg %>% ggplot(aes(x = class, y = cty)) +
-  geom_violin() +
-  geom_jitter(aes(color = hwy, shape = drv), height = 0, width = 0.2)
-```
-
-```{r gv-2-5, exercise=TRUE, exercise.lines = 5}
-
-```
-
-## geom_violin() III
-
-###
-
-Welcome to geom_violin() I. We are first going to be looking at the data set `diamonds`. Press "run code":
-
-```{r viol-I-1, exercise=TRUE, exercise.lines=8}
-diamonds %>%
-  ggplot(aes(x = clarity, y = price)) +
-    geom_violin()
-```
-###
-
-Try switching `price` for `carat` on the y axis
-
-```{r viol-I-2, exercise=TRUE, exercise.lines=8, eval=FALSE}
-diamonds %>%
-  ggplot(aes(x = clarity, y = ...)) +
-    geom_violin()
-```
-
-###
-
-Great! Now try doubling the bandwith using the `adjust` argument in `geom_violin()`
-
-```{r viol-I-3, exercise=TRUE, exercise.lines=8}
-
-```
-
-###
-
-Nice! Now try setting the `kernel` argument in `geom_violin()` to "epanechnikov"
-
-```{r viol-I-4, exercise=TRUE, exercise.lines=8}
-
-```
-
-###
-
-Great! Now color the plots "red3" using the `fill` argument in `geom_violin()`
-
-```{r viol-I-5, exercise=TRUE, exercise.lines=8}
-
-```
-
-## geom_violin() IV
-
-###
-
-Welcome to geom_violin() II! Let's start off right where we left off with geom_violin() I using data set `diamonds`. Use `geom_violin()` and the "gaussian" kernel to create a plot with `cut` on the x axis and `price` on the y axis.
-
-```{r viol-II-1, exercise=TRUE, exercise.lines=8}
-
-```
-
-###
-
-Great! Now use ylim() set a limit on the y axis with an upper bound of 10,000 and a lower bound of 0
-
-```{r viol-II-2, exercise=TRUE, exercise.lines=8}
-
-```
-
-###
-
-Nice! Now use `fill` to color the plot "blue"
-
-```{r viol-II-3, exercise=TRUE, exercise.lines=8}
-
-```
-
-###
-
-Great! Now use the scales library to add commas to the y axis
-
-```{r viol-II-4, exercise=TRUE, exercise.lines=8}
-
-```
-
-###
-
-Awesome! Now change the theme to dark using `theme_dark()`
-
-```{r viol-II-5, exercise=TRUE, exercise.lines=8}
-
-```
-
-
-
-
 
 ## geom_bar() and geom_col()
 
@@ -3653,6 +3374,231 @@ mpg %>% ggplot(aes(x = hwy, color = class)) +
 ```
 
 ```{r gh-2-5, exercise=TRUE, exercise.lines = 5}
+
+```
+
+## Advanced Plotting - `geom_boxplot()`
+
+For dataset `diamonds`, create a boxplot with `clarity` on the x axis and `price` on the y axis
+
+###
+
+```{r box-II-1, exercise=TRUE, exercise.lines=10}
+
+```
+
+```{r box-II-1-hint, eval=FALSE}
+Review geom_boxplot I
+```
+###
+
+Try changing the scale of the y axis to log base 10
+
+```{r box-II-2, exercise=TRUE, exercise.lines=10}
+
+```
+
+```{r box-II-2-hint,eval=FALSE}
+Use the scale_y_log10() function
+```
+
+###
+
+Nice job! For now, I have set the scale on the y axis back to continuous. In our first diamonds boxplot, R automatically set labels on the tick marks at 0, 5000, 10000 and 15000. Try changing this so that we have labels at 0, 90000 and 18000. After this, add dollar signs to your labels. Note, this is different from and does not use labs()!
+
+```{r box-II-3, exercise=TRUE, exercise.lines=10}
+diamonds %>%
+  ggplot(aes(x = clarity, y = price))+
+    geom_boxplot()+
+    scale_y_continuous()
+```
+
+```{r box-II-3-hint,eval=FALSE}
+Add breaks in the scale function to change label location. Also in the scale function, use the scales library to add dollars signs
+```
+
+###
+Now facet the plot by `cut` and set the number of columns to 2
+
+```{r box-II-4, exercise=TRUE, exercise.lines=10}
+diamonds %>%
+  ggplot(aes(x = clarity, y = price)) +
+    geom_boxplot() +
+    scale_y_continuous(breaks = c(0,9000,18000),labels = scales::dollar)
+```
+
+```{r box-II-4-hint,eval=FALSE}
+Use facet_wrap() and set ncol to 2
+```
+
+###
+
+```{r}
+cces %>%
+  ggplot(aes(x = age, y = ideology)) +
+    geom_boxplot() +
+    facet_wrap(~ race, ncol = 2) +
+    labs(title = "Age, Ideology and Race in American Election Data")
+```
+
+
+Recreate the above boxplot from data set `cces`. Note that the plot is facetted by `race` with the number of columns set to 2.
+
+```{r box-II-5, exercise=TRUE, exercise.lines=10}
+
+```
+
+```{r box-II-5-hint, eval=FALSE}
+Use facet_wrap() to facet and labs() to create labels
+```
+
+###
+
+Make a boxplot using the `diamonds` tibble with x = `cut`, and y = `price`.
+
+```{r gb-2-1, exercise=TRUE, exercise.lines = 5}
+
+```
+
+###
+
+Great! Now, use `coord_flip()` to convert the plot into a horizontal boxplot, and get rid of the outliers by setting `outlier.alpha` to 0. Note that you can also make outliers dissapear by setting `outlier.color` to "white".
+
+```{r gb-2-2, exercise=TRUE, exercise.lines = 5}
+
+```
+
+###
+
+Wonderful. Now, let's use `labs()` to add some labels to our plot. Title the plot "Diamond Price by Quality", call the x-axis "Price (US Dollars)", and call the y-axis "Quality".
+
+```{r gb-2-3, exercise=TRUE, exercise.lines = 5}
+
+```
+
+###
+
+Great! Now, let's zoom in on our plot by setting  `xlim()` to the vector `c(500, 7000)`. Remember that `xlim()` should be placed inside of the `coord_` function, in this case, `coord_flip`.
+
+```{r gb-2-4, exercise=TRUE, exercise.lines = 5}
+
+```
+
+###
+
+Nice! Note that you can also zoom in on a plot by using the `xlim()` or `ylim()` functions outside of the `coord_` function without using a vector, but this is not ideal because it will disregard points outside of the zoom when calculating the average and percentile lines of a `boxplot()`. You can try this yourself by deleting the argument from the last question, and adding '+ xlim(7500)' to our plot. Notice how the averages are slightly different?
+
+###
+
+Now, use what you've learned to recreate the plot below.
+
+```{r}
+ggplot(data = diamonds, aes(x = price, y = carat, group = cut_interval(price, n = 4))) +
+  geom_boxplot(outlier.alpha = 0.1, color = "red") +
+  labs(title = "Size and Quality in Diamonds",
+       x = "Price (US Dollars)",
+       y = "Size (Carats)")
+```
+
+```{r gb-2-5-hint, eval=FALSE}
+In order to use two continouous variables in a `boxplot()`, use the `group = cut_` function, in this case, `group = cut_interval(..., n = ...)`. Remember that this function must be inside of `aes()`.
+```
+
+```{r gb-2-5, exercise=TRUE, exercise.lines = 5}
+
+```
+
+## Advanced Plotting - `geom_violin()`
+
+Let's use the `mpg` tibble, which tells us the fuel efficiency of different car models, to make a plot with `geom_violin()`. Let's map our x-axis to `class`, and our y-axis to `displ`.
+
+```{r gv-2-1, exercise=TRUE, exercise.lines = 5}
+
+```
+
+###
+
+Well done. Now, let's add some percentile lines with `draw_quantiles` at 0.33 and 0.66. Let's also set `trim` to FALSE, to add tails to the violins. Both arguments should go inside the `geom_violin()` function.
+
+```{r gv-2-2-hint, eval=FALSE}
+draw_quantiles = c(..., ..., ...)
+```
+
+```{r gv-2-2, exercise=TRUE, exercise.lines = 5}
+
+```
+
+###
+
+Good. Now, let's add some labels with `labs()`. Let's title our plot "Engine Size by Car Type", our x-axis "Car Type", and our y-axis "Engine Size (Liters)". Let's also use `theme_void()` to give our plot a cleaner look.
+
+```{r gv-2-3, exercise=TRUE, exercise.lines = 5}
+
+```
+
+###
+
+Nice Work. Now, let's try using layers to give our plot a bit more information. Use `geom_jitter()` to add a new layer to our plot, and map `color` to `maufacturer`, so we can get a sense of how car brand has to do with engine size. We use `geom_jitter()` over `geom_point()` in this scenario because it will spread points that occupy the same coordinates, making it easier to visualize the distribution of data. That being said, let's set `height` to 0, so all of the data points are accurate to their actual `displ` values. We can also set `width` to 0.2, so that the points stay more or less within the violins.
+
+```{r gv-2-4, exercise=TRUE, exercise.lines = 5}
+
+```
+
+###
+
+Cool. Now use what you've learned to replicate the plot below.
+
+```{r}
+ggplot(data = mpg, aes(x = class, y = cty)) +
+  geom_violin() +
+  geom_jitter(aes(color = hwy, shape = drv), height = 0, width = 0.2)
+```
+
+```{r gv-2-5, exercise=TRUE, exercise.lines = 5}
+
+```
+
+###
+
+## geom_violin() IV
+
+###
+
+Welcome to geom_violin() II! Let's start off right where we left off with geom_violin() I using data set `diamonds`. Use `geom_violin()` and the "gaussian" `kernel` to create a plot with `cut` on the x axis and `price` on the y axis.
+
+```{r viol-II-1, exercise=TRUE, exercise.lines=8}
+
+```
+
+###
+
+Great! Now use ylim() set a limit on the y axis with an upper bound of 10,000 and a lower bound of 0
+
+```{r viol-II-2, exercise=TRUE, exercise.lines=8}
+
+```
+
+###
+
+Nice! Now use `fill` to color the plot "blue"
+
+```{r viol-II-3, exercise=TRUE, exercise.lines=8}
+
+```
+
+###
+
+Great! Now use the scales library to add commas to the y axis
+
+```{r viol-II-4, exercise=TRUE, exercise.lines=8}
+
+```
+
+###
+
+Awesome! Now change the theme to dark using `theme_dark()`
+
+```{r viol-II-5, exercise=TRUE, exercise.lines=8}
 
 ```
 
