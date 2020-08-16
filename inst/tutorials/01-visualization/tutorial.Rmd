@@ -449,7 +449,7 @@ quiz(
 Let's make a scatterplot using the `iris` dataset. Hit the 'Run Code' button.
 
 ```{r gp-1-1, exercise=TRUE, eval=FALSE}
-ggplot(data = iris, aes(x = Petal.Length, y = Petal.Width)) + 
+ggplot(data = iris, mapping = aes(x = Petal.Length, y = Petal.Width)) + 
   geom_point()
 ```
 
@@ -458,7 +458,7 @@ ggplot(data = iris, aes(x = Petal.Length, y = Petal.Width)) +
 Great! Now try making a scatterplot with x = `Sepal.Length` and y = `Sepal.Width`.
 
 ```{r gp-1-2-hint, eval=FALSE}
-ggplot(data = iris, aes(x = ..., y = ...)) + 
+ggplot(data = iris, mapping = aes(x = ..., y = ...)) + 
   geom_point()
 ```
 
@@ -551,7 +551,7 @@ For the dataset `sps`, make a scatterplot with `age` on the x-axis and `health_e
 
 
 ```{r point-I-2-hint, eval=FALSE}
-ggplot(data = sps, aes(x = ..., y = ...)) +
+ggplot(data = sps, mapping = aes(x = ..., y = ...)) +
   geom_point()
 ```
 
@@ -560,7 +560,7 @@ ggplot(data = sps, aes(x = ..., y = ...)) +
 Nice job! As you can see, our plot has many overlapping points making it hard to tell what's going on. Let's change the opacity by setting the `alpha` argument to 0.1.
 
 ```{r point-I-3, exercise=TRUE, exercise.lines=8, eval=FALSE}
-ggplot(data = sps, aes(x = age, y = health_exp_3m)) +
+ggplot(data = sps, mapping = aes(x = age, y = health_exp_3m)) +
   geom_point()
 ```
 
@@ -573,7 +573,7 @@ Set the alpha argument inside of geom_point()
 Great! Now try mapping the `sex` variable to the `color` aesthetic.
 
 ```{r point-I-4, exercise=TRUE, exercise.lines=10, eval=FALSE}
-ggplot(data = sps, aes(x = age, y = health_exp_3m)) +
+ggplot(data = sps, mapping = aes(x = age, y = health_exp_3m)) +
   geom_point()
 ```
 
@@ -589,8 +589,8 @@ ggplot(aes(x = age, y = health_exp_3m, color = ...))
 While this plot created using the `mpg` dataset only displays 126 points, it visualizes a data set that contains 234 points.
 
 ```{r echo = FALSE, out.width = "80%"}
-ggplot(data = mpg) +
-  geom_point(mapping = aes(x = displ, y = hwy))
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+  geom_point()
 ```
 
 The missing points are hidden behind other points, a phenomenon known as _overplotting_. Overplotting is a problem because it provides an incomplete picture of the dataset. You cannot determine where the *mass* of the points fall, which makes it difficult to spot relationships in the data. 
@@ -610,7 +610,7 @@ If your overplotting is due to rounding, you can obtain a better picture of the 
 
 Try this now. Set the points to an alpha of 0.2, which will make each point 20% opague (i.e. five points staked on top of each other will create a solid black).
 
-*Change the transparency of the points by setting `alpha = 0.2` within `geom_point()`.*
+Change the transparency of the points by setting `alpha = 0.2` within `geom_point()`.
 
 ```{r exercise-9, exercise = TRUE, exercise.lines = 5}
 ggplot(data = qscores, mapping = aes(x = rating, y = hours, size = enrollment)) +
@@ -627,7 +627,7 @@ ggplot(data = qscores, mapping = aes(x = rating, y = hours, size = enrollment)) 
 
 A second strategy for dealing with overplotting due to rounding is to adjust the position of each point. `geom_jitter()` plots a scatterplot and then adds a small amount of random noise to each point in the plot. It is a shortcut for adding a "jitter" position adjustment to a points plot (i.e, `geom_point(position = "jitter")`). Since the noise is random, it is unlikely that two points rounded to the same location will also be jittered to the same location. The result is a jittered plot that displays more of the data and provides a simple way to inspect patterns that occur in heavily gridded or overlapping data. 
 
-*Replace `geom_point()` with `geom_jitter()` to create a jittered scatterplot.*
+Replace `geom_point()` with `geom_jitter()` to create a jittered scatterplot.
 
 ```{r exercise-10, exercise = TRUE, exercise.lines = 5}
 ggplot(data = qscores, mapping = aes(x = rating, y = hours)) +
@@ -647,7 +647,7 @@ A better way to deal with overplotting due to large data is to visualize a summa
 Do you notice anything wrong with this graph? It appears to look fine, right? Try replacing `geom_point()` with `geom_jitter()`.
 
 ```{r jit-I-1, exercise=TRUE, exercise.lines=6}
-ggplot(data = trains, aes(x = att_start, y = att_end)) +
+ggplot(data = trains, mapping = aes(x = att_start, y = att_end)) +
   geom_point()
 
 ```
@@ -657,7 +657,7 @@ ggplot(data = trains, aes(x = att_start, y = att_end)) +
 As you can see, this changes things. The data on our graph was affected by overplotting, which is where points are plotted on top of each other. Jittering the points shifted them slightly from under each other. We can adjust the amount the points are jittered by setting the width. Set the `width` to `.2` within `geom_jitter()`.
 
 ```{r jit-I-3, exercise=TRUE, exercise.lines=6}
-ggplot(data = trains, aes(x = att_start, y = att_end)) +
+ggplot(data = trains, mapping = aes(x = att_start, y = att_end)) +
   geom_jitter()
 
 ```
@@ -666,14 +666,14 @@ ggplot(data = trains, aes(x = att_start, y = att_end)) +
 Now set the `color` aesthetic to the `party` variable. 
 
 ```{r jit-I-4, exercise=TRUE, exercise.lines=6}
-ggplot(data = trains, aes(x = att_start, y = att_end)) +
+ggplot(data = trains, mapping = aes(x = att_start, y = att_end)) +
   geom_jitter()
 
 ```
 
 
 ```{r jit-I-4-hint, eval=FALSE}
-Because color is an aesthetic, set it inside of aes()
+Because color is an aesthetic, set it inside of aes().
 ```
 
 <!-- ## `geom_jitter()` III -->
@@ -681,7 +681,7 @@ Because color is an aesthetic, set it inside of aes()
 Hit 'Run Code' to look at the following graph:
 
 ```{r gj-1-1, exercise=TRUE, exercise.lines = 5}
-ggplot(data = diamonds, aes(x = carat, y = price)) +
+ggplot(data = diamonds, mapping = aes(x = carat, y = price)) +
   geom_jitter()
 ```
 
@@ -692,7 +692,7 @@ ggplot(data = diamonds, aes(x = carat, y = price)) +
 Let's try to fix this by setting `width` to 0.25, to widen our jitter effect.
 
 ```{r gj-1-2, exercise=TRUE, exercise.lines = 5}
-ggplot(data = diamonds, aes(x = carat, y = price)) +
+ggplot(data = diamonds, mapping = aes(x = carat, y = price)) +
   geom_jitter()
 ```
 
@@ -701,7 +701,7 @@ ggplot(data = diamonds, aes(x = carat, y = price)) +
 Very nice, this gives us a bit of a better sense of the total distribution. But, there's still a lot of overplotting. Let's set the `alpha` value of our points to 0.2, so we can get a bit of a better grasp on our graph.
 
 ```{r gj-1-3, exercise=TRUE, exercise.lines = 5}
-ggplot(data = diamonds, aes(x = carat, y = price)) +
+ggplot(data = diamonds, mapping = aes(x = carat, y = price)) +
   geom_jitter()
 ```
 
@@ -710,7 +710,7 @@ ggplot(data = diamonds, aes(x = carat, y = price)) +
 Nice. Now, use what you've learned to recreate the plot below. The `alpha` of the plot is 0.2, and the `width` of the jitter distribution is 5.
 
 ```{r}
-ggplot(data = diamonds, aes(x = depth, y = price)) +
+ggplot(data = diamonds, mapping = aes(x = depth, y = price)) +
   geom_jitter(width = 5, alpha = 0.2) +
   labs(title = "Depth and Price in Diamonds",
        x = "Depth",
@@ -776,7 +776,7 @@ quiz(
 Run the following line graph, then try changing the y axis variable to `unemploy`.
 
 ```{r line-I-2, exercise=TRUE, exercise.lines=6, eval=FALSE}
-ggplot(data = economics, aes(x = date, y = pop)) +
+ggplot(data = economics, mapping = aes(x = date, y = pop)) +
   geom_line()
 ```
 
@@ -792,7 +792,7 @@ Afghanistan_population <- population %>%
 Afghanistan_population <- population %>%
   filter(country == "Afghanistan")
 
-ggplot(data = ..., aes(x = ..., y = ...)) +
+ggplot(data = ..., mapping = aes(x = ..., y = ...)) +
   geom_line()
 ```
 
@@ -909,7 +909,7 @@ ggplot(data = qscores, mapping = aes(x = rating)) +
 Let's make a histogram using geom_histogram() and the `mpg` tibble, which contains data on the fuel efficiency of different types of cars. Press 'Run Code' to continue.
 
 ```{r gh-1-1, exercise=TRUE, exercise.lines = 5}
-ggplot(data = mpg, aes(x = hwy)) +
+ggplot(data = mpg, mapping = aes(x = hwy)) +
   geom_histogram()
 ```
 
@@ -922,7 +922,7 @@ Great. Note that if you don't specify the number of 'bins' you want for your his
 Now, try making a histogram with x = `cty`.
 
 ```{r gh-1-2-hint, eval=FALSE}
-ggplot(data = mpg, aes(x = ...)) +
+ggplot(data = mpg, mapping = aes(x = ...)) +
   geom_histogram()
 ```
 
@@ -935,7 +935,7 @@ ggplot(data = mpg, aes(x = ...)) +
 Nice! Now, let's get rid of that pesky red message by setting `bins` to 40.
 
 ```{r gh-1-3-hint, eval=FALSE}
-ggplot(data = mpg, aes(x = ...)) +
+ggplot(data = mpg, mapping = aes(x = ...)) +
   geom_histogram(bins = ...)
 ```
 
@@ -948,7 +948,7 @@ ggplot(data = mpg, aes(x = ...)) +
 Very nice. Now, use what you've learned to recreate this graph.
 
 ```{r}
-ggplot(data = mpg, aes(x = displ)) +
+ggplot(data = mpg, mapping = aes(x = displ)) +
   geom_histogram(bins = 10) +
   labs(title = "Engine Size in Cars",
        x = "Engine Size (Liters)",
@@ -1083,7 +1083,7 @@ Use the color argument and remember to put "blue" in quotes.
 Let's make a boxplot using the `mpg` tibble, which shows the fuel efficiency for different types of cars. Set x = `class`, and y = `hwy`.
 
 ```{r gb-1-2-hint, eval=FALSE}
-ggplot(data = mpg, aes(x = ... , y = ... )) +
+ggplot(data = mpg, mapping = aes(x = ... , y = ... )) +
   geom_boxplot()
 ```
 
@@ -1122,7 +1122,7 @@ labs(title = ...,
 Awesome! Now, use what you've learned to recreate this plot.
 
 ```{r}
-ggplot(data = mpg, aes(x = manufacturer, y = cty)) +
+ggplot(data = mpg, mapping = aes(x = manufacturer, y = cty)) +
   geom_boxplot(outlier.color = "blue") +
   labs(title = "City Fuel Effiecnecy by Car Manufacturer",
        x = "Manufacturer",
@@ -1139,7 +1139,7 @@ ggplot(data = mpg, aes(x = manufacturer, y = cty)) +
 Let's use `geom_violin()` to make a plot with the `diamonds` tibble, which contains information about cut diamonds. Hit 'Run Code' to continue.
 
 ```{r gv-1-1, exercise=TRUE, exercise.lines = 5}
-ggplot(data = diamonds, aes(x = cut, y = price)) +
+ggplot(data = diamonds, mapping = aes(x = cut, y = price)) +
   geom_violin()
 ```
 
@@ -1188,7 +1188,7 @@ Nice! Now try setting the `kernel` argument in `geom_violin()` to "epanechnikov"
 Well done. Now, use what you've learned about `geom_violin()` to recreate this plot:
 
 ```{r}
-ggplot(data = diamonds, aes(x = cut, y = carat), color = "blue") +
+ggplot(data = diamonds, mapping = aes(x = cut, y = carat), color = "blue") +
   geom_violin() +
   labs(title = "Size and Quality in Diamonds",
        x = "Quality",
@@ -1205,7 +1205,7 @@ aes(x = cut, y = carat)
 labs(title = ..., x = ..., y = ...)
 ```
 
-## geom_bar() and geom_col()
+## `geom_bar()`
 
 ```{r quiz-13, echo = FALSE}
 quiz(
@@ -1220,7 +1220,7 @@ quiz(
 
 ###
 
-*We can now use a barplot to plot how many students are enrolled in classes per department. We will use the `top_five_qscores` dataset again to look at the five largest departments.*
+We can now use a barplot to plot how many students are enrolled in classes per department. We will use the `top_five_qscores` dataset again to look at the five largest departments.
 
 ```{r barplot, include = FALSE}
 top_five_enrolled <- qscores %>%
@@ -1236,7 +1236,7 @@ top_five_qscores <- qscores %>% filter(department %in% top_five_enrolled[0:5])
 top_five_qscores
 ```
 
-*Use `ggplot()` and `geom_bar()` to plot `department` on the x-axis to see the number of classes in each department.*
+Use `ggplot()` and `geom_bar()` to plot `department` on the x-axis to see the number of classes in each department.
 
 ```{r exercise-17-setup, include = FALSE}
 top_five_enrolled <- qscores %>%
@@ -1259,7 +1259,156 @@ ggplot(data = ..., mapping = aes(x = ...)) +
 
 ###
 
-*We can then count the number of classes per department in order to use the `geom_col()` layer instead. We do this using the `group_by()` and `count()` functions in the `tidyverse` package, which you will learn how to use in the next chapter. Our new data frame is stored as `top_five_qscores_counted`.*
+Let's go back to the `trains` dataset in the `PPBDS.data` package. Use `ggplot()` and `geom_bar()` to plot `treatment` on the x-axis.
+
+```{r exercise-19, exercise = TRUE, exercise.lines = 5}
+
+```
+
+```{r exercise-19-hint, eval=FALSE}
+ggplot(data = ..., mapping = aes(x = ...)) + ...
+```
+
+###
+
+We can now map the additional variable `party` by adding a `fill = party` inside the `aes()` aesthetic mapping.
+
+<!-- ggplot(data = trains, mapping = aes(x = treatment)) + geom_bar() -->
+
+```{r exercise-20, exercise = TRUE, exercise.lines = 5}
+
+```
+
+```{r exercise-20-hint, eval=FALSE}
+ggplot(data = trains, mapping = aes(x = treatment, fill = ...)) + geom_bar()
+```
+
+###
+
+Change `fill = party` to `color = party`. What happens?
+
+<!-- ggplot(data = trains, mapping = aes(x = treatment, fill = party)) + geom_bar() -->
+```{r exercise-21, exercise = TRUE, exercise.lines = 5}
+
+```
+
+###
+
+Create a side-by-side barplot by adding `position = "dodge"` to `geom_bar()`.
+
+<!-- ggplot(data = trains, mapping = aes(x = treatment, fill = party)) + -->
+<!--   geom_bar() -->
+```{r exercise-22, exercise = TRUE, exercise.lines = 5}
+
+```
+
+```{r exercise-22-hint, eval=FALSE}
+ggplot(data = trains, mapping = aes(x = treatment, fill = party)) +
+  geom_bar(position = ...)
+```
+
+###
+
+Instead of mapping `party` to `fill`, we can include it as the variable to create small multiples of the plot across the levels of `party` using `facet_wrap(~ party)`. Add this layer to the provided plot in order to create a faceted barplot.
+
+<!-- ggplot(data = trains, mapping = aes(x = treatment)) + -->
+<!--   geom_bar() -->
+
+```{r exercise-23, exercise = TRUE, exercise.lines = 5}
+
+```
+
+```{r exercise-23-hint, eval=FALSE}
+ggplot(data = trains, mapping = aes(x = treatment)) + geom_bar() + ...
+```
+
+###
+
+Wonderful! Now, use what you've learned to recreate the plot below.
+
+```{r gbr-1-5, exercise=TRUE, exercise.lines = 5}
+
+```
+
+```{r gbr-1-5-hint, eval=FALSE}
+aes(x = party, fill = liberal)
+labs(title = ..., x = ..., y = ...)
+```
+
+```{r}
+ggplot(data = trains, mapping = aes(x = party, fill = liberal)) +
+  geom_bar() +
+  labs(title = "Political Distribution on Boston Train Platform",
+       x = "Political Party", y = "Number of People")
+```
+
+###
+
+Let's now look at the data set `diamonds`, one you should already be familiar with. Press "Run Code".
+
+```{r bar-I-1, exercise=TRUE, exercise.lines=7}
+ggplot(data = diamonds, aes(x = color)) +
+  geom_bar()
+```
+
+###
+
+Now change the x-axis variable to `cut` and run code the code chunk.
+
+```{r bar-I-2, exercise=TRUE, exercise.lines=7}
+
+
+```
+
+```{r bar-I-2-hint, eval=FALSE}
+ggplot(data = diamonds, mapping = aes(x = ...)) +
+  geom_bar()
+```
+
+###
+
+Nice! Now try mapping the `fill` aesthetic to the `clarity` variable to create a stacked barplot.
+
+```{r bar-I-3, exercise=TRUE, exercise.lines=7}
+
+
+```
+
+```{r bar-I-3-hint, eval=FALSE}
+Because we are mapping fill to a variable, it is an aesthetic. This means that is has to be mapped inside of aes().
+```
+
+###
+
+Great! Now try creating a dodged barplot by setting the `positon` argument to "dodge".
+
+```{r bar-I-4, exercise=TRUE, exercise.lines=7}
+
+
+```
+
+```{r bar-I-4-hint, eval=FALSE}
+Set position inside geom_bar() and remember to put "dodge" in quotes.
+```
+
+###
+
+```{r}
+ggplot(data = cces, mapping = aes(x = ideology, fill = gender)) +
+  geom_bar(position = "dodge")
+```
+
+For your final challenge, recreate the above dodged bar graph. 
+```{r bar-I-5, exercise=TRUE, exercise.lines=7}
+
+
+```
+
+## `geom_col()`
+
+`geom_col()` makes barplots just like `geom_bar()`. The key difference between the two is the type of data they use. Here, We use `geom_col()` because the totals for a variable are pre-counted and listed in the data set. Also note that, unlike for `geom_bar()`, we have to include both x and y in the aesthetic. We'll practice using `geom_col()` in this section.
+
+Let's return to the first barplot we made in `geom_bar()` using the five largest departments in the `qscores` dataset. We will now count the number of classes per department in order to use the `geom_col()` layer instead. We do this using the `group_by()` and `count()` functions in the `tidyverse` package. Our new data frame is stored as `top_five_qscores_counted`.
 
 ```{r classes-counted, include = FALSE}
 top_five_qscores_counted <- top_five_qscores %>%
@@ -1270,7 +1419,7 @@ top_five_qscores_counted <- top_five_qscores %>%
 top_five_qscores_counted
 ```
 
-*Use `ggplot()` and `geom_col()` to plot `department` on the x-axis and `count` on the y-axis to see the number of classes in each department.*
+Use `ggplot()` and `geom_col()` to plot `department` on the x-axis and `count` on the y-axis to see the number of classes in each department.
 
 ```{r exercise-18-setup, include = FALSE}
 top_five_enrolled <- qscores %>%
@@ -1308,137 +1457,61 @@ quiz(
 
 ###
 
-*Let's go back to the `trains` dataset in the `PPBDS.data` package. Use `ggplot()` and `geom_bar()` to plot `treatment` on the x-axis.*
+Let's keep working with the `qscores` dataset. Press "Run Code" to check out the graph:
 
-```{r exercise-19, exercise = TRUE, exercise.lines = 5}
+```{r col-I-1, exercise=TRUE, exercise.lines=7}
+aframer_qscores <- qscores %>%
+  filter(department == "AFRAMER")
 
-```
-
-```{r exercise-19-hint, eval=FALSE}
-ggplot(data = ..., mapping = aes(x = ...)) + ...
-```
-
-###
-
-*We can now map the additional variable `party` by adding a `fill = party` inside the `aes()` aesthetic mapping.*
-
-```{r exercise-20, exercise = TRUE, exercise.lines = 5}
-ggplot(data = trains, mapping = aes(x = treatment)) + geom_bar()
-```
-
-```{r exercise-20-hint, eval=FALSE}
-ggplot(data = trains, mapping = aes(x = treatment, fill = ...)) + geom_bar()
+ggplot(data = aframer_qscores, mapping = aes(x = number, y = enrollment)) +
+  geom_col()
 ```
 
 ###
 
-*Change `fill = party` to `color = party`. What happens? *
+Let's make this graph a little more interesting. Map the `color` aesthetic to the `term` variable.
 
-```{r exercise-21, exercise = TRUE, exercise.lines = 5}
-ggplot(data = trains, mapping = aes(x = treatment, fill = party)) + geom_bar()
+```{r col-I-2, exercise=TRUE, exercise.lines=7}
+aframer_qscores <- qscores %>%
+  filter(department == "AFRAMER")
+
+
+
 ```
 
-###
-
-*Create a side-by-side barplot by adding `position = "dodge"` to `geom_bar()`.*
-
-```{r exercise-22, exercise = TRUE, exercise.lines = 5}
-ggplot(data = trains, mapping = aes(x = treatment, fill = party)) +
-  geom_bar()
-```
-
-```{r exercise-22-hint, eval=FALSE}
-ggplot(data = trains, mapping = aes(x = treatment, fill = party)) +
-  geom_bar(position = ...)
-```
-
-###
-
-*Instead of mapping `party` to `fill`, we can include it as the variable to create small multiples of the plot across the levels of `party` using `facet_wrap(~ party)`. Add this layer to the provided plot in order to create a faceted barplot.*
-
-```{r exercise-23, exercise = TRUE, exercise.lines = 5}
-ggplot(data = trains, mapping = aes(x = treatment)) +
-  geom_bar()
-```
-
-```{r exercise-23-hint, eval=FALSE}
-ggplot(data = trains, mapping = aes(x = treatment)) + geom_bar() + ...
-```
-
-## geom_bar() I
-
-###
-
-Welcome to geom_bar() I! Let's start by looking at the data set `diamonds`, one you should already be familiar with. Press "Run Code"
-
-```{r bar-I-1, exercise=TRUE, exercise.lines=7}
-diamonds %>%
-  ggplot(aes(x = color)) +
-    geom_bar()
-
+```{r col-I-2-hint, eval=FALSE}
+ggplot(data = aframer_qscores, mapping = aes(x = number, y = enrollment, color = ...)) +
+  geom_col()
 
 ```
 
 ###
 
-Now change the x axis variable to `cut` and run code the code chunk.
-
-```{r bar-I-2, exercise=TRUE, exercise.lines=7}
-
-
-```
-
-```{r bar-I-2-hint, eval=FALSE}
-diamonds %>%
-  ggplot(aes(x = ...)) +
-    geom_bar()
-```
-
-###
-
-Nice! Now try mapping the `fill` aesthetic to the `clarity` variable to create a stacked barplot
-
-```{r bar-I-3, exercise=TRUE, exercise.lines=7}
-
-
-```
-
-```{r bar-I-3-hint, eval=FALSE}
-Because we are mapping fill to a variable, it is an aesthetic. This means that is has to be mapped inside of aes()
-```
-
-###
-
-Great! Now try creating a dodged barplot by setting the `positon` argument to "dodge"
-
-
-```{r bar-I-4, exercise=TRUE, exercise.lines=7}
-
-
-```
-
-```{r bar-I-4-hint, eval=FALSE}
-Set position inside geom_bar() and remember to put "dodge" in quotes
-```
-
-###
+This final question is for all you Star Wars fans out there. These are the droids you're looking for. Recreate the plot below using the dataset `droid`, which was created from filtering the `starwars` dataset to only characters who are droids.
 
 ```{r}
-cces %>%
-  ggplot(aes(x = ideology, fill = gender)) +
-    geom_bar(position = "dodge")
+droid <- starwars %>%
+  filter(species == "Droid")
+
+ggplot(data = droid, mapping = aes(x = name, y = height)) +
+  geom_col()
 ```
 
-For your final challenge, recreate the above dodged bar graph. Note, it was made from data set `cces` with the fill aesthetic set to `gender`.
-```{r bar-I-5, exercise=TRUE, exercise.lines=7}
+```{r col-I-5, exercise=TRUE, exercise.lines=7, eval=FALSE}
+droid <- starwars %>%
+  filter(species == "Droid")
 
 
 ```
-## geom_bar() II
 
-###
 
-Welcome to geom_bar() II! Using data set `sps`, a public health experiment in Mexico, make a dodged bar plot with `education` on the x axis and `sex` mapped to the fill aesthetic.
+
+
+
+
+## Advanced Plotting - `geom_bar()`
+
+Using data set `sps`, a public health experiment in Mexico, make a dodged bar plot with `education` on the x axis and `sex` mapped to the fill aesthetic.
 
 ```{r bar-II-1, exercise=TRUE, exercise.lines=7}
 
@@ -1471,7 +1544,7 @@ Now facet the graph by `treatment` and set the number of columns to 2.
 ```
 
 ```{r bar-II-4-hint, eval=FALSE}
-To facet, use facet_wrap() and inside, set ncol to 2
+To facet, use facet_wrap() and inside, set ncol to 2.
 
 ```
 ###
@@ -1484,69 +1557,11 @@ Nice! Now make the theme of the plot minimalist and add a title of your choice.
 ```
 
 ```{r bar-II-5-hint, eval=FALSE}
-To set the theme, use theme_minimal() and to add a title, use labs()
+To set the theme, use theme_minimal() and to add a title, use labs().
 
 ```
 
-## geom_bar() III
-
-Let's make a barplot using `geom_bar()` using the `trains` tibble, which records attitudes towards immigration on a Boston train platform before and after an experiment. Hit 'Run Code' to continue.
-
-
-```{r gbr-1-1, exercise=TRUE, exercise.lines = 5}
-trains %>% ggplot() +
-  geom_bar(aes(x = party))
-```
-
-###
-
-Nice. Now, let's try making a barplot with x = `gender` instead.
-
-```{r gbr-1-2-hint, eval=FALSE}
-trains %>% ggplot() +
-  geom_bar(aes(x = ...))
-```
-
-```{r gbr-1-2, exercise=TRUE, exercise.lines = 5}
-
-```
-
-###
-
-Cool. Now, let's try adding some labels with `labs()`. Title our graph "Gender Distribution on Boston Train Platform". Our x-axis can be "Gender", and our y-axis can be "Number of People".
-
-```{r gbr-1-3, exercise=TRUE, exercise.lines = 5}
-
-```
-
-###
-
-Well done. Now, let's try mapping `fill` to the `liberal` variable.
-
-```{r gbr-1-4-hint, eval=FALSE}
-Make sure to map `fill` inside of the `aes()` function.
-```
-
-```{r gbr-1-4, exercise=TRUE, exercise.lines = 5}
-
-```
-
-###
-
-Wonderful! Now, use what you've learned to recreate the plot below.
-
-```{r gbr-1-5, exercise=TRUE, exercise.lines = 5}
-
-```
-
-```{r}
-trains %>% ggplot() +
-  geom_bar(aes(x = party, fill = liberal)) +
-  labs(title = "Political Distribution on Boston Train Platform",
-       x = "Political Party", y = "Number of People")
-```
-
-## geom_bar() IV
+### 
 
 Let's make a barplot using `trains`, a tibble that records attitudes towards immigration on a Boston train platform before and after an experiment. Map our x variable to `att_start`.
 
@@ -1564,7 +1579,7 @@ Great. Now, add some labels with `labs()`, let's title our plot "Attitudes Towar
 
 ###
 
-Nicely done. Let's change the aesthetics of our graph to make it a little more appealing. Let's change our theme using `theme_bw()`, and change our color scheme using `scale_color_brewer()`, and set our `palette` to "Purples".
+Nicely done. Let's change the aesthetics of our graph to make it a little more appealing. Let's change our theme using `theme_bw()`, and change our color scheme using `scale_color_brewer()`, and set our `palette` to `"Purples"`.
 
 ```{r gbr-2-3, exercise=TRUE, exercise.lines = 5}
 
@@ -1587,8 +1602,8 @@ facet_wrap( ~ ...)
 Well done. Now, use what you've learned to recreate the plot below.
 
 ```{r}
-trains %>% ggplot() +
-  geom_bar(aes(x = att_end, fill = gender)) +
+ggplot(data = trains, mapping = aes(x = att_end, fill = gender)) +
+  geom_bar() +
   facet_wrap( ~ treatment) +
   labs(title = "Attitudes Towards Immigration After Experimentation",
        x = "Attitude Towards Immigration (Higher Means More Conservative)",
@@ -1599,81 +1614,9 @@ trains %>% ggplot() +
 
 ```
 
-## geom_col() I
-
-###
-
-Welcome to geom_col() I! `geom_col()` makes barplots just like `geom_bar`. The key difference between the two is the type of data they use. In the code below, I create a bar plot with the `qscores` dataset. Here, I used `geom_col` because the totals for enrollment were pre-counted and listed in the data set. So say for class 1OOY, instead of having 1OOY appear 50 times in the data set to tell us that there are 50 students, we just have the enrollment listed as 50. Also note that, unlike for `geom_bar`, we have to include both x and y in the aesthetic. Press "Run Code" to check out the graph:
-
-```{r col-I-1, exercise=TRUE, exercise.lines=7}
-qscores %>%
-  filter(department == "AFRAMER") %>%
-    ggplot(aes(x = number, y = enrollment)) +
-      geom_col()
-
-```
-
-###
-
-Let's make this graph a little more interesting. Map the `color` aesthetic to the `term` variable.
-
-```{r col-I-2, exercise=TRUE, exercise.lines=7}
 
 
-```
-
-```{r col-I-2-hint, eval=FALSE}
-qscores %>%
-  filter(department == "AFRAMER") %>%
-    ggplot(aes(x = number, y = enrollment, color = ...)) +
-      geom_col()
-
-```
-
-###
-
-Nice! Try swapping the variable `enrollment` from the x axis to the y axis and the variable `number` from the y axis to the x axis.
-
-```{r col-I-3, exercise=TRUE, exercise.lines=7}
-
-
-```
-
-###
-
-Hmm, what do you think of the changes. I think it looked better before, as it made more sense to have the continuous variable `enrollment` on the y axis. For this next code snippet, let's switch it back and add labels. Change axis label "number" to "class identification number", and add the title "Enrollment in Classes in the Department of African and African American Studies at Harvard".
-
-```{r col-I-4, exercise=TRUE, exercise.lines=7}
-construction %>%
-  ggplot(aes(x = Month,y = Northeast)) +
-    geom_line()
-
-```
-
-```{r col-I-4-hint, eval=FALSE}
-To add labels, use labs()
-
-```
-
-###
-
-This final question is for all you Star Wars fans out there. These are the droids you're looking for. Recreate the plot below which I created from filtering data set `starwars` to only characters who are droids. As you can see, I have started it for you.
-
-```{r}
-starwars %>%
-  filter(species == "Droid") %>%
-    ggplot(aes(x = name, y = height)) +
-      geom_col()
-```
-
-```{r col-I-5, exercise=TRUE, exercise.lines=7, eval=FALSE}
-starwars %>%
-  filter(species == "Droid") %>%
-
-
-```
-
-## geom_col() II
+## Advanced Plotting - `geom_col()`
 
 ###
 
@@ -1700,7 +1643,7 @@ Because fill is an aesthetic, we set it inside aes()
 
 ###
 
-Nice! As you can see, there is some overlapping text making it hard to read the x axis. Let's fix this by setting the x axis text size to 7 using theme().
+Nice! As you can see, there is some overlapping text making it hard to read the x axis. Let's fix this by setting the x axis text size to 7 using `theme()`.
 
 ```{r col-II-3, exercise=TRUE, exercise.lines=7}
 
@@ -2247,7 +2190,7 @@ Let's also use `theme_light()` and `scale_color_brewer()` with `pallete` = "Set2
 
 ###
 
-Nice. Now let's try something different. Set `position` to "stack", so it's a little easier to see the lines over eachother. This places the data from each consecutive color value over top of the data that's already been plotted, 'stacking' the data. Now, we can change our `color` mapping to `fill` (you will need to do this in the `scale()` functions as well).
+Nice. Now let's try something different. Set `position` to "stack", so it's a little easier to see the lines over each other. This places the data from each consecutive color value over top of the data that's already been plotted, 'stacking' the data. Now, we can change our `color` mapping to `fill` (you will need to do this in the `scale()` functions as well).
 
 Finally, let's use `theme(legend.position)` to move our legend to the "right" of our plot.
 
