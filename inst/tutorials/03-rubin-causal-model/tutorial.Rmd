@@ -1004,14 +1004,13 @@ question_text("What is the causal effect of Emma being treated on Yao?",
 ```
 
 <!-- Correlation w potential outcomes questions and natural experiments questions-->
+
 ## Submit
 
 ```{r context="setup"}
-submission_ui()
+submission_ui
 ```
 
 ```{r context="server"}
 submission_server()
 ```
-
-

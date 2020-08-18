@@ -56,6 +56,8 @@ Did you know, `library()` is a special function in R? You can pass `library()` a
 
 But what if the package that you want to load is not installed on your computer? How would you install the dplyr package on your own computer?
 
+<!-- DK: This is bad because running install.packages() produces a confusing error. Can we ask question without allowing for the Run Code button? -->
+
 ```{r packages3, exercise = TRUE}
 
 ```
