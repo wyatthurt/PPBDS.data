@@ -3,6 +3,10 @@
 
 # Data for *Preceptor’s Primer for <br/> Bayesian Data Science* <img src="man/figures/ulysses_hex_black.png" align = "right"  width="160">
 
+<!-- badges: start -->
+[![R build status](https://github.com/davidkane9/PPBDS.data/workflows/R-CMD-check/badge.svg)](https://github.com/davidkane9/PPBDS.data/actions)
+<!-- badges: end -->
+
 ## About this package
 
 `PPBDS.data` provides the data and the tutorials used in *[Preceptor’s
