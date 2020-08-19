@@ -52,6 +52,8 @@ In the code chunk below, load the `tidyverse` package. Whenever you load a packa
 
 Did you know, `library()` is a special function in R? You can pass `library()` a package name in quotes, like `library("tidyverse")`, or not in quotes, like `library(tidyverse)`---both will work! That's often not the case with R functions.
 
+<!-- JSE - commented it out for now due to weird error, not sure how to remove "Run Code" button -->
+
 <!-- ### Install packages -->
 
 <!-- But what if the package that you want to load is not installed on your computer? How would you install the dplyr package on your own computer? -->
@@ -1567,7 +1569,7 @@ Use labs() to add the title and labels.
 Let's make a plot with `geom_smooth()`, and the `mpg` tibble, which records the fuel efficiency of different car models. Hit 'Run Code' to continue.
 
 ```{r gs-1-1, exercise=TRUE, exercise.lines = 5}
-ggplot(data = mpg, aes(x = displ, y = cty)) +
+ggplot(data = mpg, mapping = aes(x = displ, y = cty)) +
   geom_smooth()
 ```
 
@@ -1611,20 +1613,18 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
 
 ```
 
-
 ## `geom_density()`
 
-Just like histograms, density plots give us a sense of the distribution of a data set for a given variable.  Let's start by looking at this density plot from data set `nhanes`. Press "run code":
+Just like histograms, density plots give us a sense of the distribution of a data set for a given variable.  Let's start by looking at this density plot from data set `nhanes`. Press "Run Code":
 
 ```{r den1D-I-1, exercise=TRUE, exercise.lines=6}
-nhanes %>%
-  ggplot(aes(x = bmi)) +
-    geom_density()
+ggplot(data = nhanes, mapping = aes(x = bmi)) +
+  geom_density()
 ```
 
 ###
 
-Now try switching the axes by setting `bmi` to the y axis instead
+Now try switching the axes by setting `bmi` to the y axis instead.
 
 ```{r den1D-I-2, exercise=TRUE, exercise.lines=6}
 
@@ -1632,7 +1632,7 @@ Now try switching the axes by setting `bmi` to the y axis instead
 
 ###
 
-Great! Now change the variable to `height` and set it to the x axis
+Great! Now change the variable to `height` and set it to the x axis.
 
 ```{r den1D-I-3, exercise=TRUE, exercise.lines=6}
 
@@ -1640,7 +1640,7 @@ Great! Now change the variable to `height` and set it to the x axis
 
 ###
 
-Nice! Just like in a violin plot, we can use the `adjust` argument inside of `geom_density()` to change the bandwith of our plot. Try setting it to 1/3, which makes it a third of the size of the default
+Nice! Just like in a violin plot, we can use the `adjust` argument inside of `geom_density()` to change the bandwidth of our plot. Try setting it to 1/3, which makes it a third of the size of the default.
 
 ```{r den1D-I-4, exercise=TRUE, exercise.lines=6}
 
@@ -1648,21 +1648,19 @@ Nice! Just like in a violin plot, we can use the `adjust` argument inside of `ge
 
 ###
 
-Great! Now set the `fill` aesthetic to the `gender` variable
+Great! Now set the `fill` aesthetic to the `gender` variable.
 
 ```{r den1D-I-5, exercise=TRUE, exercise.lines=7}
 
 ```
 
 ```{r den1D-I-5-hint, eval=FALSE}
-Because fill is an aesthetic, set it inside of aes()
+Because fill is an aesthetic, set it inside of aes().
 ```
-
-## geom_density() II
 
 ###
 
-Welcome to geom_density() II! Let's start by looking at the data set `cces`. Use `cces` to make a density plot with `age` on the x axis and `ideology` set to the aesthetics `color` and `fill`.
+Now we'll look at the data set `cces`. Use `cces` to make a density plot with `age` on the x axis and `ideology` set to the aesthetics `color` and `fill`.
 
 ```{r den1D-II-1, exercise=TRUE, exercise.lines=6}
 
@@ -1689,7 +1687,7 @@ Nice! Now try setting the `position` parameter in `geom_density()` to "fill". Th
 
 ###
 
-Great! Now add a limit to the x axis with an upper bound of 90 and a lower bound of 20. After you have done this, set the `linetype` parameter in `geom_density()` to `dotted`.
+Great! Now add a limit to the x axis with an upper bound of 90 and a lower bound of 20. After you have done this, set the `linetype` parameter in `geom_density()` to `"dotted"`.
 
 ```{r den1D-II-4, exercise=TRUE, exercise.lines=8}
 
@@ -1702,13 +1700,12 @@ Use xlim() to add a limit on the x axis
 
 ###
 
-For your final challenge of geom_density() II, recreate the graph below made with data set `trains`
+For your final challenge of `geom_density()`, recreate the graph below made with data set `trains`.
 
 ```{r}
-trains %>%
-  ggplot(aes(x = income, color = treatment)) +
-    geom_density(position = "fill") +
-    labs(title = "Age Distribution in the Conressional Election Study ")
+ggplot(data = trains, mapping = aes(x = age, fill = liberal)) +
+  geom_density(alpha = 0.5) +
+  labs(title = "Age Distribution in Attitudes Toward Immigration Study")
 ```
 
 ```{r den1D-II-5, exercise=TRUE, exercise.lines=8}
@@ -1716,135 +1713,22 @@ trains %>%
 
 ```
 
-## geom_density() III
+## `geom_bin2d()`
 
-Let's use `geom_density()` and the `diamonds` tibble to make a plot. Hit 'Run Code'.
+Welcome to `geom_bin2d()`! In this tutorial, we will be learning how to make heatmaps. `geom_bin2d()` is similar to a scatterplot or jittered scatterplot because it takes two continouous variables, but instead of plotting every individual point, it creates a heatmap of where the points are most concentrated, making it a better fit for big data.
 
-```{r gd-1-1, exercise=TRUE, exercise.lines = 5}
-diamonds %>% ggplot(aes(x = cut)) +
-  geom_density()
-```
-
-###
-
-Nice. Now, let's map `color` to the variable of the same name, `color`, from the `diamonds` tibble. Note that you can also use `fill` for `geom_density()`, but in this case it's not ideal because the colored areas overlap too much.
-
-Let's also rewrite our legend with the `scale_color_discrete()` function. Give it the `name` "Diamond Color", and the `labels` "Best", "Great", "Good", "Decent", "Okay", "Not Good", and "Worst".
-
-```{r gd-1-2, exercise=TRUE, exercise.lines = 5}
-
-```
-
-###
-
-Good stuff. Now, let's use `labs()` to give our plot some labels. Title our plot "Diamond Color And Price", our x-axis "Price (US Dollars)", and our y-axis "Number of Diamonds".
-
-Let's also use `theme_light()` and `scale_color_brewer()` with `pallete` = "Set2" to change the look of our plot.
-
-
-```{r gd-1-3, exercise=TRUE, exercise.lines = 5}
-
-```
-
-###
-
-Nice. Now let's try something different. Set `position` to "stack", so it's a little easier to see the lines over each other. This places the data from each consecutive color value over top of the data that's already been plotted, 'stacking' the data. Now, we can change our `color` mapping to `fill` (you will need to do this in the `scale()` functions as well).
-
-Finally, let's use `theme(legend.position)` to move our legend to the "right" of our plot.
-
-```{r gd-1-4, exercise=TRUE, exercise.lines = 5}
-
-```
-
-###
-
-Excellent. Now, use what you've learned about `geom_density()` to recreate the plot below. The brewer color palette is "Greens".
-
-```{r}
-diamonds %>% ggplot(aes(x = carat, color = cut)) +
-  geom_density() +
-    labs(title = "Distribution of Size in Diamonds",
-         x = "Size (Carats)",
-         y = "Density of Diamonds") +
-    scale_color_brewer(palette = "Greens", name = "Diamond Quality")
-```
-
-```{r gd-1-5, exercise=TRUE, exercise.lines = 5}
-
-```
-
-## geom_density() IV
-
-Let's make a plot using `geom_density()` and the `qscores` tibble, which records student evaluation data for Harvard classes. Map x to `rating`.
-
-```{r gd-2-1, exercise=TRUE, exercise.lines = 5}
-
-```
-
-###
-
-Well done. Now, let's map `linetype` to `term`. Let's also give our legend some labels using `scale_linetype_discrete()`. Let's give it the `name` "Class Semester", and the `labels` "Fall 2018" and "Spring 2019".
-
-```{r gd-2-2, exercise=TRUE, exercise.lines = 5}
-
-```
-
-###
-
-Nice. Now, let's use `labs()` to give our plot some labels. We can title our plot "Distribution of Harvard Class Student Evaluation Ratings", our x-axis "Rating", and our y-axis "Density of Classes".
-
-Let's also add an `xlim()` function, to set the range of x values on our plot to (2.5, 5).
-
-```{r gd-2-3, exercise=TRUE, exercise.lines = 5}
-
-```
-
-###
-
-Great. Now, let's use `theme(legend.position)` to move our legend to the "bottom" of the plot. Let's also use `theme_classic` to change the look of the plot.
-
-```{r gd-2-4, exercise=TRUE, exercise.lines = 5}
-
-```
-
-
-###
-
-Good stuff. Now, use what you've learned about `geom_density()` to recreate the plot below.
-
-```{r}
-qscores %>% ggplot(aes(x = enrollment, color = term)) +
-  geom_density() +
-  scale_color_discrete(name = "Class Semester", labels = c("Fall 2018", "Spring 2019")) +
-  xlim(0, 200) +
-  labs(title = "Distribution of Students Enrolled in Harvard Classes",
-       x = "Number of Students Enrolled",
-       y = "Density of Classes")
-```
-
-```{r gd-2-5, exercise=TRUE, exercise.lines = 5}
-
-```
-
-## geom_bin2d() I
-
-###
-
-Welcome to geom_bin2d() I! In this tutorial, we will be learning how to make heatmaps. Let's begin by looking at the data set `diamonds`. Press "run code":
+Let's begin by looking at the data set `diamonds`. Press "Run Code":
 
 ```{r bin-I-1, exercise=TRUE, exercise.lines=6}
-diamonds %>%
-  ggplot(aes(x = cut, y = carat)) +
-    geom_bin2d()
+ggplot(data = diamonds, mapping = aes(x = cut, y = carat)) +
+  geom_bin2d()
 ```
 
 ###
 
 Try changing the x axis variable to `price` and the y axis variable to `clarity`
 ```{r bin-I-2, exercise=TRUE, exercise.lines=6, eval=FALSE}
-diamonds %>%
-  ggplot(aes(x = ..., y = ...)) +
-    geom_bin2d()
+
 ```
 
 ###
@@ -1873,188 +1757,23 @@ Set binwidth inside of geom_bin2d()
 
 ###
 
-Great! Now add  the title "Distribution of Diamond Cut and Price"
+Great! Now add the title "Distribution of Diamond Cut and Price"
 
 ```{r bin-I-5, exercise=TRUE, exercise.lines=6}
 
 ```
+
 ```{r bin-I-5-hint, eval=FALSE}
 Use labs()
 ```
 
-## geom_bin2d() II
+## `geom_density2d()`
 
-###
-
-Welcome to geom_bin2d()! Let's first look at the data set `cces`. Use `cces` to make a heatmap with `education` on the x axis and `ideology` on the y axis.
-
-```{r bin-II-1, exercise=TRUE, exercise.lines=6}
-
-```
-
-###
-Nice! As you can see, our x axis tick mark labels are overlapping each other. Let's turn them vertical by setting their angle to 90 using theme().
-
-```{r bin-II-2, exercise=TRUE, exercise.lines=6}
-
-```
-
-###
-
-Great! Now use the function `theme(legend.position = "top")`to move the legend to the top
-
-```{r bin-II-3, exercise=TRUE, exercise.lines=6}
-
-```
-
-###
-
-Nice! Now facet the heatmap by `gender` and set the number of columns to 2
-```{r bin-II-4, exercise=TRUE, exercise.lines=6}
-
-```
-
-```{r bin-II-4-hint, eval=FALSE}
-Use facet_wrap() to facet and set ncol to 2
-```
-
-###
-
-For your final challenge, recreate the graph below made from data set `nhanes`.
-
-```{r}
-nhanes %>%
-  ggplot(aes(x = hh_income, y = education)) +
-    geom_bin2d() +
-    facet_wrap(~gender, ncol = 2) +
-    theme(axis.text.x = element_text(angle = 90))
-
-```
-
-```{r bin-II-5, exercise=TRUE, exercise.lines=8}
-
-```
-
-## geom_bin2d() III
-
-Let's made a heatmap using `geom_bin2d()` and the `diamonds` tibble, which contains information on cut diamonds. Hit 'Run Code' to continue.
-
-
-```{r gb2d-1-1, exercise=TRUE, exercise.lines = 5}
-diamonds %>% 
-  ggplot(aes(x = carat, y = price)) +
-    geom_bin2d()
-```
-
-###
-
-Good. `geom_bin2d()` is similar to a scatterplot or jittered scatterplot because it takes two continouous variables, but instead of plotting every individual point, it creates a heatmap of where the points are most concentrated, making it a better fit for big data.
-
-Now, let's set `bins` to `60`, to give more detailed information on the distribution of our data points.
-
-```{r gb2d-1-2, exercise=TRUE, exercise.lines = 5}
-
-```
-
-###
-
-Nicely done. Now, let's try adding some labels with `labs()`. Title our plot "Size and Price in Diamonds". Call the x-axis "Size (Carats)", and the y-axis "Price (US Dollars)".
-
-```{r gb2d-1-3, exercise=TRUE, exercise.lines = 5}
-
-```
-
-###
-
-Good. Now, let's try changing the color scheme of our plot. Instead of `scale_fill_brewer()`, we use `scale_fill_distiller()`, because our variable is continuous, not categorical. Remember that `scale_..._distiller()` is actually just the continuous variable version of  `scale_..._brewer()`, and both can take the same palatte arguments.
-
-For this task, we will be using `scale_fill_distiller()`, and setting our `palette` to `Spectral`.
-
-```{r gb2d-1-4, exercise=TRUE, exercise.lines = 5}
-
-```
-
-###
-
-Well done. Now, use what you've learned about `geom_bin2d()` to recreate the plot below.
-
-```{r}
-diamonds %>% ggplot(aes(x = depth, y = price)) +
-  geom_bin2d() +
-  labs(title = "Price and Depth in Diamonds",
-       x = "Depth (Millimeters)",
-       y = "Price (US Dollars)")
-```
-
-```{r gb2d-1-5, exercise=TRUE, exercise.lines = 5}
-
-```
-
-## geom_bin2d() IV
-
-Let's make a heatmap using `geom_bin2d`, and the `qscores` tibble, which tracks Harvard student course evaluation information. Let's set x to `hours`, and y to `rating`.
-
-```{r gb2d-2-1, exercise=TRUE, exercise.lines = 5}
-
-```
-
-###
-
-Nice. Now, let's set the `binwidth` argument to 0.1, to give our plot's information a bit more detail. Let's also use `theme_dark()` to change the look of our plot.
-
-```{r gb2d-2-2, exercise=TRUE, exercise.lines = 5}
-
-```
-
-###
-
-Well done. Now, let's use the `xlim()` and `ylim()` functions to remove the outliers and focus more on the bulk of our data. Set our `xlim()` to (2, 5) and our `ylim()` to (0, 15).
-
-
-```{r gb2d-2-3, exercise=TRUE, exercise.lines = 5}
-
-```
-
-Good Work. Now, let's add some labels to both our plot and our legend, using the `labs()` and `scale()` functions. Let's title our plot "Harvard Class Student Evaluation Ratings by Weekly Work Hours", our x-axis "Weekly Work Hours", and our y-axis "Class Rating".
-
-In order to change the name of our legend, we need to call the `scale_fill_continous()` function, even though it doesn't actually do anything on its own. Because we're working with a continuous variable mapped to `fill`, `scale_fill_continous()` is already the default setting. Legend titles, however, must be placed inside of a `scale_()` function corresponding to what they represent, in this case, `fill`.
-
-Anyways, let's set the `name` of our legend "Number of Classes".
-
-```{r gb2d-2-4, exercise=TRUE, exercise.lines = 5}
-
-```
-
-###
-
-Well done. Now, use what you've learned about `geom_bin2d()` to recreate this plot.
-
-```{r}
-qscores %>% 
-  ggplot(aes(x = enrollment, y = rating)) +
-    geom_bin2d() +
-    scale_fill_continuous(name = "Number of Classes") +
-    labs(title = "Harvard Class Enrollment and Student Evaluation Ratings",
-         x = "Number of Students Enrolled",
-         y = "Class Rating") +
-    xlim(0, 200)
-```
-
-```{r gb2d-2-5, exercise=TRUE, exercise.lines = 5}
-
-```
-
-## geom_density2d() I
-
-###
-
-Welcome to geom_density2d() I! We are first going to look at data from `diamonds` of which you are likely already familiar with. Let's start by running the code below:
+For our first exercise in `geom_density2d()`, we are first going to look at data from `diamonds` which you are already very familiar with. Let's start by running the code below:
 
 ```{r density-I-1, exercise=TRUE, exercise.lines=7}
-diamonds %>%
-  ggplot(aes(x = carat, y = price)) +
-    geom_density2d()
-
+ggplot(data = diamonds, aes(x = carat, y = price)) +
+  geom_density2d()
 ```
 
 ###
@@ -2064,12 +1783,6 @@ Now try replacing the variable `carat` with `depth` on the x axis.
 ```{r density-I-2, exercise=TRUE, exercise.lines=7}
 
 
-```
-
-```{r smooth-I-2-hint, eval=FALSE}
-diamonds %>%
-  ggplot(aes(x = ..., y = price)) +
-    geom_density2d()
 ```
 
 ###
@@ -2096,13 +1809,11 @@ Great! Now use labs() to title the graph "Diamond Price, Depth and Cut"
 
 ###
 
-Recreate the graph below which I made using data set `qscores`:
+Recreate the graph below which made using data set `qscores`:
 ```{r}
-
-qscores %>%
-  ggplot(aes(x = rating, y = hours, color = term)) +
-    geom_density2d() +
-      labs(title = "Harvard Class Workload and Rating")
+ggplot(data = qscores, aes(x = rating, y = hours, color = term)) +
+  geom_density2d() +
+  labs(title = "Harvard Class Workload and Rating")
 ```
 
 ```{r density-I-5, exercise=TRUE, exercise.lines=7}
@@ -2110,86 +1821,18 @@ qscores %>%
 
 ```
 
-## geom_density2d() II
-
-###
-
-Welcome to geom_density2d()! Let's start by looking at data set `mpg`. Use `mpg` to make a density plot with `displ` on the x axis, `hwy` on the y axis and `class` mapped to the color aesthetic.
-
-```{r density-II-1, exercise=TRUE, exercise.lines=7}
-
-
-```
-
-###
-
-Nice! Now set a lower limit of 0 and an upper limit of 30 on the y axis.
-
-```{r density-II-2, exercise=TRUE, exercise.lines=7}
-
-
-```
-
-```{r density-II-2-hint, eval=FALSE}
-use ylim()
-```
-
-###
-
-Now instead of setting `class` to color, try facetting by `class` and setting the number of columns to 3
-
-```{r density-II-3, exercise=TRUE, exercise.lines=7}
-
-
-```
-
-```{r density-II-3-hint, eval=FALSE}
-Use facet_wrap() to facet and set ncol to 3
-```
-
-###
-
-Great! Now change the theme to light
-
-```{r density-II-4, exercise=TRUE, exercise.lines=7}
-
-
-```
-
-```{r density-II-4-hint, eval=FALSE}
-Use theme_light()
-```
-
-###
-
-Nice! Now recreate this density plot that I made using data set `airquality`:
-
-```{r}
-airquality %>%
- ggplot(aes(x = Ozone, y = Temp)) +
-  geom_density2d() +
-  theme_minimal() +
-  facet_wrap(~ Month, ncol = 3)
-```
-
-```{r density-II-5, exercise=TRUE, exercise.lines=7}
-
-
-```
-
-## geom_density2d() III
+### 
 
 Let's make a density plot using `geom_density2d()` and the `faithful` tibble, which records information from eruptions of the Old Faithful Geyser. Hit 'Run Code'.
 
 ```{r gd2d-1-1, exercise=TRUE, exercise.lines = 5}
-faithful %>% 
-  ggplot(aes(x = eruptions, y = waiting)) +
-    geom_density2d()
+ggplot(data = faithful, aes(x = eruptions, y = waiting)) +
+  geom_density2d()
 ```
 
 ###
 
-Nice. Now, let's map `linetype` to "dotdash", to change the look of our plot.
+Nice. Now, let's map `linetype` to "dotdash" within `geom_density2d()` to change the look of our plot.
 
 ```{r gd2d-1-2, exercise=TRUE, exercise.lines = 5}
 
@@ -2197,17 +1840,9 @@ Nice. Now, let's map `linetype` to "dotdash", to change the look of our plot.
 
 ###
 
-Well Done. Now, let's change the theme of our plot using `theme_bw()`. Let's also set the `color` of our lines to "black".
+Well Done. Now, let's set the `color` of our lines to "black" within `geom_density2d()`.
 
 ```{r gd2d-1-3, exercise=TRUE, exercise.lines = 5}
-
-```
-
-###
-
-Good Stuff. Now, try setting our `xlim()` function to (0, 7), to a get a more complete view of the circles created by `geom_density2d`.
-
-```{r gd2d-1-4, exercise=TRUE, exercise.lines = 5}
 
 ```
 
@@ -2216,119 +1851,15 @@ Good Stuff. Now, try setting our `xlim()` function to (0, 7), to a get a more co
 Well done. Now, use what you've learned about the `geom_density2d()` function to recreate the plot below.
 
 ```{r}
-faithful %>% 
-  ggplot(aes(x = waiting, y = eruptions)) +
-    geom_density2d(color = "red") +
-    labs(title = "Eruption Length and Waiting Time for Old Faithful Eruptions",
-         x = "Waiting Time (Minutes)",
-         y = "Eruption Length (Minutes)")
+ggplot(data = faithful, aes(x = waiting, y = eruptions)) +
+  geom_density2d(color = "red") +
+  labs(title = "Eruption Length and Waiting Time for Old Faithful Eruptions",
+       x = "Waiting Time (Minutes)",
+       y = "Eruption Length (Minutes)")
 ```
 
 ```{r gd2d-1-5, exercise=TRUE, exercise.lines = 7}
 
-```
-
-## geom_density2d() IV
-
-Let's make a density plot using `geom_density2d()` and the `mpg` tibble, which records the fuel efficiencies of different car models. Let's map x to `cty`, and y to `hwy`.
-
-```{r gd2d-2-1, exercise=TRUE, exercise.lines = 5}
-
-```
-
-###
-
-Nicely done. Let's say, for whatever reason, one desired to decrease the resolution of their `geom_density2d()` plot. You can do this by mapping `n` to the number of verticies you want on your polygons. Try it! Let's set `n` to `10`.
-
-```{r gd2d-2-2, exercise=TRUE, exercise.lines = 5}
-
-```
-
-###
-
-Great. Now, let's try mapping `color` to `class`. Notice how this creates a number of smaller density plots. Let's also add some labels the legend we just generated.
-
-Note that this must be done inside of a `scale()` function that corresponds to `color`. In this case, because we are working with a categorical variable, we will use `scale_color_discrete`. Let's call our legend's `name` "Type of Car", and our variables "Sports Car", "Compact", "Midsize", "Minivan", "Pickup Truck", and "SUV".
-
-```{r gd2d-2-3-hint, eval=FALSE}
-sacle_...(name = ..., labels = c(..., ..., ...))
-```
-
-```{r gd2d-2-3, exercise=TRUE, exercise.lines = 5}
-
-```
-
-###
-
-Nice Work. Now, we can add some labels to the rest of our plot with `labs()`. Title our plot "Highway and City Fuel Efficiency in Different Car Types", our x-axis "City Miles Per Gallon", and our y-axis "Highway Miles Per Gallon".
-
-Let's also move our legend to the "top" of the plot using `theme(legend.position)`, and change the color scheme of our plot with `scale_color_brewer()` using `palette` "Set1".
-
-```{r gd2d-2-4, exercise=TRUE, exercise.lines = 5}
-
-```
-
-###
-
-Good Stuff. Now, use what you've learned about `geom_density2d()` to replicate the plot below.
-
-```{r gd2d-2-5, exercise=TRUE, exercise.lines = 5}
-mpg %>% ggplot(aes(x = displ, y = hwy, linetype = drv)) +
-  geom_density2d() +
-  scale_color_discrete(name = "Type of Drive Train", labels = c("4 Wheel", "Front Only", "Rear Only")) +
-  labs(title = "Engine Size and Highway Miles Per Gallon in Car Types",
-       x = "Engine Size (Liters)",
-       y = "Highway Miles Per Gallon")
-```
-
-## Advanced Plotting - `geom_countour_filled()`
-
-Let's make a plot using `faithfuld`, a modified version of the `faithful` tibble, and `geom_contour_filled()`. `faithfuld` is different from `faithful` because it includes the `density` variable, which is important for plots made with `geom_contour_filled()`.
-
-Hit 'Run Code'.
-
-```{r gcf-1-1, exercise=TRUE, exercise.lines = 5}
-ggplot(data = faithfuld, mapping = aes(x = eruptions, y = waiting, z = density)) +
-  geom_contour_filled()
-```
-
-###
-
-`geom_contour_filled()` and `geom_contour()` are unique functions, because unlike `geom_density2d()` or `geom_bin2d()`, they require a `density` variable to be mapped to their z coordinate. This makes it very hard to make a `geom_contour_filled()` plot with a data set without `density`.
-
-Try making a plot with `geom_contour_filled()` and the `diamonds` tibble. Map x to `price`, y to `carat`, and z to `depth`.
-
-```{r gcf-1-2, exercise=TRUE, exercise.lines = 5}
-
-```
-
-###
-
-Weird, right? Even though the parameters for making a plot with `geom_contour_filled()` are very specific, many of the aesthetic settings you're familiar with still work with it. Try using `scale_fill_brewer(palette = "Purples")` to change the color scheme of the plot.
-
-```{r gcf-1-3, exercise=TRUE, exercise.lines = 5}
-
-```
-
-###
-
-Cool. We can also use `labs()` to add labels like with any other plot. Title our plot "Waiting Time and Eruption Duration from Old Faithful Geyser", our x-axis "Eruption Duration (Minutes)", and our y-axis "Waiting Time (Minutes)". We can also add to our `scale_fill_brewer()` function to set the `name` of our legend to "Density of Eruptions".
-
-```{r gcf-1-4, exercise=TRUE, exercise.lines = 5}
-
-```
-
-###
-
-Nicely done. Now, use what you've learned about `geom_contour_filled()` to recreate the plot below. The color palette is the `Spectral` palette of `scale_fill_brewer()`.
-
-```{r gcf-1-5, exercise=TRUE, exercise.lines = 5}
-faithfuld %>% ggplot(aes(x = waiting, y = eruptions, z = density)) +
-  geom_contour_filled() +
-  scale_fill_brewer(palette = "Spectral", name = "Density of Eruptions") +
-  labs(title = "Waiting Time and Eruption Duration from Old Faithful Geyser",
-       x = "Waiting Time (Minutes)",
-       y = "Eruption Duration (Minutes)")
 ```
 
 ## Advanced Plotting - `geom_point()`
@@ -3233,7 +2764,7 @@ Because fill is an aesthetic, we set it inside aes()
 
 ###
 
-Nice! As you can see, there is some overlapping text making it hard to read the x axis. Let's fix this by setting the x axis text size to 7 using `theme()`.
+Nice! As you can see, there is some overlapping text making it hard to read the x axis. Let's fix this by setting the x axis text size to 4 using `theme()`.
 
 ```{r col-II-3, exercise=TRUE, exercise.lines=7}
 naboo <- starwars %>%
@@ -3242,7 +2773,7 @@ naboo <- starwars %>%
 ```
 
 ```{r col-II-3-hint, eval=FALSE}
-Use theme() and set axis.text.x to element_text(size = 7)
+Use theme() and set axis.text.x to element_text(size = 4)
 
 ```
 
@@ -3262,7 +2793,7 @@ Set width inside of geom_col()
 
 ###
 
-For your final challenge, recreate the plot below using the dataset `eng_qscores` which was made from the dataset `qscores` and was filtered to only include data where `department` == `ENGLISH`. Additionally, the size of the text on the x axis was set to size 5 using theme().
+For your final challenge, recreate the plot below using the dataset `eng_qscores` which was made from the dataset `qscores` and was filtered to only include data where `department` == `ENGLISH`. Additionally, the size of the text on the x axis was set to size 5 using `theme()`.
 
 ```{r}
 eng_qscores <- qscores %>%
@@ -3483,12 +3014,398 @@ ggplot(data = iris, mapping = aes(x = Sepal.Width, y = Sepal.Length, linetype = 
 
 ```
 
-## The `tidyverse` I
+## Advanced Plotting - `geom_density()`
+
+Let's make a plot using `geom_density()` and the `qscores` tibble, which records student evaluation data for Harvard classes. Map x to `rating`.
+
+```{r gd-2-1, exercise=TRUE, exercise.lines = 5}
+
+```
 
 ###
 
+Well done. Now, let's map `linetype` to `term` within `aes()`. Let's also give our legend some labels using `scale_linetype_discrete()`. Let's give it the `name` "Class Semester", and the `labels` "Fall 2018" and "Spring 2019".
 
-Before we get started, load the package `PPBDS.data`
+```{r gd-2-2, exercise=TRUE, exercise.lines = 5}
+
+```
+
+###
+
+Nice. Now, let's use `labs()` to give our plot some labels. We can title our plot "Distribution of Harvard Class Student Evaluation Ratings", our x-axis "Rating", and our y-axis "Density of Classes".
+
+Let's also add an `xlim()` function, to set the range of x values on our plot to (2.5, 5).
+
+```{r gd-2-3, exercise=TRUE, exercise.lines = 5}
+
+```
+
+###
+
+Great. Now, let's use `theme(legend.position)` to move our legend to the "bottom" of the plot. Let's also use `theme_classic` to change the look of the plot.
+
+```{r gd-2-4, exercise=TRUE, exercise.lines = 5}
+
+```
+
+###
+
+Good stuff. Now, use what you've learned about `geom_density()` to recreate the plot below.
+
+```{r}
+ggplot(data = qscores, aes(x = enrollment, color = term)) +
+  geom_density() +
+  scale_color_discrete(name = "Class Semester", labels = c("Fall 2018", "Spring 2019")) +
+  xlim(0, 200) +
+  labs(title = "Distribution of Students Enrolled in Harvard Classes",
+       x = "Number of Students Enrolled",
+       y = "Density of Classes")
+```
+
+```{r gd-2-5, exercise=TRUE, exercise.lines = 5}
+
+```
+
+###
+
+Now let's practice using `geom_density()` and the `diamonds` tibble to make another density plot.
+
+```{r gd-1-1, exercise=TRUE, exercise.lines = 5}
+ggplot(data = diamonds, aes(x = cut)) +
+  geom_density()
+```
+
+###
+
+Nice. Let's map `color` to the variable of the same name, `color`, from the `diamonds` tibble. Note that you can also use `fill` for `geom_density()`, but in this case it's not ideal because the colored areas overlap too much.
+
+Let's also rewrite our legend with the `scale_color_discrete()` function. Give it the `name` "Diamond Color", and the `labels` "Best", "Great", "Good", "Decent", "Okay", "Not Good", and "Worst".
+
+```{r gd-1-2, exercise=TRUE, exercise.lines = 5}
+
+```
+
+###
+
+Good stuff. Now, let's use `labs()` to give our plot some labels. Title our plot `"Diamond Color And Price"`, our x-axis `"Price (US Dollars)"`, and our y-axis `"Number of Diamonds"`.
+
+Let's also use `theme_light()` and `scale_color_brewer()` with `pallete = "Set2"` to change the look of our plot.
+
+
+```{r gd-1-3, exercise=TRUE, exercise.lines = 5}
+
+```
+
+###
+
+Nice. Now let's try something different. Set `position` to "stack", so it's a little easier to see the lines over each other. This places the data from each consecutive color value over top of the data that's already been plotted, 'stacking' the data. Now, we can change our `color` mapping to `fill` (you will need to do this in the `scale()` functions as well).
+
+Finally, let's use `theme(legend.position)` to move our legend to the "right" of our plot.
+
+```{r gd-1-4, exercise=TRUE, exercise.lines = 5}
+
+```
+
+###
+
+Excellent. Now, use what you've learned about `geom_density()` to recreate the plot below. The brewer color palette is "Greens".
+
+```{r}
+ggplot(data = diamonds, aes(x = carat, color = cut)) +
+  geom_density() +
+    labs(title = "Distribution of Size in Diamonds",
+         x = "Size (Carats)",
+         y = "Density of Diamonds") +
+    scale_color_brewer(palette = "Greens", name = "Diamond Quality")
+```
+
+```{r gd-1-5, exercise=TRUE, exercise.lines = 5}
+
+```
+
+## Advanced Plotting - `geom_bin2d()`
+
+Welcome to geom_bin2d()! Let's first look at the data set `cces`. Use `cces` to make a heatmap with `education` on the x axis and `ideology` on the y axis.
+
+```{r bin-II-1, exercise=TRUE, exercise.lines=6}
+
+```
+
+###
+
+Nice! As you can see, our x axis tick mark labels are overlapping each other. Let's turn them vertical by setting their angle to 90 using theme().
+
+```{r bin-II-2, exercise=TRUE, exercise.lines=6}
+
+```
+
+###
+
+Great! Now use the function `theme(legend.position = "top")`to move the legend to the top
+
+```{r bin-II-3, exercise=TRUE, exercise.lines=6}
+
+```
+
+###
+
+Nice! Now facet the heatmap by `gender` and set the number of columns to 2.
+```{r bin-II-4, exercise=TRUE, exercise.lines=6}
+
+```
+
+```{r bin-II-4-hint, eval=FALSE}
+Use facet_wrap() to facet and set ncol to 2
+```
+
+###
+
+For your final challenge, recreate the graph below made from data set `nhanes`.
+
+```{r}
+ggplot(data = nhanes, mapping = aes(x = hh_income, y = education)) +
+  geom_bin2d() +
+  facet_wrap(~gender, ncol = 2) +
+  theme(axis.text.x = element_text(angle = 90))
+```
+
+```{r bin-II-5, exercise=TRUE, exercise.lines=8}
+
+```
+
+###
+
+Let's now make a heatmap using `geom_bin2d()` and the `qscores` tibble, which tracks Harvard student course evaluation information. Let's set x to `hours`, and y to `rating`.
+
+```{r gb2d-2-1, exercise=TRUE, exercise.lines = 5}
+
+```
+
+###
+
+Nice. Now, let's set the `binwidth` argument to 0.1, to give our plot's information a bit more detail. Let's also use `theme_dark()` to change the look of our plot.
+
+```{r gb2d-2-2, exercise=TRUE, exercise.lines = 5}
+
+```
+
+###
+
+Well done. Now, let's use the `xlim()` and `ylim()` functions to remove the outliers and focus more on the bulk of our data. Set our `xlim()` to (2, 5) and our `ylim()` to (0, 5).
+
+
+```{r gb2d-2-3, exercise=TRUE, exercise.lines = 5}
+
+```
+
+Good Work. Now, let's add some labels to both our plot and our legend, using the `labs()` and `scale()` functions. Let's title our plot "Harvard Class Student Evaluation Ratings by Weekly Work Hours", our x-axis "Weekly Work Hours", and our y-axis "Class Rating".
+
+In order to change the name of our legend, we need to call the `scale_fill_continous()` function, even though it doesn't actually do anything on its own. Because we're working with a continuous variable mapped to `fill`, `scale_fill_continous()` is already the default setting. Legend titles, however, must be placed inside of a `scale_()` function corresponding to what they represent, in this case, `fill`.
+
+Anyways, let's set the `name` of our legend "Number of Classes".
+
+```{r gb2d-2-4, exercise=TRUE, exercise.lines = 5}
+
+```
+
+###
+
+Well done. Now, use what you've learned about `geom_bin2d()` to recreate this plot.
+
+```{r}
+ggplot(data = qscores, aes(x = enrollment, y = rating)) +
+  geom_bin2d() +
+  scale_fill_continuous(name = "Number of Classes") +
+  labs(title = "Harvard Class Enrollment and Student Evaluation Ratings",
+       x = "Number of Students Enrolled",
+       y = "Class Rating") +
+  xlim(0, 200)
+```
+
+```{r gb2d-2-5, exercise=TRUE, exercise.lines = 5}
+
+```
+
+## Advanced Plotting - `geom_density2d()`
+
+Let's start by looking at data set `mpg`. Use `mpg` to make a density plot with `displ` on the x axis, `hwy` on the y axis and `class` mapped to the color aesthetic.
+
+```{r density-II-1, exercise=TRUE, exercise.lines=7}
+
+
+```
+
+###
+
+Nice! Now set a lower limit of 0 and an upper limit of 30 on the y axis.
+
+```{r density-II-2, exercise=TRUE, exercise.lines=7}
+
+
+```
+
+```{r density-II-2-hint, eval=FALSE}
+use ylim()
+```
+
+###
+
+Now instead of setting `class` to color, try facetting by `class` and setting the number of columns to 3
+
+```{r density-II-3, exercise=TRUE, exercise.lines=7}
+
+
+```
+
+```{r density-II-3-hint, eval=FALSE}
+Use facet_wrap() to facet and set ncol to 3
+```
+
+###
+
+Great! Now change the theme to light.
+
+```{r density-II-4, exercise=TRUE, exercise.lines=7}
+
+
+```
+
+```{r density-II-4-hint, eval=FALSE}
+Use theme_light()
+```
+
+###
+
+Nice! Now recreate this density plot made using the dataset `airquality`:
+
+```{r}
+ggplot(data = airquality, aes(x = Ozone, y = Temp)) +
+  geom_density2d() +
+  theme_minimal() +
+  facet_wrap(~ Month, ncol = 3)
+```
+
+```{r density-II-5, exercise=TRUE, exercise.lines=7}
+
+
+```
+
+### 
+
+Our last density plots using `geom_density2d()` will graph data from the `mpg` tibble, which records the fuel efficiencies of different car models. Let's map x to `cty`, and y to `hwy`.
+
+```{r gd2d-2-1, exercise=TRUE, exercise.lines = 5}
+
+```
+
+###
+
+Nicely done. Let's say, for whatever reason, one desired to decrease the resolution of their `geom_density2d()` plot. You can do this by mapping `n` to the number of vertices you want on your polygons. Try it! Let's set `n` to `10` within `geom_density2d()`.
+
+```{r gd2d-2-2, exercise=TRUE, exercise.lines = 5}
+
+```
+
+###
+
+Great. Now, let's try mapping `color` to `class` inside `aes()`. Notice how this creates a number of smaller density plots. Let's also add some labels the legend we just generated.
+
+Note that this must be done inside of a `scale()` function that corresponds to `color`. In this case, because we are working with a categorical variable, we will use `scale_color_discrete`. Let's call our legend's `name` "Type of Car", and our variables "Sports Car", "Compact", "Midsize", "Minivan", "Pickup Truck", and "SUV".
+
+```{r gd2d-2-3-hint, eval=FALSE}
+sacle_...(name = ..., labels = c(..., ..., ...))
+```
+
+```{r gd2d-2-3, exercise=TRUE, exercise.lines = 5}
+
+```
+
+###
+
+Nice Work. Now, we can add some labels to the rest of our plot with `labs()`. Title our plot "Highway and City Fuel Efficiency in Different Car Types", our x-axis "City Miles Per Gallon", and our y-axis "Highway Miles Per Gallon".
+
+Let's also move our legend to the "top" of the plot using `theme(legend.position)`, and change the color scheme of our plot with `scale_color_brewer()` using `palette` "Set1".
+
+```{r gd2d-2-4, exercise=TRUE, exercise.lines = 5}
+
+```
+
+###
+
+Good Stuff. Now, use what you've learned about `geom_density2d()` to replicate the plot below.
+
+```{r gd2d-2-5, exercise=TRUE, exercise.lines = 5}
+ggplot(data = mpg, aes(x = displ, y = hwy, linetype = drv)) +
+  geom_density2d() +
+  scale_color_discrete(name = "Type of Drive Train", labels = c("4 Wheel", "Front Only", "Rear Only")) +
+  labs(title = "Engine Size and Highway Miles Per Gallon in Car Types",
+       x = "Engine Size (Liters)",
+       y = "Highway Miles Per Gallon")
+```
+
+## Advanced Plotting - `geom_countour_filled()`
+
+Let's make a plot using `faithfuld`, a modified version of the `faithful` tibble, and `geom_contour_filled()`. `faithfuld` is different from `faithful` because it includes the `density` variable, which is important for plots made with `geom_contour_filled()`.
+
+Hit 'Run Code'.
+
+```{r gcf-1-1, exercise=TRUE, exercise.lines = 5}
+ggplot(data = faithfuld, mapping = aes(x = eruptions, y = waiting, z = density)) +
+  geom_contour_filled()
+```
+
+###
+
+`geom_contour_filled()` and `geom_contour()` are unique functions, because unlike `geom_density2d()` or `geom_bin2d()`, they require a `density` variable to be mapped to their z coordinate. This makes it very hard to make a `geom_contour_filled()` plot with a data set without `density`.
+
+Try making a plot with `geom_contour_filled()` and the `diamonds` tibble. Map x to `price`, y to `carat`, and z to `depth`.
+
+```{r gcf-1-2, exercise=TRUE, exercise.lines = 5}
+
+```
+
+###
+
+Weird, right? Even though the parameters for making a plot with `geom_contour_filled()` are very specific, many of the aesthetic settings you're familiar with still work with it. Try using `scale_fill_brewer(palette = "Purples")` to change the color scheme of the plot.
+
+```{r gcf-1-3, exercise=TRUE, exercise.lines = 5}
+
+```
+
+###
+
+Cool. We can also use `labs()` to add labels like with any other plot. Title our plot "Waiting Time and Eruption Duration from Old Faithful Geyser", our x-axis "Eruption Duration (Minutes)", and our y-axis "Waiting Time (Minutes)". We can also add to our `scale_fill_brewer()` function to set the `name` of our legend to "Density of Eruptions".
+
+```{r gcf-1-4, exercise=TRUE, exercise.lines = 5}
+
+```
+
+###
+
+Nicely done. Now, use what you've learned about `geom_contour_filled()` to recreate the plot below. The color palette is the `Spectral` palette of `scale_fill_brewer()`.
+
+```{r gcf-1-5, exercise=TRUE, exercise.lines = 5}
+faithfuld %>% ggplot(aes(x = waiting, y = eruptions, z = density)) +
+  geom_contour_filled() +
+  scale_fill_brewer(palette = "Spectral", name = "Density of Eruptions") +
+  labs(title = "Waiting Time and Eruption Duration from Old Faithful Geyser",
+       x = "Waiting Time (Minutes)",
+       y = "Eruption Duration (Minutes)")
+```
+
+## The `tidyverse`
+
+Look at all of the awesome plots you created!! Now it's time to learn more about data wrangling using the `tidyverse`. We'll go over the following functions in this tutorial:
+
+* **filter()** a data frame’s existing rows by only picking a subset of them.
+* **select()** specific variable columns in a data set. Additional functions like **slice()** can further subset the data.
+* **arrange()** its rows. For example, sort the rows of weather in ascending or descending order of temp.
+* **group_by()** its rows. In other words, assign different rows to be part of the same group. We can then combine **group_by()** with **summarize()** to report summary statistics for each group separately. 
+* **mutate()** its existing columns/variables to create new ones. 
+
+###
+
+Before we get started, load the `tidyverse` collection of packages and the package `PPBDS.data`.
 
 ```{r data-I-1, exercise=TRUE, exercise.lines=3}
 
@@ -3496,17 +3413,17 @@ Before we get started, load the package `PPBDS.data`
 
 ###
 
-Let's take a `glimpse` at the data set `cces`. Press "run code".
+Let's take a `glimpse()` at the data set `cces`. Press "Run Code".
 
-```{r data-I-2, exercise=TRUE, exercise.lines=6}
+```{r data-I-2, exercise=TRUE, exercise.lines=3}
 glimpse(cces)
 ```
 
 ###
 
-Now that you've seen the different variables in `cces`, select() `age`, `state`,  and `gender`
+Now that you've seen the different variables in `cces`, `select()` `age`, `state`,  and `gender`
 
-```{r data-I-3, exercise=TRUE, exercise.lines=6}
+```{r data-I-3, exercise=TRUE, exercise.lines=3}
 cces
 ```
 
@@ -3516,9 +3433,9 @@ remember to pipe!
 
 ###
 
-Let's filter() our code from the previous question so that we are only looking at rows where state == "Massachusetts" and gender == "Female"
+Let's `filter()` our code from the previous question so that we are only looking at rows where `state == "Massachusetts"` and `gender == "Female"`.
 
-```{r data-I-4, exercise=TRUE, exercise.lines=6}
+```{r data-I-4, exercise=TRUE, exercise.lines=10}
 
 
 ```
@@ -3529,9 +3446,9 @@ remember to use the double ==
 
 ###
 
-Now use arrange() to organize our code by descending order of age
+Now use `arrange()` to organize our code by descending order of age.
 
-```{r data-I-5, exercise=TRUE, exercise.lines=6}
+```{r data-I-5, exercise=TRUE, exercise.lines=10}
 
 ```
 
@@ -3541,17 +3458,17 @@ remember to include desc()
 
 ###
 
-Great! Now use summarize() to find the mean and median ages from our filtered data
+Great! Now use `summarize()` to find the mean and median ages from our filtered data.
 
-```{r data-I-6, exercise=TRUE, exercise.lines=6}
+```{r data-I-6, exercise=TRUE, exercise.lines=10}
 
 ```
 
 ###
 
-Awesome! So let's recap what we just did. We first selected specific variables to focus on and then filtered to narrow down our search. We then arranged by descending order of age (although this was unnecessary in terms of achieving our specific end goal). Then, from that data, we found the mean and median age with summarize(). Through these steps, we found the mean and median ages of women from Massachusetts in the survey. With these next couple questions, I will be asking you to do this yourself. Find the mean age of liberal men from California:
+Awesome! So let's recap what we just did. We first selected specific variables to focus on and then filtered to narrow down our search. We then arranged by descending order of age. Then, from that data, we found the mean and median age with `summarize()`. Through these steps, we found the mean and median ages of women from Massachusetts in the survey. With these next couple questions, you will be doing this yourself. Find the mean age of liberal men from California:
 
-```{r data-I-7, exercise=TRUE, exercise.lines=7}
+```{r data-I-7, exercise=TRUE, exercise.lines=10}
 
 ```
 
@@ -3563,30 +3480,28 @@ If some of the values apply to unfamiliar variables, feel free to always take a 
 
 Did you get 47.2? If so, awesome job! If not, look back at your code. For this next one, find the median age of divorced female Texans who attended "Some College":
 
-```{r data-I-8, exercise=TRUE, exercise.lines=7}
+```{r data-I-8, exercise=TRUE, exercise.lines=10}
 
 ```
 
 ###
 
-The correct answer is 56. If you got something different, look back at your code. Congratulations on finishing data_analysis I!
-
-## The `tidyverse` II
+The correct answer is 56. If you got something different, look back at your code. Great job!
 
 ###
 
-Welcome to data_analysis II! For this tutorial, we will be focusing on the data set `nhanes`. `nhanes` is a really big data set and there are many things we can do with its data, but let's say we wanted to make a graph using data on `height` and `weight` from the 200 youngest black males. How would we go about doing this? Well first, we would`select()` the variables we want to focus on, in this case `height`, `weight`, `age`, `race`, and `gender`.  Try doing this below:
+For this section, we will be focusing on the data set `nhanes`. `nhanes` is a really big data set and there are many things we can do with its data, but let's say we wanted to make a graph using data on `height` and `weight` from the 200 youngest black males. How would we go about doing this? Well first, we would `select()` the variables we want to focus on, in this case `height`, `weight`, `age`, `race`, and `gender`.  Try doing this below:
 
-```{r data-II-1, exercise=TRUE, exercise.lines=6}
+```{r data-II-1, exercise=TRUE, exercise.lines=10}
 
 
 ```
 
 ###
 
-So what would we do next? We want to narrow down our data to only black males, so let's use `filter()` to create a tibble made up of rows from `nhanes` where race == "Black" and gender == "Male". Do this below:
+So what would we do next? We want to narrow down our data to only black males, so let's use `filter()` to create a tibble made up of rows from `nhanes` where `race == "Black"` and `gender == "Male"`. Do this below:
 
-```{r data-II-2, exercise=TRUE, exercise.lines=6}
+```{r data-II-2, exercise=TRUE, exercise.lines=10}
 
 
 ```
@@ -3595,7 +3510,7 @@ So what would we do next? We want to narrow down our data to only black males, s
 
 Great! So what now? Well, we want to look at the youngest black males. To do this, we would have to `arrange()` by age. Do this below:
 
-```{r data-II-3, exercise=TRUE, exercise.lines=6}
+```{r data-II-3, exercise=TRUE, exercise.lines=10}
 
 
 ```
@@ -3604,31 +3519,40 @@ Great! So what now? Well, we want to look at the youngest black males. To do thi
 
 Nice! Now use `slice()` to isolate the 200 rows with the lowest age value.
 
-```{r data-II-4, exercise=TRUE, exercise.lines=6}
+```{r data-II-4, exercise=TRUE, exercise.lines=10}
 
 
 ```
 
-```{r data-II-4-hint, eval=FALSE}
+```{r data-II-4-hint-1, eval=FALSE}
 
 Because of the way we arranged the data, the 200 rows with the lowest age value would be the first 200
 
 ```
 
+```{r data-II-4-hint-2, eval=FALSE}
+
+slice(1:200)
+
+```
+
 ###
 
-Awesome! We now have our tibble! Now use `geom_smooth()` to create a graph with `weight` on the x axis and `height` on the y axis
+Awesome! We now have our tibble! Now use `geom_smooth()` to create a graph with `weight` on the x axis and `height` on the y axis.
 
-```{r data-II-5, exercise=TRUE, exercise.lines=6}
+```{r data-II-5, exercise=TRUE, exercise.lines=10}
 
 
 ```
 
-## The `tidyverse` III
+```{r data-II-5-hint, eval=FALSE}
+... %>% ggplot(aes(x = weight, y = height)) + geom_smooth()
+
+```
 
 ###
 
-Welcome to data_analysis II! For this tutorial, we are going to be focusing on the data set `qscores`, which includes data on Harvard courses from the 2018-19 school year. Let's start by grouping `qscores` by `department`
+Now we are going to be focusing on the data set `qscores`, which includes data on Harvard courses from the 2018-19 school year. Let's start by grouping `qscores` by `department`.
 
 ```{r data-III-1, exercise=TRUE, exercise.lines=3}
 
@@ -3636,7 +3560,7 @@ Welcome to data_analysis II! For this tutorial, we are going to be focusing on t
 
 ###
 
-Now use `summarize()` to find the mean rating for each of `department` in our grouped tibble
+Now use `summarize()` to find the mean rating for each of `department` in our grouped tibble.
 
 ```{r data-III-2, exercise=TRUE, exercise.lines=6}
 
@@ -3644,7 +3568,8 @@ Now use `summarize()` to find the mean rating for each of `department` in our gr
 
 ###
 
-Nice! Now use `arrange` to order our data by descending mean rating
+Nice! Now use `arrange()` to order our data by `desc`ending mean rating.
+
 ```{r data-III-3, exercise=TRUE, exercise.lines=6}
 
 
@@ -3652,7 +3577,7 @@ Nice! Now use `arrange` to order our data by descending mean rating
 
 ###
 
-Great! As you can see, the tibble we have just created lists the different departments at Harvard included in `qscores` and their average rating. There's a lot of different things we can do this with this data, but let's say we wanted to make a plot with only the top 10 average rated departments. We would need to make a tibble to do this right? Use `slice()` to create this tibble
+Great! As you can see, the tibble we have just created lists the different departments at Harvard included in `qscores` and their average rating. There's a lot of different things we can do this with this data, but let's say we wanted to make a plot with only the top 10 average rated departments. We would need to make a tibble to do this right? Use `slice()` to create this tibble.
 
 ```{r data-III-4, exercise=TRUE, exercise.lines=6}
 
@@ -3670,43 +3595,30 @@ Fantastic! Now use this tibble you created to make a bar plot with `department` 
 
 ###
 
-Awesome! Let's start fresh from the original `qscores` data set again. Word just came in that Harvard is switching to a rating scale out of 10 for the next term! Upper admin wants to be able to compare data from last year to the next term, so use mutate to overwrite the original `qscores` with the new variable `rating_2` equal to two times the variable `rating`. I have started it for you:
+Awesome! Let's start fresh from the original `qscores` data set again. Word just came in that Harvard is switching to a rating scale out of 10 for the next term! Upper admin wants to be able to compare data from last year to the next term, so use `mutate()` to add the new variable `rating_2` equal to two times the variable `rating` in `new_qscores`. I have started it for you:
 
 ```{r data-III-6, exercise=TRUE, exercise.lines=6, eval=FALSE}
-qscores <- qscores %>%
+new_qscores <- qscores %>%
 
 
 ```
 
 ###
 
-Now use summarize() to find the standard deviation of `rating_2`
+Now use `summarize()` to find the standard deviation of `rating_2`
 
 ```{r data-III-7, exercise=TRUE, exercise.lines=6, eval=FALSE}
-qscores <- qscores %>%
+new_qscores <- qscores %>%
   mutate(rating_2 = rating * 2)
 
-qscores %>%
+new_qscores %>%
 
 
-```
-
-## The `tidyverse` IV
-
-Press the 'Run Code' button to load `PPBDS.data`.
-
-
-```{r da-1-1, exercise=TRUE, exercise.lines = 5}
-library(PPBDS.data)
 ```
 
 ###
 
-Great! Now, select `Month`, `Day`, and `Temp` from the `airquality` dataset, which measures different atmospheric measurements in New York.
-
-```{r da-1-2-hint, eval=FALSE}
-Use select(...).
-```
+Great! Now let's play around with the `airquality` dataset, which measures different atmospheric measurements in New York. Select `Month`, `Day`, and `Temp` from the dataset.
 
 ```{r da-1-2, exercise=TRUE, exercise.lines = 5}
 airquality
@@ -3716,10 +3628,6 @@ airquality
 
 Now, let's use `glimpse()` on our data set to take a good look at it.
 
-```{r da-1-3-hint, eval=FALSE}
-Use glimpse().
-```
-
 ```{r da-1-3, exercise=TRUE, exercise.lines = 5}
 airquality %>%
   select(Month, Day, Temp)
@@ -3727,11 +3635,7 @@ airquality %>%
 
 ###
 
-Great, now, use what you've learned from the textbook to calcul   ate the average of the `Temp` variable. Let's call this value `average`.
-
-```{r da-1-4-hint, eval=FALSE}
-Use summarise(average = mean(...)).
-```
+Great, now, use what you've learned from the textbook to calculate the average of the `Temp` variable. Let's call this value `average`.
 
 ```{r da-1-4, exercise=TRUE, exercise.lines = 5}
 airquality %>%
@@ -3740,7 +3644,7 @@ airquality %>%
 
 ###
 
-Nice job! Finally, use everything you've learned so far to calculate the maximum Temp value of every month. We can call this variable `maxTemp`. Then, sort them from the highest value to the lowest.
+Nice job! Finally, use everything you've learned so far to calculate the maximum Temp value of every month. We can call this variable `maxTemp`. Then, sort them from the highest value to the lowest (descending order).
 
 ```{r da-1-5-hint, eval=FALSE}
 You will use group_by(...) and arrange(desc()). If you are having more trouble, refer to the textbook.
@@ -3751,7 +3655,7 @@ airquality %>%
   select(Month, Day, Temp)
 ```
 
-## The `tidyverse` V
+###
 
 Let's do some data wrangling with the `mpg` tibble, which contains fuel efficiency data on different types of cars. Let's start by loading the data set, and using `select()` to pick out the `cty` and `class` variables.
 
@@ -3761,12 +3665,18 @@ Let's do some data wrangling with the `mpg` tibble, which contains fuel efficien
 
 ###
 
-Let's say, for whatever reason, we wanted to remove all cars with their `manufacturer` == "chevrolet" from our data. We could do this using the `filter()` function and the `!=` symbol.  Try it!
+Let's say, for whatever reason, we wanted to remove all cars with their `manufacturer == "chevrolet"` from our data. We could do this using the `filter()` function and the `!=` symbol.  Try it!
 
 Remember that this must be done BEFORE we use `select()`, which removes the `manufacturer` column altogether.
 
 ```{r da-2-2, exercise=TRUE, exercise.lines = 5}
 
+```
+
+```{r da-2-2-hint, eval=FALSE}
+mpg %>%
+  filter(...) %>%
+  select(...)
 ```
 
 ###
@@ -3789,7 +3699,7 @@ Note that if you want to sort your data from highest to lowest, you can use `arr
 
 ###
 
-Nice work. Now, let's use `summarise()` to calculate the `mean` of the `cty` values in each class. We can save our results as a new variable, called `ctyAverage`
+Nice work. Now, let's use `summarize()` to calculate the `mean` of the `cty` values in each class. We can save our results as a new variable, called `ctyAverage`
 
 ```{r da-2-5, exercise=TRUE, exercise.lines = 5}
 
@@ -3805,26 +3715,26 @@ We could calculate the predicted City MPG with this new fuel using `mutate()`. U
 
 ```
 
+<!-- ### JSE - seems like too hard of a question... -->
+
+<!-- Excellent work. Now, use what you've learned about data wrangling to replicate the result blow. -->
+
+<!-- Information from the `compact` class in not in the final data set. -->
+
+<!-- ```{r} -->
+<!-- mpg %>% -->
+<!--   filter(class != "compact") %>% -->
+<!--   select(displ, manufacturer) %>% -->
+<!--   group_by(manufacturer) %>% -->
+<!--   summarize(displMedian = median(displ)) %>% -->
+<!--   arrange(desc(displMedian)) -->
+<!-- ``` -->
+
+<!-- ```{r da-2-7, exercise=TRUE, exercise.lines = 5} -->
+
+<!-- ``` -->
+
 ###
-
-Excellent work. Now, use what you've learned about data wrangling to replicate the result blow.
-
-Information from the `compact` class in not in the final data set.
-
-```{r}
-mpg %>%
-  filter(class != "compact") %>%
-  select(displ, manufacturer) %>%
-  group_by(manufacturer) %>%
-  summarize(displMedian = median(displ)) %>%
-  arrange(desc(displMedian))
-```
-
-```{r da-2-7, exercise=TRUE, exercise.lines = 5}
-
-```
-
-## The `tidyverse` VI
 
 Let's do some data wrangling with the `qscores` tibble, which contains data from student course evaluations at Harvard.
 
@@ -3862,7 +3772,7 @@ Let's say on average, one tenth of all students drop a class by one month into t
 
 ###
 
-Great. Now we can use `summarise()` to find the `mean` of `enrollment`. We can call this new variable `avgEnrollment`.
+Great. Now we can use `summarize()` to find the `mean` of `enrollment`. We can call this new variable `avgEnrollment`.
 
 ```{r da-3-5, exercise=TRUE, exercise.lines = 5}
 
@@ -3870,32 +3780,34 @@ Great. Now we can use `summarise()` to find the `mean` of `enrollment`. We can c
 
 ###
 
-Nice work. Let's also use `summarise()` to find the `min()` and `max()` of enrollment for each term. We can call these new variables `minEnrollment` and `maxEnrollment` respectively.
+Nice work. Let's also use `summarize()` to find the `min()` and `max()` of enrollment for each term. We can call these new variables `minEnrollment` and `maxEnrollment` respectively.
 
 ```{r da-3-6, exercise=TRUE, exercise.lines = 5}
 
 ```
 
-###
+<!-- ### JSE - also seems like too hard of a question... -->
 
-Well done. Now, use what you've learned about data wrangling to recreate the dataset below.
+<!-- Well done. Now, use what you've learned about data wrangling to recreate the dataset below. -->
 
-The dataset only takes into account classes with an enrollment of at least 25. To calculate the devation from the median of a variable, use `mad()`, which stands for Median Absolute Deviation
+<!-- The dataset only takes into account classes with an enrollment of at least 25. To calculate the devation from the median of a variable, use `mad()`, which stands for Median Absolute Deviation -->
 
-```{r}
-qscores %>%
-  select(rating, department, enrollment) %>%
-  filter(enrollment > 25) %>%
-  group_by(department) %>%
-  summarise(medianRating = median(rating),
-            deviation = mad(rating))
-```
+<!-- ```{r} -->
+<!-- qscores %>% -->
+<!--   select(rating, department, enrollment) %>% -->
+<!--   filter(enrollment > 25) %>% -->
+<!--   group_by(department) %>% -->
+<!--   summarise(medianRating = median(rating), -->
+<!--             deviation = mad(rating)) -->
+<!-- ``` -->
 
-```{r da-3-7, exercise=TRUE, exercise.lines = 5}
+<!-- ```{r da-3-7, exercise=TRUE, exercise.lines = 5} -->
 
-```
+<!-- ``` -->
 
 ## Submit
+
+Congrats on finishing your first Gov 50 tutorial! You're on your way to being a master in data visualization and wrangling! :)
 
 ```{r context="setup"}
 submission_ui
