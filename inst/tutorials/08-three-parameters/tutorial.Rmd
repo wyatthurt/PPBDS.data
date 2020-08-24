@@ -1,5 +1,5 @@
 ---
-title: "Sampling"
+title: "Three Parameters"
 output:
   learnr::tutorial:
       progressive: true

@@ -6,15 +6,7 @@ No more variable name changes. Need to steady state for the creation of tutorial
 
 # Priorities
 
-* Add testcase for the tutorials. Learn about testthat. Maybe the test is a simple: Does this file knit or does it fail? If it fails then the test fails. --[Done]
-
-* Upgrade R to 4.0.2 --[Done]
-
-* Add yourself as contributor in DESCRIPTION --[Done]
-
 * Clean up `sps`. Which variables do we need? What do they show? What should they be called?
-
-* Number of names in household should only exist for Neighborhoods. Should be NA otherwise. --[Done]
 
 * Let's take a careful tour of the data we have and make sure it is all good and sensible (sort of). Take ownership! No blaming your predecessors! As part of this, learn about making test cases from [R Packages](https://r-pkgs.org/tests.html) and add at least one test case for each data set. (Be smart in making these. It is OK to have a test case which tests the number of rows in trains because trains will always have 115 rows. It would be bad (or maybe not?) to have a test case like that for cces since the number of rows for will change once we add next year's data to it.) The definition of a "careful tour" is that you have looked at make_* for a data set, regenerated it, and added at least two test cases about it. You should certainly use any current stopifnot() as test cases and then remove them from the make_* files.
 
