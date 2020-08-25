@@ -32,7 +32,8 @@ Imports:
     nycflights13,
     gt (>= 0.2.1),
     learnr (>= 0.10.1),
-    base64enc
+    base64enc,
+    rmarkdown
 BugReports: https://github.com/davidkane9/PPBDS.data/issues
 Suggests: 
     testthat,
