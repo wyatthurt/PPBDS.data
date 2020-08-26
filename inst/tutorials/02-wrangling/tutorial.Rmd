@@ -1223,7 +1223,7 @@ glimpse(...)
 Using a pipe and the `%in%` operator, `filter()` `sps` to the observations with an `education` of "preschool," "secondary," "high school," or "college." Save this new dataset as `sps_subset`.
 
 ```{r sps2-setup}
-PPBDS::sps
+PPBDS.data::sps
 ```
 
 ```{r sps2, exercise = TRUE}
@@ -2148,331 +2148,333 @@ q_plot <- ggplot(data = q_bind, mapping = aes(x = value)) +
 ```
 
 
-## CCES Dataset
-### Exercise 1
+<!-- DK: Commented out this whole thing. Need to be more careful. Key issue seems to be that there is an object --- most_common_races --- which we need to create because it is used later in a join. But nowhere is it created, so the join fails. Please fix this. -->
 
-The `cces` data set, an acronym for "Cooperative Congressional Election Study," includes the presidential approval (and a bunch of demographic data) from over 450,000 individual Americans.
+<!-- ## CCES Dataset -->
+<!-- ### Exercise 1 -->
 
-Since this data set is so large, start by using `sample_n()` to return 10 random observations from `cces`.
+<!-- The `cces` data set, an acronym for "Cooperative Congressional Election Study," includes the presidential approval (and a bunch of demographic data) from over 450,000 individual Americans. -->
 
-```{r cces1, exercise = TRUE}
+<!-- Since this data set is so large, start by using `sample_n()` to return 10 random observations from `cces`. -->
 
-```
+<!-- ```{r cces1, exercise = TRUE} -->
 
-### Exercise 2
+<!-- ``` -->
 
-Use `select()` and the `c()` function to remove the `news`, `econ`, `marstat`, and `approval_ch` variables. Call this new dataset `cces_subset`. 
+<!-- ### Exercise 2 -->
 
-```{r cces2, exercise = TRUE}
+<!-- Use `select()` and the `c()` function to remove the `news`, `econ`, `marstat`, and `approval_ch` variables. Call this new dataset `cces_subset`.  -->
 
-```
+<!-- ```{r cces2, exercise = TRUE} -->
 
-```{r cces2-hint-1}
-# Remember that select(-column_name) returns all of the columns in the data set except for that column.
-```
+<!-- ``` -->
 
-```{r cces2-hint-2, eval = FALSE}
-cces %>%
-  select(-c(...))
-```
+<!-- ```{r cces2-hint-1} -->
+<!-- # Remember that select(-column_name) returns all of the columns in the data set except for that column. -->
+<!-- ``` -->
 
-### Exercise 3
+<!-- ```{r cces2-hint-2, eval = FALSE} -->
+<!-- cces %>% -->
+<!--   select(-c(...)) -->
+<!-- ``` -->
 
-Use `filter()` to limit the data to the years 2009-2016 (to keep the approval data limited to a single president, Obama). Try to use the `%in%` operator to keep your code concise and clear. Don't forget to reassign this as `cces_subset`.
+<!-- ### Exercise 3 -->
 
-```{r cces3-setup}
-cces_subset <- cces %>%
-  select(-c(news, econ, marstat, approval_ch))
-```
+<!-- Use `filter()` to limit the data to the years 2009-2016 (to keep the approval data limited to a single president, Obama). Try to use the `%in%` operator to keep your code concise and clear. Don't forget to reassign this as `cces_subset`. -->
 
-```{r cces3, exercise = TRUE}
+<!-- ```{r cces3-setup} -->
+<!-- cces_subset <- cces %>% -->
+<!--   select(-c(news, econ, marstat, approval_ch)) -->
+<!-- ``` -->
 
-```
+<!-- ```{r cces3, exercise = TRUE} -->
 
-```{r cces3-hint}
-# Remember that c(a:b) makes a vector from a to b. For example, c(1:10) makes a vector with the numbers from 1 to 10.
-```
+<!-- ``` -->
 
-### Exercise 4
+<!-- ```{r cces3-hint} -->
+<!-- # Remember that c(a:b) makes a vector from a to b. For example, c(1:10) makes a vector with the numbers from 1 to 10. -->
+<!-- ``` -->
 
-Call `filter` a second time and  remove any observations with an `ideology` of "Not Sure" (this makes the trends in our data easier to detect).
+<!-- ### Exercise 4 -->
 
-```{r cces4-setup}
-cces_subset <- cces %>%
-  select(-c(news, econ, marstat, approval_ch)) %>%
-  filter(year %in% c(2009:2016))
-```
+<!-- Call `filter` a second time and  remove any observations with an `ideology` of "Not Sure" (this makes the trends in our data easier to detect). -->
 
-```{r cces4, exercise = TRUE, exercise.lines = 4}
+<!-- ```{r cces4-setup} -->
+<!-- cces_subset <- cces %>% -->
+<!--   select(-c(news, econ, marstat, approval_ch)) %>% -->
+<!--   filter(year %in% c(2009:2016)) -->
+<!-- ``` -->
 
-```
- 
-### Exercise 5
+<!-- ```{r cces4, exercise = TRUE, exercise.lines = 4} -->
 
-Now that `cces` is organized, our goal will be to plot the relationship between `race`, `ideology`, and `approval` of President Obama. Start by grouping the data by `race` and `ideology`.
-```{r cces5-setup}
-cces_subset <- cces %>%
-  select(-c(news, econ, marstat, approval_ch)) %>%
-  filter(year %in% c(2009:2016), ideology != "Not Sure")
-```
+<!-- ``` -->
 
-```{r cces5, exercise = TRUE, exercise.lines = 4}
+<!-- ### Exercise 5 -->
 
-```
+<!-- Now that `cces` is organized, our goal will be to plot the relationship between `race`, `ideology`, and `approval` of President Obama. Start by grouping the data by `race` and `ideology`. -->
+<!-- ```{r cces5-setup} -->
+<!-- cces_subset <- cces %>% -->
+<!--   select(-c(news, econ, marstat, approval_ch)) %>% -->
+<!--   filter(year %in% c(2009:2016), ideology != "Not Sure") -->
+<!-- ``` -->
 
-### Exercise 6
+<!-- ```{r cces5, exercise = TRUE, exercise.lines = 4} -->
 
-Use `summarize` to return a tibble with a new variable, `mean_approval`, that is equal to the average `approval` for each group. What goes wrong?
+<!-- ``` -->
 
-```{r cces6-setup}
-cces_subset <- cces %>%
-  select(-c(news, econ, marstat, approval_ch)) %>%
-  filter(year %in% c(2009:2016), ideology != "Not Sure") %>%
-  group_by(race, ideology)
-```
+<!-- ### Exercise 6 -->
 
-```{r cces6, exercise = TRUE}
+<!-- Use `summarize` to return a tibble with a new variable, `mean_approval`, that is equal to the average `approval` for each group. What goes wrong? -->
 
-```
+<!-- ```{r cces6-setup} -->
+<!-- cces_subset <- cces %>% -->
+<!--   select(-c(news, econ, marstat, approval_ch)) %>% -->
+<!--   filter(year %in% c(2009:2016), ideology != "Not Sure") %>% -->
+<!--   group_by(race, ideology) -->
+<!-- ``` -->
 
-```{r cces6-hint, eval = FALSE}
-# Don't forget to use the mean() function within summarize()
-```
+<!-- ```{r cces6, exercise = TRUE} -->
 
-### Exercise 7
+<!-- ``` -->
 
-Almost all of our rows have an `NA` for `mean_approval`! This is because if any single row has an `NA` in our original table, the `mean()` function will return `NA`. To avoid this, take take the `mean()` again and set the `na.rm` argument to TRUE.
+<!-- ```{r cces6-hint, eval = FALSE} -->
+<!-- # Don't forget to use the mean() function within summarize() -->
+<!-- ``` -->
 
-```{r cces7-setup}
-cces_subset <- cces %>%
-  select(-c(news, econ, marstat, approval_ch)) %>%
-  filter(year %in% c(2009:2016), ideology != "Not Sure") %>%
-  group_by(race, ideology)
-```
+<!-- ### Exercise 7 -->
 
-```{r cces7, exercise = TRUE}
+<!-- Almost all of our rows have an `NA` for `mean_approval`! This is because if any single row has an `NA` in our original table, the `mean()` function will return `NA`. To avoid this, take take the `mean()` again and set the `na.rm` argument to TRUE. -->
 
-```
+<!-- ```{r cces7-setup} -->
+<!-- cces_subset <- cces %>% -->
+<!--   select(-c(news, econ, marstat, approval_ch)) %>% -->
+<!--   filter(year %in% c(2009:2016), ideology != "Not Sure") %>% -->
+<!--   group_by(race, ideology) -->
+<!-- ``` -->
 
-```{r cces7-hint, eval=FALSE}
-cces_subset <- cces_subset %>%
-  summarize(mean_approval = mean(approval, ...))
-```
+<!-- ```{r cces7, exercise = TRUE} -->
 
-### Exercise 8
+<!-- ``` -->
 
-Use `ggplot()` to ake a bar chart with `ideology` on the x-axis, `mean_approval` on the y-axis, and `race` as the fill aesthetic. Call this plot `cces_plot`. 
+<!-- ```{r cces7-hint, eval=FALSE} -->
+<!-- cces_subset <- cces_subset %>% -->
+<!--   summarize(mean_approval = mean(approval, ...)) -->
+<!-- ``` -->
 
-```{r cces8-setup}
-cces_subset <- cces %>%
-  select(-c(news, econ, marstat, approval_ch)) %>%
-  filter(year %in% c(2009:2016), ideology != "Not Sure") %>%
-  group_by(race, ideology) %>%
-  summarize(mean_approval = mean(approval, na.rm = TRUE))
-```
+<!-- ### Exercise 8 -->
 
-```{r cces8}
+<!-- Use `ggplot()` to ake a bar chart with `ideology` on the x-axis, `mean_approval` on the y-axis, and `race` as the fill aesthetic. Call this plot `cces_plot`.  -->
 
-```
+<!-- ```{r cces8-setup} -->
+<!-- cces_subset <- cces %>% -->
+<!--   select(-c(news, econ, marstat, approval_ch)) %>% -->
+<!--   filter(year %in% c(2009:2016), ideology != "Not Sure") %>% -->
+<!--   group_by(race, ideology) %>% -->
+<!--   summarize(mean_approval = mean(approval, na.rm = TRUE)) -->
+<!-- ``` -->
 
-```{r cces8-hint}
-# Remember to use geom_col() instead of geom_bar() when you map a variable to the y-axis.
-```
+<!-- ```{r cces8} -->
 
-### Exercise 9
+<!-- ``` -->
 
-This stacked bar chart is a good start, but it's still pretty difficult to understand. Use the `position_dodge` function with `preserve` equal to "single" to make the graph clearer. We've taken the liberty of removing the `geom_col()` in the previous question, so you can start fresh.
+<!-- ```{r cces8-hint} -->
+<!-- # Remember to use geom_col() instead of geom_bar() when you map a variable to the y-axis. -->
+<!-- ``` -->
 
-```{r cces9-setup}
-cces_subset <-  cces %>%
-  select(-c(news, econ, marstat, approval_ch)) %>%
-  filter(year %in% c(2009:2016), ideology != "Not Sure") %>%
-  group_by(race, ideology) %>%
-  summarize(mean_approval = mean(approval, na.rm = TRUE))
-cces_plot  <- ggplot(data = cces_subset, mapping = aes(x = ideology, y = mean_approval, fill = race)) 
-```
+<!-- ### Exercise 9 -->
 
-```{r cces9, exercise = TRUE, exercise.lines = 8}
+<!-- This stacked bar chart is a good start, but it's still pretty difficult to understand. Use the `position_dodge` function with `preserve` equal to "single" to make the graph clearer. We've taken the liberty of removing the `geom_col()` in the previous question, so you can start fresh. -->
 
-```
+<!-- ```{r cces9-setup} -->
+<!-- cces_subset <-  cces %>% -->
+<!--   select(-c(news, econ, marstat, approval_ch)) %>% -->
+<!--   filter(year %in% c(2009:2016), ideology != "Not Sure") %>% -->
+<!--   group_by(race, ideology) %>% -->
+<!--   summarize(mean_approval = mean(approval, na.rm = TRUE)) -->
+<!-- cces_plot  <- ggplot(data = cces_subset, mapping = aes(x = ideology, y = mean_approval, fill = race))  -->
+<!-- ``` -->
 
-```{r cces9-hint, eval = FALSE}
-cces_plot <- cces_plot + 
-  geom_col(position = ...)
-```
+<!-- ```{r cces9, exercise = TRUE, exercise.lines = 8} -->
 
-### Exercise 10
+<!-- ``` -->
 
-Bar charts are easier to read if they are increasing from left to right. Use a `fct_` function to reorder the chart based on each `ideology`'s `mean_approval`. Call this new plot `cces_plot_2`. 
+<!-- ```{r cces9-hint, eval = FALSE} -->
+<!-- cces_plot <- cces_plot +  -->
+<!--   geom_col(position = ...) -->
+<!-- ``` -->
 
-<!-- Comment: technically there are separate mean_approval values for each race; is there any way to get around this (i.e. only sort by the values for one race?) Or would this just sort by the average of mean_approval? -->
-```{r cces10-setup}
-cces_subset <-  cces %>%
-  select(-c(news, econ, marstat, approval_ch)) %>%
-  filter(year %in% c(2009:2016), ideology != "Not Sure") %>%
-  group_by(race, ideology) %>%
-  summarize(mean_approval = mean(approval, na.rm = TRUE))
+<!-- ### Exercise 10 -->
 
-```
+<!-- Bar charts are easier to read if they are increasing from left to right. Use a `fct_` function to reorder the chart based on each `ideology`'s `mean_approval`. Call this new plot `cces_plot_2`.  -->
 
-```{r cces10, exercise = TRUE, exercise.lines = 8}
+<!-- <!-- Comment: technically there are separate mean_approval values for each race; is there any way to get around this (i.e. only sort by the values for one race?) Or would this just sort by the average of mean_approval? --> -->
+<!-- ```{r cces10-setup} -->
+<!-- cces_subset <-  cces %>% -->
+<!--   select(-c(news, econ, marstat, approval_ch)) %>% -->
+<!--   filter(year %in% c(2009:2016), ideology != "Not Sure") %>% -->
+<!--   group_by(race, ideology) %>% -->
+<!--   summarize(mean_approval = mean(approval, na.rm = TRUE)) -->
 
-```
+<!-- ``` -->
 
-```{r cces10-hint}
-# Try using fct_reorder().
-```
+<!-- ```{r cces10, exercise = TRUE, exercise.lines = 8} -->
 
-### Exercise 11
+<!-- ``` -->
 
-Our graph is looking good, but the 8 separate races take up a lot of space and make it hard to read. Let's try to limit the graph to the 3 most common races in our data set. Start by making a new pipe that groups `cces` by `race`. Call this `cces_subset_2`.
+<!-- ```{r cces10-hint} -->
+<!-- # Try using fct_reorder(). -->
+<!-- ``` -->
 
-```{r cces11, exercise = TRUE, exercise.lines = 10, eval = FALSE}
+<!-- ### Exercise 11 -->
 
-```
+<!-- Our graph is looking good, but the 8 separate races take up a lot of space and make it hard to read. Let's try to limit the graph to the 3 most common races in our data set. Start by making a new pipe that groups `cces` by `race`. Call this `cces_subset_2`. -->
 
-### Exercise 12
+<!-- ```{r cces11, exercise = TRUE, exercise.lines = 10, eval = FALSE} -->
 
-Next, use `summarize()` on the to create a new variable in `cces_subset_2`, `num_ppl`, equal to the number of times each race occurs.
-```{r cces12-setup}
-cces_subset_2 <- cces %>%
-  group_by(race)
-```
+<!-- ``` -->
 
-```{r cces12, exercise = TRUE, exercise.lines = 11}
+<!-- ### Exercise 12 -->
 
-```
+<!-- Next, use `summarize()` on the to create a new variable in `cces_subset_2`, `num_ppl`, equal to the number of times each race occurs. -->
+<!-- ```{r cces12-setup} -->
+<!-- cces_subset_2 <- cces %>% -->
+<!--   group_by(race) -->
+<!-- ``` -->
 
-```{r cces12-hint}
-# Remember that the function n() counts the number of rows in each group.
-```
+<!-- ```{r cces12, exercise = TRUE, exercise.lines = 11} -->
 
-### Exercise 13
+<!-- ``` -->
 
-`arrange()` `cces_subset_2` by `num_ppl` in descending order.
+<!-- ```{r cces12-hint} -->
+<!-- # Remember that the function n() counts the number of rows in each group. -->
+<!-- ``` -->
 
-```{r cces13-setup}
-cces_subset_2 <- cces %>%
-  group_by(race) %>%
-  summarize(num_ppl = n())
-```
+<!-- ### Exercise 13 -->
 
-```{r cces13, exercise = TRUE, exercise.lines = 12}
+<!-- `arrange()` `cces_subset_2` by `num_ppl` in descending order. -->
 
-```
+<!-- ```{r cces13-setup} -->
+<!-- cces_subset_2 <- cces %>% -->
+<!--   group_by(race) %>% -->
+<!--   summarize(num_ppl = n()) -->
+<!-- ``` -->
 
-```{r cces13-hint}
-# Remember to incorporate desc() into your arrange() function.
-```
+<!-- ```{r cces13, exercise = TRUE, exercise.lines = 12} -->
 
-### Exercise 14
+<!-- ``` -->
 
-Finally, use `slice()` to keep the top 3 rows of `cces_subset_2`..
-```{r cces14-setup}
-cces_subset_2 <- cces %>%
-  group_by(race) %>%
-  summarize(num_ppl = n()) %>%
-  arrange(desc(num_ppl))
-```
+<!-- ```{r cces13-hint} -->
+<!-- # Remember to incorporate desc() into your arrange() function. -->
+<!-- ``` -->
 
-```{r cces14, exercise = TRUE}
+<!-- ### Exercise 14 -->
 
-```
+<!-- Finally, use `slice()` to keep the top 3 rows of `cces_subset_2`.. -->
+<!-- ```{r cces14-setup} -->
+<!-- cces_subset_2 <- cces %>% -->
+<!--   group_by(race) %>% -->
+<!--   summarize(num_ppl = n()) %>% -->
+<!--   arrange(desc(num_ppl)) -->
+<!-- ``` -->
 
-### Exercise 15
+<!-- ```{r cces14, exercise = TRUE} -->
 
-Returning to `cces_subset`, use a filtering join before our `ggplot()` call so that only the races in `cces_subset_2` remain.
-```{r cces15-setup}
-cces_subset_2 <- cces %>%
-  group_by(race) %>%
-  summarize(num_ppl = n()) %>%
-  arrange(desc(num_ppl)) %>%
-  slice(1:3)
+<!-- ``` -->
 
-cces_subset <- cces %>%
-  select(-c(news, econ, marstat, approval_ch)) %>%
-  filter(year %in% c(2009:2016), ideology != "Not Sure") %>%
-  group_by(race, ideology) %>%
-  summarize(mean_approval = mean(approval, na.rm = TRUE))
-```
+<!-- ### Exercise 15 -->
 
-```{r cces15, exercise = TRUE}
+<!-- Returning to `cces_subset`, use a filtering join before our `ggplot()` call so that only the races in `cces_subset_2` remain. -->
+<!-- ```{r cces15-setup} -->
+<!-- cces_subset_2 <- cces %>% -->
+<!--   group_by(race) %>% -->
+<!--   summarize(num_ppl = n()) %>% -->
+<!--   arrange(desc(num_ppl)) %>% -->
+<!--   slice(1:3) -->
 
-```
+<!-- cces_subset <- cces %>% -->
+<!--   select(-c(news, econ, marstat, approval_ch)) %>% -->
+<!--   filter(year %in% c(2009:2016), ideology != "Not Sure") %>% -->
+<!--   group_by(race, ideology) %>% -->
+<!--   summarize(mean_approval = mean(approval, na.rm = TRUE)) -->
+<!-- ``` -->
 
-```{r cces15-hint-1}
-# Did you remember to use semi_join()?
-```
+<!-- ```{r cces15, exercise = TRUE} -->
 
-```{r cces15-hint-2, eval=FALSE}
-cces_subset <- cces_subset %>%
-  semi_join(..., by = ...)
-```
+<!-- ``` -->
 
-### Exercise 16
+<!-- ```{r cces15-hint-1} -->
+<!-- # Did you remember to use semi_join()? -->
+<!-- ``` -->
 
-Our graph is starting to look good! Now, create the same plot you had previously using the new data. Call this `cces_plot_2`. To improve the aesthetics, add a `scale_` function to use RColorBrewer's "Dark2" palette to fill the bars.
+<!-- ```{r cces15-hint-2, eval=FALSE} -->
+<!-- cces_subset <- cces_subset %>% -->
+<!--   semi_join(..., by = ...) -->
+<!-- ``` -->
 
-```{r cces16-setup}
-cces_subset_2 <- cces %>%
-  group_by(race) %>%
-  summarize(num_ppl = n()) %>%
-  arrange(desc(num_ppl)) %>%
-  slice(1:3)
+<!-- ### Exercise 16 -->
 
-cces_subset <- cces %>%
-  select(-c(news, econ, marstat, approval_ch)) %>%
-  filter(year %in% c(2009:2016), ideology != "Not Sure") %>%
-  group_by(race, ideology) %>%
-  summarize(mean_approval = mean(approval, na.rm = TRUE)) %>%
-  semi_join(most_common_races, by = "race")
-```
+<!-- Our graph is starting to look good! Now, create the same plot you had previously using the new data. Call this `cces_plot_2`. To improve the aesthetics, add a `scale_` function to use RColorBrewer's "Dark2" palette to fill the bars. -->
 
-```{r cces16, exercise = TRUE}
+<!-- ```{r cces16-setup} -->
+<!-- cces_subset_2 <- cces %>% -->
+<!--   group_by(race) %>% -->
+<!--   summarize(num_ppl = n()) %>% -->
+<!--   arrange(desc(num_ppl)) %>% -->
+<!--   slice(1:3) -->
 
-```
+<!-- cces_subset <- cces %>% -->
+<!--   select(-c(news, econ, marstat, approval_ch)) %>% -->
+<!--   filter(year %in% c(2009:2016), ideology != "Not Sure") %>% -->
+<!--   group_by(race, ideology) %>% -->
+<!--   summarize(mean_approval = mean(approval, na.rm = TRUE)) %>% -->
+<!--   semi_join(most_common_races, by = "race") -->
+<!-- ``` -->
 
-```{r cces16-hint-1}
-# Remember that because we want to change the fill aesthetic (and not the color aesthetic), we have to adjust the syntax of our scale_ function
-```
+<!-- ```{r cces16, exercise = TRUE} -->
 
-```{r cces16-hint-2, eval = FALSE}
-cces_plot_2 <- cces_plot_2 %>% +
-    scale_fill_brewer(...)
-```
+<!-- ``` -->
 
-### Exercise 17
+<!-- ```{r cces16-hint-1} -->
+<!-- # Remember that because we want to change the fill aesthetic (and not the color aesthetic), we have to adjust the syntax of our scale_ function -->
+<!-- ``` -->
 
-We can now clearly see the trend that more liberal Americans had a higher approval of President Obama. In addition, Black Americans gave Obama higher approval than Hispanic Americans, who, in turn, gave Obama higher approval than white Americans.
+<!-- ```{r cces16-hint-2, eval = FALSE} -->
+<!-- cces_plot_2 <- cces_plot_2 %>% + -->
+<!--     scale_fill_brewer(...) -->
+<!-- ``` -->
 
-To finish your plot, use `labs()` to change the x-axis label so it simply reads as "ideology." In addition, give the graph a title and subtitle of your choosing. 
-```{r cces17-setup}
-cces_subset_2 <- cces %>%
-  group_by(race) %>%
-  summarize(num_ppl = n()) %>%
-  arrange(desc(num_ppl)) %>%
-  slice(1:3)
+<!-- ### Exercise 17 -->
 
-cces_subset <- cces %>%
-  select(-c(news, econ, marstat, approval_ch)) %>%
-  filter(year %in% c(2009:2016), ideology != "Not Sure") %>%
-  group_by(race, ideology) %>%
-  summarize(mean_approval = mean(approval, na.rm = TRUE)) %>%
-  semi_join(most_common_races, by = "race")
+<!-- We can now clearly see the trend that more liberal Americans had a higher approval of President Obama. In addition, Black Americans gave Obama higher approval than Hispanic Americans, who, in turn, gave Obama higher approval than white Americans. -->
 
-cces_plot_2 <- ggplot(data = cces_subset, mapping = aes(x = fct_reorder(ideology, mean_approval), y = mean_approval, fill = race)) +
-    geom_col(position = position_dodge(preserve = "single")) +
-    scale_fill_brewer(palette = "Dark2")
-```
+<!-- To finish your plot, use `labs()` to change the x-axis label so it simply reads as "ideology." In addition, give the graph a title and subtitle of your choosing.  -->
+<!-- ```{r cces17-setup} -->
+<!-- cces_subset_2 <- cces %>% -->
+<!--   group_by(race) %>% -->
+<!--   summarize(num_ppl = n()) %>% -->
+<!--   arrange(desc(num_ppl)) %>% -->
+<!--   slice(1:3) -->
 
-```{r cces17, exercise = TRUE}
+<!-- cces_subset <- cces %>% -->
+<!--   select(-c(news, econ, marstat, approval_ch)) %>% -->
+<!--   filter(year %in% c(2009:2016), ideology != "Not Sure") %>% -->
+<!--   group_by(race, ideology) %>% -->
+<!--   summarize(mean_approval = mean(approval, na.rm = TRUE)) %>% -->
+<!--   semi_join(most_common_races, by = "race") -->
 
-```
+<!-- cces_plot_2 <- ggplot(data = cces_subset, mapping = aes(x = fct_reorder(ideology, mean_approval), y = mean_approval, fill = race)) + -->
+<!--     geom_col(position = position_dodge(preserve = "single")) + -->
+<!--     scale_fill_brewer(palette = "Dark2") -->
+<!-- ``` -->
 
-```{r cces17-hint, eval = FALSE}
-cces_plot_2 +
-    labs(...)
-```
+<!-- ```{r cces17, exercise = TRUE} -->
+
+<!-- ``` -->
+
+<!-- ```{r cces17-hint, eval = FALSE} -->
+<!-- cces_plot_2 + -->
+<!--     labs(...) -->
+<!-- ``` -->
 
 ## National Election
 ### Exercise 1
@@ -2510,7 +2512,6 @@ nes
 Continue by filtering the tibble such that `education` is either "Some Highschool," "Highschool," "Some College," or "Adv. Degree."
 ```{r nes4-setup}
 nes_subset <- nes %>%
-  nes %>%
   select(c(year, education, pres_appr, voted))
 ```
 
