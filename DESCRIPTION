@@ -29,6 +29,7 @@ Imports:
     skimr (>= 2.1.1),
     viridis (>= 0.5.1),
     ggthemes (>= 4.2.0),
+    fivethirtyeight,
     nycflights13,
     gt (>= 0.2.1),
     learnr (>= 0.10.1),
