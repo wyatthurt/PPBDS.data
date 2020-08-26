@@ -711,7 +711,7 @@ nhanes_imperial <- nhanes %>%
 
 ```
 
-```{r nhanes3-hint}
+```{r nhanes3-hint, eval=FALSE}
 nhanes_imperial <- nhanes_imperial %>%
   select(..., ..., ..., ...)
 ```
@@ -754,7 +754,7 @@ nhanes_imperial <- nhanes %>%
 # Remember to use geom_jitter().
 ```
 
-```{r nhanes5-hint-2}
+```{r nhanes5-hint-2, eval=FALSE}
 nhanes_plot <- ggplot(data = ..., aes(x = ..., y = ..., color = ...))
 ```
 
@@ -780,7 +780,7 @@ nhanes_plot <- ggplot(data = nhanes_imperial,
 # The se argument should be equal to FALSE.
 ```
 
-```{r nhanes6-hint-2}
+```{r nhanes6-hint-2, eval=FALSE}
 nhanes_plot <- nhanes_plot + 
   geom_smooth(se = ..., color = ...)
 ```
@@ -804,7 +804,7 @@ nhanes_plot <- ggplot(data = nhanes_imperial,
 
 ```
 
-```{r nhanes7-hint}
+```{r nhanes7-hint, eval=FALSE}
 nhanes_plot <- nhanes_plot +
   facet_wrap(...)
 ```
@@ -831,7 +831,7 @@ nhanes_plot <- ggplot(data = nhanes_imperial,
 
 ```
 
-```{r nhanes8-hint}
+```{r nhanes8-hint, eval=FALSE}
 nhanes_plot <- nhanes_plot +
   ...
 ```
@@ -914,12 +914,12 @@ PPBDS.data::kenya
 
 ```
 
-```{r kenya3-hint-1}
+```{r kenya3-hint-1, eval=FALSE}
 ... <- kenya %>%
   filter(treatment %in% ...)
 ```
 
-```{r kenya3-hint-2}
+```{r kenya3-hint-2, eval=FALSE}
 kenya_subset <- kenya %>%
   filter(treatment %in% c(...))
 ```
@@ -937,7 +937,7 @@ kenya_subset <- kenya %>%
 
 ```
 
-```{r kenya4-hint}
+```{r kenya4-hint, eval=FALSE}
 kenya_subset <- kenya_subest %>%
   ...
 ```
@@ -956,7 +956,7 @@ kenya_subset <- kenya %>%
 
 ```
 
-```{r kenya5-hint}
+```{r kenya5-hint, eval=FALSE}
 kenya_subset <- kenya_subset %>%
   select(...)
 ```
@@ -1031,7 +1031,7 @@ kenya_subset <- kenya %>%
 
 ```
 
-```{r kenya9-hint}
+```{r kenya9-hint, eval=FALSE}
 kenya_subset <- kenya_subset %>%
   group_by(...)
 ```
@@ -1078,7 +1078,7 @@ kenya_subset <- kenya %>%
 
 ```
 
-```{r kenya11-hint}
+```{r kenya11-hint, eval=FALSE}
 kenya_plot <- ggplot(data = ..., aes(x = ..., y = ...)) +
   ...
 ```
@@ -1110,7 +1110,7 @@ kenya_plot <- ggplot(data = kenya_subset,
 
 ```
 
-```{r kenya12-hint}
+```{r kenya12-hint, eval=FALSE}
 kenya_plot <- kenya_plot +
   facet_wrap(~ ...)
 ```
@@ -1163,7 +1163,7 @@ kenya_plot_2 <- ggplot(data = kenya_subset,
 
 ```
 
-```{r kenya14-hint}
+```{r kenya14-hint, eval=FALSE}
 kenya_plot_2 <- kenya_plot_2 +
   ...
 ```
@@ -1194,7 +1194,7 @@ kenya_plot_2 <- ggplot(data = kenya_subset,
 
 ```
 
-```{r kenya15-hint}
+```{r kenya15-hint, eval=FALSE}
 kenya_plot_2 + 
     labs(...)
 ```
@@ -1214,7 +1214,7 @@ PPBDS.data::sps
 
 ```
 
-```{r sps1-hint}
+```{r sps1-hint, eval=FALSE}
 glimpse(...)
 ```
 
@@ -1230,12 +1230,12 @@ PPBDS::sps
 
 ```
 
-```{r sps2-hint-1}
+```{r sps2-hint-1, eval=FALSE}
 ... <- sps %>%
   filter(education %in% ...)
 ```
 
-```{r sps2-hint-2}
+```{r sps2-hint-2, eval=FALSE}
 ... <- sps %>% 
   filter(education %in% c(...))
 ```
@@ -1424,7 +1424,7 @@ sps_plot_2 <- ggplot(data = sps_subset, mapping = aes(x = fct_reorder(education,
 
 ```
 
-```{r sps11-hint}
+```{r sps11-hint, eval=FALSE}
 sps_plot_2 <- sps_plot_2 + 
     scale_fill_brewer(palette = ..., labels = ...)
 ```
@@ -1935,7 +1935,7 @@ q_subset <- qscores %>%
 
 ```
 
-```{r qscores8-hint}
+```{r qscores8-hint, eval=FALSE}
 qsubset <- q_subset %>%
   summarize(rnorm_values = rnorm(...))
 ```
@@ -2254,7 +2254,7 @@ cces_subset <- cces %>%
 
 ```
 
-```{r cces7-hint}
+```{r cces7-hint, eval=FALSE}
 cces_subset <- cces_subset %>%
   summarize(mean_approval = mean(approval, ...))
 ```
@@ -2404,7 +2404,7 @@ cces_subset <- cces %>%
 # Did you remember to use semi_join()?
 ```
 
-```{r cces15-hint-2}
+```{r cces15-hint-2, eval=FALSE}
 cces_subset <- cces_subset %>%
   semi_join(..., by = ...)
 ```
@@ -3137,7 +3137,7 @@ pld_nd <- tibble(value = rnorm(n = 241, mean = 23.2, sd = 14.5))
 
 ```
 
-```{r pld-8-hint}
+```{r pld-8-hint, eval=FALSE}
 nd_plot <- ggplot(data = ..., aes(x = ...)) + 
   geom_histogram(fill = ..., alpha = ..., bins = ...)
 ```
@@ -3157,7 +3157,7 @@ pld_subset <- partisan_lean_district %>%
 
 ```
 
-```{r pld-9-hint}
+```{r pld-9-hint, eval=FALSE}
 pld_plot <- ggplot(data = ..., mapping = aes(x = ...)) + 
   geom_histogram()
 ```
@@ -3176,7 +3176,7 @@ pld_subset <- partisan_lean_district %>%
 
 ```
 
-```{r pld-10-hint}
+```{r pld-10-hint, eval=FALSE}
 pld_plot <- ggplot(data = ..., mapping = aes(x = ...)) + 
   geom_histogram(fill = ..., alpha = ..., bins = ....)
 ```
@@ -3570,11 +3570,11 @@ For the next few questions, we will be looking at  the variable `name` and pract
 # Consider using the regex $
 ```
 
-```{r un-2-hint-2}
+```{r un-2-hint-2, eval=FALSE}
 str_subset(..., pattern = "...")
 ```
 
-```{r un-2-hint-3}
+```{r un-2-hint-3, eval=FALSE}
 str_subset(unisex_names$..., pattern = "...")
 ```
 
@@ -3626,7 +3626,7 @@ Now use `group_by()` and `summarize()` on `unisex_names_1` to create the variabl
   
 ```
 
-```{r un-7-hint-1}
+```{r un-7-hint-1, eval=FALSE}
 unisex_names_1 %>% 
   group_by(...) %>% 
   summarize(... = mean(...))
@@ -4157,7 +4157,7 @@ fan_subset <- fandango %>%
 
 ```
 
-```{r fan5-hint}
+```{r fan5-hint, eval=FALSE}
 ... <- fan_subset %>%
   mutate(avg = round(x = ..., digits = ...)/2)
 ```
