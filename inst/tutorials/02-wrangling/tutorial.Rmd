@@ -2543,9 +2543,14 @@ nes_subset <- nes %>%
 
 ### Exercise 6
 
+<!-- DK: This example does not flow very well with the one above. The above does not keep ideology around, but, in this example, we need it. -->
+
 The dplyr `if_else()` function can be used alongside `mutate()` and `as.factor()` to create a factor with two levels depending on whether a certain `condition` is met. Run the code below to see how we can use `if_else()` to separate the `nes` data set into 2 groups based on whether the value of `ideology` is positive.
 
 ```{r nes6, exercise = TRUE}
+nes_subset <- nes %>%
+  select(c(year, education, pres_appr, voted, ideology)) %>%
+  filter(education %in% c("Some Highschool", "Highschool", "Some College", "Adv. Degree")) %>% 
   mutate(pos_ideology = as.factor(if_else(condition = ideology > 0,
                                           true = "ideology_is_positive",
                                           false = "ideology_not_positive")))
@@ -2711,6 +2716,7 @@ nes_subset <- nes %>%
 ### Exercise 13
 
 Use `facet_wrap` to facet the graph by opinion.
+
 ```{r nes13-setup}
 nes_subset <- nes %>%
   select(c(year, education, pres_appr, voted)) %>%
@@ -2723,8 +2729,11 @@ nes_subset <- nes %>%
   group_by(year, voted, opinion, education) %>%
   summarize(count = n()) %>%
   pivot_wider(names_from = voted, values_from = count) %>%
-  mutate(turnout = Yes / (Yes + No)) %>%
-nes_plot <- ggplot(data = nes_subset, mapping = aes(x = year, y = turnout, color = education, linetype = education)) +
+  mutate(turnout = Yes / (Yes + No))
+
+nes_plot <- ggplot(data = nes_subset, 
+                   mapping = aes(x = year, y = turnout, 
+                                 color = education, linetype = education)) +
     geom_line()
 ```
 
@@ -2740,6 +2749,7 @@ nes_plot <- nes_plot +
 ### Exercise 14
 
 This graph is starting to look pretty good, but the ordering of the legend is a bit confusing. Try using an `fct_` function to reorder the legend (both the color *and* linetype aesthetics) so that Adv. Degree is first, Some College is second, and so on. What goes wrong? Call this plot `nes_plot_2`. 
+
 ```{r nes14-setup}
 nes_subset <- nes %>%
   select(c(year, education, pres_appr, voted)) %>%
@@ -2788,14 +2798,22 @@ nes_subset <- nes %>%
 ```
 
 ```{r nes15-hint, eval = FALSE}
-nes_plot_3 <- ggplot(data = nes_subset, mapping = aes(x = year, y = turnout, color = fct_reorder2(education, year, turnout, .fun = ...), linetype = fct_reorder2(education, year, turnout, .fun = ...))) +
+nes_plot_3 <- ggplot(data = nes_subset, 
+                     mapping = aes(x = year, y = turnout, 
+                                   color = fct_reorder2(education, year, turnout, 
+                                                        .fun = ...), 
+                                   linetype = fct_reorder2(education, year, 
+                                                           turnout, .fun = ...))) +
     geom_line() +
     facet_wrap(~ opinion)
 ```
 
 ### Exercise 16
 
+<!-- DK: Is this stuff really working? Why don't we need to pass data to create nes_plot_3? Isn't the resulting object empty? Why use the set up chunks at all? -->
+
 Our graph is looking good, but the very long legend title takes up a lot of space. To fix this problem (and to improve the colors of the graph), add a `scale_color_brewer()` function with the "Spectral" palette as well as a `scale_linetype` function. Use **both** scale functions to set the name of the legend to "education."
+
 ```{r nes16-setup}
 nes_subset <- nes %>%
   select(c(year, education, pres_appr, voted)) %>%
@@ -2810,7 +2828,12 @@ nes_subset <- nes %>%
   pivot_wider(names_from = voted, values_from = count) %>%
   mutate(turnout = Yes / (Yes + No)) 
 
-nes_plot_3 <- ggplot(mapping = aes(x = year, y = turnout, color = fct_reorder2(education, year, turnout, .fun = first2), linetype = fct_reorder2(education, year, turnout, .fun = first2))) +
+nes_plot_3 <- ggplot(mapping = aes(x = year, 
+                                   y = turnout, 
+                                   color = fct_reorder2(education, year, 
+                                                        turnout, .fun = first2), 
+                                   linetype = fct_reorder2(education, year, turnout, 
+                                                           .fun = first2))) +
     geom_line() +
     facet_wrap(~ opinion)
 ```
@@ -2844,7 +2867,11 @@ nes_subset <- nes %>%
   pivot_wider(names_from = voted, values_from = count) %>%
   mutate(turnout = Yes / (Yes + No)) 
 
-nes_plot_3 <- ggplot(mapping = aes(x = year, y = turnout, color = fct_reorder2(education, year, turnout, .fun = first2), linetype = fct_reorder2(education, year, turnout, .fun = first2))) +
+nes_plot_3 <- ggplot(mapping = aes(x = year, y = turnout, 
+                                   color = fct_reorder2(education, year, turnout, 
+                                                        .fun = first2), 
+                                   linetype = fct_reorder2(education, year, turnout, 
+                                                           .fun = first2))) +
     geom_line() +
     facet_wrap(~ opinion) +
     scale_color_brewer(palette = "Spectral", name = "education") +
@@ -2855,7 +2882,7 @@ nes_plot_3 <- ggplot(mapping = aes(x = year, y = turnout, color = fct_reorder2(e
 
 ```
 
-<!-- Connor's Work --> 
+
 ## Airline Safety 
 
 ### Exercise 1 
@@ -3183,142 +3210,144 @@ pld_plot <- ggplot(data = ..., mapping = aes(x = ...)) +
 ```
 
 
-## Media Mentions
+<!-- ## Media Mentions -->
 
-### Exercise
+<!-- DK: More sloppiness. matched_stores does not seem to exist and yet is used in a join. -->
 
-We are going to be looking at two different data sets, `media_mentions_cable` (as the tutorial name implies), and `media_mentions_online`  both from the package `fivethirtyeight`. These two data sets include data on media mentions of different candidates in the 2020 elections. Throughout the tutorial, you will need to copy, paste and pipe your code from the previous question, as we will be taking consecutive steps to wrangle our data. Let's start by taking a glimpse of both `media_mentions_cable` and `media_mentions_online`.
+<!-- ### Exercise -->
 
-```{r mmc-1, exercise=TRUE}
+<!-- We are going to be looking at two different data sets, `media_mentions_cable` (as the tutorial name implies), and `media_mentions_online`  both from the package `fivethirtyeight`. These two data sets include data on media mentions of different candidates in the 2020 elections. Throughout the tutorial, you will need to copy, paste and pipe your code from the previous question, as we will be taking consecutive steps to wrangle our data. Let's start by taking a glimpse of both `media_mentions_cable` and `media_mentions_online`. -->
 
-
-```
-
-### Exercise 2
-
-Great! Now use the `left_join` function to join the two data sets `media_mentions_cable` and `media_mentions_online` by `date` and `name`. Call this joined dataset `media_joined`
-```{r mmc-2, exercise=TRUE}
+<!-- ```{r mmc-1, exercise=TRUE} -->
 
 
-```
+<!-- ``` -->
 
-```{r mmc-2-hint, eval=FALSE}
-left_join(x = ..., y = ..., by = c("...", "..."))
-```
+<!-- ### Exercise 2 -->
 
-### Exercise 3
-
-Now `select()` `date`, `name`, `matched_clips`, `all_candidate_clips`, `matched_stories` and `all_ candidate_stories`
-
-```{r mmc-3-setup}
-media_joined <- left_join(x = media_mentions_cable, 
-                          y = media_mentions_online, 
-                          by = c("date", "name"))
-```
-
-```{r mmc-3, exercise=TRUE, eval=FALSE, exercise.lines=6}
+<!-- Great! Now use the `left_join` function to join the two data sets `media_mentions_cable` and `media_mentions_online` by `date` and `name`. Call this joined dataset `media_joined` -->
+<!-- ```{r mmc-2, exercise=TRUE} -->
 
 
-```
+<!-- ``` -->
 
-### Exercise 4
+<!-- ```{r mmc-2-hint, eval=FALSE} -->
+<!-- left_join(x = ..., y = ..., by = c("...", "...")) -->
+<!-- ``` -->
 
-Now use `mutate()` on our joined data create the new variable `matched_total` which is equal to `matched_clips` plus `matched_stories`
+<!-- ### Exercise 3 -->
 
-```{r mmc-4-setup}
-media_joined <- left_join(x = media_mentions_cable, 
-                          y = media_mentions_online, 
-                          by = c("date", "name")) %>%
-  select(date, name, matched_clips, all_candidate_clips, matched_stores, all_candidate_stories)
-```
+<!-- Now `select()` `date`, `name`, `matched_clips`, `all_candidate_clips`, `matched_stories` and `all_ candidate_stories` -->
 
-```{r mmc-4, exercise=TRUE, eval=FALSE}
+<!-- ```{r mmc-3-setup} -->
+<!-- media_joined <- left_join(x = media_mentions_cable,  -->
+<!--                           y = media_mentions_online,  -->
+<!--                           by = c("date", "name")) -->
+<!-- ``` -->
 
-
-```
-
-### Exercise 5
-
-Nice! Now use `mutate` again to create the new variable `all_candidate_total` which is equal to `all_candidate_clips` plus `all_candidate_stories`
-
-```{r mmc-5-setup}
-media_joined <- left_join(x = media_mentions_cable, 
-                          y = media_mentions_online, 
-                          by = c("date", "name")) %>%
-  select(date, name, matched_clips, all_candidate_clips, matched_stories, all_candidate_stories) %>%
-  mutate(matched_total = matched_stories + matched_clips)
-```
-
-```{r mmc-5, exercise=TRUE}
+<!-- ```{r mmc-3, exercise=TRUE, eval=FALSE, exercise.lines=6} -->
 
 
-```
+<!-- ``` -->
+
+<!-- ### Exercise 4 -->
+
+<!-- Now use `mutate()` on our joined data create the new variable `matched_total` which is equal to `matched_clips` plus `matched_stories` -->
+
+<!-- ```{r mmc-4-setup} -->
+<!-- media_joined <- left_join(x = media_mentions_cable,  -->
+<!--                           y = media_mentions_online,  -->
+<!--                           by = c("date", "name")) %>% -->
+<!--   select(date, name, matched_clips, all_candidate_clips, matched_stores, all_candidate_stories) -->
+<!-- ``` -->
+
+<!-- ```{r mmc-4, exercise=TRUE, eval=FALSE} -->
 
 
-### Exercise 6
+<!-- ``` -->
 
-Awesome! Now `filter()` `media_joined` to only include rows where `name` == "Julian Castro"
-```{r mmc-6-setup}
-media_joined <- left_join(x = media_mentions_cable, 
-                          y = media_mentions_online, 
-                          by = c("date", "name")) %>%
-  select(date, name, matched_clips, all_candidate_clips, matched_stories, all_candidate_stories) %>%
-  mutate(matched_total = matched_stories + matched_clips) %>%
-  mutate(all_candidate_total = (all_candidate_clips + all_candidate_stories))
-```
+<!-- ### Exercise 5 -->
 
-```{r mmc-6, exercise=TRUE, eval=FALSE, exercise.lines=8}
+<!-- Nice! Now use `mutate` again to create the new variable `all_candidate_total` which is equal to `all_candidate_clips` plus `all_candidate_stories` -->
 
+<!-- ```{r mmc-5-setup} -->
+<!-- media_joined <- left_join(x = media_mentions_cable,  -->
+<!--                           y = media_mentions_online,  -->
+<!--                           by = c("date", "name")) %>% -->
+<!--   select(date, name, matched_clips, all_candidate_clips, matched_stories, all_candidate_stories) %>% -->
+<!--   mutate(matched_total = matched_stories + matched_clips) -->
+<!-- ``` -->
 
-```
-
-### Exercise 7
-
-Now, let's use our filtered version of `media_joined` to make a plot! Use `geom_line()` to create a line graph with `date` on the x axis and `total_matched` on the y axis. Call this graph `media_plot`.
-
-```{r mmc-7-setup}
-media_joined <- left_join(media_mentions_cable,media_mentions_online,c("date", "name")) %>%
-  mutate(total_matched = (matched_clips + matched_stories)) %>%
-  mutate(all_candidate_total = (all_candidate_clips + all_candidate_stories)) %>%
-  filter(name == "Julian Castro")
-```
-
-```{r mmc-7, exercise=TRUE}
+<!-- ```{r mmc-5, exercise=TRUE} -->
 
 
-```
-
-```{r mmc-7-hint, eval=FALSE}
-media_plot <- ... %>%
-  ggplot(aes(x = , y = ...)) +
-  geom_line()
-```
+<!-- ``` -->
 
 
-### Exercise 8
+<!-- ### Exercise 6 -->
 
-Nice! As you can see, adding the second second geom changed our scale and made it harder to see trends in the first. For our final question, try changing the scale on the y axis to log base 10
+<!-- Awesome! Now `filter()` `media_joined` to only include rows where `name` == "Julian Castro" -->
+<!-- ```{r mmc-6-setup} -->
+<!-- media_joined <- left_join(x = media_mentions_cable,  -->
+<!--                           y = media_mentions_online,  -->
+<!--                           by = c("date", "name")) %>% -->
+<!--   select(date, name, matched_clips, all_candidate_clips, matched_stories, all_candidate_stories) %>% -->
+<!--   mutate(matched_total = matched_stories + matched_clips) %>% -->
+<!--   mutate(all_candidate_total = (all_candidate_clips + all_candidate_stories)) -->
+<!-- ``` -->
 
-```{r mmc-8-setup}
-media_joined <- left_join(media_mentions_cable,media_mentions_online,c("date", "name")) %>%
-  mutate(total_matched = (matched_clips + matched_stories)) %>%
-  mutate(all_candidate_total = (all_candidate_clips + all_candidate_stories)) %>%
-  filter(name == "Julian Castro")
-
-media_plot <- media_joined %>%
-  ggplot(aes(x = date, y = total_matched)) +
-  geom_line()
-```
-
-```{r mmc-8, exercise=TRUE}
+<!-- ```{r mmc-6, exercise=TRUE, eval=FALSE, exercise.lines=8} -->
 
 
-```
+<!-- ``` -->
 
-```{r mmc-8-hint, eval=FALSE}
-# Use scale_y_log10()
-  
-```
+<!-- ### Exercise 7 -->
+
+<!-- Now, let's use our filtered version of `media_joined` to make a plot! Use `geom_line()` to create a line graph with `date` on the x axis and `total_matched` on the y axis. Call this graph `media_plot`. -->
+
+<!-- ```{r mmc-7-setup} -->
+<!-- media_joined <- left_join(media_mentions_cable,media_mentions_online,c("date", "name")) %>% -->
+<!--   mutate(total_matched = (matched_clips + matched_stories)) %>% -->
+<!--   mutate(all_candidate_total = (all_candidate_clips + all_candidate_stories)) %>% -->
+<!--   filter(name == "Julian Castro") -->
+<!-- ``` -->
+
+<!-- ```{r mmc-7, exercise=TRUE} -->
+
+
+<!-- ``` -->
+
+<!-- ```{r mmc-7-hint, eval=FALSE} -->
+<!-- media_plot <- ... %>% -->
+<!--   ggplot(aes(x = , y = ...)) + -->
+<!--   geom_line() -->
+<!-- ``` -->
+
+
+<!-- ### Exercise 8 -->
+
+<!-- Nice! As you can see, adding the second second geom changed our scale and made it harder to see trends in the first. For our final question, try changing the scale on the y axis to log base 10 -->
+
+<!-- ```{r mmc-8-setup} -->
+<!-- media_joined <- left_join(media_mentions_cable,media_mentions_online,c("date", "name")) %>% -->
+<!--   mutate(total_matched = (matched_clips + matched_stories)) %>% -->
+<!--   mutate(all_candidate_total = (all_candidate_clips + all_candidate_stories)) %>% -->
+<!--   filter(name == "Julian Castro") -->
+
+<!-- media_plot <- media_joined %>% -->
+<!--   ggplot(aes(x = date, y = total_matched)) + -->
+<!--   geom_line() -->
+<!-- ``` -->
+
+<!-- ```{r mmc-8, exercise=TRUE} -->
+
+
+<!-- ``` -->
+
+<!-- ```{r mmc-8-hint, eval=FALSE} -->
+<!-- # Use scale_y_log10() -->
+
+<!-- ``` -->
 
 ## State Words
 
