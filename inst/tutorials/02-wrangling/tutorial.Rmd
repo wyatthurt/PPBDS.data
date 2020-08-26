@@ -23,6 +23,8 @@ description: "Chapter 2 tutorial"
 
 ```{r setup, include=FALSE}
 library(tidyverse)
+library(lubridate)
+library(stringr)
 library(learnr)
 library(shiny)
 library(PPBDS.data)
