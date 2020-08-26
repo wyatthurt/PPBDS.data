@@ -1,5 +1,7 @@
 ---
 title: "Two Parameters"
+tutorial:
+  id: "07-two-parameters"
 output:
   learnr::tutorial:
       progressive: true
@@ -14,6 +16,7 @@ library(PPBDS.data)
 library(learnr)
 library(shiny)
 knitr::opts_chunk$set(echo = FALSE, message = FALSE)
+options(tutorial.storage="local")  
 ```
 
 ## Name

@@ -1,5 +1,7 @@
 ---
 title: "Wrangling"
+tutorial:
+  id: "02-wrangling"
 output:
   learnr::tutorial:
       progressive: true
@@ -29,7 +31,7 @@ library(learnr)
 library(shiny)
 library(PPBDS.data)
 knitr::opts_chunk$set(echo = FALSE, message = FALSE)
-options(tutorial.exercise.timelimit = 60)  
+options(tutorial.exercise.timelimit = 60, tutorial.storage="local") 
 
 # Set up stringr-objects
 library(dslabs)

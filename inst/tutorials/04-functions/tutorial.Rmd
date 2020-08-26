@@ -1,5 +1,7 @@
 ---
 title: "Functions"
+tutorial:
+  id: "04-functions"
 output:
   learnr::tutorial:
       progressive: true
@@ -22,6 +24,7 @@ library(shiny)
 library(gapminder)
 library(skimr)
 knitr::opts_chunk$set(echo = FALSE, message = FALSE)
+options(tutorial.storage="local")  
 ```
 
 ## Introduction to Functions
