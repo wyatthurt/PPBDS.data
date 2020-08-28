@@ -64,8 +64,6 @@ Did you know, `library()` is a special function in R? You can pass `library()` a
 
 <!-- ``` -->
 
-### 
-
 Load the `ggplot2` package using `library()`.
 
 ```{r exercise-1, exercise = TRUE, exercise.lines = 3}
@@ -92,7 +90,7 @@ Compare the code in `sqrt()` to the code in another R function, `lm()`. Examine 
 lm
 ```
 
-### help pages
+### Help pages
 
 Wow! `lm()` runs a lot of code. What does it do? Open the help page for `lm()` in the chunk below and find out.
 
@@ -129,7 +127,7 @@ question("Which of these would be valid object names?",
 
 #### Using objects
 
-In the code chunk below, save the results of `rnorm(100, mean = 100, sd = 15)` to an object named `data`. Then, on a new line, call the `hist()` function on `data` to plot a histogram of the random values.
+In the code chunk below, save the results of `rnorm(100, mean = 100, sd = 15)` to an object named `data`. Then, on a new line, call the `hist()` function on `data` to plot a histogram of the random values. Can you guess what the function does? Run the code a second time.
 
 ```{r objects-2, exercise=TRUE}
 
@@ -213,7 +211,7 @@ Extract the element named gamma from the vector below.
 vec2 <- c(alpha = 1, beta = 2, gamma = 3)
 ```
 
-#### Vectorised operations
+#### Vectorized operations
 
 Predict what the code below will return. Then look at the result.
 
@@ -247,7 +245,7 @@ Did you notice that a row of three (or four) letter abbreviations appears under 
 
 * `dttm` stands for date-times (a date + a time).
 
-There are three other common types of variables that aren't used in this dataset but are used in other datasets:
+There are three other common types of variables that aren't used in this data set but are used in other data sets:
 
 * `lgl` stands for logical, vectors that contain only `TRUE` or `FALSE`.
 
@@ -333,18 +331,24 @@ strs <- c("apple", "banana", "carrot", "duck")
 df <- data.frame(numbers = nums, logicals = logs, strings = strs)
 ```
 
-## Exploring data frames
+## Exploring dataframes
 
-### `trains` dataset
+### `trains` data set
 
-Load the `PPBDS.data` package to look at the `trains` dataset.
+Load the `PPBDS.data` package to look at the `trains` data set.
+
+###
+
 ```{r exercise-2, exercise = TRUE, exercise.lines = 5}
 
   
 trains
 ```
 
-Use the `glimpse()` function to look at the `trains` dataset. We already loaded the `tidyverse` and `PPBDS.data` packages.
+###
+
+Use the `glimpse()` function to look at the `trains` data set. We already loaded the `tidyverse` and `PPBDS.data` packages.
+
 ```{r exercise-4, exercise = TRUE, exercise.lines = 5}
 library(tidyverse)
 library(PPBDS.data)
@@ -352,8 +356,10 @@ library(PPBDS.data)
 
 ```
 
+###
+
 ```{r quiz-4, echo = FALSE}
-quiz(caption = "Quiz - `trains` dataset",
+quiz(caption = "Quiz - `trains` data set",
   question("What is the data type of the `liberal` variable?",
            answer("character"),
            answer("logical", correct = TRUE),
@@ -361,7 +367,7 @@ quiz(caption = "Quiz - `trains` dataset",
            answer("factor"),
            allow_retry = TRUE
   ),
-  question("How many rows does the `train` dataset have?",
+  question("How many rows does the `train` data set have?",
            answer("8"),
            answer("15"),
            answer("115", correct = TRUE),
@@ -370,26 +376,27 @@ quiz(caption = "Quiz - `trains` dataset",
 )
 ```
 
-Extract the `income` variable in the `trains` dataset using the `$` operator.
+Extract the `income` variable in the `trains` data set using the `$` operator.
+
 ```{r exercise-5, exercise = TRUE}
 
 ```
 
-### `qscores` dataset
+### `qscores` data set
 
-Look at the `qscores` dataset using `glimpse()`. We have loaded the `PPBDS.data` and the `tidyverse` packages.
+Look at the `qscores` data set using `glimpse()`. We have loaded the `PPBDS.data` and the `tidyverse` packages.
 
 ```{r qscores, exercise = TRUE, exercise.lines = 5}
 
 ```
 
 ```{r quiz-5, echo = FALSE}
-quiz(
-  question("Which of the following is NOT an identification variable? (choose 2)",
-           answer("`name`"),
-           answer("`department`", correct = TRUE),
-           answer("`workload`", correct = TRUE),
-           answer("`number`"),
+quiz(caption = "Quiz - `qscores` data set",
+  question("Which of the following is an identification variable?",
+           answer("`name`", correct = TRUE),
+           answer("`department`"),
+           answer("`term`"),
+           answer("`instructor`"),
            allow_retry = TRUE
   )
 )
@@ -400,7 +407,7 @@ quiz(
 ```{r quiz-6, echo = FALSE}
 quiz(
   question("What are the three essential components of a graphic?",
-           answer("the dataset containing the variables in question", correct = TRUE),
+           answer("the data set containing the variables in question", correct = TRUE),
            answer("the geometric object we can observe in a plot", correct = TRUE),
            answer("axes labels on a plot"),
            answer("the aesthetic attributes", correct = TRUE),
@@ -417,7 +424,7 @@ quiz(
 
 ### Components of a scatterplot
 
-Look at this scatterplot made using the `trains` dataset. Higher numbers mean more conservative attitudes toward immigration-related policies on a 3 to 15 scale. Individuals with a treatment value of "Treated" were exposed to two Spanish-speakers on their regular commute. "Control" individuals were not.
+Look at this scatterplot made using the `trains` data set. Higher numbers mean more conservative attitudes toward immigration-related policies on a 3 to 15 scale. Individuals with a treatment value of "Treated" were exposed to two Spanish-speakers on their regular commute. "Control" individuals were not.
 
 ```{r trains}
 ggplot(data = trains, mapping = aes(x = att_start, y = att_end, color = treatment)) +
@@ -450,7 +457,9 @@ quiz(
 ## `geom_point()` 
 <!-- I -->
 
-Let's make a scatterplot using the `iris` dataset. Hit the 'Run Code' button.
+###
+
+Let's make a scatterplot using the `iris` data set. Hit the 'Run Code' button.
 
 ```{r gp-1-1, exercise=TRUE, eval=FALSE}
 ggplot(data = iris, mapping = aes(x = Petal.Length, y = Petal.Width)) + 
@@ -480,6 +489,8 @@ Excellent work! Now let's make a scatterplot with `Sepal.Length` on the x-axis, 
 
 ```
 
+###
+
 Wonderful. Now use what you've learned to recreate the plot below.
 
 ```{r}
@@ -500,9 +511,9 @@ To create a title, use labs(title = ...).
 
 <!-- ## `geom_point()` II -->
 
-### Scatterplot with the `qscores` dataset
+### Scatterplot with the `qscores` data set
 
-Now let's make a scatterplot using the `qscores` dataset. Load the `PPBDS.data` package and look at the `qscores` dataset by simply typing the name of the dataset.
+Now let's make a scatterplot using the `qscores` data set. Load the `PPBDS.data` package and look at the `qscores` data set by simply typing the name of the data set.
 
 ```{r exercise-6, exercise = TRUE, exercise.lines = 5}
 
@@ -516,7 +527,7 @@ library(...)
 
 ###
 
-Nice! Load the `ggplot2` package. Use the `ggplot()` function to create a scatterplot using the `qscores` dataset, `rating` on the x-axis and `hours` on the y-axis. Is there a relationship between the rating of a Harvard course versus the average hours per week of workload?
+Nice! Load the `ggplot2` package. Use the `ggplot()` function to create a scatterplot using the `qscores` data set, `rating` on the x-axis and `hours` on the y-axis. Is there a relationship between the rating of a Harvard course versus the average hours per week of workload?
 
 ```{r exercise-7, exercise = TRUE, exercise.lines = 5}
 
@@ -547,7 +558,7 @@ ggplot(data = qscores, mapping = aes(x = rating, y = hours, size = ...)) +
 
 ###
 
-For the dataset `sps`, make a scatterplot with `age` on the x-axis and `health_exp_3m` on the y-axis.
+For the data set `sps`, make a scatterplot with `age` on the x-axis and `health_exp_3m` on the y-axis.
 
 ```{r point-I-2, exercise=TRUE, exercise.lines=5}
 
@@ -590,21 +601,21 @@ ggplot(aes(x = age, y = health_exp_3m, color = ...))
 
 ### Overplotting
 
-While this plot created using the `mpg` dataset only displays 126 points, it visualizes a data set that contains 234 points.
+While this plot created using the `mpg` data set only displays 126 points, it visualizes a data set that contains 234 points.
 
 ```{r echo = FALSE, out.width = "80%"}
 ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point()
 ```
 
-The missing points are hidden behind other points, a phenomenon known as _overplotting_. Overplotting is a problem because it provides an incomplete picture of the dataset. You cannot determine where the *mass* of the points fall, which makes it difficult to spot relationships in the data. 
+The missing points are hidden behind other points, a phenomenon known as _overplotting_. Overplotting is a problem because it provides an incomplete picture of the data set. You cannot determine where the *mass* of the points fall, which makes it difficult to spot relationships in the data. 
 
 ### Causes of overplotting
 
 Overplotting usually occurs for two different reasons:
 
 1. The data points have been rounded to a "grid" of common values, as in the plot above
-2. The dataset is so large that it cannot be plotted without points overlapping each other
+2. The data set is so large that it cannot be plotted without points overlapping each other
 
 How you deal with overplotting will depend on the cause. 
 
@@ -728,6 +739,8 @@ ggplot(data = diamonds, mapping = aes(x = depth, y = price)) +
 ## `geom_line()` 
 <!-- I -->
 
+###
+
 ```{r, include = FALSE}
 cces_data <- cces %>%
   filter(approval_ch %in% c("Approve / Somewhat Approve", "Disapprove / Somewhat Disapprove")) %>%
@@ -735,13 +748,13 @@ cces_data <- cces %>%
   summarize(avg_age = mean(age))
 ```
 
-The `cces` dataset in the `PPBDS.data` package has been changed to show the average age of voters per year based on their approval of the president that year. The `cces` dataset was manipulated using the `filter()`, `group_by`, and `summarize()` functions within the `tidyverse` package, which you will learn how to use in the next chapter.
+The `cces` data set in the `PPBDS.data` package has been changed to show the average age of voters per year based on their approval of the president that year. The `cces` data set was manipulated using the `filter()`, `group_by`, and `summarize()` functions within the `tidyverse` package, which you will learn how to use in the next chapter.
 
 ```{r, echo = TRUE}
 cces_data
 ```
 
-Use the `ggplot()` function to create a linegraph with the dataset called `cces_data` with `year` on the x-axis, `avg_age` on the y-axis, and `approval_ch` as the color aesthetic.
+Use the `ggplot()` function to create a linegraph with the data set called `cces_data` with `year` on the x-axis, `avg_age` on the y-axis, and `approval_ch` as the color aesthetic.
 
 ```{r exercise-11-setup, include = FALSE}
 cces_data <- cces %>%
@@ -759,6 +772,8 @@ ggplot(data = cces_data, mapping = aes(x = ..., y = ..., color = ...)) +
   geom_line()
 ```
 
+###
+
 ### Test your knowledge
 
 ```{r quiz-8, echo = FALSE}
@@ -775,6 +790,7 @@ quiz(
 ```
 
 <!-- ## `geom_line()` II -->
+
 ###
 
 Run the following line graph, then try changing the y axis variable to `unemploy`.
@@ -783,6 +799,8 @@ Run the following line graph, then try changing the y axis variable to `unemploy
 ggplot(data = economics, mapping = aes(x = date, y = pop)) +
   geom_line()
 ```
+
+###
 
 Nice! As you can see, we have filtered the data set `population` by `country` to create the new data frame `Afghanistan_population` which only includes data on Afghanistan. Use `Afghanistan_population` to create a line graph with `year` on the x axis and `population` (a variable that happens to have the same name as the data set) on the y axis.
 
@@ -850,7 +868,7 @@ quiz(
 
 ###
 
-Using the `qscores` dataset and `ggplot()`, make a histogram where `rating` is on the x-axis to see the distribution of Harvard course ratings.
+Using the `qscores` data set and `ggplot()`, make a histogram where `rating` is on the x-axis to see the distribution of Harvard course ratings.
 
 ```{r exercise-12, exercise = TRUE, exercise.lines = 5}
 
@@ -908,6 +926,7 @@ ggplot(data = qscores, mapping = aes(x = rating)) +
 ```
 
 <!-- ## `geom_histogram()` II -->
+
 ###
 
 Let's make a histogram using geom_histogram() and the `mpg` tibble, which contains data on the fuel efficiency of different types of cars. Press 'Run Code' to continue.
@@ -972,6 +991,8 @@ Use labs(title = ..., x = ..., y = ...) to add the labels.
 ## `geom_boxplot()` 
 <!-- I -->
 
+###
+
 ```{r quiz-11, echo = FALSE}
 quiz(
   question("Which of the following are included in the five-number summary of a numerical variable used to construct a boxplot?",
@@ -987,7 +1008,7 @@ quiz(
 
 ###
 
-Let's keep playing with the `qscores` dataset in the `PPBDS.data` package. We have filtered the dataset using the `tidyverse` package based on the five departments with the classes with the most enrollment: ECON, COMPSCI, STAT, GOV, and MATH. The filtered dataset is called `top_five_qscores`.
+Let's keep playing with the `qscores` data set in the `PPBDS.data` package. We have filtered the data set using the `tidyverse` package based on the five departments with the classes with the most enrollment: ECON, COMPSCI, STAT, GOV, and MATH. The filtered data set is called `top_five_qscores`.
 
 ```{r, include = FALSE}
 top_five_enrolled <- qscores %>%
@@ -1003,9 +1024,7 @@ top_five_qscores <- qscores %>% filter(department %in% top_five_enrolled[0:5])
 top_five_qscores
 ```
 
-### 
-
-Using the `top_five_qscores` dataset and `ggplot()`, make a boxplot where `department` is on the x-axis and `rating` is on the y-axis.
+Using the `top_five_qscores` data set and `ggplot()`, make a boxplot where `department` is on the x-axis and `rating` is on the y-axis.
 
 ```{r exercise-16-setup, include = FALSE}
 top_five_enrolled <- qscores %>%
@@ -1054,9 +1073,10 @@ quiz(
 ```
 
 <!-- ## `geom_boxplot()` II -->
+
 ###
 
-Using the `trains` dataset, create a boxplot with `party` on the x-axis and `att_start` on the y-axis.
+Using the `trains` data set, create a boxplot with `party` on the x-axis and `att_start` on the y-axis.
 
 ```{r box-I-2, exercise=TRUE, exercise.lines = 10, eval=FALSE}
 
@@ -1064,7 +1084,7 @@ Using the `trains` dataset, create a boxplot with `party` on the x-axis and `att
 
 ###
 
-Using the dataset `governors`, create a boxplot where `party` is on the x-axis and `win_margin` is on the y-axis.
+Using the data set `governors`, create a boxplot where `party` is on the x-axis and `win_margin` is on the y-axis.
 
 ```{r box-I-3, exercise=TRUE, eval=FALSE, exercise.lines=10}
 
@@ -1082,6 +1102,7 @@ Use the color argument and remember to put "blue" in quotes.
 ```
 
 <!-- ## `geom_boxplot()` III -->
+
 ###
 
 Let's make a boxplot using the `mpg` tibble, which shows the fuel efficiency for different types of cars. Set x = `class`, and y = `hwy`.
@@ -1139,6 +1160,8 @@ ggplot(data = mpg, mapping = aes(x = manufacturer, y = cty)) +
 
 ## `geom_violin()` 
 <!-- I -->
+
+###
 
 Let's use `geom_violin()` to make a plot with the `diamonds` tibble, which contains information about cut diamonds. Hit 'Run Code' to continue.
 
@@ -1211,6 +1234,8 @@ labs(title = ..., x = ..., y = ...)
 
 ## `geom_bar()`
 
+###
+
 ```{r quiz-13, echo = FALSE}
 quiz(
   question("A barplot is:",
@@ -1224,7 +1249,7 @@ quiz(
 
 ###
 
-We can now use a barplot to plot how many students are enrolled in classes per department. We will use the `top_five_qscores` dataset again to look at the five largest departments.
+We can now use a barplot to plot how many students are enrolled in classes per department. We will use the `top_five_qscores` data set again to look at the five largest departments.
 
 ```{r barplot, include = FALSE}
 top_five_enrolled <- qscores %>%
@@ -1263,7 +1288,7 @@ ggplot(data = ..., mapping = aes(x = ...)) +
 
 ###
 
-Let's go back to the `trains` dataset in the `PPBDS.data` package. Use `ggplot()` and `geom_bar()` to plot `treatment` on the x-axis.
+Let's go back to the `trains` data set in the `PPBDS.data` package. Use `ggplot()` and `geom_bar()` to plot `treatment` on the x-axis.
 
 ```{r exercise-19, exercise = TRUE, exercise.lines = 5}
 
@@ -1410,9 +1435,11 @@ For your final challenge, recreate the above dodged bar graph.
 
 ## `geom_col()`
 
+###
+
 `geom_col()` makes barplots just like `geom_bar()`. The key difference between the two is the type of data they use. Here, We use `geom_col()` because the totals for a variable are pre-counted and listed in the data set. Also note that, unlike for `geom_bar()`, we have to include both x and y in the aesthetic. We'll practice using `geom_col()` in this section.
 
-Let's return to the first barplot we made in `geom_bar()` using the five largest departments in the `qscores` dataset. We will now count the number of classes per department in order to use the `geom_col()` layer instead. We do this using the `group_by()` and `count()` functions in the `tidyverse` package. Our new data frame is stored as `top_five_qscores_counted`.
+Let's return to the first barplot we made in `geom_bar()` using the five largest departments in the `qscores` data set. We will now count the number of classes per department in order to use the `geom_col()` layer instead. We do this using the `group_by()` and `count()` functions in the `tidyverse` package. Our new data frame is stored as `top_five_qscores_counted`.
 
 ```{r classes-counted, include = FALSE}
 top_five_qscores_counted <- top_five_qscores %>%
@@ -1448,6 +1475,8 @@ ggplot(data = top_five_qscores_counted, mapping = aes(x = ..., y = ...)) +
   ...
 ```
 
+###
+
 ```{r quiz-14, echo = FALSE}
 quiz(
   question("What's the difference between `geom_bar()` and `geom_col()`?",
@@ -1461,7 +1490,7 @@ quiz(
 
 ###
 
-Let's keep working with the `qscores` dataset. Press "Run Code" to check out the graph:
+Let's keep working with the `qscores` data set. Press "Run Code" to check out the graph:
 
 ```{r col-I-1, exercise=TRUE, exercise.lines=7}
 aframer_qscores <- qscores %>%
@@ -1491,7 +1520,7 @@ ggplot(data = aframer_qscores, mapping = aes(x = number, y = enrollment, color =
 
 ###
 
-This final question is for all you Star Wars fans out there. These are the droids you're looking for. Recreate the plot below using the dataset `droid`, which was created from filtering the `starwars` dataset to only characters who are droids.
+This final question is for all you Star Wars fans out there. These are the droids you're looking for. Recreate the plot below using the data set `droid`, which was created from filtering the `starwars` data set to only characters who are droids.
 
 ```{r}
 droid <- starwars %>%
@@ -1509,6 +1538,8 @@ droid <- starwars %>%
 ```
 
 ## `geom_smooth()` 
+
+###
 
 Let's start by creating a scatterplot from `nhanes`, which includes data from a national health and nutrition survey. Press "Run Code":
 
@@ -1528,6 +1559,8 @@ ggplot(data = nhanes, mapping = aes(x = weight, y = height)) +
 
 
 ```
+
+###
 
 Nice! As you can see, the line you just graphed represents the trend that we see in the scatter plot. See the message that R gave us? Because we didn't set the method that R uses to calculate the line, R defaulted to using "gam". Let's try setting the method to "lm" instead.
 
@@ -1616,6 +1649,8 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
 ```
 
 ## `geom_density()`
+
+###
 
 Just like histograms, density plots give us a sense of the distribution of a data set for a given variable.  Let's start by looking at this density plot from data set `nhanes`. Press "Run Code":
 
@@ -1719,6 +1754,8 @@ ggplot(data = trains, mapping = aes(x = age, fill = liberal)) +
 
 Welcome to `geom_bin2d()`! In this tutorial, we will be learning how to make heatmaps. `geom_bin2d()` is similar to a scatterplot or jittered scatterplot because it takes two continouous variables, but instead of plotting every individual point, it creates a heatmap of where the points are most concentrated, making it a better fit for big data.
 
+###
+
 Let's begin by looking at the data set `diamonds`. Press "Run Code":
 
 ```{r bin-I-1, exercise=TRUE, exercise.lines=6}
@@ -1770,6 +1807,8 @@ Use labs()
 ```
 
 ## `geom_density2d()`
+
+###
 
 For our first exercise in `geom_density2d()`, we are first going to look at data from `diamonds` which you are already very familiar with. Let's start by running the code below:
 
@@ -1866,6 +1905,8 @@ ggplot(data = faithful, aes(x = waiting, y = eruptions)) +
 
 ## Advanced Plotting - `geom_point()`
 
+###
+
 For data set `Orange`, create a scatterplot with `age` on the x axis and `circumference` on the y axis.
 
 ```{r point-II-1, exercise=TRUE, exercise.lines=8}
@@ -1945,6 +1986,8 @@ ggplot(data = diamonds, aes(x = price, y = carat)) +
   labs(title = "Carats and Price in Diamonds", caption = "The relationship between price and carats in diamonds.")
 ```
 
+###
+
 Wonderful. Now, let's add a smooth trend line on top of the scatterplot, and scale the x-axis to log10.
 
 ```{r gp-2-4-hint, eval=FALSE}
@@ -1957,6 +2000,8 @@ ggplot(data = diamonds, aes(x = price, y = carat)) +
   geom_point(aes(color = cut, alpha = 0.2)) + 
   labs(title = "Carats and Price in Diamonds", caption = "The relationship between price and carats in diamonds.")
 ```
+
+###
 
 Nice! Now, let's move the legend position to below the plot, and set the theme of the plot to `bw`.
 
@@ -1975,7 +2020,9 @@ Use theme(legend.position = ) and theme_...().
 
 ## Advanced Plotting - `geom_jitter()`
 
-Now let's use the dataset `nhanes` to make a scatterplot jittered by width .5, with `education` on the x axis, and `bmi` on the y axis.
+###
+
+Now let's use the data set `nhanes` to make a scatterplot jittered by width .5, with `education` on the x axis, and `bmi` on the y axis.
 
 ```{r jit-II-1, exercise=TRUE, exercise.lines=6}
 
@@ -2080,7 +2127,9 @@ ggplot(data = diamonds) +
 
 ## Advanced Plotting - `geom_line()`
 
-Let's revisit the dataset `economics`. Change the scale on the y-axis of the graph below to log base 10 and the color of the line to "blue".
+###
+
+Let's revisit the data set `economics`. Change the scale on the y-axis of the graph below to log base 10 and the color of the line to "blue".
 
 ```{r line-II-1, exercise=TRUE, exercise.lines=10}
 ggplot(data = economics, aes(x = date, y = unemploy)) +
@@ -2220,7 +2269,6 @@ population %>%
        y = "Population")
 ```
 
-
 ```{r gl-1-5-hint, eval=FALSE}
 Use `linetype = ...`
 ```
@@ -2275,7 +2323,7 @@ Good work. Now, use what you've learned to replicate this plot.
 economics %>% ggplot(aes(x = date)) +
   geom_line(aes(y = unemploy), color = "red") +
   geom_line(aes(y = pop), color = "blue") +
-  labs(title = "Unemployment and Poulation Over Time",
+  labs(title = "Unemployment and Population Over Time",
        x = "Year",
        y = "Number of People")
 ```
@@ -2292,8 +2340,11 @@ You can use multiple `geom_line()` functions in the same `ggplot()` function.
 
 ## Advanced Plotting - `geom_histogram()` 
 
+###
+
 Let's keep working with our `qscores` histogram plot, which you can see below. See the message R gave us about bin widths? Change the bin width by setting the number of bins to 20.
-```{r}
+
+```{r, warning=TRUE, message=TRUE}
 ggplot(data = qscores, aes(x = rating)) +
   geom_histogram(fill = "red4", color = "white") +
   labs(title = "Course Rating Distribution", y = "Count", x = "Rating")
@@ -2413,9 +2464,9 @@ mpg %>% ggplot(aes(x = hwy, color = class)) +
 
 ## Advanced Plotting - `geom_boxplot()`
 
-For dataset `diamonds`, create a boxplot with `clarity` on the x axis and `price` on the y axis
-
 ###
+
+For data set `diamonds`, create a boxplot with `clarity` on the x axis and `price` on the y axis
 
 ```{r box-II-1, exercise=TRUE, exercise.lines=10}
 
@@ -2424,6 +2475,7 @@ For dataset `diamonds`, create a boxplot with `clarity` on the x axis and `price
 ```{r box-II-1-hint, eval=FALSE}
 Review geom_boxplot I
 ```
+
 ###
 
 Try changing the scale of the y axis to log base 10
@@ -2452,6 +2504,7 @@ Add breaks in the scale function to change label location. Also in the scale fun
 ```
 
 ###
+
 Now facet the plot by `cut` and set the number of columns to 2
 
 ```{r box-II-4, exercise=TRUE, exercise.lines=10}
@@ -2544,6 +2597,8 @@ In order to use two continouous variables in a `boxplot()`, use the `group = cut
 
 ## Advanced Plotting - `geom_violin()`
 
+###
+
 Let's use the `mpg` tibble, which tells us the fuel efficiency of different car models, to make a plot with `geom_violin()`. Let's map our x-axis to `class`, and our y-axis to `displ`.
 
 ```{r gv-2-1, exercise=TRUE, exercise.lines = 5}
@@ -2594,7 +2649,7 @@ ggplot(data = mpg, aes(x = class, y = cty)) +
 
 ###
 
-Using the `diamonds` dataset, use `geom_violin()` and the `"gaussian"` `kernel` to create a plot with `cut` on the x axis and `price` on the y axis.
+Using the `diamonds` data set, use `geom_violin()` and the `"gaussian"` `kernel` to create a plot with `cut` on the x axis and `price` on the y axis.
 
 ```{r viol-II-1, exercise=TRUE, exercise.lines=8}
 
@@ -2634,6 +2689,8 @@ Awesome! Now change the theme to dark using `theme_dark()`.
 
 ## Advanced Plotting - `geom_bar()`
 
+###
+
 Using data set `sps`, a public health experiment in Mexico, make a dodged bar plot with `education` on the x axis and `sex` mapped to the fill aesthetic.
 
 ```{r bar-II-1, exercise=TRUE, exercise.lines=7}
@@ -2670,6 +2727,7 @@ Now facet the graph by `treatment` and set the number of columns to 2.
 To facet, use facet_wrap() and inside, set ncol to 2.
 
 ```
+
 ###
 
 Nice! Now make the theme of the plot minimalist and add a title of your choice.
@@ -2739,6 +2797,8 @@ ggplot(data = trains, mapping = aes(x = att_end, fill = gender)) +
 
 ## Advanced Plotting - `geom_col()`
 
+###
+
 Let's begin with the data set `starwars`. Using `naboo`, make a bar plot of only characters from Naboo with `name` on the x axis and `height` on the y axis. In order to do this, we must first filter by `homeworld`, which has been done for you below.
 
 ```{r col-II-1, exercise=TRUE, exercise.lines=7, eval=FALSE}
@@ -2795,7 +2855,7 @@ Set width inside of geom_col()
 
 ###
 
-For your final challenge, recreate the plot below using the dataset `eng_qscores` which was made from the dataset `qscores` and was filtered to only include data where `department` == `ENGLISH`. Additionally, the size of the text on the x axis was set to size 5 using `theme()`.
+For your final challenge, recreate the plot below using the data set `eng_qscores` which was made from the data set `qscores` and was filtered to only include data where `department` == `ENGLISH`. Additionally, the size of the text on the x axis was set to size 5 using `theme()`.
 
 ```{r}
 eng_qscores <- qscores %>%
@@ -2893,6 +2953,8 @@ audi_mpg <- mpg %>%
 ```
 
 ## Advanced Plotting - `geom_smooth()`
+
+###
 
 Let's start by looking at the data set `trains`, which includes data on an experiment about attitudes towards immigration. Using `geom_smooth()` and the `"gam"` method, create a graph from `trains` with `att_start` on the x axis and `att_end` on the y axis.
 
@@ -3018,6 +3080,8 @@ ggplot(data = iris, mapping = aes(x = Sepal.Width, y = Sepal.Length, linetype = 
 
 ## Advanced Plotting - `geom_density()`
 
+###
+
 Let's make a plot using `geom_density()` and the `qscores` tibble, which records student evaluation data for Harvard classes. Map x to `rating`.
 
 ```{r gd-2-1, exercise=TRUE, exercise.lines = 5}
@@ -3127,6 +3191,8 @@ ggplot(data = diamonds, aes(x = carat, color = cut)) +
 
 ## Advanced Plotting - `geom_bin2d()`
 
+###
+
 Welcome to geom_bin2d()! Let's first look at the data set `cces`. Use `cces` to make a heatmap with `education` on the x axis and `ideology` on the y axis.
 
 ```{r bin-II-1, exercise=TRUE, exercise.lines=6}
@@ -3143,7 +3209,7 @@ Nice! As you can see, our x axis tick mark labels are overlapping each other. Le
 
 ###
 
-Great! Now use the function `theme(legend.position = "top")`to move the legend to the top
+Great! Now use the function `theme(legend.position = "top")`to move the legend to the top.
 
 ```{r bin-II-3, exercise=TRUE, exercise.lines=6}
 
@@ -3200,6 +3266,8 @@ Well done. Now, let's use the `xlim()` and `ylim()` functions to remove the outl
 
 ```
 
+###
+
 Good Work. Now, let's add some labels to both our plot and our legend, using the `labs()` and `scale()` functions. Let's title our plot "Harvard Class Student Evaluation Ratings by Weekly Work Hours", our x-axis "Weekly Work Hours", and our y-axis "Class Rating".
 
 In order to change the name of our legend, we need to call the `scale_fill_continous()` function, even though it doesn't actually do anything on its own. Because we're working with a continuous variable mapped to `fill`, `scale_fill_continous()` is already the default setting. Legend titles, however, must be placed inside of a `scale_()` function corresponding to what they represent, in this case, `fill`.
@@ -3229,6 +3297,8 @@ ggplot(data = qscores, aes(x = enrollment, y = rating)) +
 ```
 
 ## Advanced Plotting - `geom_density2d()`
+
+###
 
 Let's start by looking at data set `mpg`. Use `mpg` to make a density plot with `displ` on the x axis, `hwy` on the y axis and `class` mapped to the color aesthetic.
 
@@ -3278,7 +3348,7 @@ Use theme_light()
 
 ###
 
-Nice! Now recreate this density plot made using the dataset `airquality`:
+Nice! Now recreate this density plot made using the data set `airquality`:
 
 ```{r}
 ggplot(data = airquality, aes(x = Ozone, y = Temp)) +
@@ -3336,7 +3406,7 @@ Let's also move our legend to the "top" of the plot using `theme(legend.position
 
 Good Stuff. Now, use what you've learned about `geom_density2d()` to replicate the plot below.
 
-```{r gd2d-2-5, exercise=TRUE, exercise.lines = 5}
+```{r}
 ggplot(data = mpg, aes(x = displ, y = hwy, linetype = drv)) +
   geom_density2d() +
   scale_color_discrete(name = "Type of Drive Train", labels = c("4 Wheel", "Front Only", "Rear Only")) +
@@ -3345,7 +3415,14 @@ ggplot(data = mpg, aes(x = displ, y = hwy, linetype = drv)) +
        y = "Highway Miles Per Gallon")
 ```
 
+```{r gd2d-2-5, exercise=TRUE, exercise.lines = 5}
+
+```
+
+
 ## Advanced Plotting - `geom_countour_filled()`
+
+###
 
 Let's make a plot using `faithfuld`, a modified version of the `faithful` tibble, and `geom_contour_filled()`. `faithfuld` is different from `faithful` because it includes the `density` variable, which is important for plots made with `geom_contour_filled()`.
 
@@ -3386,13 +3463,17 @@ Cool. We can also use `labs()` to add labels like with any other plot. Title our
 
 Nicely done. Now, use what you've learned about `geom_contour_filled()` to recreate the plot below. The color palette is the `Spectral` palette of `scale_fill_brewer()`.
 
-```{r gcf-1-5, exercise=TRUE, exercise.lines = 5}
+```{r}
 faithfuld %>% ggplot(aes(x = waiting, y = eruptions, z = density)) +
   geom_contour_filled() +
   scale_fill_brewer(palette = "Spectral", name = "Density of Eruptions") +
   labs(title = "Waiting Time and Eruption Duration from Old Faithful Geyser",
        x = "Waiting Time (Minutes)",
        y = "Eruption Duration (Minutes)")
+```
+
+```{r gcf-1-5, exercise=TRUE, exercise.lines = 5}
+
 ```
 
 ## The `tidyverse`
@@ -3492,7 +3573,7 @@ The correct answer is 56. If you got something different, look back at your code
 
 ###
 
-For this section, we will be focusing on the data set `nhanes`. `nhanes` is a really big data set and there are many things we can do with its data, but let's say we wanted to make a graph using data on `height` and `weight` from the 200 youngest black males. How would we go about doing this? Well first, we would `select()` the variables we want to focus on, in this case `height`, `weight`, `age`, `race`, and `gender`.  Try doing this below:
+For this section, we will be focusing on the data set `nhanes`. `nhanes` is a really big data set and there are many things we can do with its data, but let's say we wanted to make a graph using data on `height` and `weight` from the 200 youngest black males. How would we go about doing this? Well first, we would `select()` the variables we want to focus on, in this case `height`, `weight`, `age`, `race`, and `gender`. Try doing this below:
 
 ```{r data-II-1, exercise=TRUE, exercise.lines=10}
 
@@ -3597,7 +3678,7 @@ Fantastic! Now use this tibble you created to make a bar plot with `department` 
 
 ###
 
-Awesome! Let's start fresh from the original `qscores` data set again. Word just came in that Harvard is switching to a rating scale out of 10 for the next term! Upper admin wants to be able to compare data from last year to the next term, so use `mutate()` to add the new variable `rating_2` equal to two times the variable `rating` in `new_qscores`. I have started it for you:
+Awesome! Let's start fresh from the original `qscores` data set again. Word just came in that Harvard is switching to a rating scale out of 10 for the next term! Upper admin wants to be able to compare data from last year to the next term, so use `mutate()` to add the new variable `rating_2` equal to two times the variable `rating` in `new_qscores`. We have started it for you:
 
 ```{r data-III-6, exercise=TRUE, exercise.lines=6, eval=FALSE}
 new_qscores <- qscores %>%
@@ -3620,7 +3701,7 @@ new_qscores %>%
 
 ###
 
-Great! Now let's play around with the `airquality` dataset, which measures different atmospheric measurements in New York. Select `Month`, `Day`, and `Temp` from the dataset.
+Great! Now let's play around with the `airquality` data set, which measures different atmospheric measurements in New York. Select `Month`, `Day`, and `Temp` from the data set.
 
 ```{r da-1-2, exercise=TRUE, exercise.lines = 5}
 airquality
@@ -3790,9 +3871,9 @@ Nice work. Let's also use `summarize()` to find the `min()` and `max()` of enrol
 
 <!-- ### JSE - also seems like too hard of a question... -->
 
-<!-- Well done. Now, use what you've learned about data wrangling to recreate the dataset below. -->
+<!-- Well done. Now, use what you've learned about data wrangling to recreate the data set below. -->
 
-<!-- The dataset only takes into account classes with an enrollment of at least 25. To calculate the devation from the median of a variable, use `mad()`, which stands for Median Absolute Deviation -->
+<!-- The data set only takes into account classes with an enrollment of at least 25. To calculate the devation from the median of a variable, use `mad()`, which stands for Median Absolute Deviation -->
 
 <!-- ```{r} -->
 <!-- qscores %>% -->
