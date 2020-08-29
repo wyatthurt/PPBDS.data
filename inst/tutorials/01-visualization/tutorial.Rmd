@@ -6,9 +6,8 @@ output:
   learnr::tutorial:
     progressive: true
     allow_skip: true
-author: Jessica Edwards
 runtime: shiny_prerendered
-description: "Gov 50: Data Chapter 1 Tutorial"
+description: "Chapter 1 Tutorial"
 ---
 
 <!-- Ch. 1 tutorial questions written by Jessica Edwards, Connor Rust and Liam Rust  -->
