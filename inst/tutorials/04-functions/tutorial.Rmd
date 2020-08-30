@@ -338,20 +338,20 @@ quiz(caption = "",
 
 Here is a custom function we will call `foo`:
 
-```{r echo = FALSE}
+```{r foo-1, echo = FALSE}
 foo <- function(){
   a <- 10
   a
 }
 ```
 
-```{r, echo=TRUE}
+```{r foo-2, echo=TRUE}
 body(foo)
 ```
 
 What will be the final value of `a` if I run the following three lines of code in order?
 
-```{r eval=FALSE, echo=TRUE}
+```{r foo-3, eval=FALSE, echo=TRUE}
 a <- 1
 foo()
 a
@@ -598,7 +598,7 @@ quiz(caption = "",
 
 What will the following code return?
 
-```{r eval=FALSE, echo=TRUE}
+```{r test-1, eval=FALSE, echo=TRUE}
 f <- function(a, b, c){
   a
   b
@@ -607,7 +607,7 @@ f <- function(a, b, c){
 f(1, 2, 3)
 ```
 
-```{r quiz-2b}
+```{r test-2, quiz-2b}
 question("",
          answer("1"),
          answer("2"),
@@ -641,7 +641,7 @@ l2 <- function(x){
 
 Consider this brilliant function:
 
-```{r, echo=TRUE}
+```{r foo-more, echo=TRUE}
 foo <- function(aaa, abb, abc){
   c(aaa, abb, abc)
 }
@@ -717,7 +717,7 @@ question("What will `foo(a = 0)` return?",
 
 Now for some dark magic:
 
-```{r, echo=TRUE}
+```{r foo-more-1, echo=TRUE}
 foodoo <- function(...){
   c(...)
 }
@@ -741,7 +741,7 @@ question("What will `foodoo(a = 1, b = 2, c = 3)` return?",
 
 Here is one last wrinkle. Suppose we rewrite `foodoo` slightly:
 
-```{r, echo=TRUE}
+```{r foo-more-2, echo=TRUE}
 foodoo <- function(a, ...){
   c(...)
 }
@@ -760,7 +760,7 @@ quiz(caption = "",
 
 ### Unit tests with `testthat`
 
-```{r, echo=TRUE, eval=FALSE}
+```{r is-1, echo=TRUE, eval=FALSE}
 impatient_square <- function(x){
   return(x)
   x^2
@@ -781,7 +781,7 @@ quiz(caption = "",
 
 ###
 
-```{r eval=FALSE, echo=TRUE}
+```{r is-2, eval=FALSE, echo=TRUE}
 immovable_square <- function(x){
   stop("I refuse to proceed.")
   x^2
@@ -931,14 +931,14 @@ question("Which describes `if`'s behavior? (Check all that apply).",
 
 Many data sets use their own symbols to represent missing values. For example, NOAA will often use -99 to represent missing values in weather data sets. Let's write a function that checks whether a value is -99, and if so replaces the value with NA, like this:
 
-```{r echo = FALSE}
+```{r clean-1, echo = FALSE}
 clean <- function(x){
   if(x == -99) x <- NA
   x
 }
 ```
 
-```{r, echo=TRUE}
+```{r clean-2, echo=TRUE}
 clean(1)
 clean(-99)
 ```
@@ -1040,7 +1040,7 @@ clean <- function(x){
 
 Rewrite the below function using `case_when()`.
 
-```{r, echo=TRUE}
+```{r foo-6, echo=TRUE}
 foo <- function(x){
   if(x > 2) "a"
   else if(x < 2) "b"
@@ -1108,7 +1108,7 @@ clean <- function(x){
 
 ###
 
-```{r eval=FALSE, echo=TRUE}
+```{r foo-10, eval=FALSE, echo=TRUE}
 foo <- function(x){
   if(x > 2) "a"
   else if(x < 2) "b"
@@ -1169,7 +1169,7 @@ clean <- function(x){
 
 ###  
 
-```{r eval=FALSE, echo= TRUE}
+```{r clean-5, eval=FALSE, echo= TRUE}
 clean <- function(x){
   stopifnot(!is.null(x))
   if(x == -99 || x == ".") return(NA)
