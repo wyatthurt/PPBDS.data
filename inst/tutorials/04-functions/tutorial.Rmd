@@ -1688,7 +1688,6 @@ Great! Hmm... we're not entirely sure this plot is representative. It does look 
 ```
 
 ```{r crooked-4-hint, eval=FALSE}
->>>>>>> master
 x <- tibble(games = map(rep(100, 10), ...))
 ```
 
