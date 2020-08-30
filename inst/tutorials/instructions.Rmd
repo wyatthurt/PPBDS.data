@@ -7,6 +7,8 @@ output: html_document
 
 <!-- We need tutorials about using Git, using the command line and other non-R stuff. -->
 
+<!-- Improve this guide to show actual questions and actual solutions. -->
+
 
 
 ```{r not-setup, include=FALSE}
@@ -54,21 +56,21 @@ The question would tell the student to replace ... with `hours` in order to cons
 
 ### Data
 
-* Only use built-in datasets in constructing tutorial questions, or use datasets which you create yourself in the tutorial. Note that several packages from the **tidyverse** have built in data, although it is worth making sure that they are tibbles rather than data frames. To see all the datasets in the Tidyverse, type `library(tidyverse)` first.  Then, you can look at these with --- `data()` --- and then looking for data sets associated with **tidyverse** packages. The `diamonds` tibble is a favorite of mine. Just type `data()` and you can see all the built-in datasets for the libraries which are already loaded.  You can also use data sets from **PPBDS.data**. I especially like `trains` and `qscores`. I see little reason to use datasets outside of **tidyverse** packages and **PPBDS.data**.
+* Try to use built-in datasets in constructing tutorial questions, or use datasets which you create yourself in the tutorial. Note that several packages from the **tidyverse** have built in data, although it is worth making sure that they are tibbles rather than data frames. To see all the datasets in the Tidyverse, type `library(tidyverse)` first.  Then, you can look at these with --- `data()` --- and then looking for data sets associated with **tidyverse** packages. The `diamonds` tibble is a favorite of mine. Just type `data()` and you can see all the built-in datasets for the libraries which are already loaded.  You can also use data sets from **PPBDS.data**. There is little reason to use datasets outside of **tidyverse** packages and **PPBDS.data**.
 
 ### Organization
 
 * Use `## Title` to break up your tutorial into smaller pieces. We don't want one giant set of 200 questions. We want 25 chapters/panels/tabs/whatever-we-call-them, with 20 or so questions each.  There should be a direct mapping of these headers to the subpart (or sub-subpart) of the portion of the chapter which they cover. In neither case do we worry about the numbering. (That is too annoying to deal with.) Instead, we just make the words map. It is OK if you have two panels with the same name. This might be necessary of a given subpart needs lots and lots of questions. But, obviously, it is better if there is a one-to-one mapping between chapter subparts and tutorial panels. Also, there will often be chapter subparts with no corresponding tutorial panels.
 
-In other words, if there is a subpart of your chapter called "Barplot", then the header for the section of the tutorial which covers that should be `## Barplot`. If you have so many questions from this part of your chapter, then split them up by subpart and change the section headings accordingly.
+In other words, if there is a subpart of your chapter called "Barplot", then the header for the section of the tutorial which covers that should be `## Barplot`. If you have too many questions from this subpart of your chapter to fit nicely in a single panel, then split them up by sub-subpart and change the section headings accordingly.
 
 * Use `### Sub Title` to set of a collection of questions which go together. This will not be visible in the side panel but can still be helpful to students.
 
 * Use `###` with no words to cause a "Continue" button to appear, which is termed "progressive," so that students are not overwhelmed with all the questions they need to do. This will cause R not to show students the next set of questions until they have finished the current set and hit Continue.
 
-### Question Groups
+### Question Series
 
-Build up a series of questions slowly. A "series" of questions entails a group of about 5 questions that relate to each other and use the same dataset. The last question in a series should have achieved something when compared to the first question in your series. Questions in the series are often separated by `###`. If they are not, then the group as a whole is certainly seperated from the next group with `###`.
+Build up a series of questions slowly. A "series" of questions entails a group of about 5 questions that relate to each other and use the same dataset. The last question in a series should have achieved something when compared to the first question in your series. Questions in the series are often separated by `###`. If they are not, then the group as a whole is certainly separated from the next group with `###`.
 
 #### Plots
 
@@ -84,7 +86,7 @@ trains %>%
 
 Nothing wrong with getting students started. Of course, this might make them somewhat less likely to open the book to the section about barplots, but later questions should essentially force the student to consult the book.
   
-  + Second question asks for a different bar plot and provides a detailed hint, which would leave ... for the variable names but include everything else.
+  + Second question asks for a different bar plot and provides a detailed hint, which would leave ... for the variable names but include everything else. Solution:
 
 ```{r, eval=FALSE}
 cces %>% 
@@ -92,9 +94,9 @@ cces %>%
     geom_bar()
 ```  
 
-Note that this nothing wrong with switching variables or even data sets. We are teaching a plot. So, it is good that students see the same plot type with different data.
+Note that there nothing wrong with switching variables or even data sets. We are teaching a plot. So, it is good that students see the same plot type with different data.
   
-  + Third question has no hint but just asks for bar plot. But it is easy as long as you understand the second question.
+  + Third question has no hint but just asks for bar plot. But it is easy as long as you understand the second question. Solution:
   
 ```{r, eval=FALSE}
 trains %>% 
@@ -459,11 +461,11 @@ Other Notes:
 
 ### Suggestions from Allison Horst
 
-The main question was: How do we incorporate tutorial questions directly into the chapter itself?
+The main question was: How do we incorporate tutorial questions directly into the chapter itself? Allison is the world expert on this topic. 
 
 * She is concerned about user loads for published Shiny apps - would recommend that we use the basic or higher plan.
 
-* She thinks using Desiree's method of embedding one exercise at a time might get unreasonable for a book of our size, but suggested that we could host 12 different ShinyApps corresponding to each chapter, and then link to each chapter in one central location. (Kind of like the combined tutorials app I created via HMDC)
+* She thinks using Desiree's method of embedding one exercise at a time might get unreasonable for a book of our size, but suggested that we could host 12 different ShinyApps corresponding to each chapter, and then link to each chapter in one central location. (Kind of like the combined tutorials app Evelyn created via HMDC.)
 
 * How did you decide which exercises were going to be "tutorials" and which would be "exercises"? She wanted the exercises to be incremental, so a lot of the code was already pre-populated. The exercises that were blank built directly off of code that was already shown before, so that students could have an "easy win" by just copying the previous code and tweaking a variable name. Allison thinks that this incremental process is important for beginner R students.
 

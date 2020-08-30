@@ -94,7 +94,7 @@ submission_ui <- shiny::div(
   shiny::tags$br(),
   shiny::tags$ol(
     shiny::tags$li("Click Generate Hash. Nothing will pop up, but this will create an .rds file of your hashed responses."),
-    shiny::tags$li("Click the Download button next to Generate Hash to download the .rds file. A window will pop up asking you where to place the downloaded file."),
+    shiny::tags$li("Click the Download button next to Generate Hash to download the .rds file. A window will pop up with some options. Choose to save the file onto your computer. Do not open it."),
     shiny::tags$li("Upload this file to the appropriate Canvas assignment.")),
   shiny::fluidPage(
     shiny::mainPanel(
