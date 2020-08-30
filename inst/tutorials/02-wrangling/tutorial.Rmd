@@ -15,12 +15,13 @@ description: "Chapter 2 tutorial"
 <!-- It is a bad idea to create a column called "type" since that is the name of an R function. -->
 
 <!-- Don't use a random package like fueleconomy. We need to minimize the number of extra packages we use.  -->
+
 <!-- Be careful about manipulating an object in place for no good reason. Example:  -->
 
 <!-- lexus_1998 <- lexus_1998 %>% -->
 <!--   rename("class" = type) -->
 
-<!-- Even if you need a special object called lexus_1998, just create once. Key -->
+<!-- Even if you need a special object called lexus_1998, just create once. -->
 
 
 ```{r setup, include=FALSE}
@@ -2480,20 +2481,19 @@ q_plot <- ggplot(data = q_bind, mapping = aes(x = value)) +
 <!--     labs(...) -->
 <!-- ``` -->
 
-## National Election
-### Exercise 1
+## National Election Studies
 
 `nes`, short for "National Election Studies," contains the personal and political information of almost 40,000 American voters, as well as whether or not they voted in that year's presidential election.
 
-Start by running `skim()` on `nes`. See if you can figure out the first and last years in the data set.
+Start by running `skim()` on `nes`. See if you can figure out the first and last years in the data set. You may need to load the **skimr** package first.
 
 ```{r nes1, exercise = TRUE}
 
 ```
 
-### Exercise 2
+### 
 
-Use `levels()` and the `$` operator to return the levels of the `education` variable. What are they?
+Use `levels()` and the `$` operator to explore the levels of the `education` variable. 
 
 ```{r nes2, exercise = TRUE}
 
@@ -2503,21 +2503,18 @@ Use `levels()` and the `$` operator to return the levels of the `education` vari
 # The factor that we'd like to investigate is nes$education.
 ```
 
-### Exercise 3
+### 
 
-Select the `year`, `education`, `pres_appr`, and `voted` columns in `nes`. Call this `nes_subset`. 
+Select the `year`, `education`, `pres_appr`, `ideology`, and `voted` columns from `nes`.  
 
 ```{r nes3, exercise = TRUE}
-nes
+
 ```
 
-### Exercise 4
+### 
 
 Continue by filtering the tibble such that `education` is either "Some Highschool," "Highschool," "Some College," or "Adv. Degree."
-```{r nes4-setup}
-nes_subset <- nes %>%
-  select(c(year, education, pres_appr, voted))
-```
+
 
 ```{r nes4, exercise = TRUE}
 
@@ -2527,15 +2524,10 @@ nes_subset <- nes %>%
 # Remember to use the %in% operator alongside the c() function.
 ```
 
-### Exercise 5
+###
 
-After filtering a factor, always remember that the *levels* of the factor have not been removed. To fix this, add a call to the pipe that drops (i.e. permanently removes) all deleted levels.
+After filtering a factor, always remember that the *levels* of the factor have not been removed. To fix this, add a call within the pipe that drops (i.e. permanently removes) all deleted levels.
 
-```{r nes5-setup}
-nes_subset <- nes %>%
-  select(c(year, education, pres_appr, voted)) %>%
-  filter(education %in% c("Some Highschool", "Highschool", "Some College", "Adv. Degree"))
-```
 
 ```{r nes5, exercise = TRUE}
 
@@ -2545,32 +2537,27 @@ nes_subset <- nes %>%
 # Use the droplevels() function.
 ```
 
-### Exercise 6
 
-<!-- DK: This example does not flow very well with the one above. The above does not keep ideology around, but, in this example, we need it. -->
+### 
 
 The dplyr `if_else()` function can be used alongside `mutate()` and `as.factor()` to create a factor with two levels depending on whether a certain `condition` is met. Run the code below to see how we can use `if_else()` to separate the `nes` data set into 2 groups based on whether the value of `ideology` is positive.
 
 ```{r nes6, exercise = TRUE}
-nes_subset <- nes %>%
-  select(c(year, education, pres_appr, voted, ideology)) %>%
-  filter(education %in% c("Some Highschool", "Highschool", "Some College", "Adv. Degree")) %>% 
+nes %>%
+  select(year, education, pres_appr, ideology, voted) %>%
+  filter(education %in% c("Some Highschool", "Highschool", "Some College", "Adv. Degree")) %>%
+  droplevels() %>% 
   mutate(pos_ideology = as.factor(if_else(condition = ideology > 0,
                                           true = "ideology_is_positive",
                                           false = "ideology_not_positive")))
 ```
 
-### Exercise 7
+### 
 
-Now, use `if_else()` to `mutate()` a new variable, `opinion`. `opinion` should be a **factor** that equals "has_opinion" if that person either approves *or* disapproves of the president, but "no_opinion" otherwise. To do this, use the `if_else()` function with the condition being detection of the pattern "prove" in the string `pres_appr`.
-```{r nes7-setup}
-nes_subset <- nes %>%
-  select(c(year, education, pres_appr, voted)) %>%
-  filter(education %in% c("Some Highschool", "Highschool", "Some College", "Adv. Degree")) %>%
-  droplevels()
-```
+Now, use `if_else()` to `mutate()` a new variable, `opinion`. `opinion` should be a **factor** that equals "has_opinion" if that person either approves *or* disapproves of the president, but "no_opinion" otherwise. To do this, use the `if_else()` function with the condition being detection of the pattern "prove" in the string `pres_appr`. You can remove from your pipe the creation of pos_ideology since we won't be using that variable.
 
-```{r nes7, exercise = TRUE, exercise.lines = 5}
+
+```{r nes7, exercise = TRUE, exercise.lines = 10}
 
 ```
 
@@ -2582,30 +2569,25 @@ nes_subset <- nes %>%
 # The function we want to use for the condition is str_detect().
 ```
 
-```{r nes7-hint-3, eval = FALSE}
-nes_subset <- nes_subset %>%
+```{r nes7-hint-3, eval=FALSE}
+nes %>%
+  select(year, education, pres_appr, ideology, voted) %>%
+  filter(education %in% c("Some Highschool", "Highschool", "Some College", "Adv. Degree")) %>%
+  droplevels() %>% 
   mutate(opinion = as.factor(if_else(condition = str_detect(...),
                                      true = ...,
                                      false = ...)))
 ```
 
-### Exercise 8
+### 
 
-Our goal for the next few exercises will be to calculate voter turnout based on their education and whether or not they have an opinion of the president. 
+Our goal for the next few exercises will be to calculate voter turnout based on education and whether or not the voter has an opinion of the president at that time. 
 
 To start, group the tibble by `year`, `voted`, `opinion`, and `education`. Then, use `summarize()` to make a new variable, `count`, that simply counts the number of people (i.e. rows) in each group. What goes wrong?
 
-```{r nes8-setup}
-nes_subset <- nes %>%
-  select(c(year, education, pres_appr, voted)) %>%
-  filter(education %in% c("Some Highschool", "Highschool", "Some College", "Adv. Degree")) %>%
-  droplevels() %>%
-  mutate(opinion = as.factor(if_else(condition = str_detect(pres_appr, "prove"),
-                                     true = "has_opinion",
-                                     false = "no_opinion")))
-```
 
-```{r nes8, exercise = TRUE}
+
+```{r nes8, exercise = TRUE, exercise.lines = 10}
 
 ```
 
@@ -2613,50 +2595,36 @@ nes_subset <- nes %>%
 # Remember that the n() function counts the number of rows in each group.
 ```
 
-### Exercise 9
+### 
 
-If we look closely, many of our rows have a value of `NA` for either `voted` or `opinion`! Furthermore, `n()` doesn't have an `na.rm` argument. To remove the `NA`s, use tidyr's `drop_na()` and then, call `group_by()` and `summarize()` again. 
-```{r nes9-setup}
-nes_subset <- nes %>%
-  select(c(year, education, pres_appr, voted)) %>%
-  filter(education %in% c("Some Highschool", "Highschool", "Some College", "Adv. Degree")) %>%
-  droplevels() %>%
-  mutate(opinion = as.factor(if_else(condition = str_detect(pres_appr, "prove"),
-                                     true = "has_opinion",
-                                     false = "no_opinion")))
-```
+If we look closely, many of our rows have a value of `NA` for either `voted` or `opinion`. Furthermore, `n()` doesn't have an `na.rm` argument. To remove the `NA`s, use tidyr's `drop_na()` to drop any rows with missing values for any variable before the call to `group_by()` and `summarize()`. 
 
-```{r nes9, exercise = TRUE}
+
+```{r nes9, exercise = TRUE, exercise.lines = 15}
 
 ```
 
 ```{r nes9-hint, eval = FALSE}
-nes_subset <- nes_subset %>% 
-  drop_na(...) %>%
-  group_by(...) %>%
-  summarize(...)
+nes %>%
+  select(year, education, pres_appr, ideology, voted) %>%
+  filter(education %in% c("Some Highschool", "Highschool", "Some College", "Adv. Degree")) %>%
+  droplevels() %>% 
+  mutate(opinion = as.factor(if_else(condition = str_detect(pres_appr, "prove"),
+                                     true = "has_opinion",
+                                     false = "no_opinion"))) %>% 
+  drop_na() %>%
+  group_by(year, voted, opinion, education) %>%
+  summarize(count = ...)
 ```
 
-### Exercise 10
+### 
 
-Our goal is to calculate voter turnout, the number of people who voted divided by the total number of people. Therefore, we want `Yes` and `No` (currently in the `voted` column) to be their own columns with the values that are currently in the `count` column.
+Our goal is to calculate voter turnout within each category, the number of people who voted divided by the total number of people. Therefore, we want `Yes` and `No` (currently in the `voted` column) to be their own columns with the values that are currently in the `count` column.
 
 Use one of the `pivot_` functions to tidy our data in this way.
 
-```{r nes10-setup}
-nes_subset <- nes %>%
-  select(c(year, education, pres_appr, voted)) %>%
-  filter(education %in% c("Some Highschool", "Highschool", "Some College", "Adv. Degree")) %>%
-  droplevels() %>%
-  mutate(opinion = as.factor(if_else(condition = str_detect(pres_appr, "prove"),
-                                     true = "has_opinion",
-                                     false = "no_opinion"))) %>%
-  drop_na(education, opinion) %>%
-  group_by(year, voted, opinion, education) %>%
-  summarize(count = n())
-```
 
-```{r nes10, exercise = TRUE}
+```{r nes10, exercise = TRUE, exercise.lines = 15}
 
 ```
 
@@ -2665,28 +2633,27 @@ nes_subset <- nes %>%
 ```
 
 ```{r nes10-hint-2, eval = FALSE}
-nes_subset <- nes_subset %>%
+... %>%
   pivot_wider(names_from = ..., values_from = ...)
 ```
 
-### Exercise 11
+### 
 
-Great job! Now, to calculate turnout, simply `mutate()` another variable, `turnout`, equal to the number of people who voted (the number of `Yes`) divided by the total number of people.
-```{r nes11-setup}
-nes_subset <- nes %>%
-  select(c(year, education, pres_appr, voted)) %>%
+Great job! Now, to calculate turnout, simply `mutate()` another variable, `turnout`, equal to the number of people who voted (the number of `Yes`) divided by the total number of people. To make sure you are caught up, we provide the pipe as it should appear by this stage. You just need to add a line to create `turnout`.
+
+
+```{r nes11, exercise = TRUE, exercise.lines = 15}
+nes %>%
+  select(year, education, pres_appr, ideology, voted) %>%
   filter(education %in% c("Some Highschool", "Highschool", "Some College", "Adv. Degree")) %>%
-  droplevels() %>%
+  droplevels() %>% 
   mutate(opinion = as.factor(if_else(condition = str_detect(pres_appr, "prove"),
                                      true = "has_opinion",
-                                     false = "no_opinion"))) %>%
-  drop_na(education, opinion) %>%
+                                     false = "no_opinion"))) %>% 
+  drop_na() %>%
   group_by(year, voted, opinion, education) %>%
-  summarize(count = n()) %>%
+  summarize(count = n()) %>% 
   pivot_wider(names_from = voted, values_from = count)
-```
-
-```{r nes11, exercise = TRUE}
 
 ```
 
@@ -2694,82 +2661,31 @@ nes_subset <- nes %>%
 # Remember that the total number of people in each group is (Yes + No).
 ```
 
-### Exercise 12
+###
 
-Next, use `ggplot()` named `nes_plot` to make a line graph that maps `year` to the x-axis, `turnout` to the y-axis, and `education` to both the color and linetype aesthetics.
+Next, use `ggplot()` to make a line graph that maps `year` to the x-axis, `turnout` to the y-axis, and `education` to both the color and linetype aesthetics.
 
-```{r nes12-setup}
-nes_subset <- nes %>%
-  select(c(year, education, pres_appr, voted)) %>%
-  filter(education %in% c("Some Highschool", "Highschool", "Some College", "Adv. Degree")) %>%
-  droplevels() %>%
-  mutate(opinion = as.factor(if_else(condition = str_detect(pres_appr, "prove"),
-                                     true = "has_opinion",
-                                     false = "no_opinion"))) %>%
-  drop_na(education, opinion) %>%
-  group_by(year, voted, opinion, education) %>%
-  summarize(count = n()) %>%
-  pivot_wider(names_from = voted, values_from = count) %>%
-  mutate(turnout = Yes / (Yes + No))
-```
+
 
 ```{r nes12, exercise = TRUE}
 
 ```
 
-### Exercise 13
+###
 
 Use `facet_wrap` to facet the graph by opinion.
 
-```{r nes13-setup}
-nes_subset <- nes %>%
-  select(c(year, education, pres_appr, voted)) %>%
-  filter(education %in% c("Some Highschool", "Highschool", "Some College", "Adv. Degree")) %>%
-  droplevels() %>%
-  mutate(opinion = as.factor(if_else(condition = str_detect(pres_appr, "prove"),
-                                     true = "has_opinion",
-                                     false = "no_opinion"))) %>%
-  drop_na(education, opinion) %>%
-  group_by(year, voted, opinion, education) %>%
-  summarize(count = n()) %>%
-  pivot_wider(names_from = voted, values_from = count) %>%
-  mutate(turnout = Yes / (Yes + No))
 
-nes_plot <- ggplot(data = nes_subset, 
-                   mapping = aes(x = year, y = turnout, 
-                                 color = education, linetype = education)) +
-    geom_line()
-```
-
-```{r nes13, exercise = TRUE}
+```{r nes13, exercise = TRUE, exercise.lines = 15}
 
 ```
 
-```{r nes13-hint, eval = FALSE}
-nes_plot <- nes_plot + 
-    facet_wrap(...)
-```
 
-### Exercise 14
+###
 
-This graph is starting to look pretty good, but the ordering of the legend is a bit confusing. Try using an `fct_` function to reorder the legend (both the color *and* linetype aesthetics) so that Adv. Degree is first, Some College is second, and so on. What goes wrong? Call this plot `nes_plot_2`. 
+This graph is starting to look pretty good, but the ordering of the legend is a bit confusing. Try using an `fct_` function to reorder the legend (both the color *and* linetype aesthetics) so that Adv. Degree is first, Some College is second, and so on. Something goes wrong with this first attempt, but we will fix it in the next exercise.
 
-```{r nes14-setup}
-nes_subset <- nes %>%
-  select(c(year, education, pres_appr, voted)) %>%
-  filter(education %in% c("Some Highschool", "Highschool", "Some College", "Adv. Degree")) %>%
-  droplevels() %>%
-  mutate(opinion = as.factor(if_else(condition = str_detect(pres_appr, "prove"),
-                                     true = "has_opinion",
-                                     false = "no_opinion"))) %>%
-  drop_na(education, opinion) %>%
-  group_by(year, voted, opinion, education) %>%
-  summarize(count = n()) %>%
-  pivot_wider(names_from = voted, values_from = count) %>%
-  mutate(turnout = Yes / (Yes + No))
-```
-
-```{r nes14, exercise = TRUE}
+```{r nes14, exercise = TRUE, exercise.lines = 15}
 
 ```
 
@@ -2778,71 +2694,33 @@ nes_subset <- nes %>%
 ```
 
 
-### Exercise 15
+###
 
-Although 3 of the 4 `education` statuses are reordered successfully, Adv. Degree is left on the bottom because it doesn't appear in the second graph. To fix this problem, change the `.fun` argument of both `fct_reorder2()` calls to first2 (the default is last2). Call this plot `nes_plot_3`. 
+Although 3 of the 4 `education` statuses are reordered successfully, Adv. Degree is left on the bottom because it doesn't appear in the second graph. To fix this problem, change the `.fun` argument of both `fct_reorder2()` calls to first2 (the default is last2).  
 
-```{r nes15-setup}
-nes_subset <- nes %>%
-  select(c(year, education, pres_appr, voted)) %>%
-  filter(education %in% c("Some Highschool", "Highschool", "Some College", "Adv. Degree")) %>%
-  droplevels() %>%
-  mutate(opinion = as.factor(if_else(condition = str_detect(pres_appr, "prove"),
-                                     true = "has_opinion",
-                                     false = "no_opinion"))) %>%
-  drop_na(education, opinion) %>%
-  group_by(year, voted, opinion, education) %>%
-  summarize(count = n()) %>%
-  pivot_wider(names_from = voted, values_from = count) %>%
-  mutate(turnout = Yes / (Yes + No))
-```
 
-```{r nes15, exercise = TRUE}
+```{r nes15, exercise = TRUE, exercise.lines = 15}
 
 ```
 
 ```{r nes15-hint, eval = FALSE}
-nes_plot_3 <- ggplot(data = nes_subset, 
-                     mapping = aes(x = year, y = turnout, 
-                                   color = fct_reorder2(education, year, turnout, 
-                                                        .fun = ...), 
-                                   linetype = fct_reorder2(education, year, 
-                                                           turnout, .fun = ...))) +
+.. %>% 
+  ggplot(data = nes_subset, 
+         mapping = aes(x = year, y = turnout, 
+                       color = fct_reorder2(education, year, turnout, 
+                                            .fun = ...), 
+                       linetype = fct_reorder2(education, year, 
+                                               turnout, .fun = ...))) +
     geom_line() +
     facet_wrap(~ opinion)
 ```
 
-### Exercise 16
-
-<!-- DK: Is this stuff really working? Why don't we need to pass data to create nes_plot_3? Isn't the resulting object empty? Why use the set up chunks at all? -->
+###
 
 Our graph is looking good, but the very long legend title takes up a lot of space. To fix this problem (and to improve the colors of the graph), add a `scale_color_brewer()` function with the "Spectral" palette as well as a `scale_linetype` function. Use **both** scale functions to set the name of the legend to "education."
 
-```{r nes16-setup}
-nes_subset <- nes %>%
-  select(c(year, education, pres_appr, voted)) %>%
-  filter(education %in% c("Some Highschool", "Highschool", "Some College", "Adv. Degree")) %>%
-  droplevels() %>%
-  mutate(opinion = as.factor(if_else(condition = str_detect(pres_appr, "prove"),
-                                     true = "has_opinion",
-                                     false = "no_opinion"))) %>%
-  drop_na(education, opinion) %>%
-  group_by(year, voted, opinion, education) %>%
-  summarize(count = n()) %>%
-  pivot_wider(names_from = voted, values_from = count) %>%
-  mutate(turnout = Yes / (Yes + No)) 
 
-nes_plot_3 <- ggplot(mapping = aes(x = year, 
-                                   y = turnout, 
-                                   color = fct_reorder2(education, year, 
-                                                        turnout, .fun = first2), 
-                                   linetype = fct_reorder2(education, year, turnout, 
-                                                           .fun = first2))) +
-    geom_line() +
-    facet_wrap(~ opinion)
-```
-
-```{r nes16, exercise = TRUE}
+```{r nes16, exercise = TRUE, exercise.lines = 18}
 
 ```
 
@@ -2850,46 +2728,52 @@ nes_plot_3 <- ggplot(mapping = aes(x = year,
 # The scale_color_brewer() function should take 2 arguments, but the scale_linetype() function should only take 1.
 ```
 
-
-### Exercise 17
+###
 
 Amazing work! From this graph, we see that Americans with a higher level of education tend to vote more often. Furthermore, Americans with an opinion of the president generally have higher voter turnout than Americans without an opinion of the president. Finally, pretty much 100% of Americans with an advanced decree are able to form an opinion of the president (this is why there is no Advanced Degree line in the no_opinion graph: there are too few data points in the table).
 
-To finish your plot, use `labs()` to give the graph a title and subtitle of your choosing.
+To finish your plot, use `labs()` to give the graph a title and subtitle of your choosing. Here is our answer. It is OK if your answer looks somewhat different from ours.
 
-```{r nes17-setup}
-nes_subset <- nes %>%
-  select(c(year, education, pres_appr, voted)) %>%
+```{r, echo=FALSE}
+nes %>%
+  select(year, education, pres_appr, ideology, voted) %>%
   filter(education %in% c("Some Highschool", "Highschool", "Some College", "Adv. Degree")) %>%
   droplevels() %>%
   mutate(opinion = as.factor(if_else(condition = str_detect(pres_appr, "prove"),
                                      true = "has_opinion",
                                      false = "no_opinion"))) %>%
-  drop_na(education, opinion) %>%
+  drop_na() %>%
   group_by(year, voted, opinion, education) %>%
   summarize(count = n()) %>%
   pivot_wider(names_from = voted, values_from = count) %>%
-  mutate(turnout = Yes / (Yes + No)) 
-
-nes_plot_3 <- ggplot(mapping = aes(x = year, y = turnout, 
-                                   color = fct_reorder2(education, year, turnout, 
-                                                        .fun = first2), 
-                                   linetype = fct_reorder2(education, year, turnout, 
-                                                           .fun = first2))) +
+  mutate(turnout = Yes / (Yes + No)) %>%
+  ggplot(mapping = aes(x = year,
+                       y = turnout,
+                       color = fct_reorder2(education, year,
+                                            turnout, .fun = first2),
+                       linetype = fct_reorder2(education, year, turnout,
+                                               .fun = first2))) +
     geom_line() +
     facet_wrap(~ opinion) +
     scale_color_brewer(palette = "Spectral", name = "education") +
-    scale_linetype(name = "education")
+    scale_linetype(name = "education") +
+    labs(title = "Opinions on Presidents Over Time",
+         subtitle = "People with opinions are more educated")
 ```
 
-```{r nes17, exercise = TRUE, exercise.lines = 18}
+
+
+
+```{r nes17, exercise = TRUE, exercise.lines = 20}
 
 ```
+
+
 
 
 ## Airline Safety 
 
-### Exercise 1 
+###
 
 We will be focusing on the data set `airline_saftey` from the `fivethirtyeight` package. Start by taking a `glimpse` of `airline_safety`:
 
@@ -2897,9 +2781,9 @@ We will be focusing on the data set `airline_saftey` from the `fivethirtyeight` 
 
 ```
 
-### Exercise 2
+###
 
-Do you notice anything off about the `airline_saftey` data? It's untidy! Over the next few questions, we are going to fix this. Let's start by using pivoting longer. Use `pivot_longer` to pivot the columns `incidents_85_99`, `incidents_00_14`, `fatal_accidents_00_14`,`fatal_accidents_85_99`, `fatalities_00_14` and  `fatalities_85_99` into the two new columns "type_date" and "count". Call this `airline_tidy`
+Do you notice anything off about the `airline_saftey` data? It's untidy! Over the next few questions, we are going to fix this. Let's start by making the table "longer." Use `pivot_longer()` to pivot the columns `incidents_85_99`, `incidents_00_14`, `fatal_accidents_00_14`,`fatal_accidents_85_99`, `fatalities_00_14` and  `fatalities_85_99` into the two new columns `type_date` and `count`. 
 
 
 ```{r as-2, exercise=TRUE}
@@ -2907,93 +2791,61 @@ Do you notice anything off about the `airline_saftey` data? It's untidy! Over th
 ```
 
 ```{r as-2-hint, eval=FALSE}
-airline_tidy <- airline_safety %>%     
-  pivot_longer(c(`...`, `...`, `...`,`...`, `...`, `...`), 
-        names_to = "...",values_to = "...")
+airline_safety %>%     
+  pivot_longer(c(..., ..., ...,..., ..., ...), 
+        names_to = "...", values_to = "...")
 ```
 
-### Exercise 3
+### 
 
 Nice! Do you see what our next step has to be? In our `type_date` column, we have data on both the type of incident and the date range in which it occurred. This should really be two columns. Let's use the `separate()` to separate `type_date` into the two columns `type` and `date`. Separate on the s_ characters by setting the `sep` argument inside of `separate()` to "s_". 
 
-```{r as-4-setup}
-airline_tidy <- airline_safety %>%     
-  pivot_longer(c(`incidents_85_99`, `incidents_00_14`, `fatal_accidents_00_14`,`fatal_accidents_85_99`, `fatalities_00_14`, `fatalities_85_99`), 
-        names_to = "type_date",values_to = "count")
-```
 
-```{r as-4, exercise=TRUE}
+```{r as-4, exercise=TRUE, exercise.lines = 10}
 
 
 ```
 
 ```{r as-4-hint, eval=FALSE}
-airline_tidy <- airline_tidy %>%     
+... %>%     
    separate(type_date, c("...", "..."), sep = "...")
 ```
 
-### Exercise 4
+### 
+
 Fantastic! Now that our data is tidy, we can get to work. `filter()` `airline_tidy` so that we narrow down our data set to data where date is "00_14", type is "incident", and count is greater than 0.
 
-```{r as-6-setup, include=FALSE}
-airline_tidy <- airline_safety %>%     
-  pivot_longer(c(`incidents_85_99`, `incidents_00_14`, `fatal_accidents_00_14`,`fatal_accidents_85_99`, `fatalities_00_14`, `fatalities_85_99`), 
-        names_to = "type_date",values_to = "count") %>%
-  separate(type_date, c("type", "date"), sep = "s_")
-```
 
-```{r as-6, exercise=TRUE, exercise.lines=8}
+```{r as-6, exercise=TRUE, exercise.lines=10}
 
 ```
 
-### Exercise 5
+### 
 
 Nice! Now use `mutate()` to create the new variable `safety_value` and set it equal to `avail_seat_km_per_week` divided by `count`
 
-```{r as-7-setup}
-airline_tidy <- airline_safety %>%     
-  pivot_longer(c(`incidents_85_99`, `incidents_00_14`, `fatal_accidents_00_14`,`fatal_accidents_85_99`, `fatalities_00_14`, `fatalities_85_99`), 
-        names_to = "type_date",values_to = "count") %>%
-  separate(type_date, c("type", "date"), sep = "s_") %>%
-  filter(date == "00_14", count > 0)
-```
 
-```{r as-7, exercise=TRUE}
+```{r as-7, exercise=TRUE, exercise.lines = 10}
 
 
 ```
 
-### Exercise 6
+### 
 
-Nice! Now arrange `airline_tidy` by `safety_value`
+Nice! Now arrange `airline_tidy` by `safety_value`.
 
-```{r as-8-setup}
-airline_tidy <- airline_safety %>%     
-  pivot_longer(c(`incidents_85_99`, `incidents_00_14`, `fatal_accidents_00_14`,`fatal_accidents_85_99`, `fatalities_00_14`, `fatalities_85_99`), 
-        names_to = "type_date",values_to = "count") %>%
-  separate(type_date, c("type", "date"), sep = "s_") %>%
-  filter(date == "00_14", count > 0) %>%
-  mutate(safety_value = avail_seat_km_per_week / count)
-```
-
-```{r as-8, exercise=TRUE}
+```{r as-8, exercise=TRUE, exercise.lines = 10}
 
 
 
 ```
 
-### Exercise 7
+### 
 
 Great! Let's now use our wrangled data to create a bar plot using `geom_col()` with `airline` on the x axis and `safety_value` on the y axis. Call it `as_plot`. 
 
 ```{r as-9-setup}
-airline_tidy <- airline_safety %>%     
-  pivot_longer(c(`incidents_85_99`, `incidents_00_14`, `fatal_accidents_00_14`,`fatal_accidents_85_99`, `fatalities_00_14`, `fatalities_85_99`), 
-        names_to = "type_date",values_to = "count") %>%
-  separate(type_date, c("type", "date"), sep = "s_") %>%
-  filter(date == "00_14", count > 0) %>%
-  mutate(safety_value = avail_seat_km_per_week / count) %>%
-  arrange(safety_value)
+
 ```
 
 ```{r as-9, exercise=TRUE, exercise.lines=10}
@@ -3002,54 +2854,47 @@ airline_tidy <- airline_safety %>%
 
 ```
 
-### Exercise 8
+###
 
 Awesome! As you can see, the airline names on the y axis are crowded and basically impossible to read. Let's change this by using theme() and setting the x axis text size to 5 and angle to 90.
 
-```{r as-10-setup}
-airline_tidy <- airline_safety %>%     
-  pivot_longer(c(`incidents_85_99`, `incidents_00_14`, `fatal_accidents_00_14`,`fatal_accidents_85_99`, `fatalities_00_14`, `fatalities_85_99`), 
-        names_to = "type_date",values_to = "count") %>%
-  separate(type_date, c("type", "date"), sep = "s_") %>%
-  filter(date == "00_14", count > 0) %>%
-  mutate(safety_value = avail_seat_km_per_week / count) %>%
-  arrange(safety_value)
 
-as_plot <- ggplot(data = airline_tidy, aes(x = airline, y = safety_value)) +
-  geom_col()
-
-```
-
-```{r as-10, exercise=TRUE}
+```{r as-10, exercise=TRUE, exercise.lines=15}
 
 
 
 ```
 
 ```{r as-10-hint, eval=FALSE}
-as_plot <- as_plot +
-  theme(... = element_text(...,...))
+... + 
+  theme(... = element_text(size = ..., angle = ...))
 
 ```
 
-### Exercise 9
-Great! Now add some labels to finish our plot off!
+### 
 
-```{r as-11-setup}
-airline_tidy <- airline_safety %>%     
-  pivot_longer(c(`incidents_85_99`, `incidents_00_14`, `fatal_accidents_00_14`,`fatal_accidents_85_99`, `fatalities_00_14`, `fatalities_85_99`), 
-        names_to = "type_date",values_to = "count") %>%
-  separate(type_date, c("type", "date"), sep = "s_") %>%
-  filter(date == "00_14", count > 0) %>%
-  mutate(safety_value = avail_seat_km_per_week / count) %>%
-  arrange(safety_value)
+Great! Now add some labels to finish our plot off! Here is our version. As always, it is OK if yours looks different.
 
-as_plot <- ggplot(data = airline_tidy, aes(x = airline, y = safety_value)) +
-  geom_col() + 
-  theme(axis.text = element_text(size = 5, angle = 90))
+```{r as-11-answer, echo=FALSE}
+ airline_safety %>%     
+  pivot_longer(c(incidents_85_99, incidents_00_14, fatal_accidents_00_14,
+                 fatal_accidents_85_99, fatalities_00_14, fatalities_85_99), 
+               names_to = "type_date",
+               values_to = "count") %>%
+  separate(type_date, c("type", "date"), sep = "s_") %>% 
+  filter(date == "00_14", count > 0) %>% 
+  mutate(safety_value = avail_seat_km_per_week / count) %>% 
+  arrange(safety_value) %>% 
+  ggplot(aes(x = airline, y = safety_value)) +
+    geom_col() +
+    theme(axis.text = element_text(size = 5, angle = 90)) +
+    labs(title = "Airline Safety",
+         subtitle = "Airlines with more long-haul routes are safer",
+         x = "Airline",
+         y = "Distance per Incident")
 ```
 
-```{r as-11, exercise=TRUE, exercise.lines=10}
+```{r as-11, exercise=TRUE, exercise.lines=20}
 
 
 
