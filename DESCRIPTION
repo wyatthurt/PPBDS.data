@@ -36,8 +36,8 @@ Imports:
     gt (>= 0.2.1),
     learnr (>= 0.10.1),
     base64enc,
+    testthat,
     rmarkdown
 BugReports: https://github.com/davidkane9/PPBDS.data/issues
 Suggests: 
-    testthat,
     fs
