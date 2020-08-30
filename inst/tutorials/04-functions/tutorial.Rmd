@@ -114,7 +114,7 @@ tibble(col_1 = c("Government and Data Science", "Preceptor and Primer")) %>%
 
 ### 
 
-Now use `str()` to read the tibble contents.
+Now append `str()` to the end of the pipe in order to to read the tibble contents.
 
 ```{r exercise-1b, exercise=TRUE}
 tibble(col_1 = c("Government and Data Science", "Preceptor and Primer")) %>%
@@ -155,13 +155,10 @@ ChickWeight %>%
 
 ###
 
-Use a `map_*` function to find the mean weight per row in the new list-column. Name this new column `mean_weight`.
+Use a `map_*` function  and `mutate()` to add a new column, `mean_weight`, which is the mean weight per row. Recall that each row corresponds to a unique combination of `Diet` and `Time`. As always, you should start by copy-pasting from the last answer.
 
-```{r exercise-3, exercise=TRUE, eval=FALSE}
-ChickWeight %>%
-  group_by(Diet, Time) %>%
-  mutate(weight_groups = list(weight)) %>%
-  mutate(mean_weight = map_dbl(...))
+```{r exercise-3, exercise=TRUE}
+
 ```
 
 ```{r exercise-3-hint, eval=FALSE}
@@ -175,12 +172,8 @@ ChickWeight %>%
 
 Now let's use `map_dbl()` to round each `mean_weight` to the nearest integer. Name this new column `rounded_mean`. 
 
-```{r exercise-4, exercise=TRUE, eval=FALSE}
-ChickWeight %>%
-  group_by(Diet, Time) %>%
-  mutate(weight_groups = list(weight)) %>%
-  mutate(mean_weight = map_dbl(weight_groups, mean)) %>%
-  mutate(rounded_mean = map_dbl(...))
+```{r exercise-4, exercise=TRUE}
+
 ```
 
 ```{r exercise-4-hint, eval=FALSE}
@@ -191,14 +184,11 @@ ChickWeight %>%
   mutate(rounded_mean = map_dbl(mean_weight, ...))
 ```
 
+Note that this answer is probably overkill. Although you can use `map_dbl()`, you don't need to. You could have just done `round(mean_weight)`.
+
+
 ```{r quiz-2}
 quiz(caption = "",
-  question("What is the rounded mean weight for chicks given Diet 2 for 4 days (corresponding to a value of 4 in Time)?",
-           answer("56 grams"),
-           answer("41 grams"),
-           answer("60 grams", correct = TRUE),
-           answer("52 grams"),
-           allow_retry = TRUE),
   question("What would have happened if we had used map() instead of map_dbl() above?",
            answer("The input would have looked for a list, rather than data of type double"),
            answer("Nothing. Map() is just the general function for all map functions"),
@@ -1186,7 +1176,7 @@ quiz(
 
 ###
 
-```{r eval=FALSE, echo=TRUE}
+```{r missing_code_chunk_name, eval=FALSE, echo=TRUE}
 clean <- function(x) {
   if (x == -99) NA 
   if (x == ".") NA
