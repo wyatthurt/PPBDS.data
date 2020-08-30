@@ -93,9 +93,9 @@ submission_ui <- shiny::div(
   "When you have completed this tutorial, follow these steps:",
   shiny::tags$br(),
   shiny::tags$ol(
-    shiny::tags$li("Click Generate Hash. Nothing will pop up, but this will create an .rds file of your hashed responses."),
-    shiny::tags$li("Click the Download button next to Generate Hash to download the .rds file. A window will pop up with some options. Choose to save the file onto your computer. Do not open it."),
-    shiny::tags$li("Upload this file to the appropriate Canvas assignment.")),
+    shiny::tags$li("Click Generate Hash. Nothing will pop up, but this will create an .rds file of your responses."),
+    shiny::tags$li("Click the Download button next to the Generate Hash button to download the .rds file. A window will pop up with some options. Choose to save the file onto your computer. Do not open it. If it offers a file without a .rds suffix, you probably forgot to press the Generate Hash button."),
+    shiny::tags$li("Upload the file which you just downloaded to the appropriate Canvas assignment.")),
   shiny::fluidPage(
     shiny::mainPanel(
       shiny::div(id = "form",
