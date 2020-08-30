@@ -607,7 +607,7 @@ f <- function(a, b, c){
 f(1, 2, 3)
 ```
 
-```{r test-2, quiz-2b}
+```{r quiz-2b}
 question("",
          answer("1"),
          answer("2"),
