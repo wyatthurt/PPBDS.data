@@ -196,53 +196,6 @@ quiz(caption = "",
   )
 ```
 
-###
-
-Now let's use a `map_*` function to find the highest weight per `Diet` + `Time` combination. First, let's sort from highest to lowest weight and create a new column named `sorted_weight`.
-
-```{r exercise-5, exercise=TRUE, eval=FALSE}
-ChickWeight %>%
-  group_by(Diet, Time) %>%
-  mutate(weight_groups = list(weight)) %>%
-  mutate(sorted_weight = map(weight_groups, ...))
-```
-
-```{r exercise-5-hint, eval=FALSE}
-ChickWeight %>%
-  group_by(Diet, Time) %>%
-  mutate(weight_groups = list(weight)) %>%
-  mutate(sorted_weight = map(weight_groups, ..., decreasing = TRUE))
-```
-
-###
-
-Return the highest weight in each row of the `sorted_weight` list-column in a new column named `heaviest`.
-
-```{r exercise-6, exercise=TRUE, eval=FALSE}
-ChickWeight %>%
-  group_by(Diet, Time) %>%
-  mutate(weight_groups = list(weight)) %>%
-  mutate(sorted_weight = map(weight_groups, ..., decreasing = TRUE)) %>%
-  mutate(heaviest = map_dbl(...))
-```
-
-```{r exercise-6-hint, eval=FALSE}
-ChickWeight %>%
-  group_by(Diet, Time) %>%
-  mutate(weight_groups = list(weight)) %>%
-  mutate(sorted_weight = map(weight_groups, ..., decreasing = TRUE)) %>%
-  mutate(heaviest = map_dbl(...,  ~ .[1]))
-```
-
-```{r quiz-3a}
-quiz(caption = "",
-  question("What is the heaviest weight for a 16-day old chick on Diet 3?",
-           answer("227 grams"),
-           answer("287 grams", correct = TRUE),
-           answer("222 grams"),
-           answer("332 grams"))
-)
-```
 
 ### Annual GDP by country
 
@@ -386,7 +339,7 @@ quiz(caption = "",
 Here is a custom function we will call `foo`:
 
 ```{r echo = FALSE}
-foo <- function() {
+foo <- function(){
   a <- 10
   a
 }
@@ -451,7 +404,7 @@ Save the code below as a function named `grade`.
 ```
 
 ```{r grade-hint, eval=FALSE}
-grade <- function() { 
+grade <- function(){ 
   ...
 }
 ```
@@ -463,13 +416,13 @@ At the moment, your `grade()` function is reusable but not _generalizable_. Each
 Make `x` a formal argument.
 
 ```{r exercise-random-name, exercise=TRUE, eval=FALSE}
-grade <- function() { 
+grade <- function(){ 
   ...
 }
 ```
 
 ```{r exercise-random-name-hint, eval=FALSE}
-grade <- function(...) { 
+grade <- function(...){ 
   (sum(x) - min(x)) / 9
 }
 ```
@@ -478,7 +431,7 @@ grade <- function(...) {
 
 Calculate the final grade of the vector `c(100, 90, 90, 90, 90, 90, 90, 90, 90, 80)`. 
 ```{r make-grade-setup}
-grade <- function(x) { 
+grade <- function(x){ 
   (sum(x) - min(x)) / 9
 }
 ```
@@ -543,7 +496,7 @@ Wrap your code in `function()` and save it to the name `grade2`. Then define the
 ```
 
 ```{r e4-hint, eval=FALSE}
-grade2 <- function(x) {
+grade2 <- function(x){
   ...
 }
 ```
@@ -586,7 +539,7 @@ add_rvs <- function(){
 ```
 
 ```{r rvs_q-hint-2, eval=FALSE}
-add_rvs <- function() {
+add_rvs <- function(){
   runif(1) + rnorm(...)
 }
 ```
@@ -594,13 +547,13 @@ add_rvs <- function() {
 What if you wanted to customize `n`? Add a formal argument `n` to your `add_rvs()` function with a default value of 1.
 
 ```{r rvs_q2, exercise=TRUE, eval=FALSE}
-add_rvs <- function() {
+add_rvs <- function(){
   ...
 }
 ```
 
 ```{r rvs_q2-hint, eval=FALSE}
-add_rvs <- function(n = 1) {
+add_rvs <- function(n = 1){
   runif(n) + rnorm(...)
 }
 ```
@@ -646,7 +599,7 @@ quiz(caption = "",
 What will the following code return?
 
 ```{r eval=FALSE, echo=TRUE}
-f <- function(a, b, c) {
+f <- function(a, b, c){
   a
   b
   c
@@ -679,7 +632,7 @@ When you are finished, reduce your code to just the definition of your function.
 ```
 
 ```{r e5-solution}
-l2 <- function(x) {
+l2 <- function(x){
   sqrt(sum(x^2))
 }
 ```
@@ -689,7 +642,7 @@ l2 <- function(x) {
 Consider this brilliant function:
 
 ```{r, echo=TRUE}
-foo <- function(aaa, abb, abc) {
+foo <- function(aaa, abb, abc){
   c(aaa, abb, abc)
 }
 ```
@@ -704,7 +657,7 @@ question("What will `foo()` return?",
 Let's make `foo` even more brilliant:
 
 ```{r, echo=TRUE}
-foo <- function(aaa = 1, abb = 2, abc = 3) {
+foo <- function(aaa = 1, abb = 2, abc = 3){
   c(aaa, abb, abc)
 }
 ```
@@ -765,7 +718,7 @@ question("What will `foo(a = 0)` return?",
 Now for some dark magic:
 
 ```{r, echo=TRUE}
-foodoo <- function(...) {
+foodoo <- function(...){
   c(...)
 }
 ```
@@ -789,7 +742,7 @@ question("What will `foodoo(a = 1, b = 2, c = 3)` return?",
 Here is one last wrinkle. Suppose we rewrite `foodoo` slightly:
 
 ```{r, echo=TRUE}
-foodoo <- function(a, ...) {
+foodoo <- function(a, ...){
   c(...)
 }
 ```
@@ -808,7 +761,7 @@ quiz(caption = "",
 ### Unit tests with `testthat`
 
 ```{r, echo=TRUE, eval=FALSE}
-impatient_square <- function(x) {
+impatient_square <- function(x){
   return(x)
   x^2
 }
@@ -829,7 +782,7 @@ quiz(caption = "",
 ###
 
 ```{r eval=FALSE, echo=TRUE}
-immovable_square <- function(x) {
+immovable_square <- function(x){
   stop("I refuse to proceed.")
   x^2
 }
@@ -848,13 +801,13 @@ quiz(caption = "",
 This function is called `angry()`. Add a line of code that throws the message "Wrong! I am angry!" using `stop()`.
 
 ```{r angry, exercise=TRUE}
-angry <- function(x) {
+angry <- function(x){
   x
 }
 ```
 
 ```{r angry-hint, eval=FALSE}
-angry <- function(x) {
+angry <- function(x){
   ...("Wrong! I am angry!")
   x
 }
@@ -863,14 +816,14 @@ angry <- function(x) {
 Nice, now we have an appropriately angry function that always yells at us. This isn't particularly useful. Make it so that `angry()` only yells at us if the x input is not a character. Also change the error message to something more useful: "x must be a character." This method is also known as the "if then stop".
 
 ```{r ifthenstop, exercise=TRUE}
-angry <- function(x) {
+angry <- function(x){
   x
 }
 ```
 
 ```{r ifthenstop-hint, eval=FALSE}
-angry <- function(x) {
-  if (!is.character(x)){
+angry <- function(x){
+  if(!is.character(x)){
     ...("x must be a character.")
   }
   x
@@ -883,8 +836,8 @@ What if we wanted to incorporate `testthat`? Use the `showfailure()` function to
 
 ```{r showfailure-setup}
 library(testthat)
-angry <- function(x) {
-  if (!is.character(x)){
+angry <- function(x){
+  if(!is.character(x)){
     stop("x must be a character.")
   }
   x
@@ -903,14 +856,14 @@ Run the following function, which we've pre-defined behind the scenes.
 
 ```{r mysteryfunc-setup}
 library(testthat)
-mystery <- function(x = 15) {
-  if (!is.numeric(x)){
+mystery <- function(x = 15){
+  if(!is.numeric(x)){
     stop("x must be a number.")
   }
-  if (x <= 10){
+  if(x <= 10){
     stop("x must be greater than 10.")
   }
-  if (x == 13){
+  if(x == 13){
     stop("13 is an unlucky number. Choose a different number.")
   }
   sqrt(x)
@@ -933,14 +886,14 @@ quiz(
 
 ```{r mysteryfunc2-setup}
 library(testthat)
-mystery <- function(x = 15) {
-  if (!is.numeric(x)){
+mystery <- function(x = 15){
+  if(!is.numeric(x)){
     stop("x must be a number.")
   }
-  if (x <= 10){
+  if(x <= 10){
     stop("x must be greater than 10.")
   }
-  if (x == 13){
+  if(x == 13){
     stop("13 is an unlucky number. Choose a different number.")
   }
   sqrt(x)
@@ -979,8 +932,8 @@ question("Which describes `if`'s behavior? (Check all that apply).",
 Many data sets use their own symbols to represent missing values. For example, NOAA will often use -99 to represent missing values in weather data sets. Let's write a function that checks whether a value is -99, and if so replaces the value with NA, like this:
 
 ```{r echo = FALSE}
-clean <- function(x) {
-  if (x == -99) x <- NA
+clean <- function(x){
+  if(x == -99) x <- NA
   x
 }
 ```
@@ -999,15 +952,15 @@ x <- -99
 ```
 
 ```{r clean, exercise=TRUE}
-clean <- function(x) {
+clean <- function(x){
   # add if statement here
   x
 }
 ```
 
 ```{r clean-solution}
-clean <- function(x) {
-  if (x == -99) x <- NA
+clean <- function(x){
+  if(x == -99) x <- NA
   x
 }
 ```
@@ -1027,27 +980,27 @@ question("Which describes `else`? (Check all that apply).",
 Use `if` and `is.null()` to add a `stop()` call at the beginning of `clean()`. The command should return the error message `"x is NULL"` whenever x is NULL. 
 
 ```{r stop, exercise=TRUE}
-clean <- function(x) {
-  if (x == -99) return(NA)
-  if (x == ".") return(NA)
-  if (x == "NaN") return(NA)
+clean <- function(x){
+  if(x == -99) return(NA)
+  if(x == ".") return(NA)
+  if(x == "NaN") return(NA)
   x
 }
 ```
 
 ```{r stop-solution}
-clean <- function(x) {
-  if (is.null(x)) stop("x is NULL")
-  if (x == -99) return(NA)
-  if (x == ".") return(NA)
-  if (x == "NaN") return(NA)
+clean <- function(x){
+  if(is.null(x)) stop("x is NULL")
+  if(x == -99) return(NA)
+  if(x == ".") return(NA)
+  if(x == "NaN") return(NA)
   x
 }
 ```
 
 ```{r stopifnot-quiz, echo = FALSE}
 quiz(
-  question('Which of these does the equivalent of `if (x < 0) stop("x is less than zero")`?',
+  question('Which of these does the equivalent of `if(x < 0) stop("x is less than zero")`?',
          answer('`stopifnot(x < 0)`', message = "Good guess! But the function isn't called `stopif()`; it's called `stopifnot()`."),
          answer('`stopifnot(x >= 0)`', correct = TRUE, message = "`stopifnot()` stops if a condition is _not_ met, which is slightly different than `if` + `stop()`."),
          allow_retry = TRUE),
@@ -1064,21 +1017,21 @@ quiz(
 Replace the `if` + `stop()` statement in `clean()` with `stopifnot()`. 
 
 ```{r stopifnot, exercise=TRUE}
-clean <- function(x) {
-  if (is.null(x)) stop("x is NULL")
-  if (x == -99) return(NA)
-  if (x == ".") return(NA)
-  if (x == "NaN") return(NA)
+clean <- function(x){
+  if(is.null(x)) stop("x is NULL")
+  if(x == -99) return(NA)
+  if(x == ".") return(NA)
+  if(x == "NaN") return(NA)
   x
 }
 ```
 
 ```{r stopifnot-solution}
-clean <- function(x) {
+clean <- function(x){
   stopifnot(!is.null(x))
-  if (x == -99) return(NA)
-  if (x == ".") return(NA)
-  if (x == "NaN") return(NA)
+  if(x == -99) return(NA)
+  if(x == ".") return(NA)
+  if(x == "NaN") return(NA)
   x
 }
 ```
@@ -1088,16 +1041,16 @@ clean <- function(x) {
 Rewrite the below function using `case_when()`.
 
 ```{r, echo=TRUE}
-foo <- function(x) {
-  if (x > 2) "a"
-  else if (x < 2) "b"
-  else if (x == 1) "c"
+foo <- function(x){
+  if(x > 2) "a"
+  else if(x < 2) "b"
+  else if(x == 1) "c"
   else "d"
 }
 ```
 
 ```{r foo_rewrite, exercise=TRUE}
-foo2 <- function(x) {
+foo2 <- function(x){
   case_when(
     
     # Insert code here!
@@ -1107,7 +1060,7 @@ foo2 <- function(x) {
 ```
 
 ```{r foo_rewrite-hint-1, eval=FALSE}
-foo2 <- function(x) {
+foo2 <- function(x){
   case_when(
     x > 2  ~ "a",
     x < 2  ~ "b",
@@ -1117,7 +1070,7 @@ foo2 <- function(x) {
 ```
 
 ```{r foo_rewrite-hint-2, eval=FALSE}
-foo2 <- function(x) {
+foo2 <- function(x){
   case_when(
     x > 2  ~ "a",
     x < 2  ~ "b",
@@ -1132,17 +1085,17 @@ foo2 <- function(x) {
 Rewrite the multi-part version of `clean()` to use `case_when()`, which will allow `clean()` to handle vectors. Retain each case. Assume where necessary that `clean()` will only work with real numbers.
 
 ```{r when, exercise=TRUE}
-clean <- function(x) {
-  if (x == -99) NA 
-  else if (x == ".") NA
-  else if (x == "") NA
-  else if (x == "NaN") NA
+clean <- function(x){
+  if(x == -99) NA 
+  else if(x == ".") NA
+  else if(x == "") NA
+  else if(x == "NaN") NA
   else x
 }
 ```
 
 ```{r when-hint, eval=FALSE}
-clean <- function(x) {
+clean <- function(x){
   case_when(
     x == -99 ~ NA_real_, 
     x == "." ~ NA_real_,
@@ -1156,10 +1109,10 @@ clean <- function(x) {
 ###
 
 ```{r eval=FALSE, echo=TRUE}
-foo <- function(x) {
-  if (x > 2) "a"
-  else if (x < 2) "b"
-  else if (x == 1) "c"
+foo <- function(x){
+  if(x > 2) "a"
+  else if(x < 2) "b"
+  else if(x == 1) "c"
   else "d"
 }
 foo(1)
@@ -1177,10 +1130,10 @@ quiz(
 ###
 
 ```{r missing_code_chunk_name, eval=FALSE, echo=TRUE}
-clean <- function(x) {
-  if (x == -99) NA 
-  if (x == ".") NA
-  if (x == "NaN") NA
+clean <- function(x){
+  if(x == -99) NA 
+  if(x == ".") NA
+  if(x == "NaN") NA
   x
 }
 clean(-99)
@@ -1198,18 +1151,18 @@ quiz(
 Replace the two `if` statements below with a single statement that tests whether x is `-99` or `"."` without throwing error messages.
 
 ```{r or, exercise=TRUE}
-clean <- function(x) {
+clean <- function(x){
   stopifnot(!is.null(x))
-  if (x == -99) return(NA)
-  if (x == ".") return(NA)
+  if(x == -99) return(NA)
+  if(x == ".") return(NA)
   x
 }
 ```
 
 ```{r or-solution}
-clean <- function(x) {
+clean <- function(x){
   stopifnot(!is.null(x))
-  if (x == -99 || x == ".") return(NA)
+  if(x == -99 || x == ".") return(NA)
   x
 }
 ```
@@ -1217,9 +1170,9 @@ clean <- function(x) {
 ###  
 
 ```{r eval=FALSE, echo= TRUE}
-clean <- function(x) {
+clean <- function(x){
   stopifnot(!is.null(x))
-  if (x == -99 || x == ".") return(NA)
+  if(x == -99 || x == ".") return(NA)
   x
 }
 ```
@@ -1261,13 +1214,6 @@ airquality %>%
 
 ###
 
-```{r, echo=TRUE, eval=FALSE}
-airquality %>%
-   group_by(Month) %>%
-   mutate(monthly_temp = list(Temp)) %>%
-   mutate(celsius = map(fahrenheit, ...)
-```
-
 ```{r quiz-4}
 quiz(caption = "",
   question("Which of the following possibilities for filling in the blank is syntactically correct and converts from Fahrenheit to Celsius?",
@@ -1298,7 +1244,7 @@ airquality %>%
 
 Oops! The scientists made a mistake in which all of the temperatures were mis-recorded. For temperatures recorded at or below 20 degrees Celsius, the true temperature is actually 1 degree Celsius lower. For temperatures recorded as higher than 20 degrees Celsius, the true temperature is actually 3 degrees Celsius higher.
 
-Write an anonymous function using base R that rectifies the scientists' mistake using `case_when()`.
+Write an anonymous function that rectifies the scientists' mistake by using `case_when()`.
 
 ```{r exercise-4a, exercise=TRUE, eval=FALSE}
 function(x) 
@@ -1313,7 +1259,7 @@ function(x)
 
 ###
 
-Now use this function along with `map()`, swapping out the base R for the `~` in the `map()` argument.
+Now use this function along with `map()`, swapping out the function code after the `~` in the `map()` argument.
 
 ```{r exercise-5a, exercise=TRUE, eval=FALSE}
 airquality %>%
@@ -1393,12 +1339,12 @@ starter_coin <- function(n) sample(c("H", "T"), n, replace = ...)
 
 Add in a sensible `stopifnot()` to your function that checks whether the input `n` is numeric.
 
-```{r coin3, exercise=TRUE, eval=FALSE}
+```{r coin3, exercise=TRUE}
 
 ```
 
 ```{r coin3-hint, eval=FALSE}
-starter_coin <- function(n) {
+starter_coin <- function(n){
   stopifnot(is.numeric(...))
   sample(c("H", "T"), n, replace = TRUE)
 }
@@ -1409,7 +1355,7 @@ starter_coin <- function(n) {
 Great! Now we should be able to create `coin_flip()`, which counts the number of Tails for `n` flips. Set the default value of `n` to 1.
 
 ```{r coin4, exercise=TRUE, eval=FALSE}
-coin_flip <- function(n = 1) {
+coin_flip <- function(n = 1){
   ...
 }
 ```
@@ -1419,7 +1365,7 @@ coin_flip <- function(n = 1) {
 ```
 
 ```{r coin4-hint-2, eval=FALSE}
-coin_flip <- function(n = 1) {
+coin_flip <- function(n = 1){
   stopifnot(is.numeric(n))
   sum(sample(c("H", "T"), n, replace = TRUE) == ...)
 }
@@ -1432,8 +1378,7 @@ Now let's create a function called `five_flips` that counts how many Tails occur
 * Use a `map_*` function to apply the `rep()` function to `coin_flip()` `n` times.
 
 ```{r coin5, exercise=TRUE}
-five_flips <- function(n = 1) {
-
+five_flips <- function(n = 1){
 }
 ```
 
@@ -1446,7 +1391,7 @@ five_flips <- function(n = 1) {
 ```
 
 ```{r coin5-hint-3, eval=FALSE}
-five_flips <- function(n = 1) {
+five_flips <- function(n = 1){
   stopifnot(is.numeric(n))
   map_int(rep(5, n), ...)
 }
@@ -1494,7 +1439,7 @@ That seems kind of clunky to create three new columns. What if I wanted to retur
 
 ```{r coin9-setup}
 x <- tibble(flips = map(rep(10, 10), five_flips))
-stat_ops <- function(x) {
+stat_ops <- function(x){
   a <- mean(x)
   b <- min(x)
   c <- max(x)
@@ -1521,14 +1466,14 @@ Remember when you wrote a function called `add_rvs()` that added two random vari
 Let's create `biggest()`, which takes the larger of two random variables. Use `n = 1` for both random variables.
 
 ```{r biggest1, exercise=TRUE, eval=FALSE}
-biggest <- function() {
+biggest <- function(){
   ...
 }
 
 ```
 
 ```{r biggest1-hint, eval=FALSE}
-biggest <- function() {
+biggest <- function(){
   max(runif(...), rnorm(...))
 }
 
@@ -1540,14 +1485,14 @@ Modify `biggest()` so that it prints out "Uniform" if the larger variable is the
 * Remember that `runif()` and `rnorm()` generate *random* values every time they are called...
 
 ```{r biggest2, exercise=TRUE, eval=FALSE}
-biggest <- function() {
+biggest <- function(){
   ...
 }
 
 ```
 
 ```{r biggest2-hint-1, eval=FALSE}
-biggest <- function() {
+biggest <- function(){
   x <- runif(1)
   y <- rnorm(1)
   case_when(...)
@@ -1555,7 +1500,7 @@ biggest <- function() {
 ```
 
 ```{r biggest2-hint-2, eval=FALSE}
-biggest <- function() {
+biggest <- function(){
   x <- runif(1)
   y <- rnorm(1)
   case_when(x > y ~ "Uniform",
@@ -1569,7 +1514,7 @@ biggest <- function() {
 We'd like for `biggest()` to return a vector of two elements: The name of the distribution of the larger random variable and its value. If the two values are identical, we'd like for the function to return "Tie" and the value of one of the variables (since they are identical).
 
 ```{r biggest3, exercise=TRUE, eval=FALSE}
-biggest <- function() {
+biggest <- function(){
   x <- runif(1)
   y <- rnorm(1)
   case_when(x > y ~ ...,
@@ -1579,7 +1524,7 @@ biggest <- function() {
 ```
 
 ```{r biggest3-hint, eval=FALSE}
-biggest <- function() {
+biggest <- function(){
   x <- runif(1)
   y <- rnorm(1)
   case_when(x > y ~ c("Uniform", x),
@@ -1619,14 +1564,15 @@ rvs <- tibble(trials = map(rep(3, 25), ...))
 
 Recall the function we wrote in the chapter to model a crooked game of craps. `crooked_craps()` is expected to return a winning 7 or 11 only *half* of the time the sum is actually 7 or 11. Instead, the other half of the time, it is supposed ot return a 2.
 
-```{r echo=TRUE}
-crooked_dice <- function(n = 1) {
+```{r crooks, echo=TRUE}
+crooked_dice <- function(n = 1){
   stopifnot(is.numeric(n))
   stopifnot(n >= 0)
   roll <- sum(sample(1:6, n, replace = TRUE))
   ifelse((roll == 7 | roll == 11) && runif(1) >= 0.5, 2, roll)
 }
-crooked_craps <- function(n = 1) {
+
+crooked_craps <- function(n = 1){
   stopifnot(is.numeric(n))
   map_dbl(rep(2, n), crooked_dice)
 }
