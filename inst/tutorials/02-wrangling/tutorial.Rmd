@@ -29,6 +29,7 @@ library(tidyverse)
 library(lubridate)
 library(stringr)
 library(learnr)
+library(skimr)
 library(shiny)
 library(PPBDS.data)
 knitr::opts_chunk$set(echo = FALSE, message = FALSE)
@@ -2545,9 +2546,11 @@ The dplyr `if_else()` function can be used alongside `mutate()` and `as.factor()
 ```{r nes6, exercise = TRUE}
 nes %>%
   select(year, education, pres_appr, ideology, voted) %>%
-  filter(education %in% c("Some Highschool", "Highschool", "Some College", "Adv. Degree")) %>%
+  filter(education %in% c("Some Highschool", "Highschool", 
+                          "Some College", "Adv. Degree")) %>%
   droplevels() %>% 
-  mutate(pos_ideology = as.factor(if_else(condition = ideology > 0,
+  mutate(pos_ideology = 
+           as.factor(if_else(condition = ideology > 0,
                                           true = "ideology_is_positive",
                                           false = "ideology_not_positive")))
 ```

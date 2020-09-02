@@ -21,9 +21,10 @@ options(tutorial.exercise.timelimit = 60, tutorial.storage="local")
 
 ## Chapter 00 tutorial
 
-<!-- MB: How to make question not say "incorrect" to names -->
+<!-- MB: How to make question not say "incorrect" to names. How to change response color from red, which students (reasonably) view as meaning error? -->
 
 Welcome to your first tutorial. The goal of this exercise is to answer some questions about the shopping week chapter and to learn how to complete and submit a tutorial. Begin by filling out your name and clicking the submit button. If you made a mistake, you click "Try Again" and edit your name. 
+
 ``` {r name, echo=FALSE}
 question_text(
   "Student Name:",
