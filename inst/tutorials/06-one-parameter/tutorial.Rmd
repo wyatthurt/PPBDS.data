@@ -477,7 +477,7 @@ Calculate the standard deviation of the vector `c(7, 7, 7, 7, 7)`. See if you ca
 
 ###
 
-Finally, calculate the standard deviation of `(1, 1, 1, 5, 5)` and compare the result to the result of the first exercise.
+Finally, calculate the standard deviation of `c(1, 1, 1, 5, 5)` and compare the result to the result of the first exercise.
 
 ```{r sd5, exercise = TRUE}
 
@@ -501,23 +501,31 @@ Now that have an intuitive understanding of how standard deviation works, let's 
 
 Let's start by adjusting our `sample_size` vector (the first line of code in the bottom pipe). For now, set `sample_size` equal to the result of a `seq()` statement that has every even number `from` 6 `to` 40. Don't worry if you get an error (you should).
 
-```{r sd6, exercise = TRUE, message = FALSE, exercise.lines = 13}
+<!-- DK: Again, map2 is too hard for this tutorial. -->
+
+```{r sd6, exercise = TRUE,  exercise.lines = 13}
 sample_urn <- function(size, reps) {
   urn %>%
     rep_sample_n(size = size, reps = reps, replace = TRUE) %>%
-    mutate(is_red = (color == "red"), is_white = (color == "white")) %>%
-    summarize(num_red = sum(is_red), num_white = sum(is_white)) %>%
+    mutate(is_red = (color == "red"), 
+           is_white = (color == "white")) %>%
+    summarize(num_red = sum(is_red), 
+              num_white = sum(is_white), 
+              .groups = "drop") %>%
     mutate(prop_red = num_red / (num_red + num_white)) %>%
     mutate(estimated_red = prop_red * 1500)
 }
 
-tibble(sample_size = c(20, 20, 100, 100), num_reps = c(50, 100, 50, 100)) %>%
-  mutate(sample_results = map2(sample_size, num_reps, ~ sample_urn(size = .x, reps = .y))) %>%
+tibble(sample_size = c(20, 20, 100, 100), 
+       num_reps = c(50, 100, 50, 100)) %>%
+  mutate(sample_results = map2(sample_size, num_reps, 
+                               ~ sample_urn(size = .x, reps = .y))) %>%
   unnest(cols = sample_results)
 ```
 
 ```{r sd6-hint, eval = FALSE}
-tibble(sample_size = seq(from = ..., to = ..., by = ...), num_reps = c(50, 100, 50, 100))
+tibble(sample_size = seq(from = ..., to = ..., by = ...), 
+       num_reps = c(50, 100, 50, 100))
 ```
 
 ###
@@ -529,7 +537,8 @@ To refine our `sample_size` vector, use the `c()` function to set `sample_size` 
 ```
 
 ```{r sd7-hint, eval = FALSE}
-tibble(sample_size = c(..., seq(...)), num_reps = c(50, 100, 50, 100))
+tibble(sample_size = c(..., seq(...)), 
+       num_reps = c(50, 100, 50, 100))
 ```
 
 ###
@@ -544,23 +553,29 @@ rep(14, 30)
 
 The reason why we get an error is because our `num_reps` vector is not the same length is our `sample_size` vector. To fix the problem, use `rep()` to set `num_reps` equal to the number 50 repeated 23 times.
 
-```{r sd9, exercise = TRUE, message = FALSE, exercise.lines = 13}
+```{r sd9, exercise = TRUE, exercise.lines = 13}
 sample_urn <- function(size, reps) {
   urn %>%
     rep_sample_n(size = size, reps = reps, replace = TRUE) %>%
-    mutate(is_red = (color == "red"), is_white = (color == "white")) %>%
-    summarize(num_red = sum(is_red), num_white = sum(is_white)) %>%
+    mutate(is_red = (color == "red"), 
+           is_white = (color == "white")) %>%
+    summarize(num_red = sum(is_red), 
+              num_white = sum(is_white), 
+              .groups = "drop") %>%
     mutate(prop_red = num_red / (num_red + num_white)) %>%
     mutate(estimated_red = prop_red * 1500)
 }
 
-tibble(sample_size = c(1:5, seq(from = 6, to = 40, by = 2)), num_reps = c(50, 100, 50, 100)) %>%
-  mutate(sample_results = map2(sample_size, num_reps, ~ sample_urn(size = .x, reps = .y))) %>%
+tibble(sample_size = c(1:5, seq(from = 6, to = 40, by = 2)), 
+       num_reps = c(50, 100, 50, 100)) %>%
+  mutate(sample_results = map2(sample_size, num_reps, 
+                               ~ sample_urn(size = .x, reps = .y))) %>%
   unnest(cols = sample_results)
 ```
 
 ```{r sd9-hint, eval = FALSE}
-tibble(sample_size = c(1:5, seq(from = 6, to = 40, by = 2)), num_reps = ...)
+tibble(sample_size = c(1:5, seq(from = 6, to = 40, by = 2)), 
+       num_reps = ...)
 ```
 
 ###
@@ -601,18 +616,25 @@ Great job! From this graph, we can see the general trend that standard deviation
 
 To make the relationship between standard deviation and sample size much easier to see, finish your graph by changing the number of `reps` per sample from 50 to 500 (you'll have to change the number inside the `rep()` function).
 
-```{r sd14, exercise = TRUE, message = FALSE, exercise.lines = 20}
+<!-- DK: Again, end with a graphic and require that the student reproduce it. -->
+
+```{r sd14, exercise = TRUE,  exercise.lines = 20}
 sample_urn <- function(size, reps) {
   urn %>%
     rep_sample_n(size = size, reps = reps, replace = TRUE) %>%
-    mutate(is_red = (color == "red"), is_white = (color == "white")) %>%
-    summarize(num_red = sum(is_red), num_white = sum(is_white)) %>%
+    mutate(is_red = (color == "red"), 
+           is_white = (color == "white")) %>%
+    summarize(num_red = sum(is_red), 
+              num_white = sum(is_white), 
+              .groups = "drop") %>%
     mutate(prop_red = num_red / (num_red + num_white)) %>%
     mutate(estimated_red = prop_red * 1500)
 }
 
-tibble(sample_size = c(1:5, seq(from = 6, to = 40, by = 2)), num_reps = rep(50, 23)) %>%
-  mutate(sample_results = map2(sample_size, num_reps, ~ sample_urn(size = .x, reps = .y))) %>%
+tibble(sample_size = c(1:5, seq(from = 6, to = 40, by = 2)), 
+       num_reps = rep(50, 23)) %>%
+  mutate(sample_results = map2(sample_size, num_reps, 
+                               ~ sample_urn(size = .x, reps = .y))) %>%
   unnest(cols = sample_results) %>%
   group_by(sample_size) %>%
   summarize(sd_red = sd(estimated_red)) %>%
@@ -624,7 +646,8 @@ tibble(sample_size = c(1:5, seq(from = 6, to = 40, by = 2)), num_reps = rep(50, 
 ```
 
 ```{r sd14-hint, eval = FALSE}
-tibble(sample_size = c(1:5, seq(from = 6, to = 40, by = 2)), num_reps = rep(...))
+tibble(sample_size = c(1:5, seq(from = 6, to = 40, by = 2)), 
+       num_reps = rep(...))
 ```
 
 
