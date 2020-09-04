@@ -35,6 +35,7 @@ Imports:
     nycflights13,
     gt (>= 0.2.1),
     learnr (>= 0.10.1),
+    infer,
     base64enc,
     testthat,
     rmarkdown
