@@ -39,16 +39,8 @@ question_text(
 )
 ```
 
-
-
 ## The "virtual shovel"
 ###
-
-
-```{r urn}
-# urn <- tibble(color = c(rep("red", 925), rep("white", 575))) %>%
-#  slice_sample(prop = 1)
-```
 
 I have created a virtual urn with some unknown amount of red beads and white beads. Your goal will eventually be to estimate the number of red beads in the urn.
 
@@ -60,17 +52,17 @@ View the urn by simply typing `urn` in window below and hitting Run Code.
 
 ###
 
-It seems that there are 1,500 beads in the urn (i.e. 1,500 rows in our tibble), but is this really the case? Run `nrow()` on `urn` to figure out how many beads are really in the urn.
+It seems that there are 1,500 beads in the urn (i.e. 1,500 rows in our tibble), but is this really the case? Run `nrow()` on `urn` to confirm how many beads are really in the urn.
 
-```{r shovel2, exercise = TRUE, exercise.setup = "urn"}
+```{r shovel2, exercise = TRUE}
 
 ```
 
 ###
 
-Using dplyr functions, it would be pretty easy to find the exact number of red beads in the urn. However, this is not always possible in the real world. To simulate the process of real-world sampling, pipe `urn` into `rep_sample_n()` with a shovel `size` of 20 (i.e. the sample should have 20 observations).
+To simulate the process of real-world sampling, when we generally won't know exactly how many items are in our population, pipe `urn` into `rep_sample_n()` from the **infer** package, with a shovel `size` of 20 (i.e. the sample should have 20 observations). This simulates drawing a sample of size 20 from our urn one time.
 
-```{r shovel3, exercise = TRUE, exercise.setup = "urn"}
+```{r shovel3, exercise = TRUE}
 
 ```
 
@@ -81,9 +73,9 @@ urn %>%
 
 ###
 
-Continuing your pipe, `mutate()` two new variables: `is_red` should be a logical equal to the result of asking if `color` is "red," and `is_white` should be identical but replaced with the `color` "white." Remember to copy and paste your code from the previous exercise.
+Continuing your pipe, use `mutate()` to create two new variables: `is_red` should be a logical equal to the result of asking if `color` is "red," and `is_white` should be identical but replaced with the `color` "white." Remember to copy and paste your code from the previous exercise.
 
-```{r shovel4, exercise = TRUE, exercise.setup = "urn"}
+```{r shovel4, exercise = TRUE}
 
 ```
 
@@ -93,9 +85,9 @@ Continuing your pipe, `mutate()` two new variables: `is_red` should be a logical
 
 ###
 
-Next, use `summarize()` to create two more variables. `num_red` should be equal to the `sum()` of the `is_red` column, and `num_white` should be equal to the `sum()` of the `is_white` column. Read the textbook to understand how and why this works.
+Next, use `summarize()` to create two more variables. `num_red` should be equal to the `sum()` of the `is_red` column, and `num_white` should be equal to the `sum()` of the `is_white` column. Are you reading *The Primer* before --- or at least as the same time as --- doing this Tutorial? If not, this won't make much sense.
 
-```{r shovel5, exercise = TRUE, exercise.setup = "urn"}
+```{r shovel5, exercise = TRUE}
 
 ```
 
@@ -107,7 +99,7 @@ summarize(num_red = ..., num_white = ...)
 
 Call `mutate()` to create the variable `prop_red`, the proportion of the sampled beads that are red. Set `prop_red` equal to the number of red beads divided by the sum of the number of red beads and white beads.
 
-```{r shovel6, exercise = TRUE, exercise.setup = "urn"}
+```{r shovel6, exercise = TRUE}
 
 ```
 
@@ -119,17 +111,17 @@ Call `mutate()` to create the variable `prop_red`, the proportion of the sampled
 
 Finally, use `mutate()` one more time to create the `estimated_red` variable, our estimate of the number of red beads in the urn. `estimated_red` should be equal to `prop_red` multiplied by 1,500, the total number of beads.
 
-```{r shovel7, exercise = TRUE, exercise.setup = "urn"}
+```{r shovel7, exercise = TRUE}
 
 ```
 
 ###
 
-Nice work! Running the code below gives us a way to virtually sample our urn in 20-bead increments. Notice that running the code multiple times gives us different estimates for the number of red beads in the urn.
+Nice work! Running the code below gives us a way to virtually sample our urn in 20-bead increments. Notice that running the code multiple times gives us different estimates for the number of red beads in the urn. each time we re-run the code, `rep_sample_n()` grabs a different sample from the urn.
 
-Therefore, our next step will be to use our "virtual shovel" 50 times and create a distribution of the results. Start by changing the `reps` argument of `rep_sample_n()` to 50 and its `replace` argument to `TRUE` (this is equivalent to sampling with replacement, which is what we want).
+Therefore, our next step will be to use our "virtual shovel" 50 times and create a distribution of the results. Start by settibg the `reps` argument of `rep_sample_n()` to 50. Implictly, up till now it has been 1, which is its default value.  Also, set the `replace` argument to `TRUE` (this is equivalent to sampling with replacement, which is what we want). You will also need to set the `.groups` argument in summarize to something like "drop" to get rid of the annoying warning.
 
-```{r shovel8, exercise = TRUE, exercise.setup = "urn", exercise.lines = 7}
+```{r shovel8, exercise = TRUE, exercise.lines = 7}
 urn %>%
   rep_sample_n(size = 20) %>%
   mutate(is_red = (color == "red"), is_white = (color == "white")) %>%
@@ -142,7 +134,7 @@ urn %>%
 
 Use `ggplot()` and `geom_histogram()` to create a histogram that maps our 50 values of `estimated_red` to the x-axis.
 
-```{r shovel9, exercise = TRUE, exercise.setup = "urn"}
+```{r shovel9, exercise = TRUE}
 
 ```
 
@@ -150,7 +142,7 @@ Use `ggplot()` and `geom_histogram()` to create a histogram that maps our 50 val
 
 Let's make our graph easier to read by setting the histogram's `binwidth` to 75 and `color` to "white."
 
-```{r shovel10, exercise = TRUE, exercise.setup = "urn"}
+```{r shovel10, exercise = TRUE}
 
 ```
 
@@ -158,10 +150,12 @@ Let's make our graph easier to read by setting the histogram's `binwidth` to 75 
 
 We can use the `breaks` argument of a `scale_` function, alongside the `seq()` function, to reset the location of the tick marks on either axis. Run the code below to see how we can reset the tick marks on the y-axis to the even numbers from 0 to 20.
 
-```{r shovel11, exercise = TRUE, exercise.setup = "urn", exercise.lines = 10}
+```{r shovel11, exercise = TRUE, exercise.lines = 10}
 urn %>%
   rep_sample_n(size = 20, reps = 50, replace = TRUE) %>%
-  mutate(is_red = (color == "red"), is_white = (color == "white")) %>%
+  mutate(is_red = (color == "red"), 
+         is_white = (color == "white"), 
+         .groups = "drop") %>%
   summarize(num_red = sum(is_red), num_white = sum(is_white)) %>%
   mutate(prop_red = num_red / (num_red + num_white)) %>%
   mutate(estimated_red = prop_red * 1500) %>%
@@ -174,7 +168,7 @@ urn %>%
 
 Use `scale_x_continuous()` to reset the tick marks on the x-axis to the multiples of 100 between 0 and 1,500. Copy and paste the code from the previous exercise so you also incorporate the adjustment that we made to the y-axis.
 
-```{r shovel12, exercise = TRUE, exercise.setup = "urn"}
+```{r shovel12, exercise = TRUE}
 
 ```
 
@@ -186,23 +180,29 @@ Use `scale_x_continuous()` to reset the tick marks on the x-axis to the multiple
 
 Great job! By running the code below a few times, we can see that the number of red beads in the urn is probably something between 700 and 1,100. We'll learn more about how to refine our estimate in later sections.
 
-To finish this graph, use `labs()` to rename the x-axis label to "Estimated number of red beads based on proportion of sample." In addition, give the graph a suitable title of your choice.
+To finish this graph, use `labs()` to rename the x-axis label to "Estimated number of red beads". Set reps equal to 500, so thate everything is smoother. In addition, give the graph a suitable title of your choice. Here is our version. Yours should look something like this, but does not need to be exactly the same.
 
-```{r shovel13, exercise = TRUE, exercise.setup = "urn", exercise.lines = 11}
+```{r shovel-final}
 urn %>%
   rep_sample_n(size = 20, reps = 50, replace = TRUE) %>%
-  mutate(is_red = (color == "red"), is_white = (color == "white")) %>%
+  mutate(is_red = (color == "red"), 
+         is_white = (color == "white"), 
+         .groups = "drop") %>%
   summarize(num_red = sum(is_red), num_white = sum(is_white)) %>%
   mutate(prop_red = num_red / (num_red + num_white)) %>%
   mutate(estimated_red = prop_red * 1500) %>%
   ggplot(mapping = aes(x = estimated_red)) +
     geom_histogram(binwidth = 75, color = "white") +
     scale_y_continuous(breaks = seq(from = 0, to = 20, by = 2)) +
-    scale_x_continuous(breaks = seq(from = 0, to = 1500, by = 100))
+    scale_x_continuous(breaks = seq(from = 0, to = 1500, by = 100)) +
+  labs(title = "Range of Estimates Using Shovel of Size 20",
+       x = "Estimated number of red beads")
 ```
 
 
+```{r shovel13, exercise = TRUE, exercise.lines = 20}
 
+```
 
 
 
@@ -246,7 +246,7 @@ mean_squares(...)
 
 The code chunk below contains the code that we made in the previous exercise to sample 20 beads 50 times from our urn. To generalize this code for any sample `size` and number of `reps`, wrap the code below in a new function, `sample_urn`. `sample_urn` should have 2 parameters: `size` (equal to the `size` of the `rep_sample_n()`) and `reps` (equal to the number of `reps` in the `rep_sample_n()`).
 
-```{r map3, exercise = TRUE, exercise.setup = "urn", exercise.lines = 7}
+```{r map3, exercise = TRUE, exercise.lines = 7}
 urn %>%
   rep_sample_n(size = 20, reps = 50, replace = TRUE) %>%
   mutate(is_red = (color == "red"), is_white = (color == "white")) %>%
@@ -270,7 +270,7 @@ sample_urn <- function(...) {
 
 Nice work! Next, below the `sample_urn()` function, call `tibble()` to create a new tibble with 2 columns. `sample_size` should be equal to the vector `(20, 20, 100, 100)`, and `num_reps` should be equal to the vector `(50, 100, 50, 100)`. Remember to copy and paste your code from the previous exercise so you have the `sample_urn()` function in your code above the tibble.
 
-```{r map4, exercise = TRUE, exercise.setup = "urn"}
+```{r map4, exercise = TRUE}
 
 ```
 
@@ -282,7 +282,7 @@ tibble(sample_size = ..., )
 
 Pipe your tibble into a `mutate()` statement to create the new variable `sample_results`. For now, set `sample_results` equal to the result of a `sample_urn()` call with `size` equal to `sample_size` and `reps` equal to `num_reps`. Try to figure out why you receive an error.
 
-```{r map5, exercise = TRUE, exercise.setup = "urn"}
+```{r map5, exercise = TRUE}
 
 ```
 
@@ -290,7 +290,7 @@ Pipe your tibble into a `mutate()` statement to create the new variable `sample_
 
 Because we want to apply `sample_urn()` to every row, we need to use a purrr `map_*()` function. First, copy and paste your code from the previous exercise. Then, set `sample_results` equal to a `map()` statement with three arguments passed to it: `sample_size`, `num_reps`, and the `sample_urn()` call from the previous exercise. Again, see if you can figure out why you receive an error.
 
-```{r map6, exercise = TRUE, exercise.setup = "urn"}
+```{r map6, exercise = TRUE}
 
 ```
 
@@ -302,7 +302,7 @@ mutate(sample_results = map(..., ..., ...))
 
 We're on the right track, but we have to remember the two rules of calling expressions inside `map()` (in this case, our `sample_urn()` expression). First, begin your expression with the `~` character. Second, replace all instances of `sample_size` with `.x` and all instances of `num_reps` with `.y`. After running the function, you should not receive an error, but see if you can figure out why something is still wrong.
 
-```{r map7, exercise = TRUE, exercise.setup = "urn"}
+```{r map7, exercise = TRUE}
 
 ```
 
@@ -314,7 +314,7 @@ mutate(sample_results = map(sample_size, num_reps, ...))
 
 We finally don't get an error when we run our code! Unfortunately, the `sample_results` column is all `NULL`. This is because `map()` only works with one variable, so it can't handle our `sample_urn()` expression that uses *two* variables, `sample_size` and `num_reps`. To fix this final problem, all you need to do is replace `map()` with `map2()`. Then, continue on to the next exercise.
 
-```{r map8, exercise = TRUE, exercise.setup = "urn"}
+```{r map8, exercise = TRUE}
 
 ```
 
@@ -324,7 +324,7 @@ Fantastic work! The `sample_results` column of our tibble now contains 4 lists, 
 
 Luckily, tidyr gives us the `unnest()` function, which unnests a list column (also known as nested lists) into a tibble. Pipe the tibble into `unnest()` with the `unnest()` parameter `cols` (the columns we want to unnest) equal to `sample_results`.
 
-```{r map9, exercise = TRUE, exercise.setup = "urn", exercise.lines = 12}
+```{r map9, exercise = TRUE, exercise.lines = 12}
 sample_urn <- function(size, reps) {
   urn %>%
     rep_sample_n(size = size, reps = reps, replace = TRUE) %>%
@@ -348,7 +348,7 @@ tibble(sample_size = c(20, 20, 100, 100), num_reps = c(50, 100, 50, 100)) %>%
 
 Pipe the `unnest()`ed tibble into `ggplot()` to make a histogram that maps `estimated_red` to the x-axis.
 
-```{r map10, exercise = TRUE, exercise.setup = "urn"}
+```{r map10, exercise = TRUE}
 
 ```
 
@@ -356,7 +356,7 @@ Pipe the `unnest()`ed tibble into `ggplot()` to make a histogram that maps `esti
 
 As in the previous section, improve the aesthetics of the histogram by setting `binwidth` to 75 and `color` to "white."
 
-```{r map11, exercise = TRUE, exercise.setup = "urn"}
+```{r map11, exercise = TRUE}
 
 ```
 
@@ -364,7 +364,7 @@ As in the previous section, improve the aesthetics of the histogram by setting `
 
 The histogram is starting to look good, but we still don't see how sample size and number of samples impact our distribution. Use `facet_grid()` to facet the histogram into *rows* by `num_reps` and into *columns* by `sample_size`.
 
-```{r map12, exercise = TRUE, exercise.setup = "urn"}
+```{r map12, exercise = TRUE}
 
 ```
 
@@ -376,7 +376,7 @@ The histogram is starting to look good, but we still don't see how sample size a
 
 It's really hard to tell what exactly the difference is between the two rows and the two columns. Set the `labeller` parameter of `facet_grid()` to "label_both" to clarify the graph's facets.
 
-```{r map13, exercise = TRUE, exercise.setup = "urn"}
+```{r map13, exercise = TRUE}
 
 ```
 
@@ -386,7 +386,7 @@ Great job! This graph tells us a lot about the impact of sample size and number 
 
 Finish your graph by using `labs()` to insert a title of your choice.
 
-```{r map14, exercise = TRUE, exercise.setup = "urn", exercise.lines = 16}
+```{r map14, exercise = TRUE, exercise.lines = 16}
 sample_urn <- function(size, reps) {
   urn %>%
     rep_sample_n(size = size, reps = reps, replace = TRUE) %>%
@@ -486,7 +486,7 @@ Now that have an intuitive understanding of how standard deviation works, let's 
 
 Let's start by adjusting our `sample_size` vector (the first line of code in the bottom pipe). For now, set `sample_size` equal to the result of a `seq()` statement that has every even number `from` 6 `to` 40. Don't worry if you get an error (you should).
 
-```{r sd6, exercise = TRUE, exercise.setup = "urn", message = FALSE, exercise.lines = 13}
+```{r sd6, exercise = TRUE, message = FALSE, exercise.lines = 13}
 sample_urn <- function(size, reps) {
   urn %>%
     rep_sample_n(size = size, reps = reps, replace = TRUE) %>%
@@ -509,7 +509,7 @@ tibble(sample_size = seq(from = ..., to = ..., by = ...), num_reps = c(50, 100, 
 
 To refine our `sample_size` vector, use the `c()` function to set `sample_size` equal to the first five integers (`1:5`) combined with the `seq()` statement from the previous exercise. Remember to copy and paste your code from the previous exercise, and again, ignore the error for the time being.
 
-```{r sd7, exercise = TRUE, exercise.setup = "urn", message = FALSE}
+```{r sd7, exercise = TRUE, message = FALSE}
 
 ```
 
@@ -529,7 +529,7 @@ rep(14, 30)
 
 The reason why we get an error is because our `num_reps` vector is not the same length is our `sample_size` vector. To fix the problem, use `rep()` to set `num_reps` equal to the number 50 repeated 23 times.
 
-```{r sd9, exercise = TRUE, exercise.setup = "urn", message = FALSE, exercise.lines = 13}
+```{r sd9, exercise = TRUE, message = FALSE, exercise.lines = 13}
 sample_urn <- function(size, reps) {
   urn %>%
     rep_sample_n(size = size, reps = reps, replace = TRUE) %>%
@@ -552,7 +552,7 @@ tibble(sample_size = c(1:5, seq(from = 6, to = 40, by = 2)), num_reps = ...)
 
 Nice work! Let's continue our pipe after the `unnest()` call by using `group_by()` to group the pipe by `sample_size`.
 
-```{r sd10, exercise = TRUE, exercise.setup = "urn", message = FALSE}
+```{r sd10, exercise = TRUE, message = FALSE}
 
 ```
 
@@ -560,7 +560,7 @@ Nice work! Let's continue our pipe after the `unnest()` call by using `group_by(
 
 Continue the pipe by using `summarize()` to create the variable `sd_red`. `sd_red` should be equal to the standard deviation of the `estimated_red` variable in each group.
 
-```{r sd11, exercise = TRUE, exercise.setup = "urn", message = FALSE}
+```{r sd11, exercise = TRUE, message = FALSE}
 
 ```
 
@@ -568,7 +568,7 @@ Continue the pipe by using `summarize()` to create the variable `sd_red`. `sd_re
 
 Pipe the tibble into `ggplot()` to create a scatterplot that maps `sample_size` to the x-axis and `sd_red` to the y-axis.
 
-```{r sd12, exercise = TRUE, exercise.setup = "urn", message = FALSE}
+```{r sd12, exercise = TRUE, message = FALSE}
 
 ```
 
@@ -576,7 +576,7 @@ Pipe the tibble into `ggplot()` to create a scatterplot that maps `sample_size` 
 
 Finally, use `labs()` to set the `x`-axis label to "Sample size," the `y`-axis label to "Standard deviation of the number of red beads," and the graph's `title` to "How sample size affects the standard deviation of the sample."
 
-```{r sd13, exercise = TRUE, exercise.setup = "urn", message = FALSE}
+```{r sd13, exercise = TRUE, message = FALSE}
 
 ```
 
@@ -586,7 +586,7 @@ Great job! From this graph, we can see the general trend that standard deviation
 
 To make the relationship between standard deviation and sample size much easier to see, finish your graph by changing the number of `reps` per sample from 50 to 500 (you'll have to change the number inside the `rep()` function).
 
-```{r sd14, exercise = TRUE, exercise.setup = "urn", message = FALSE, exercise.lines = 20}
+```{r sd14, exercise = TRUE, message = FALSE, exercise.lines = 20}
 sample_urn <- function(size, reps) {
   urn %>%
     rep_sample_n(size = size, reps = reps, replace = TRUE) %>%
@@ -817,7 +817,7 @@ Fantastic job! From this graph, we can see that the most likely outcome for the 
 
 To finish off this tutorial, you probably want to know how many red beads are actually in the urn. Below the `ggplot()`, pipe `urn` into a `count()` statement that takes `color` as its argument.
 
-```{r posterior17, exercise = TRUE, exercise.setup = "urn", exercise.lines = 20}
+```{r posterior17, exercise = TRUE, exercise.lines = 20}
 sample_given_urn <- function(red_in_urn) {
   rep_sample_n(tibble(color = c(rep("red", red_in_urn), rep("white", 1500 - red_in_urn))),
                size = 45, reps = 1000, replace = TRUE) %>%
