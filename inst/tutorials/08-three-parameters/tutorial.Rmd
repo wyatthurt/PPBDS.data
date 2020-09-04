@@ -7,7 +7,7 @@ output:
       progressive: true
       allow_skip: true
 runtime: shiny_prerendered
-description: "Chapter 6 tutorial"
+description: "Chapter 8 tutorial"
 ---
 
 ```{r setup, include=FALSE}
