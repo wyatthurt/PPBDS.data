@@ -125,7 +125,8 @@ Therefore, our next step will be to use our "virtual shovel" 50 times and create
 urn %>%
   rep_sample_n(size = 20) %>%
   mutate(is_red = (color == "red"), is_white = (color == "white")) %>%
-  summarize(num_red = sum(is_red), num_white = sum(is_white)) %>%
+  summarize(num_red = sum(is_red), 
+            num_white = sum(is_white)) %>%
   mutate(prop_red = num_red / (num_red + num_white)) %>%
   mutate(estimated_red = prop_red * 1500)
 ```
@@ -156,7 +157,8 @@ urn %>%
   mutate(is_red = (color == "red"), 
          is_white = (color == "white"), 
          .groups = "drop") %>%
-  summarize(num_red = sum(is_red), num_white = sum(is_white)) %>%
+  summarize(num_red = sum(is_red), 
+            num_white = sum(is_white)) %>%
   mutate(prop_red = num_red / (num_red + num_white)) %>%
   mutate(estimated_red = prop_red * 1500) %>%
   ggplot(mapping = aes(x = estimated_red)) +
@@ -188,7 +190,8 @@ urn %>%
   mutate(is_red = (color == "red"), 
          is_white = (color == "white"), 
          .groups = "drop") %>%
-  summarize(num_red = sum(is_red), num_white = sum(is_white)) %>%
+  summarize(num_red = sum(is_red), 
+            num_white = sum(is_white)) %>%
   mutate(prop_red = num_red / (num_red + num_white)) %>%
   mutate(estimated_red = prop_red * 1500) %>%
   ggplot(mapping = aes(x = estimated_red)) +
@@ -248,8 +251,11 @@ The code chunk below contains the code that we made in the previous exercise to 
 ```{r map3, exercise = TRUE, exercise.lines = 7}
 urn %>%
   rep_sample_n(size = 20, reps = 50, replace = TRUE) %>%
-  mutate(is_red = (color == "red"), is_white = (color == "white")) %>%
-  summarize(num_red = sum(is_red), num_white = sum(is_white)) %>%
+  mutate(is_red = (color == "red"), 
+         is_white = (color == "white")) %>%
+  summarize(num_red = sum(is_red), 
+            num_white = sum(is_white), 
+            .groups = "drop") %>%
   mutate(prop_red = num_red / (num_red + num_white)) %>%
   mutate(estimated_red = prop_red * 1500)
 ```
@@ -259,7 +265,9 @@ sample_urn <- function(...) {
   urn %>%
     rep_sample_n(size = ..., reps = ..., replace = TRUE) %>%
     mutate(is_red = (color == "red"), is_white = (color == "white")) %>%
-    summarize(num_red = sum(is_red), num_white = sum(is_white)) %>%
+    summarize(num_red = sum(is_red), 
+              num_white = sum(is_white), 
+              .groups = "drop") %>%
     mutate(prop_red = num_red / (num_red + num_white)) %>%
     mutate(estimated_red = prop_red * 1500)
 }
@@ -333,7 +341,9 @@ sample_urn <- function(size, reps) {
   urn %>%
     rep_sample_n(size = size, reps = reps, replace = TRUE) %>%
     mutate(is_red = (color == "red"), is_white = (color == "white")) %>%
-    summarize(num_red = sum(is_red), num_white = sum(is_white)) %>%
+    summarize(num_red = sum(is_red), 
+              num_white = sum(is_white), 
+              .groups = "drop") %>%
     mutate(prop_red = num_red / (num_red + num_white)) %>%
     mutate(estimated_red = prop_red * 1500)
 }
@@ -400,13 +410,17 @@ sample_urn <- function(size, reps) {
   urn %>%
     rep_sample_n(size = size, reps = reps, replace = TRUE) %>%
     mutate(is_red = (color == "red"), is_white = (color == "white")) %>%
-    summarize(num_red = sum(is_red), num_white = sum(is_white)) %>%
+    summarize(num_red = sum(is_red), 
+              num_white = sum(is_white), 
+              .groups = "drop") %>%
     mutate(prop_red = num_red / (num_red + num_white)) %>%
     mutate(estimated_red = prop_red * 1500)
 }
 
-tibble(sample_size = c(20, 20, 100, 100), num_reps = c(50, 100, 50, 100)) %>%
-  mutate(sample_results = map2(sample_size, num_reps, ~ sample_urn(size = .x, reps = .y))) %>%
+tibble(sample_size = c(20, 20, 100, 100), 
+       num_reps = c(50, 100, 50, 100)) %>%
+  mutate(sample_results = map2(sample_size, num_reps, 
+                               ~ sample_urn(size = .x, reps = .y))) %>%
   unnest(cols = sample_results) %>%
   ggplot(mapping = aes(x = estimated_red)) +
     geom_histogram(binwidth = 75, color = "white") +
@@ -414,20 +428,12 @@ tibble(sample_size = c(20, 20, 100, 100), num_reps = c(50, 100, 50, 100)) %>%
 ```
 
 
-
-
-
-
-
-
-
-
 ## Standard deviation
 ###
 
 In the last section, we figured out that an increase in sample size leads to greater precision in the sampling distribution. But how can we mathematically measure this increase in precision? The standard deviation of a set of values gives us a mathetmatical framework for measuring precision---reread chapter 2 in the textbook if you don't remember how to use it.
 
-In the code cunk below, run `sd()` (the function that returns standard deviation) on the vector `(1, 2, 3, 4, 5)`.
+In the code cunk below, run `sd()` (the function that returns standard deviation) on the vector `c(1, 2, 3, 4, 5)`.
 
 ```{r sd1, exercise = TRUE}
 
@@ -439,7 +445,7 @@ In the code cunk below, run `sd()` (the function that returns standard deviation
 
 ###
 
-This time, calculate the standard deviation of the vector `(143, 144, 145, 146, 147)`. See if you can predict what the result will be before you run the code.
+This time, calculate the standard deviation of the vector `c(143, 144, 145, 146, 147)`. See if you can predict what the result will be before you run the code.
 
 ```{r sd2, exercise = TRUE}
 
@@ -451,7 +457,7 @@ This time, calculate the standard deviation of the vector `(143, 144, 145, 146, 
 
 ###
 
-Calculate the standard deviation of the vector `(2, 3, 4)` and compare the result to the results from the previous two exercises.
+Calculate the standard deviation of the vector `c(2, 3, 4)` and compare the result to the results from the previous two exercises.
 
 ```{r sd3, exercise = TRUE}
 
@@ -459,7 +465,7 @@ Calculate the standard deviation of the vector `(2, 3, 4)` and compare the resul
 
 ###
 
-Calculate the standard deviation of the vector `(7, 7, 7, 7, 7)`. See if you can predict the result before you run the code.
+Calculate the standard deviation of the vector `c(7, 7, 7, 7, 7)`. See if you can predict the result before you run the code.
 
 ```{r sd4, exercise = TRUE}
 
