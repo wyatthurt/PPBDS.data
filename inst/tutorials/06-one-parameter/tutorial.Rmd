@@ -205,13 +205,10 @@ urn %>%
 ```
 
 
-
-
-
 ## Multiple sample sizes
 ###
 
-In this section, we're going to analyze the effect of increased sample size and increased number of samples through purrr's `map()` family of functions.
+In this section, we're going to analyze the effect of increased sample size and increased number of samples by using the `map()` family of functions from the **purrr** package, which is part of the Tidyverse.
 
 Let's start by practicing how to create our own functions. Run the code below to see how we can define a function that rounds a number's square root to the nearest integer.
 
@@ -225,7 +222,7 @@ rounded_sqrt(7)
 
 ###
 
-In the code chunk below, write a function `mean_squares()` that calculates the `mean()` of the squares of two numbers, `x` and `y`. Then, use your function to calcuate the mean of $6^2$ and $14^2$. Remember that `mean()` takes in a vector as its input.
+In the code chunk below, write a function `mean_squares()` that calculates the `mean()` of the squares of two numbers, `x` and `y`. Then, use your function to calcuate the mean of $6^2$ and $14^2$. Remember that `mean()` takes in a vector as its input. Your answer when you run `mean_squares(6, 14)` should be 116.
 
 ```{r map2, exercise = TRUE}
 
@@ -243,6 +240,8 @@ mean_squares(...)
 ```
 
 ###
+
+<!-- DK: I don't like the way that this code just assumes that urn is floating around in the global namespace. Didn't we fix this in the chapter? You should be forced to pass in the urn. -->
 
 The code chunk below contains the code that we made in the previous exercise to sample 20 beads 50 times from our urn. To generalize this code for any sample `size` and number of `reps`, wrap the code below in a new function, `sample_urn`. `sample_urn` should have 2 parameters: `size` (equal to the `size` of the `rep_sample_n()`) and `reps` (equal to the number of `reps` in the `rep_sample_n()`).
 
@@ -275,12 +274,13 @@ Nice work! Next, below the `sample_urn()` function, call `tibble()` to create a 
 ```
 
 ```{r map4-hint, eval = FALSE}
-tibble(sample_size = ..., )
+tibble(sample_size = ..., 
+       num_reps = ...)
 ```
 
 ###
 
-Pipe your tibble into a `mutate()` statement to create the new variable `sample_results`. For now, set `sample_results` equal to the result of a `sample_urn()` call with `size` equal to `sample_size` and `reps` equal to `num_reps`. Try to figure out why you receive an error.
+Pipe your tibble into a `mutate()` statement to create the new variable `sample_results`. Although it will produce an error, set `sample_results` equal to the result of a `sample_urn()` called with `size` equal to `sample_size` and `reps` equal to `num_reps`. Try to figure out why you received this error.
 
 ```{r map5, exercise = TRUE}
 
@@ -288,14 +288,18 @@ Pipe your tibble into a `mutate()` statement to create the new variable `sample_
 
 ###
 
-Because we want to apply `sample_urn()` to every row, we need to use a purrr `map_*()` function. First, copy and paste your code from the previous exercise. Then, set `sample_results` equal to a `map()` statement with three arguments passed to it: `sample_size`, `num_reps`, and the `sample_urn()` call from the previous exercise. Again, see if you can figure out why you receive an error.
+<!-- DK: This is too hard! Why use map2? -->
+
+Because we want to apply `sample_urn()` to every row, we need to use a **purrr** `map_*()` function. First, copy and paste your code from the previous exercise. Then, set `sample_results` equal to a `map()` statement with three arguments passed to it: `sample_size`, `num_reps`, and the `sample_urn()` call from the previous exercise. Again, see if you can figure out why you receive an error.
 
 ```{r map6, exercise = TRUE}
 
 ```
 
 ```{r map6-hint, eval = FALSE}
-mutate(sample_results = map(..., ..., ...))
+tibble(sample_size = c(20, 20, 100, 100), 
+       num_reps = c(50, 100, 50, 100)) %>%
+  mutate(sample_results = map(..., ..., ...))
 ```
 
 ###
@@ -334,13 +338,16 @@ sample_urn <- function(size, reps) {
     mutate(estimated_red = prop_red * 1500)
 }
 
-tibble(sample_size = c(20, 20, 100, 100), num_reps = c(50, 100, 50, 100)) %>%
-  mutate(sample_results = map2(sample_size, num_reps, ~ sample_urn(size = .x, reps = .y)))
+tibble(sample_size = c(20, 20, 100, 100), 
+       num_reps = c(50, 100, 50, 100)) %>%
+  mutate(sample_results = map2(sample_size, num_reps, 
+                               ~ sample_urn(size = .x, reps = .y)))
 ```
 
 ```{r map9-hint, eval = FALSE}
 tibble(sample_size = c(20, 20, 100, 100), num_reps = c(50, 100, 50, 100)) %>%
-  mutate(sample_results = map2(sample_size, num_reps, ~ sample_urn(size = .x, reps = .y))) %>%
+  mutate(sample_results = map2(sample_size, num_reps, 
+                               ~ sample_urn(size = .x, reps = .y))) %>%
   unnest(...)
 ```
 
@@ -381,6 +388,8 @@ It's really hard to tell what exactly the difference is between the two rows and
 ```
 
 ###
+
+<!-- DK: Show the final graph and then ask the student to replicate it. -->
 
 Great job! This graph tells us a lot about the impact of sample size and number of samples on a distribution. As we go from the graphs on the left to the graphs on the right (an increase in sample size), the distributions become much more concentrated around the mean. Also, as we go from the graphs on the top to the graphs on the bottom (an increase in number of samples), the graphs become substantially more similar to a smooth curve---in other words, there is less variance in the height of the bars.
 
