@@ -10,6 +10,13 @@ runtime: shiny_prerendered
 description: "Chapter 6 tutorial"
 ---
 
+<!-- Things to Fix: -->
+
+<!-- 0) Find all the DK comments and address them -->
+<!-- 1) Do not use map2. It is too much for this tutorial. Just fix one of the numbers and only allow the other one to change. Save map2 for the problem set. -->
+<!-- 2) Each section finishes with a nice plot. The student is show the plot in the last step and told to, approximately, replicate it. Of course, this will just involve adding a couple of items to whatever was the version in the second to last question. -->
+
+
 ```{r setup, include=FALSE}
 library(tidyverse)
 library(PPBDS.data)

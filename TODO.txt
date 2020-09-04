@@ -12,7 +12,10 @@ Fix the two exercises which I had to comment out.
 
 Best way to allow students to ctach up is, every few questions, have a "hint" which shows all the code up yill now, and then also a part of the current step. Don't forget eval=FALSE if there are ... in the hint.
 
+I like the way Jake did this:
 
+## The "virtual shovel"
+###
 
 Talk about Open Policing. Maybe San Antonia?
 
