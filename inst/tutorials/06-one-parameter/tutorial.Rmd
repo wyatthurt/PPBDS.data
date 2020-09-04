@@ -553,7 +553,7 @@ rep(14, 30)
 
 The reason why we get an error is because our `num_reps` vector is not the same length is our `sample_size` vector. To fix the problem, use `rep()` to set `num_reps` equal to the number 50 repeated 23 times.
 
-```{r sd9, exercise = TRUE, exercise.lines = 13}
+```{r sd9, exercise = TRUE, exercise.lines = 13, eval=FALSE}
 sample_urn <- function(size, reps) {
   urn %>%
     rep_sample_n(size = size, reps = reps, replace = TRUE) %>%
@@ -682,12 +682,13 @@ Next, let's take some samples from our table using `rep_sample_n()`. The first p
 ```
 
 ```{r posterior2-hint, eval = FALSE}
-rep_sample_n(tibble(...), size = ..., reps = ..., replace = ...)
+tibble(...) %>% 
+  rep_sample_n(size = ..., reps = ..., replace = ...)
 ```
 
 ###
 
-Pipe your `rep_sample_n()` statement into `group_by()` to group the tibble by the `replicate` variable.
+Pipe what you have into `group_by()` to group the tibble by the `replicate` variable.
 
 ```{r posterior3, exercise = TRUE}
 
@@ -695,7 +696,7 @@ Pipe your `rep_sample_n()` statement into `group_by()` to group the tibble by th
 
 ###
 
-Using `summarize()`, create the variable `red_in_sample`. `red_in_sample` should be equal to the `sum()` of the number of rows in each group with `color` equal to "red."
+Using `summarize()`, create the variable `red_in_sample`, which should be equal to the `sum()` of the number of rows in each group with `color` equal to "red."
 
 ```{r posterior4, exercise = TRUE}
 
@@ -715,10 +716,10 @@ We now have code that makes 1,000 random samples from our 800-red-bead urn, but 
 
 ```{r posterior5-hint, eval = FALSE}
 sample_given_urn <- function(...) {
-  rep_sample_n(tibble(color = c(rep("red", ...), rep("white", ...))),
-               size = 45, reps = 1000, replace = TRUE) %>%
+  tibble(color = c(rep("red", ...), rep("white", ...))) %>% 
+    rep_sample_n(size = 45, reps = 1000, replace = TRUE) %>%
     group_by(replicate) %>%
-    summarize(red_in_sample = sum(color == "red"))
+    summarize(red_in_sample = sum(color == "red"), .groups = "drop")
 }
 ```
 
@@ -729,11 +730,12 @@ Great job! We now have a function that will randomly generate 1,000 45-bead samp
 To get a sense of how our function works, call `sample_given_urn()` below the function definition to calculate 1,000 random samples from an urn with 650 red beads.
 
 ```{r posterior6, exercise = TRUE, exercise.lines = 7}
-sample_given_urn <- function(red_in_urn) {
-  rep_sample_n(tibble(color = c(rep("red", red_in_urn), rep("white", 1500 - red_in_urn))),
-               size = 45, reps = 1000, replace = TRUE) %>%
+sample_given_urn <- function(red_in_urn){
+  tibble(color = c(rep("red", red_in_urn), 
+                   rep("white", 1500 - red_in_urn))) %>% 
+    rep_sample_n(size = 45, reps = 1000, replace = TRUE) %>%
     group_by(replicate) %>%
-    summarize(red_in_sample = sum(color == "red"))
+    summarize(red_in_sample = sum(color == "red"), .groups = "drop")
 }
 ```
 
@@ -744,11 +746,12 @@ Now, below the function definition, call `tibble()` to create a new tibble with 
 One quick note---if this were a serious sampling problem, we would create a tibble with every integer between 0 and 1,500 (representing all possible combinations of red and white beads in our urn). However, since that code would take a couple minutes to run, we'll keep it to multiples of 25 in this tutorial.
 
 ```{r posterior7, exercise = TRUE, exercise.lines = 7}
-sample_given_urn <- function(red_in_urn) {
-  rep_sample_n(tibble(color = c(rep("red", red_in_urn), rep("white", 1500 - red_in_urn))),
-               size = 45, reps = 1000, replace = TRUE) %>%
+sample_given_urn <- function(red_in_urn){
+  tibble(color = c(rep("red", red_in_urn), 
+                   rep("white", 1500 - red_in_urn))) %>% 
+    rep_sample_n(size = 45, reps = 1000, replace = TRUE) %>%
     group_by(replicate) %>%
-    summarize(red_in_sample = sum(color == "red"))
+    summarize(red_in_sample = sum(color == "red"), .groups = "drop")
 }
 ```
 
@@ -785,11 +788,12 @@ Nice job! Unfortunately, we are now left with a list column. Just as we did in t
 Continuing your pipe, group the tibble by `nums`.
 
 ```{r posterior11, exercise = TRUE, exercise.lines = 11}
-sample_given_urn <- function(red_in_urn) {
-  rep_sample_n(tibble(color = c(rep("red", red_in_urn), rep("white", 1500 - red_in_urn))),
-               size = 45, reps = 1000, replace = TRUE) %>%
+sample_given_urn <- function(red_in_urn){
+  tibble(color = c(rep("red", red_in_urn), 
+                   rep("white", 1500 - red_in_urn))) %>% 
+    rep_sample_n(size = 45, reps = 1000, replace = TRUE) %>%
     group_by(replicate) %>%
-    summarize(red_in_sample = sum(color == "red"))
+    summarize(red_in_sample = sum(color == "red"), .groups = "drop")
 }
 
 tibble(nums = seq(from = 650, to = 1150, by = 25)) %>%
@@ -856,18 +860,19 @@ Fantastic job! From this graph, we can see that the most likely outcome for the 
 To finish off this tutorial, you probably want to know how many red beads are actually in the urn. Below the `ggplot()`, pipe `urn` into a `count()` statement that takes `color` as its argument.
 
 ```{r posterior17, exercise = TRUE, exercise.lines = 20}
-sample_given_urn <- function(red_in_urn) {
-  rep_sample_n(tibble(color = c(rep("red", red_in_urn), rep("white", 1500 - red_in_urn))),
-               size = 45, reps = 1000, replace = TRUE) %>%
+sample_given_urn <- function(red_in_urn){
+  tibble(color = c(rep("red", red_in_urn), 
+                   rep("white", 1500 - red_in_urn))) %>% 
+    rep_sample_n(size = 45, reps = 1000, replace = TRUE) %>%
     group_by(replicate) %>%
-    summarize(red_in_sample = sum(color == "red"))
+    summarize(red_in_sample = sum(color == "red"), .groups = "drop")
 }
 
 tibble(nums = seq(from = 650, to = 1150, by = 25)) %>%
   mutate(sample_results = map(nums, ~ sample_given_urn(.x))) %>%
   unnest(cols = sample_results) %>%
   group_by(nums) %>%
-  summarize(num_samples = sum(red_in_sample == 28)) %>%
+  summarize(num_samples = sum(red_in_sample == 28), .groups = "drop") %>%
   ggplot(mapping = aes(x = nums, y = 100 * num_samples / sum(num_samples))) +
     geom_col() +
     scale_x_continuous(breaks = seq(from = 650, to = 1150, by = 50)) +
