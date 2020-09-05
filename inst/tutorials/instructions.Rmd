@@ -28,7 +28,15 @@ If you are new to R/RStudio/Markdown, then read [this intro book](https://ismayc
 
 * Do not provide answers. There is no need to grade what the students submit.
 
-* You do not always need to provide a hint, but it is often useful to do so. If you provide a hint, make sure to have `eval=FALSE` as an R code chunk option. This is needed because the hints will often include ... and other symbols which do not run as correct R code. So, we need to tell R not to run it. All code in a tutorial must work unless it has `eval=FALSE` as a code chunk option.
+* You do not always need to provide a hint, but it is often useful to do so. If you provide a hint, make sure to have `eval=FALSE` as an R code chunk option. This is needed because the hints will often include ... and other symbols which do not run as correct R code. So, we need to tell R not to run it. All code in a tutorial must work unless it has `eval=FALSE` as a code chunk option. If you give a hint which is mostly text, use hash marks to mark it as a code comment within the hint code chunk. This causes it to print out more nicely. Example:
+
+````
+```{r gj-2-5-hint, eval=FALSE}
+ # Note that this is a bit tricky. There are two --- completely separate! ---
+ # meanings of `x` in this problem. First, `x` is the name of a variable in the
+ # `diamonds` dataset which measures the length of each diamond.
+```
+````
 
 * Be careful about defining an object in one question and then assuming that it will be available in subsequent questions. For example, if you ask students to create a function `five_flips()` that flips a coin five times, you need to be careful about assuming that that function is around later for students to use. Why would it be? What if they got that question wrong? Better that that be a stand-alone question. If you need a function like that later, just define, at the start of this new question, however you like. Then ask the student to use that. 
 

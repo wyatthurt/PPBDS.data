@@ -1961,7 +1961,7 @@ Well done. Now let's add some labels. Title our plot "Size and Price in Diamonds
 
 ###
 
-Good stuff. Now, use what you've learned to recreate the plot below. The color scheme is `scale_color_distiller()`, `width` = 1, and `alpha` = 0.2. `Length` is recorded as the variable `x`.
+Good stuff. Now, use what you've learned to recreate the plot below. The color scheme is `scale_color_distiller()`, `width` = 1, and `alpha` = 0.2. `Length` is recorded as the variable `x`. 
 
 ```{r}
 ggplot(data = diamonds) +
@@ -1972,8 +1972,18 @@ ggplot(data = diamonds) +
        y = "Price (US Dollars)")
 ```
 
-```{r gj-2-5, exercise=TRUE, exercise.lines = 5}
+```{r gj-2-5, exercise=TRUE, exercise.lines = 7}
 
+```
+
+```{r gj-2-5-hint, eval=FALSE}
+ # Note that this is a bit tricky. There are two --- completely separate! ---
+ # meanings of `x` in this problem. First, `x` is the name of a variable in the
+ # `diamonds` dataset which measures the length of each diamond. (There is
+ # nothing wrong with use `x` as a variable name after all.) Second, `x` is the
+ # name of the first argument to the `aes()` function. But you can still use
+ # both of them because R is smart enough to keep the meanings separate because
+ # of how it uses the position of each in the code you write.
 ```
 
 ## Advanced Plotting - `geom_line()`
