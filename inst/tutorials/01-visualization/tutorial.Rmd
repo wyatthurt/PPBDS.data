@@ -621,7 +621,7 @@ How you deal with overplotting will depend on the cause.
 
 If your overplotting is due to rounding, you can obtain a better picture of the data by making each point semi-transparent. For example you could _set_ the alpha aesthetic of the plot below to a _value_ less than one, which will make the points transparent. 
 
-Try this now. Set the points to an alpha of 0.2, which will make each point 20% opague (i.e. five points staked on top of each other will create a solid black).
+Try this now. Set the points to an alpha of 0.2, which will make each point 20% opaque (i.e. five points staked on top of each other will create a solid black).
 
 Change the transparency of the points by setting `alpha = 0.2` within `geom_point()`.
 
@@ -987,7 +987,6 @@ Use labs(title = ..., x = ..., y = ...) to add the labels.
 ```
 
 ## `geom_boxplot()` 
-<!-- I -->
 
 ###
 
@@ -1076,7 +1075,7 @@ quiz(
 
 Using the `trains` data set, create a boxplot with `party` on the x-axis and `att_start` on the y-axis.
 
-```{r box-I-2, exercise=TRUE, exercise.lines = 10, eval=FALSE}
+```{r box-I-2, exercise=TRUE, exercise.lines = 10}
 
 ```
 
@@ -1084,51 +1083,60 @@ Using the `trains` data set, create a boxplot with `party` on the x-axis and `at
 
 Using the data set `governors`, create a boxplot where `party` is on the x-axis and `win_margin` is on the y-axis.
 
-```{r box-I-3, exercise=TRUE, eval=FALSE, exercise.lines=10}
+```{r box-I-3, exercise=TRUE, exercise.lines=10}
 
 ```
 
 ###
 
 Let's add some color! Change your previous boxplot so that it is outlined in blue
-```{r box-I-4, exercise=TRUE, eval=FALSE, exercise.lines=10}
+
+```{r box-I-4, exercise=TRUE, xercise.lines=10}
 
 ```
 
-```{r box-I-4-hint,eval=FALSE}
+```{r box-I-4-hint, eval=FALSE}
 Use the color argument and remember to put "blue" in quotes.
 ```
 
-<!-- ## `geom_boxplot()` III -->
 
 ###
 
 Let's make a boxplot using the `mpg` tibble, which shows the fuel efficiency for different types of cars. Set x = `class`, and y = `hwy`.
+
+```{r gb-1-2, exercise=TRUE, exercise.lines = 5}
+
+```
+
 
 ```{r gb-1-2-hint, eval=FALSE}
 ggplot(data = mpg, mapping = aes(x = ... , y = ... )) +
   geom_boxplot()
 ```
 
-```{r gb-1-2, exercise=TRUE, exercise.lines = 5}
 
-```
 
 ###
 
-Great! Now let's make the outliers a little bit easier to see. Set `outlier.size` to 4, and `outlier.fill` to "red".
-
-```{r gb-1-3-hint, eval=FALSE}
-Put `outlier.size` and `outlier.fill` inside of geom_boxplot().
-```
+Great! Now let's make the outliers a little bit easier to see. Set `outlier.size` to 4, and `outlier.color` to "red".
 
 ```{r gb-1-3, exercise=TRUE, exercise.lines = 5}
 
 ```
 
+```{r gb-1-3-hint, eval=FALSE}
+Put `outlier.size` and `outlier.color` inside of geom_boxplot().
+```
+
+
+
 ###
 
-Nice! Now let's add some labels using the `labs()` function. Title the plot "Highway Fuel Efficiency in Different Types of Cars", make x = "Type of Car", and make y = "Miles Per Gallon (Highway)".
+Nice! Now let's add some labels using the `labs()` function. Title the plot "Highway Fuel Efficiency in Different Types of Cars". Set x = "Type of Car" and y = "Miles Per Gallon (Highway)".
+
+```{r gb-1-4, exercise=TRUE, exercise.lines = 5}
+
+```
 
 ```{r gb-1-4-hint, eval=FALSE}
 labs(title = ...,
@@ -1136,18 +1144,16 @@ labs(title = ...,
      y = ...)
 ```
 
-```{r gb-1-4, exercise=TRUE, exercise.lines = 5}
-
-```
 
 ###
 
 Awesome! Now, use what you've learned to recreate this plot.
 
 ```{r}
-ggplot(data = mpg, mapping = aes(x = manufacturer, y = cty)) +
+ggplot(data = mpg, 
+       mapping = aes(x = manufacturer, y = cty)) +
   geom_boxplot(outlier.color = "blue") +
-  labs(title = "City Fuel Effiecnecy by Car Manufacturer",
+  labs(title = "City Fuel Efficiency by Car Manufacturer",
        x = "Manufacturer",
        y = "Miles Per Gallon (City)")
 ```
@@ -1157,7 +1163,7 @@ ggplot(data = mpg, mapping = aes(x = manufacturer, y = cty)) +
 ```
 
 ## `geom_violin()` 
-<!-- I -->
+
 
 ###
 
@@ -1190,7 +1196,7 @@ draw_quantiles = c(..., ..., ...)
 
 ###
 
-Great! Now try doubling the bandwith using the `adjust` argument in `geom_violin()`.
+Great! Now try doubling the bandwidth using the `adjust` argument in `geom_violin()`.
 
 ```{r viol-I-3, exercise=TRUE, exercise.lines=8}
 
@@ -1300,21 +1306,20 @@ ggplot(data = ..., mapping = aes(x = ...)) + ...
 
 We can now map the additional variable `party` by adding a `fill = party` inside the `aes()` aesthetic mapping.
 
-<!-- ggplot(data = trains, mapping = aes(x = treatment)) + geom_bar() -->
 
 ```{r exercise-20, exercise = TRUE, exercise.lines = 5}
 
 ```
 
 ```{r exercise-20-hint, eval=FALSE}
-ggplot(data = trains, mapping = aes(x = treatment, fill = ...)) + geom_bar()
+ggplot(data = trains, mapping = aes(x = treatment, fill = ...)) + 
+  geom_bar()
 ```
 
 ###
 
-Change `fill = party` to `color = party`. What happens?
+Change `fill = party` to `color = party`. 
 
-<!-- ggplot(data = trains, mapping = aes(x = treatment, fill = party)) + geom_bar() -->
 ```{r exercise-21, exercise = TRUE, exercise.lines = 5}
 
 ```
@@ -1323,8 +1328,6 @@ Change `fill = party` to `color = party`. What happens?
 
 Create a side-by-side barplot by adding `position = "dodge"` to `geom_bar()`.
 
-<!-- ggplot(data = trains, mapping = aes(x = treatment, fill = party)) + -->
-<!--   geom_bar() -->
 ```{r exercise-22, exercise = TRUE, exercise.lines = 5}
 
 ```
@@ -1425,7 +1428,8 @@ ggplot(data = cces, mapping = aes(x = ideology, fill = gender)) +
   geom_bar(position = "dodge")
 ```
 
-For your final challenge, recreate the above dodged bar graph. 
+For your final challenge, recreate the above dodged bar graph. Note that it uses the `cces` data, not the `trains` data.
+
 ```{r bar-I-5, exercise=TRUE, exercise.lines=7}
 
 
@@ -1984,9 +1988,7 @@ ggplot(data = economics, aes(x = date, y = unemploy)) +
 ```
 
 ```{r line-II-1-hint, eval=FALSE}
-
 Use scale_y_log10()
-
 ```
 
 ###
@@ -1995,14 +1997,10 @@ Nice! Now add commas to the y-axis.
 
 ```{r line-II-2, exercise=TRUE, exercise.lines=10}
 
-
-
 ```
 
 ```{r line-II-2-hint, eval=FALSE}
-
 Use the scales library and set labels=scales::comma inside of the scale function.
-
 ```
 
 ###
@@ -2010,8 +2008,6 @@ Use the scales library and set labels=scales::comma inside of the scale function
 Great! Now set the theme to minimalist using theme_minimal().
 
 ```{r line-II-3, exercise=TRUE, exercise.lines=10}
-
-
 
 ```
 
@@ -2021,41 +2017,34 @@ Nice! Now add the label "population" to the y axis and the title "Population Gro
 
 ```{r line-II-4, exercise=TRUE, exercise.lines=10}
 
-
-
 ```
 
 ```{r line-II-4-hint, eval=FALSE}
-
 Use labs()
 ```
 
 ###
 
-Great! Now add a limit to the y axis with a lower bound of 225,000 and an upper bound of 300,000
+Great! Now add a limit to the y axis with a lower bound of 0 and an upper bound of 20,000.
+
 ```{r line-II-5, exercise=TRUE, exercise.lines=10}
-
-
 
 ```
 
 ```{r line-II-5-hint, eval=FALSE}
-
 Use ylim().
 ```
 
-<!-- JSE - more advanced plotting for line graphs -->
 ### 
 
-Let's make a line plot using information in the `population` tibble, which annually records the populations of different nations.
+Let's make a line plot using information in the `population` tibble, which annually records the populations of different nations. Begin by running this example code for Canada. 
 
 
 ```{r gl-1-1, exercise=TRUE, exercise.lines = 5}
-country_pop <- population %>% 
-  filter(country == "Canada") 
-
-ggplot(data = country_pop, aes(x = year, y = population)) +
-  geom_line()
+population %>% 
+  filter(country == "Canada") %>% 
+  ggplot(aes(x = year, y = population)) +
+    geom_line()
 ```
 
 ###
@@ -2063,14 +2052,13 @@ ggplot(data = country_pop, aes(x = year, y = population)) +
 Nice! Now try making a plot using x = `year`, y = `population`, but with data from "Australia".
 
 ```{r gl-1-2-hint, eval=FALSE}
-population %>% filter(country == ...) %>% ggplot(aes(x = ..., y = ...)) +
-  geom_line()
+population %>% 
+  filter(country == ...) %>% 
+  ggplot(aes(x = ..., y = ...)) +
+    geom_line()
 ```
 
 ```{r gl-1-2, exercise=TRUE, exercise.lines = 5, eval=FALSE}
-country_pop <- population %>%
-  ...
-
 
 ```
 
@@ -2079,18 +2067,19 @@ country_pop <- population %>%
 Great, now let's try plotting the data from both countries on the same graph. Let's also set the `country` variable to `color`.
 
 ```{r gl-1-3-hint, eval=FALSE}
-population %>% filter(country == ... | country == ...) %>% ggplot(aes(x = ..., y = ..., color = ...)) +
-  geom_line()
+population %>% 
+  filter(country == ... | country == ...) %>% 
+  ggplot(aes(x = ..., y = ..., color = ...)) +
+    geom_line()
 ```
 
 ```{r gl-1-3, exercise=TRUE, exercise.lines = 5, eval=FALSE}
-country <- population %>%
-  ...
+
 ```
 
 ###
 
-Cool. Now, let's modify our graph with some different countries: "Japan", "China", and "India". While we're at it, let's use `labs()` to add some labels. Title the plot "Population Trends in Asian Countries", and label our x and y axis "Year" and "Population".
+Cool. Now, let's modify our graph with some different countries: "Japan", "China", and "India". While we're at it, let's use `labs()` to add some labels. Title the plot "Population Trends in Selected Asian Countries", and label our x and y axis "Year" and "Population".
 
 ```{r gl-1-4-hint, eval=FALSE}
 Use labs(title = ... +
@@ -2109,9 +2098,12 @@ Great. Now, use what you've learned to recreate the plot below.
 ```{r}
 population %>% 
   filter(country == "Germany" | country == "France" | country == "Italy") %>% 
-  ggplot(aes(x = year, y = population, linetype = country, color = country)) +
+  ggplot(aes(x = year, 
+             y = population, 
+             linetype = country, 
+             color = country)) +
     geom_line() +
-    labs(title = "Population in European Countries",
+    labs(title = "Population in Selected European Countries",
        x = "Year",
        y = "Population")
 ```
@@ -2238,7 +2230,7 @@ Use facet_wrap() and set ncol to 2.
 
 ###
 
-Great! Now change the theme to black and white using the `themes_bw()` function
+Great! Now change the theme to black and white using the `theme_bw()` function
 ```{r hist-II-4, exercise=TRUE, exercise.lines=7}
 
 
@@ -2253,7 +2245,7 @@ ggplot(data = nhanes, aes(x = height)) +
 
 ```
 
-Recreate the above histogram. It was made with data set `nhanes` with `height` on the x axis and facetted by `sex`.
+Recreate the above histogram. It was made with data set `nhanes` with `height` on the x axis and faceted by `gender`.
 
 ```{r hist-II-5, exercise=TRUE, exercise.lines=7}
 
@@ -2331,7 +2323,7 @@ Try changing the scale of the y axis to log base 10
 
 ```
 
-```{r box-II-2-hint,eval=FALSE}
+```{r box-II-2-hint, eval=FALSE}
 Use the scale_y_log10() function
 ```
 
@@ -2358,7 +2350,7 @@ Now facet the plot by `cut` and set the number of columns to 2
 diamonds %>%
   ggplot(aes(x = clarity, y = price)) +
     geom_boxplot() +
-    scale_y_continuous(breaks = c(0,9000,18000),labels = scales::dollar)
+    scale_y_continuous(breaks = c(0, 9000, 18000), labels = scales::dollar)
 ```
 
 ```{r box-II-4-hint,eval=FALSE}
@@ -2376,7 +2368,7 @@ cces %>%
 ```
 
 
-Recreate the above boxplot from data set `cces`. Note that the plot is facetted by `race` with the number of columns set to 2.
+Recreate the above boxplot from data set `cces`. Note that the plot is faceted by `race` with the number of columns set to 2.
 
 ```{r box-II-5, exercise=TRUE, exercise.lines=10}
 
@@ -2396,7 +2388,7 @@ Make a boxplot using the `diamonds` tibble with x = `cut`, and y = `price`.
 
 ###
 
-Great! Now, use `coord_flip()` to convert the plot into a horizontal boxplot, and get rid of the outliers by setting `outlier.alpha` to 0. Note that you can also make outliers dissapear by setting `outlier.color` to "white".
+Great! Now, use `coord_flip()` to convert the plot into a horizontal boxplot, and get rid of the outliers by setting `outlier.alpha` to 0. Note that you can also make outliers disappear by setting `outlier.color` to "white".
 
 ```{r gb-2-2, exercise=TRUE, exercise.lines = 5}
 
@@ -2427,7 +2419,8 @@ Nice! Note that you can also zoom in on a plot by using the `xlim()` or `ylim()`
 Now, use what you've learned to recreate the plot below.
 
 ```{r}
-ggplot(data = diamonds, aes(x = price, y = carat, group = cut_interval(price, n = 4))) +
+ggplot(data = diamonds, 
+       aes(x = price, y = carat, group = cut_interval(price, n = 4))) +
   geom_boxplot(outlier.alpha = 0.1, color = "red") +
   labs(title = "Size and Quality in Diamonds",
        x = "Price (US Dollars)",
