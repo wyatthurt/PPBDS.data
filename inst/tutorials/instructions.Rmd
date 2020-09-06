@@ -9,6 +9,8 @@ output: html_document
 
 <!-- Improve this guide to show actual questions and actual solutions. -->
 
+<!-- Individual tutorials should not be too long. In particular, Visualization and Wrangling should each be split into several parts, maybe 3 or so. -->
+
 
 
 ```{r not-setup, include=FALSE}
@@ -26,7 +28,7 @@ If you are new to R/RStudio/Markdown, then read [this intro book](https://ismayc
 
 * Do not number your questions. It serves no purpose. Also, there is no need for a title or other indication at the beginning of a question. Just type your question.
 
-* Do not provide answers. There is no need to grade what the students submit.
+* Do not provide official learnr answers. There is no need to grade what the students submit. You may sometimes provide answers in a code comment, as a service to others authors working on the tutorial. Use your best judgment.
 
 * You do not always need to provide a hint, but it is often useful to do so. If you provide a hint, make sure to have `eval=FALSE` as an R code chunk option. This is needed because the hints will often include ... and other symbols which do not run as correct R code. So, we need to tell R not to run it. All code in a tutorial must work unless it has `eval=FALSE` as a code chunk option. If you give a hint which is mostly text, use hash marks to mark it as a code comment within the hint code chunk. This causes it to print out more nicely. Example:
 
