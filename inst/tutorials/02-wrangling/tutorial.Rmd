@@ -98,7 +98,28 @@ library(nycflights13)
 library(ggthemes)
 ```
 
-## Introduction 
+## Confirm Correct Package Version
+###
+
+Confirm that you have the correct version of PPBDS.data installed by putting `packageVersion('PPBDS.data')` here and pressing "Run Code."
+
+```{r confirm, exercise=TRUE}
+
+```
+
+The answer should be ‘0.3.2.9003’, or a higher number. If it is not, you should upgrade your installation by issuing these commands:
+
+
+```{r confirm-advice, echo=TRUE, eval=FALSE}
+remove.packages('PPBDS.data')  
+library(remotes)  
+remotes::install_github('davidkane9/PPBDS.data')  
+```
+
+Strictly speaking, it should not be necessary to remove a package. Just installing it again should overwrite the current version. But weird things sometimes happen, so removing first is the safest approach. 
+
+## Name 
+###
 
 ``` {r name, echo=FALSE}
 question_text(
@@ -110,20 +131,32 @@ question_text(
 )
 ```
 
+
+
+## Introduction
+###
+
 This tutorial uses the following libraries: 
+
 `library(fivethirtyeight)`
+
 `library(nycflights13)`
+
 `library(dslabs)`
+
 `library(fueleconomy)`
+
 `library(babynames)`
+
 `library(ggthemes)`
+
 If you have not installed these packages, you will like encounter issues when attempting the tutorial, so make sure to do so. If you don't remember how to do so, reference the `install.packages()` function introduced earlier in the course. 
 
 
 ## Characters 
 
 ### Exercise 1
-Use `str_detect()` on `states` to find state that contain the pattern "ana":
+Use `str_detect()` on `states` to create a vector which will be TRUE for `states` which contain the pattern "ana" and FALSE otherwise.
 
 ```{r exercise-2-1, exercise=TRUE}
 
@@ -134,7 +167,9 @@ str_detect(..., pattern = ...)
 ```
 
 ### Exercise 2
-Now use `str_subset()` with `states` to find the names of the states that contain the pattern "ana" instead of just the boolean values: 
+
+Use `str_subset()` on `states` to create a vector of the names of the states that contain the pattern "ana".
+
 ```{r exercise-2-2, exercise=TRUE}
 
 ```
@@ -144,7 +179,9 @@ str_subset(..., pattern = ...)
 ```
 
 ### Exercise 3
-Use `str_subset()` to find `states` that have two a's with a single intervening character in their name:
+
+Use `str_subset()` on `states` to create a vector of states that have two a's with a single intervening character in their name:
+
 ```{r exercise-2-3, exercise=TRUE}
 
 ```
@@ -158,17 +195,23 @@ str_subset(..., pattern = ...)
 ```
 
 ### Exercise 4
-`str_split()` `states` that are two or more words:
+
+Use `str_split()` `states` in order to help identify states which involve two or more words in their names. Set `simply` argument to TRUE. Te result will be a character matrix with 51 rows and three columns.
+
 ```{r exercise-2-4, exercise=TRUE}
 
 ```
 
 ```{r exercise-2-4-hint, eval=FALSE}
-str_split(..., pattern = ...)
+# A " " is the simple version of a pattern which identifies words spaces.
+
+str_split(..., pattern = ..., simply = TRUE)
 ```
 
 ### Exercise 5
-`str_split_fixed()` `states` into two words. What will happen to `District of Columbia`?
+
+Use `str_split_fixed()` on `states` while setting the `n` argument to 2. THis should split items up into two pieces. Note what happens to `District of Columbia`.
+
 ```{r exercise-2-5, exercise=TRUE}
 
 ```
@@ -178,7 +221,8 @@ str_split_fixed(..., pattern = ..., n = ...)
 ```
 
 ### Exercise 6
-Collapse `states` using `str_c()`, and separate them with a comma.
+Collapse `states` using `str_c()`, and separate them with a comma. This should create a single character object with all the states.
+
 ```{r exercise-2-6, exercise=TRUE}
 
 ```
@@ -188,7 +232,9 @@ str_c(states, collapse = ",")
 ```
 
 ### Exercise 7
+
 Use `str_c` to collapse states into the form `state1 & state2`. Combine the first 1-25 states with states 26-50. Note that we have to exclude the 51st state.
+
 ```{r exercise-2-7, exercise=TRUE}
 
 ```
@@ -198,6 +244,7 @@ str_c(..., ..., sep = ...)
 ```
 
 ### Exercise 8
+
 Use `str_replace()` to replace the pattern `North` with `N.`. For example, transform North Carolina into N. Carolina.
 ```{r exercise-2-8, exercise=TRUE}
 
