@@ -124,6 +124,7 @@ If you have not installed these packages, you will like encounter issues when at
 
 ### Exercise 1
 Use `str_detect()` on `states` to find state that contain the pattern "ana":
+
 ```{r exercise-2-1, exercise=TRUE}
 
 ```
