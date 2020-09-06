@@ -28,7 +28,6 @@ Imports:
     gapminder,
     fueleconomy,
     babynames,
-    ggthemes,
     dslabs,
     skimr (>= 2.1.1),
     viridis (>= 0.5.1),
