@@ -2339,7 +2339,7 @@ Use the scale_y_log10() function
 
 ###
 
-Nice job! For now, I have set the scale on the y axis back to continuous. In our first diamonds boxplot, R automatically set labels on the tick marks at 0, 5000, 10000 and 15000. Try changing this so that we have labels at 0, 90000 and 18000. After this, add dollar signs to your labels. Note, this is different from and does not use labs()!
+Nice job! For now, I have set the scale on the y axis back to continuous. In our first diamonds boxplot, R automatically set labels on the tick marks at 0, 5000, 10000 and 15000. Try changing this so that we have labels at 0, 9000 and 18000. After this, add dollar signs to your labels. Note, this is different from and does not use labs()!
 
 ```{r box-II-3, exercise=TRUE, exercise.lines=10}
 diamonds %>%
