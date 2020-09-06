@@ -21,6 +21,8 @@ Talk about Open Policing. Maybe San Antonia?
 
 No more variable name changes. Need to steady state for the creation of tutorials. OK to add more variables.
 
+Add search function to tutorials.
+
 
 
 * Clean up `sps`. Which variables do we need? What do they show? What should they be called?
