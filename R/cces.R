@@ -22,7 +22,7 @@
 #'   \item{state}{character variable for state of residence for observation}
 #'   \item{gender}{charcater variable of "Female" and "Male"}
 #'   \item{age}{integer variable for age in years}
-#'   \item{educ}{factor variable for level of education - takes values of "No HS",
+#'   \item{education}{factor variable for level of education - takes values of "No HS",
 #'   "High School Graduate", "Some College", "2-Year", "4-Year", and "Post-Grad"}
 #'   \item{race}{character variable for racial identity}
 #'   \item{marstat}{character variable for marriage status}

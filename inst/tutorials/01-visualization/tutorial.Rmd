@@ -2414,7 +2414,7 @@ Wonderful. Now, let's use `labs()` to add some labels to our plot. Title the plo
 
 ###
 
-Great! Now, let's zoom in on our plot by setting  `xlim()` to the vector `c(500, 7000)`. Remember that `xlim()` should be placed inside of the `coord_` function, in this case, `coord_flip`.
+Great! Now, let's zoom in on our plot by setting  `ylim()` to the vector `c(500, 7000)`. Remember that `ylim()` should be placed inside of the `coord_` function, in this case, `coord_flip`.
 
 ```{r gb-2-4, exercise=TRUE, exercise.lines = 5}
 
@@ -2422,7 +2422,7 @@ Great! Now, let's zoom in on our plot by setting  `xlim()` to the vector `c(500,
 
 ###
 
-Nice! Note that you can also zoom in on a plot by using the `xlim()` or `ylim()` functions outside of the `coord_` function without using a vector, but this is not ideal because it will disregard points outside of the zoom when calculating the average and percentile lines of a `boxplot()`. You can try this yourself by deleting the argument from the last question, and adding '+ xlim(7500)' to our plot. Notice how the averages are slightly different?
+Nice! Note that you can also zoom in on a plot by using the `xlim()` or `ylim()` functions outside of the `coord_` function without using a vector, but this is not ideal because it will disregard points outside of the zoom when calculating the average and percentile lines of a `boxplot()`. You can try this yourself by deleting the argument from the last question, and adding `+ xlim(7500)` to our plot. Notice how the averages are slightly different?
 
 ###
 
@@ -2438,7 +2438,7 @@ ggplot(data = diamonds,
 ```
 
 ```{r gb-2-5-hint, eval=FALSE}
-In order to use two continouous variables in a `boxplot()`, use the `group = cut_` function, in this case, `group = cut_interval(..., n = ...)`. Remember that this function must be inside of `aes()`.
+In order to use two continuous variables in a `boxplot()`, use the `group = cut_` function, in this case, `group = cut_interval(..., n = ...)`. Remember that this function must be inside of `aes()`. The first argument to `cut_interval()` is the variable you want to cut. The `n` argument is the number of pieces into which you want to separate the observations.
 ```
 
 ```{r gb-2-5, exercise=TRUE, exercise.lines = 5}
@@ -3005,7 +3005,7 @@ Let's also rewrite our legend with the `scale_color_discrete()` function. Give i
 
 Good stuff. Now, let's use `labs()` to give our plot some labels. Title our plot `"Diamond Color And Price"`, our x-axis `"Price (US Dollars)"`, and our y-axis `"Number of Diamonds"`.
 
-Let's also use `theme_light()` and `scale_color_brewer()` with `pallete = "Set2"` to change the look of our plot.
+Let's also use `theme_light()` and `scale_color_brewer()` with `palette = "Set2"` to change the look of our plot.
 
 
 ```{r gd-1-3, exercise=TRUE, exercise.lines = 5}
