@@ -2549,10 +2549,45 @@ q_plot <- ggplot(data = q_bind, mapping = aes(x = value)) +
 ```
 
 ## National Election Studies
+###
 
 `nes`, short for "National Election Studies," contains the personal and political
 information of almost 40,000 American voters, as well as whether or not they voted
-in that year's presidential election.
+in that year's presidential election.The goal of this exercise is to replicate this plot:
+
+```{r, echo=FALSE}
+nes %>%
+  select(year, education, pres_appr, ideology, voted) %>%
+  filter(education %in% c("Some Highschool", "Highschool", 
+                          "Some College", "Adv. Degree")) %>%
+  droplevels() %>%
+  mutate(opinion = as.factor(if_else(condition = str_detect(pres_appr, "prove"),
+                                     true = "has_opinion",
+                                     false = "no_opinion"))) %>%
+  drop_na() %>%
+  group_by(year, voted, opinion, education) %>%
+  summarize(count = n()) %>%
+  pivot_wider(names_from = voted, values_from = count) %>%
+  mutate(turnout = Yes / (Yes + No)) %>%
+  ggplot(mapping = aes(x = year,
+                       y = turnout,
+                       color = fct_reorder2(education, year,
+                                            turnout, .fun = first2),
+                       linetype = fct_reorder2(education, year, turnout,
+                                               .fun = first2))) +
+  geom_line() +
+  facet_wrap(~ opinion) +
+  scale_color_brewer(palette = "Spectral", name = "education") +
+  scale_linetype(name = "education") +
+  labs(title = "Opinions on Presidents Over Time",
+       subtitle = "People with opinions are more educated")
+```
+
+Good luck!
+
+
+
+### Exercise 1
 
 Start by running `skim()` on `nes`. See if you can figure out the first and last
 years in the data set. You may need to load the **skimr** package first.
@@ -2562,7 +2597,7 @@ years in the data set. You may need to load the **skimr** package first.
 ```
 
 
-###
+### Exercise 2
 
 Use `levels()` and the `$` operator to explore the levels of the `education` variable.
 
@@ -2575,7 +2610,7 @@ Use `levels()` and the `$` operator to explore the levels of the `education` var
 ```
 
 
-###
+### Exercise 3
 
 Select the `year`, `education`, `pres_appr`, `ideology`, and `voted` columns from `nes`.
 
@@ -2584,7 +2619,7 @@ Select the `year`, `education`, `pres_appr`, `ideology`, and `voted` columns fro
 ```
 
 
-###
+### Exercise 4
 
 Continue by filtering the tibble such that `education` is either "Some Highschool,"
 "Highschool," "Some College," or "Adv. Degree."
@@ -2598,7 +2633,7 @@ Continue by filtering the tibble such that `education` is either "Some Highschoo
 ```
 
 
-###
+### Exercise 5
 
 After filtering a factor, always remember that the *levels* of the factor have not been removed.
 To fix this, add a call within the pipe that drops (i.e. permanently removes) all deleted levels.
@@ -2612,7 +2647,7 @@ To fix this, add a call within the pipe that drops (i.e. permanently removes) al
 ```
 
 
-###
+### Exercise 6
 
 The dplyr `if_else()` function can be used alongside `mutate()` and `as.factor()` to create a
 factor with two levels depending on whether a certain `condition` is met. Run the code below to
@@ -2630,13 +2665,9 @@ nes %>%
 ```
 
 
-###
+### Exercise 7
 
-Now, use `if_else()` to `mutate()` a new variable, `opinion`. `opinion` should be a **factor**
-that equals "has_opinion" if that person either approves *or* disapproves of the president, but
-"no_opinion" otherwise. To do this, use the `if_else()` function with the condition being detection
-of the pattern "prove" in the string `pres_appr`. You can remove from your pipe the creation of
-pos_ideology since we won't be using that variable.
+Now, use `if_else()` to `mutate()` a new variable, `opinion`. `opinion` should be a **factor** that equals "has_opinion" if that person either approves *or* disapproves of the president, but "no_opinion" otherwise. To do this, use the `if_else()` function with the condition being detection of the pattern "prove" in the string `pres_appr`. You can remove from your pipe the creation of `pos_ideology` since we won't be using that variable.
 
 ```{r nes7, exercise = TRUE, exercise.lines = 10}
 
@@ -2653,7 +2684,8 @@ pos_ideology since we won't be using that variable.
 ```{r nes7-hint-3, eval=FALSE}
 nes %>%
   select(year, education, pres_appr, ideology, voted) %>%
-  filter(education %in% c("Some Highschool", "Highschool", "Some College", "Adv. Degree")) %>%
+  filter(education %in% c("Some Highschool", "Highschool", 
+                          "Some College", "Adv. Degree")) %>%
   droplevels() %>%
   mutate(opinion = as.factor(if_else(condition = str_detect(...),
                                      true = ...,
@@ -2661,14 +2693,12 @@ nes %>%
 ```
 
 
-###
+### Exercise 8
 
 Our goal for the next few exercises will be to calculate voter turnout based on education and
 whether or not the voter has an opinion of the president at that time.
 
-To start, group the tibble by `year`, `voted`, `opinion`, and `education`. Then, use `summarize()`
-to make a new variable, `count`, that simply counts the number of people (i.e. rows) in each group.
-What goes wrong?
+To start, group the tibble by `year`, `voted`, `opinion`, and `education`. Then, use `summarize()` to make a new variable, `count`, that simply counts the number of people (i.e. rows) in each group. What goes wrong?
 
 ```{r nes8, exercise = TRUE, exercise.lines = 10}
 
@@ -2679,7 +2709,7 @@ What goes wrong?
 ```
 
 
-###
+### Exercise 9
 
 If we look closely, many of our rows have a value of `NA` for either `voted` or `opinion`.
 Furthermore, `n()` doesn't have an `na.rm` argument. To remove the `NA`s, use tidyr's
@@ -2704,7 +2734,7 @@ nes %>%
 ```
 
 
-###
+### Exercise 10
 
 Our goal is to calculate voter turnout within each category, the number of people who voted divided
 by the total number of people. Therefore, we want `Yes` and `No` (currently in the `voted` column)
@@ -2726,7 +2756,7 @@ Use one of the `pivot_` functions to tidy our data in this way.
 ```
 
 
-###
+### Exercise 11
 
 Great job! Now, to calculate turnout, simply `mutate()` another variable, `turnout`, equal to the
 number of people who voted (the number of `Yes`) divided by the total number of people. To make sure
@@ -2752,7 +2782,7 @@ nes %>%
 ```
 
 
-###
+### Exercise 12
 
 Next, use `ggplot()` to make a line graph that maps `year` to the x-axis, `turnout` to the
 y-axis, and `education` to both the color and linetype aesthetics.
@@ -2762,7 +2792,7 @@ y-axis, and `education` to both the color and linetype aesthetics.
 ```
 
 
-###
+### Exercise 13
 
 Use `facet_wrap` to facet the graph by opinion.
 
@@ -2771,12 +2801,9 @@ Use `facet_wrap` to facet the graph by opinion.
 ```
 
 
-###
+### Exercise 14
 
-This graph is starting to look pretty good, but the ordering of the legend is a bit confusing.
-Try using an `fct_` function to reorder the legend (both the color *and* linetype aesthetics)
-so that Adv. Degree is first, Some College is second, and so on. Something goes wrong with this
-first attempt, but we will fix it in the next exercise.
+This graph is starting to look pretty good, but the ordering of the legend is a bit confusing. Try using an `fct_` function to reorder the legend (both the color *and* linetype aesthetics) so that Adv. Degree is first, Some College is second, and so on. Something goes wrong with this first attempt, but we will fix it in the next exercise.
 
 ```{r nes14, exercise = TRUE, exercise.lines = 15}
 
@@ -2787,7 +2814,7 @@ first attempt, but we will fix it in the next exercise.
 ```
 
 
-###
+### Exercise 15
 
 Although 3 of the 4 `education` statuses are reordered successfully, Adv. Degree is left on the
 bottom because it doesn't appear in the second graph. To fix this problem, change the `.fun`
@@ -2810,12 +2837,9 @@ argument of both `fct_reorder2()` calls to first2 (the default is last2).
 ```
 
 
-###
+### Exercise 16
 
-Our graph is looking good, but the very long legend title takes up a lot of space. To fix this problem
-(and to improve the colors of the graph), add a `scale_color_brewer()` function with the "Spectral"
-palette as well as a `scale_linetype` function. Use **both** scale functions to set the name of the
-legend to "education."
+Our graph is looking good, but the very long legend title takes up a lot of space. To fix this problem (and to improve the colors of the graph), add a `scale_color_brewer()` function with the "Spectral" palette as well as a `scale_linetype` function. Use **both** scale functions to set the name of the legend to "education."
 
 ```{r nes16, exercise = TRUE, exercise.lines = 18}
 
@@ -2826,17 +2850,17 @@ legend to "education."
 ```
 
 
-###
+### Exercise 17
 
 Amazing work! From this graph, we see that Americans with a higher level of education tend to vote more often. Furthermore, Americans with an opinion of the president generally have higher voter turnout than Americans without an opinion of the president. Finally, pretty much 100% of Americans with an advanced degree are able to form an opinion of the president (this is why there is no Advanced Degree line in the no_opinion graph: there are too few data points in the table).
 
-To finish your plot, use `labs()` to give the graph a title and subtitle of your choosing. Here is our
-answer. It is OK if your answer looks somewhat different from ours.
+To finish your plot, use `labs()` to give the graph a title and subtitle of your choosing. Here is our answer. It is OK if your answer looks somewhat different from ours.
 
 ```{r, echo=FALSE}
 nes %>%
   select(year, education, pres_appr, ideology, voted) %>%
-  filter(education %in% c("Some Highschool", "Highschool", "Some College", "Adv. Degree")) %>%
+  filter(education %in% c("Some Highschool", "Highschool", 
+                          "Some College", "Adv. Degree")) %>%
   droplevels() %>%
   mutate(opinion = as.factor(if_else(condition = str_detect(pres_appr, "prove"),
                                      true = "has_opinion",
