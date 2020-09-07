@@ -2469,7 +2469,7 @@ draw_quantiles = c(..., ..., ...)
 
 ###
 
-Good. Now, let's add some labels with `labs()`. Let's title our plot "Engine Size by Car Type", our x-axis "Car Type", and our y-axis "Engine Size (Liters)". Let's also use `theme_void()` to give our plot a cleaner look.
+Good. Now, let's add some labels with `labs()`. Let's title our plot "Engine Size by Car Type", our x-axis "Car Type", and our y-axis "Engine Size (Liters)". Let's also use `theme_minimal()` to give our plot a cleaner look.
 
 ```{r gv-2-3, exercise=TRUE, exercise.lines = 5}
 
