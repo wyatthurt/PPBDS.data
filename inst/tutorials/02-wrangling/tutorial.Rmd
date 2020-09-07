@@ -513,13 +513,16 @@ vehicles_plot_2 <- ggplot(data = vehicles_fct, mapping = aes(x = fct_reorder(cla
 
 ## Lists
 ### Exercise 1
-Now, let's move on to lists. This is section 2.4 in the textbook. First, we'd like you to create a list. Call this list `mylist` and let it have three items a, b, and c. Then, let a be a vector containing 1,2, and 3. Let b be a vector containing 4,5, and 6, and let c be a vector containing 7,8, and 9
+
+Now, let's move on to lists. This is section 2.4 in the textbook. First, we'd like you to create a list. Call this list `mylist` and let it have three items `a`, `b`, and `c`. Then, let `a` be a vector containing 1, 2, and 3. Let `b` be a vector containing 4, 5, and 6, and let `c` be a vector containing 7, 8, and 9
+
 ```{r lists-1, exercise=TRUE}
 
 ```
 
 ```{r lists-1-hint, eval=FALSE}
-# Consider using the c() function to create the individual vectors for a, b, and c
+# Consider using the c() function to create the individual vectors for a, b, and
+# c
 
 # You could also use the : operator 
 ```
@@ -582,6 +585,7 @@ mylist <- list(a = c(1, 2, 3), b = c(4, 5, 6), c = c(7, 8, 9))
 
 ## Date-Times 
 ### Exercise 1
+
 Run the `today()` and `now()` functions.
 ```{r dttm-1, exercise=TRUE}
 
@@ -590,6 +594,7 @@ Run the `today()` and `now()` functions.
 ### Exercise 2
 
 Use functions such as `ymd()` or `mdy()` to convert the strings below into the proper date-time format. 
+
 ```{r dttm-2, exercise=TRUE}
 date_1 <- "February 29, 2020"
 
@@ -602,7 +607,9 @@ date_4 <- "2/29/2020 16:00:00 UTC"
 ```
 
 ### Exercise 3
-Use the `make_datetime()` function to create a date-time for Y2K. 
+
+Use the `make_datetime()` function to create a date-time for the first moment of the year 2000. 
+
 ```{r dttm-3, exercise=TRUE}
 
 ```
@@ -617,6 +624,7 @@ Use the `make_datetime()` function to create a date-time for Y2K.
 ### Exercise 1
 
 Run `lexus_2000` in this code chunk:
+
 ```{r exercise-combining-1, exercise=TRUE}
 
 ```
@@ -626,6 +634,7 @@ lexus_2000
 ```
 
 ### Exercise 2
+
 Run `lexus_1999` in the code chunk: 
 ```{r exercise-combining-2, exercise=TRUE}
 
@@ -648,12 +657,13 @@ quiz(
   )
 )
 ```
-What do you think will happen we try to bind the rows? 
+Think about what will happen when we try to bind the rows of these two tibbles together.
 
 ### Exercise 3
 
 Use `bind_rows()` to bind `lexus_1999` and `lexus_2000`:
 What happens to the `trans` column?
+
 ```{r question-combining-3, exercise=TRUE}
 
 ```
@@ -665,16 +675,19 @@ bind_rows(..., ...)
 ### Exercise 4 
 
 Run `lexus_1998` in the following code chunk:
+
 ```{r question-combining-4, exercise=TRUE}
 
 ```
-What is the discrepancy between the columns of `lexus_1998` and `lexus_1999`. How do you think this will affect binding the rows of the two dataframes?
+
+Consider the discrepancy between the columns of `lexus_1998` and `lexus_1999`. Predict, in your head, what will happen when binding the rows of the two tibbles.
 
 ### Exercise 5
 
 Bind the two dataframes `lexus_1998` and `lexus_1999`:
+
 ```{r question-combining-5, exercise=TRUE}
-bind_rows(lexus_1998, lexus_1999)
+
 ```
 
 ```{r question-combining-5-hint, eval=FALSE}
@@ -684,6 +697,7 @@ bind_rows(..., ...)
 ### Exercise 6
 
 Use the `rename()` function to change the `type` variable to `class` in the `lexus_1998` dataframe. Use the assignment operator to reassign the changed dataframe to `lexus_1998`. 
+
 ```{r question-combining-6, exercise=TRUE}
 
 ```
@@ -695,7 +709,8 @@ Use the `rename()` function to change the `type` variable to `class` in the `lex
 
 ### Exercise 7
 
-Use `bind_rows` to bind `lexus_1998` and `lexus_1999` again. Assign this dataframe as `lexus_two_year`: 
+Use `bind_rows` to bind `lexus_1998` and `lexus_1999` again. Name this new tibble `lexus_two_year`: 
+
 ```{r question-combining-7, exercise=TRUE}
 
 ```
@@ -711,7 +726,9 @@ lexus_1998 <- lexus_1998 %>%
   rename("class" = type)
 lexus_two_year <- bind_rows(lexus_1998, lexus_1999)
 ```
-Now bind the rows of `lexus_two_year` with `lexus_2000`. Use the assignment operator to call this dataframe `lexus`
+
+Now bind the rows of `lexus_two_year` with `lexus_2000`. Use the assignment operator to call this tibble `lexus`.
+
 ```{r question-combining-8, exercise=TRUE}
 
 ```
@@ -728,6 +745,7 @@ lexus <- bind_rows(lexus_two_year, lexus_2000)
 ```
 
 Now, `unite()` the `make` and `model` columns of the `lexus` dataframe. Name this united column `vehicle`, and make the separator between the previous columns a space.
+
 ```{r question-combining-1, exercise=TRUE}
 
 ```
@@ -747,6 +765,7 @@ lexus %>%
 ### Exercise 10 
 
 Let's return to the `lexus_2000` data. `glimpse()` both the `lexus_2000` dataframe and the `lexus_mileage` dataframe.
+
 ```{r question-combining-10, exercise=TRUE}
 
 ```
