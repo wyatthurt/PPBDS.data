@@ -2880,23 +2880,42 @@ nes %>%
 
 
 ## Airline Safety 
-
 ###
 
-We will be focusing on the data set `airline_saftey` from the `fivethirtyeight` package. Start
-by taking a `glimpse` of `airline_safety`:
+We will be focusing on the data set `airline_saftey` from the `fivethirtyeight` package. We will recreate this plot step-by-step.
+
+```{r as-answer, echo=FALSE}
+ airline_safety %>%
+  pivot_longer(c(incidents_85_99, incidents_00_14, fatal_accidents_00_14,
+                 fatal_accidents_85_99, fatalities_00_14, fatalities_85_99),
+               names_to = "type_date",
+               values_to = "count") %>%
+  separate(type_date, c("type", "date"), sep = "s_") %>%
+  filter(date == "00_14", count > 0) %>%
+  mutate(safety_value = avail_seat_km_per_week / count) %>%
+  arrange(safety_value) %>%
+  ggplot(aes(x = airline, y = safety_value)) +
+    geom_col() +
+    theme(axis.text = element_text(size = 5, angle = 90)) +
+    labs(title = "Airline Safety",
+         subtitle = "Airlines with more long-haul routes are safer",
+         x = "Airline",
+         y = "Distance per Incident")
+```
+
+
+### Exercise 1
+
+Start by taking a `glimpse` of `airline_safety`:
 
 ```{r as-1, exercise=TRUE}
 
 ```
 
 
-###
+### Exercise 2
 
-Do you notice anything off about the `airline_saftey` data? It's untidy! Over the next few questions,
-we are going to fix this. Let's start by making the table "longer." Use `pivot_longer()` to pivot
-the columns `incidents_85_99`, `incidents_00_14`, `fatal_accidents_00_14`,`fatal_accidents_85_99`,
-`fatalities_00_14` and  `fatalities_85_99` into the two new columns `type_date` and `count`.
+Do you notice anything off about the `airline_saftey` data? It's untidy! Over the next few questions, we are going to fix this. Let's start by making the table "longer." Use `pivot_longer()` to pivot the columns `incidents_85_99`, `incidents_00_14`, `fatal_accidents_00_14`,`fatal_accidents_85_99`, `fatalities_00_14` and  `fatalities_85_99` into the two new columns `type_date` and `count`.
 
 ```{r as-2, exercise=TRUE}
 
@@ -2909,12 +2928,9 @@ airline_safety %>%
 ```
 
 
-###
+### Exercise 3
 
-Nice! Do you see what our next step has to be? In our `type_date` column, we have data on both the
-type of incident and the date range in which it occurred. This should really be two columns. Let's
-use the `separate()` to separate `type_date` into the two columns `type` and `date`. Separate on
-the s_ characters by setting the `sep` argument inside of `separate()` to "s_".
+Nice! Do you see what our next step has to be? In our `type_date` column, we have data on both the type of incident and the date range in which it occurred. This should really be two columns. Let's use the `separate()` to separate `type_date` into the two columns `type` and `date`. Separate on the s_ characters by setting the `sep` argument inside of `separate()` to "s_".
 
 ```{r as-3, exercise=TRUE, exercise.lines = 10}
 
@@ -2926,39 +2942,36 @@ the s_ characters by setting the `sep` argument inside of `separate()` to "s_".
 ```
 
 
-###
+### Exercise 4
 
-Fantastic! Now that our data is tidy, we can get to work. `filter()` `airline_tidy` so that we narrow
-down our data set to data where date is "00_14", type is "incident", and count is greater than 0.
+Fantastic! Now that our data is tidy, we can get to work. Add a `filter()` to teh pipe so that we narrow down our data set to data where date is "00_14", type is "incident", and count is greater than 0.
 
 ```{r as-4, exercise=TRUE, exercise.lines=10}
 
 ```
 
 
-###
+### Exercise 5
 
-Nice! Now use `mutate()` to create the new variable `safety_value` and set it equal to `avail_seat_km_per_week`
-divided by `count`.
+Nice! Now use `mutate()` to create the new variable `safety_value` and set it equal to `avail_seat_km_per_week` divided by `count`.
 
 ```{r as-5, exercise=TRUE, exercise.lines = 10}
 
 ```
 
 
-###
+### Exercise 6
 
-Nice! Now arrange `airline_tidy` by `safety_value`.
+Nice! Now arrange the data by `safety_value`.
 
 ```{r as-6, exercise=TRUE, exercise.lines = 10}
 
 ```
 
 
-###
+### Exercise 7
 
-Great! Let's now use our wrangled data to create a bar plot using `geom_col()` with `airline` on the x axis
-and `safety_value` on the y axis. Call it `as_plot`.
+Great! Let's now use our wrangled data to create a bar plot using `geom_col()` with `airline` on the x axis and `safety_value` on the y axis. 
 
 ```{r as-7-setup}
 
@@ -2969,10 +2982,9 @@ and `safety_value` on the y axis. Call it `as_plot`.
 ```
 
 
-###
+### Exercise 8
 
-Awesome! As you can see, the airline names on the y axis are crowded and basically impossible to read.
-Let's change this by using theme() and setting the x axis text size to 5 and angle to 90.
+Awesome! As you can see, the airline names on the y axis are crowded and basically impossible to read. Let's change this by using `theme()` and setting the x axis text `size` to 5 and `angle` to 90.
 
 ```{r as-8, exercise=TRUE, exercise.lines=15}
 
@@ -2984,10 +2996,9 @@ Let's change this by using theme() and setting the x axis text size to 5 and ang
 ```
 
 
-###
+### Exercise 9
 
-Great! Now add some labels to finish our plot off! Here is our version. As always, it is OK if yours
-looks different.
+Great! Now add some labels to finish our plot off! Here is our version. As always, it is OK if yours looks different.
 
 ```{r as-9-answer, echo=FALSE}
  airline_safety %>%
@@ -3014,10 +3025,13 @@ looks different.
 
 
 ## Partisan Lean District
+###
+
+We will be focusing on the data set `partisan_lean_district`, from the `fivethirtyeight` package. This data set includes the data which FiveThirtyEight uses for their political projections.  
 
 ### Exercise 1
 
-We will be focusing on the data set `partisan_lean_district`, from the `fivethirtyeight` package. This data set includes the data which five thirty eight uses for their political projections.  Let's start by using the `skim()` function on `partisan_lean_district`
+Let's start by using the `skim()` function on `partisan_lean_district`
 
 ```{r pld-1, exercise=TRUE}
 
@@ -3025,7 +3039,8 @@ We will be focusing on the data set `partisan_lean_district`, from the `fivethir
 
 ### Exercise 2
 
-Great! Now `filter()` `partisan_lean_district` so that `pvi_party` equals R. Call this `pld_subset`. 
+Great! Now `filter()` `partisan_lean_district` so that `pvi_party` equals R. 
+
 ```{r pld-2, exercise=TRUE}
 
 ```
@@ -3170,6 +3185,8 @@ pld_subset <- partisan_lean_district %>%
 pld_plot <- ggplot(data = ..., mapping = aes(x = ...)) + 
   geom_histogram(fill = ..., alpha = ..., bins = ....)
 ```
+
+
 
 ## State Words
 
