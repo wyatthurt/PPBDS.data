@@ -1132,9 +1132,7 @@ babynames_wider <- babynames %>%
 
 ## National Health and Nutrition Survey
 
-<!-- DK: Argg! Is this the nhanes in PPBDS.data or in fivethirtyeight! -->
-
-`nhanes` is a dataset included in the Five Thirty Eight data package. This dataset was referenced in Five Thirty Eight's article ["Don't Take Your] Vitamins" (https://fivethirtyeight.com/features/dont-take-your-vitamins/) and was take from the "National Health and Nutrition Examination Survey," which contains the personal and physical information of 10,000 Americans from two surveys in 2009 and 2011.
+`nhanes` is a dataset included in the **PPBDS.data** package. It includes data from the "National Health and Nutrition Examination Survey," which contains the personal and physical information of 10,000 Americans from two surveys in 2009 and 2011. The goal of this series of exercises is to build, line-by-line, the code needed to recreate this plot.
 
 ### Exercise 1
 Begin by running `summary()` on `nhanes`. Based on the results, try to guess what the units of measurement are for the `weight` and `height` variables.
