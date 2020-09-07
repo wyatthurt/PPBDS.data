@@ -928,6 +928,7 @@ quiz(
 
 ## Tidying Data
 ### Exercise 1 
+
 Run `table1` and `table2` in the code chunk below. 
 ```{r tidy-1, exercise=TRUE}
 
@@ -1111,6 +1112,8 @@ babynames_wider <- babynames %>%
 ```
 
 ## National Health and Nutrition Survey
+
+<!-- DK: Argg! Is this the nhanes in PPBDS.data or in fivethirtyeight! -->
 
 `nhanes` is a dataset included in the Five Thirty Eight data package. This dataset was referenced in Five Thirty Eight's article ["Don't Take Your] Vitamins" (https://fivethirtyeight.com/features/dont-take-your-vitamins/) and was take from the "National Health and Nutrition Examination Survey," which contains the personal and physical information of 10,000 Americans from two surveys in 2009 and 2011.
 
@@ -1312,9 +1315,6 @@ The `kenya` data set (from the `PPBDS.data` package) records the data from a stu
 
 Start by `glimpse()`ing the `kenya` data set.
 
-```{r kenya1-setup}
-PPBDS.data::kenya
-```
 
 ```{r kenya1, exercise = TRUE}
 
@@ -1328,9 +1328,6 @@ glimpse(kenya)
 
 Pipe `kenya` into the `count()` function to count the number of poll stations in each `treatment` group.
 
-```{r kenya2-setup}
-PPBDS.data::kenya
-```
 
 ```{r kenya2, exercise = TRUE}
 
@@ -1343,80 +1340,55 @@ kenya %>%
 
 ### Exercise 3
 
-Using a pipe and the `%in%` operator, `filter()` `kenya` to only the rows with a `treatment` of "control," "local," "SMS," or "canvass." Assign this new dataframe to `kenya_subset`.
+Using a pipe and the `%in%` operator, `filter()` `kenya` to only the rows with a `treatment` of "control," "local," "SMS," or "canvass." 
 
-```{r kenya3-setup}
-PPBDS.data::kenya
-```
 
 ```{r kenya3, exercise = TRUE}
 
 ```
 
 ```{r kenya3-hint-1, eval=FALSE}
-... <- kenya %>%
+kenya %>%
   filter(treatment %in% ...)
 ```
 
 ```{r kenya3-hint-2, eval=FALSE}
-kenya_subset <- kenya %>%
+kenya %>%
   filter(treatment %in% c(...))
 ```
 
 ### Exercise 4
 
-Because `treatment` is a factor, call `droplevels()` immediately after the `filter()` call to avoid future complications. Reassign this as `kenya_subset`. 
+Because `treatment` is a factor, call `droplevels()` immediately after the `filter()` call to avoid future complications. 
 
-```{r kenya4-setup}
-kenya_subset <- kenya %>% 
-  filter(treatment %in% c("control", "local", "SMS", "canvass"))
-```
 
 ```{r kenya4, exercise = TRUE}
 
 ```
 
-```{r kenya4-hint, eval=FALSE}
-kenya_subset <- kenya_subest %>%
-  ...
-```
-
 ### Exercise 5 
 
-`select()` the `treatment`, `mean_age`, and `reg_byrv13` columns in `kenya_subset`. Don't forget to re-save this as `kenya_subset`. 
+`select()` the `treatment`, `mean_age`, and `reg_byrv13` columns. 
 
-```{r kenya5-setup}
-kenya_subset <- kenya %>%
-  filter(treatment %in% c("control", "local", "SMS", "canvass")) %>%
-  droplevels()
-```
 
 ```{r kenya5, exercise = TRUE}
 
 ```
 
-```{r kenya5-hint, eval=FALSE}
-kenya_subset <- kenya_subset %>%
-  select(...)
-```
 
 ### Exercise 6
 
-Use tidyr's `drop_na()` to remove all rows with a value of `NA` in the `mean_age` column. Reassign this as `kenya_subset`. 
-
-```{r kenya6-setup}
-kenya_subset <- kenya %>%
-  filter(treatment %in% c("control", "local", "SMS", "canvass")) %>%
-  droplevels() %>%
-  select(treatment, mean_age, reg_byrv13)
-```
+Use tidyr's `drop_na()` to remove all rows with a value of `NA` in the `mean_age` column.
 
 ```{r kenya6, exercise = TRUE}
 
 ```
 
 ```{r kenya6-hint, eval = FALSE}
-kenya_subset <- kenya_subset %>%
+kenya_subset <- kenya %>%
+  filter(treatment %in% c("control", "local", "SMS", "canvass")) %>%
+  droplevels() %>%
+  select(treatment, mean_age, reg_byrv13)
   drop_na(...)
 ```
 
@@ -1424,9 +1396,6 @@ kenya_subset <- kenya_subset %>%
 
 The dplyr `ntile()` function divides a continuous numerical value into categories depending on its size. Try running the following code to see how we can categorize the polling stations into 4 equally-sized groups based on the `distance` to the polling station.
 
-```{r kenya7-setup}
-PPBDS.data::kenya
-```
 
 ```{r kenya7, exercise = TRUE}
 kenya %>%
@@ -1435,43 +1404,36 @@ kenya %>%
 
 ### Exercise 8 
 
-Use `mutate()` and `ntile()` to create the variable `age_half`, which categorizes the `mean_age` variable into 2 groups: the younger half, and the older half.
+Use `mutate()` and `ntile()` to create the variable `age_half`, which categorizes the `mean_age` variable into 2 groups: the younger half, and the older half. Add this to the end of our full pipe.
 
-```{r kenya8-setup}
-kenya_subset <- kenya %>%
-  filter(treatment %in% c("control", "local", "SMS", "canvass")) %>%
-  droplevels() %>%
-  select(treatment, mean_age, reg_byrv13) %>%
-  drop_na(mean_age)
-```
 
 ```{r kenya8, exercise = TRUE}
 
 ```
 
 ```{r kenya8-hint, eval = FALSE}
-# ntile(mean_age, 2) will categorize age into the younger half and the older half.
+# ntile(mean_age, 2) will categorize age into the younger half and the older
+# half.
+
+kenya %>%
+  filter(treatment %in% c("control", "local", "SMS", "canvass")) %>%
+  droplevels() %>%
+  select(treatment, mean_age, reg_byrv13) %>%
+  drop_na(mean_age) %>% 
+  mutate(..)
 ```
 
 ### Exercise 9
 
 Group the data by `treatment` and `age_half`.
 
-```{r kenya9-setup}
-kenya_subset <- kenya %>%
-  filter(treatment %in% c("control", "local", "SMS", "canvass")) %>%
-  droplevels() %>%
-  select(treatment, mean_age, reg_byrv13) %>%
-  drop_na(mean_age) %>%
-  mutate(age_half = ntile(mean_age, 2))
-```
 
 ```{r kenya9, exercise = TRUE}
 
 ```
 
 ```{r kenya9-hint, eval=FALSE}
-kenya_subset <- kenya_subset %>%
+... %>%
   group_by(...)
 ```
 
@@ -1479,58 +1441,31 @@ kenya_subset <- kenya_subset %>%
 
 Using `summarize()`, calculate the variable `mean_turnout` as the average value of `reg_byrv13` in each group. Remember to set the `na.rm` argument of `mean()` to `TRUE`, as there are some `NA` values in the `reg_byrv13` column.
 
-```{r kenya10-setup}
-kenya_subset <- kenya %>%
-  filter(treatment %in% c("control", "local", "SMS", "canvass")) %>%
-  droplevels() %>%
-  select(treatment, mean_age, reg_byrv13) %>%
-  drop_na(mean_age) %>%
-  mutate(age_half = ntile(mean_age, 2)) %>%
-  group_by(treatment, age_half)
-```
 
 ```{r kenya10, exercise = TRUE}
 
 ```
 
 ```{r kenya10-hint, eval=FALSE}
-kenya_subset <- kenya_subset %>%
-  summarize(mean_turnout = ...)
-```
-
-### Exercise 11 
-
-Create a `ggplot()` named `kenya_plot` that makes a bar graph with `treatment` on the x-axis and `mean_turnout` on the y-axis.
-
-```{r kenya11-setup}
 kenya_subset <- kenya %>%
   filter(treatment %in% c("control", "local", "SMS", "canvass")) %>%
   droplevels() %>%
   select(treatment, mean_age, reg_byrv13) %>%
   drop_na(mean_age) %>%
   mutate(age_half = ntile(mean_age, 2)) %>%
-  group_by(treatment, age_half) %>%
-  summarize(mean_turnout = mean(reg_byrv13, na.rm = TRUE))
+  group_by(treatment, age_half) %>% 
+  summarize(mean_turnout = ...)
 ```
+
+### Exercise 11 
+
+Use `ggplot()` at the end of the pipe to make a bar graph with `treatment` on the x-axis and `mean_turnout` on the y-axis.
 
 ```{r kenya11, exercise = TRUE}
 
 ```
 
 ```{r kenya11-hint, eval=FALSE}
-kenya_plot <- ggplot(data = ..., aes(x = ..., y = ...)) +
-  ...
-```
-
-```{r kenya11-hint-2, eval=FALSE}
-# Remember to use geom_col() instead of geom_bar() when you map something to the y-axis.
-```
-
-### Exercise 12 
-
-Already, we can see that one of the treatments is significantly more effective at increasing turnout than others. Continue by using `facet_wrap()` to facet the data by `age_half`. Don't forget to reassign this as `kenya_plot`. 
-
-```{r kenya12-setup}
 kenya_subset <- kenya %>%
   filter(treatment %in% c("control", "local", "SMS", "canvass")) %>%
   droplevels() %>%
@@ -1538,28 +1473,26 @@ kenya_subset <- kenya %>%
   drop_na(mean_age) %>%
   mutate(age_half = ntile(mean_age, 2)) %>%
   group_by(treatment, age_half) %>%
-  summarize(mean_turnout = mean(reg_byrv13, na.rm = TRUE))
-
-kenya_plot <- ggplot(data = kenya_subset, 
-                     mapping = aes(x = treatment, y = mean_turnout)) +
-    geom_col()
+  summarize(mean_turnout = mean(reg_byrv13, na.rm = TRUE)) %>% 
+  ggplot(aes(x = ..., y = ...)) +
+  ...
 ```
+
+```{r kenya11-hint-2, eval=FALSE}
+# Remember to use geom_col() instead of geom_bar() when you map something to the
+# y-axis.
+```
+
+### Exercise 12 
+
+Already, we can see that one of the treatments is significantly more effective at increasing turnout than others. Continue by using `facet_wrap()` to facet the data by `age_half`. 
+
 
 ```{r kenya12, exercise = TRUE}
 
 ```
 
 ```{r kenya12-hint, eval=FALSE}
-kenya_plot <- kenya_plot +
-  facet_wrap(~ ...)
-```
-
-
-### Exercise 13
-
-To make the graph easier to read, use `fct_reorder()` to reorder the `treatment` variable by `mean_turnout`. Call this new plot `kenya_plot_2`. Note, you will no longer use the `facet_wrap()`, as this will cause issues with the ordering of the `treatment` categories.
-
-```{r kenya13-setup}
 kenya_subset <- kenya %>%
   filter(treatment %in% c("control", "local", "SMS", "canvass")) %>%
   droplevels() %>%
@@ -1567,15 +1500,32 @@ kenya_subset <- kenya %>%
   drop_na(mean_age) %>%
   mutate(age_half = ntile(mean_age, 2)) %>%
   group_by(treatment, age_half) %>%
-  summarize(mean_turnout = mean(reg_byrv13, na.rm = TRUE))
+  summarize(mean_turnout = mean(reg_byrv13, na.rm = TRUE)) %>% 
+  ggplot(mapping = aes(x = treatment, y = mean_turnout)) +
+    geom_col() +
+  facet_wrap(~ ...)
 ```
+
+
+### Exercise 13
+
+To make the graph easier to read, use `fct_reorder()` to reorder the `treatment` variable by `mean_turnout`. Note, you will no longer use the `facet_wrap()`, as this will cause issues with the ordering of the `treatment` categories.
+
 
 ```{r kenya13, exercise = TRUE}
 
 ```
 
 ```{r kenya13-hint, eval = FALSE}
-kenya_plot_2 <- ggplot(data = ..., mapping = aes(x = fct_reorder(..., ...), y = ...)) +
+kenya %>%
+  filter(treatment %in% c("control", "local", "SMS", "canvass")) %>%
+  droplevels() %>%
+  select(treatment, mean_age, reg_byrv13) %>%
+  drop_na(mean_age) %>%
+  mutate(age_half = ntile(mean_age, 2)) %>%
+  group_by(treatment, age_half) %>%
+  summarize(mean_turnout = mean(reg_byrv13, na.rm = TRUE)) %>% 
+  ggplot(mapping = aes(x = fct_reorder(..., ...), y = ...)) +
     geom_col()
 ```
 
@@ -1583,60 +1533,42 @@ kenya_plot_2 <- ggplot(data = ..., mapping = aes(x = fct_reorder(..., ...), y = 
 
 Improve the aesthetics of the graph by changing the theme to `theme_bw()`.
 
-```{r kenya14-setup}
-kenya_subset <- kenya %>%
-  filter(treatment %in% c("control", "local", "SMS", "canvass")) %>%
-  droplevels() %>%
-  select(treatment, mean_age, reg_byrv13) %>%
-  drop_na(mean_age) %>%
-  mutate(age_half = ntile(mean_age, 2)) %>%
-  group_by(treatment, age_half) %>%
-  summarize(mean_turnout = mean(reg_byrv13, na.rm = TRUE))
-
-kenya_plot_2 <- ggplot(data = kenya_subset,
-                       mapping = aes(x = fct_reorder(treatment, mean_turnout), y = mean_turnout)) +
-    geom_col()
-```
 
 ```{r kenya14, exercise = TRUE}
 
 ```
 
-```{r kenya14-hint, eval=FALSE}
-kenya_plot_2 <- kenya_plot_2 +
-  ...
-```
 
 ### Exercise 15
 
 Great job! This graph allows us to see that the presence of a local administrator at the polling location is by far the most effective strategy for increasing voter turnout. In addition, older voters (category 2) are not only more likely to vote than younger voters, but they are also influenced to a greater extent by the presence of a local administrator.
 
-To finish your plot, use `labs()` to change the x-axis label to "treatment." In addition, give the graph a title and subtitle of your choosing.
+To finish your plot, use `labs()` to change the x-axis label to "Treatment." In addition, give the graph a title, subtitle and y-axis label of your choosing. Your plot should look something like this:
 
-```{r kenya15-setup}
-kenya_subset <- kenya %>%
+```{r kenya15-answer}
+kenya %>%
   filter(treatment %in% c("control", "local", "SMS", "canvass")) %>%
   droplevels() %>%
   select(treatment, mean_age, reg_byrv13) %>%
   drop_na(mean_age) %>%
   mutate(age_half = ntile(mean_age, 2)) %>%
   group_by(treatment, age_half) %>%
-  summarize(mean_turnout = mean(reg_byrv13, na.rm = TRUE))
-
-kenya_plot_2 <- ggplot(data = kenya_subset,
-                       mapping = aes(x = fct_reorder(treatment, mean_turnout), y = mean_turnout)) +
+  summarize(mean_turnout = mean(reg_byrv13, na.rm = TRUE)) %>% 
+  ggplot(mapping = aes(x = fct_reorder(treatment, mean_turnout), 
+                       y = mean_turnout)) +
     geom_col() +
-    theme_bw()
+    theme_bw() +
+    labs(title = "Turnout Changes in a Kenyan Election",
+         subtitle = "Local canvassing has the largest effect",
+         x = "Treatment",
+         y = "Change in Mean Turnout")
 ```
 
 ```{r kenya15, exercise = TRUE}
 
 ```
 
-```{r kenya15-hint, eval=FALSE}
-kenya_plot_2 + 
-    labs(...)
-```
+
 
 ## Seguro Popular
 ### Exercise 1 
