@@ -2199,364 +2199,361 @@ shaming_plot_2 <- ggplot(data = shaming_subset,
 
 ```
 
-## Q-Guide
-### Exercise 1 
+<!-- ## Q-Guide -->
+<!-- ### -->
 
-The `qscores` data set includes information about 748 courses at Harvard during the 2018-2019 school year, including their department, student enrollment, average time spent on homework, and the average student rating of the course.
 
-Start by piping `qscores` into `sample_n()` to view 5 random rows in the data set.
+<!-- The `qscores` data set from the **PPBDS.data** package includes information about 748 courses at Harvard during the 2018-2019 school year, including their department, student enrollment, average time spent on homework, and the average student rating of the course. -->
 
-```{r qscores1, exercise = TRUE}
+<!-- ### Exercise 1  -->
 
-```
+<!-- Start by piping `qscores` into `sample_n()` to view 5 random rows in the data set. -->
 
-### Exercise 2
+<!-- ```{r qscores1, exercise = TRUE} -->
 
-Our goal will be to analyze the homework patterns of Harvard classes by department. To start, use a pipe to `select()` the `department` and `hours` columns (`hours` represents the average workload of a class per week in hours, based on student surveys). Call this new dataset `q_subset`. 
+<!-- ``` -->
 
-```{r qscores2, exercise = TRUE}
+<!-- ### Exercise 2 -->
 
-```
+<!-- Our goal will be to analyze the homework patterns of Harvard classes by department. To start, use a pipe to `select()` the `department` and `hours` columns -- `hours` represents the average workload of a class per week in hours, based on student surveys.  -->
 
-### Exercise 3
+<!-- ```{r qscores2, exercise = TRUE} -->
 
-Next, group the data by `department`.
-```{r qscores3-setup}
-q_subset <- qscores %>%
-  select(department, hours)
-```
+<!-- ``` -->
 
-```{r qscores3, exercise = TRUE}
+<!-- ### Exercise 3 -->
 
-```
+<!-- Next, group the data by `department`. -->
 
-```{r qscores3-hint}
-# Use the group_by() function.
-```
 
-### Exercise 4
+<!-- ```{r qscores3, exercise = TRUE} -->
 
-Use `summarize()` to create 3 new variables: `num_classes` equal to the number of rows (i.e. classes) in each `department` group, `mean_hours` equal to the average value of `hours` by group, and `sd_hours` equal to the standard deviation (`sd()`) of `hours` by group.
+<!-- ``` -->
 
-```{r qscores4-setup}
-q_subset <- qscores %>%
-  select(department, hours) %>%
-  group_by(department)
-```
+<!-- ```{r qscores3-hint} -->
+<!-- # Use the group_by() function. -->
+<!-- ``` -->
 
-```{r qscores4, exercise = TRUE, exercise.lines = 4}
+<!-- ### Exercise 4 -->
 
-```
+<!-- Use `summarize()` to create 3 new variables: `num_classes` equal to the number of rows (i.e. classes) in each `department` group, `mean_hours` equal to the average value of `hours` by group, and `sd_hours` equal to the standard deviation (`sd()`) of `hours` by group. -->
 
-```{r qscores4-hint-1, eval=FALSE}
-# The n() function returns the number of rows in each group.
-```
+<!-- ```{r qscores4-setup} -->
+<!-- q_subset <- qscores %>% -->
+<!--   select(department, hours) %>% -->
+<!--   group_by(department) -->
+<!-- ``` -->
 
-```{r qscores4-hint-2, eval = FALSE}
-q_subset <- q_subset %>%
-  summarize(num_classes = ..., mean_hours = ..., sd_hours = ...)
-```
+<!-- ```{r qscores4, exercise = TRUE, exercise.lines = 4} -->
 
-### Exercise 5
+<!-- ``` -->
 
-`arrange()` the data set by `num_classes` in `desc()`ending order.
+<!-- ```{r qscores4-hint-1, eval=FALSE} -->
+<!-- # The n() function returns the number of rows in each group. -->
+<!-- ``` -->
 
-```{r qscores5-setup}
-q_subset <- qscores %>%
-  select(department, hours) %>%
-  group_by(department) %>%
-  summarize(num_classes = n(), mean_hours = mean(hours), sd_hours = sd(hours))
-```
+<!-- ```{r qscores4-hint-2, eval = FALSE} -->
+<!-- q_subset <- q_subset %>% -->
+<!--   summarize(num_classes = ..., mean_hours = ..., sd_hours = ...) -->
+<!-- ``` -->
 
-```{r qscores5, exercise = TRUE}
+<!-- ### Exercise 5 -->
 
-```
+<!-- `arrange()` the data set by `num_classes` in `desc()`ending order. -->
 
-### Exercise 6
+<!-- ```{r qscores5-setup} -->
+<!-- q_subset <- qscores %>% -->
+<!--   select(department, hours) %>% -->
+<!--   group_by(department) %>% -->
+<!--   summarize(num_classes = n(), mean_hours = mean(hours), sd_hours = sd(hours)) -->
+<!-- ``` -->
 
-Use `slice()` to return the top 3 rows of the data set, i.e. the 3 largest departments at Harvard by number of classes.
+<!-- ```{r qscores5, exercise = TRUE} -->
 
-```{r qscores6-setup}
-q_subset <- qscores %>%
-  select(department, hours) %>%
-  group_by(department) %>%
-  summarize(num_classes = n(), mean_hours = mean(hours), sd_hours = sd(hours)) %>%
-  arrange(desc(num_classes))
-```
+<!-- ``` -->
 
-```{r qscores6, exercise = TRUE}
+<!-- ### Exercise 6 -->
 
-```
+<!-- Use `slice()` to return the top 3 rows of the data set, i.e. the 3 largest departments at Harvard by number of classes. -->
 
-```{r qscores6-hint, eval=FALSE}
-# Remember that a:b returns all of the numbers from a to b. For example, 1:10 returns every number between 1 and 10.
-```
+<!-- ```{r qscores6-setup} -->
+<!-- q_subset <- qscores %>% -->
+<!--   select(department, hours) %>% -->
+<!--   group_by(department) %>% -->
+<!--   summarize(num_classes = n(), mean_hours = mean(hours), sd_hours = sd(hours)) %>% -->
+<!--   arrange(desc(num_classes)) -->
+<!-- ``` -->
 
-### Exercise 7
+<!-- ```{r qscores6, exercise = TRUE} -->
 
-Group the data by `department` one more time (the data is no longer grouped since we removed some `department`s with our `slice()` statement).
+<!-- ``` -->
 
-```{r qscores7-setup}
-q_subset <- qscores %>%
-  select(department, hours) %>%
-  group_by(department) %>%
-  summarize(num_classes = n(), mean_hours = mean(hours), sd_hours = sd(hours)) %>%
-  arrange(desc(num_classes)) %>%
-  slice(1:3)
-```
+<!-- ```{r qscores6-hint, eval=FALSE} -->
+<!-- # Remember that a:b returns all of the numbers from a to b. For example, 1:10 returns every number between 1 and 10. -->
+<!-- ``` -->
 
-```{r qscores7, exercise = TRUE}
+<!-- ### Exercise 7 -->
 
-```
+<!-- Group the data by `department` one more time (the data is no longer grouped since we removed some `department`s with our `slice()` statement). -->
 
-### Exercise 8
+<!-- ```{r qscores7-setup} -->
+<!-- q_subset <- qscores %>% -->
+<!--   select(department, hours) %>% -->
+<!--   group_by(department) %>% -->
+<!--   summarize(num_classes = n(), mean_hours = mean(hours), sd_hours = sd(hours)) %>% -->
+<!--   arrange(desc(num_classes)) %>% -->
+<!--   slice(1:3) -->
+<!-- ``` -->
 
-Using `summarize()`, create a new variable, `rnorm_values`. `rnorm_values` should be equal to the result of an `rnorm()` statement. The `rnorm()` statement should have `n` equal to `num_classes`, `mean` equal to `mean_hours`, and `sd` equal to `sd_hours` (in other words, we are generating `n` completely random numbers, but the numbers should have the same mean and standard deviation as the actual Harvard classes do).
+<!-- ```{r qscores7, exercise = TRUE} -->
 
-```{r qscores8-setup}
-q_subset <- qscores %>%
-  select(department, hours) %>%
-  group_by(department) %>%
-  summarize(num_classes = n(), mean_hours = mean(hours), sd_hours = sd(hours)) %>%
-  arrange(desc(num_classes)) %>%
-  slice(1:3) %>%
-  group_by(department)
-```
+<!-- ``` -->
 
-```{r qscores8, exercise = TRUE}
+<!-- ### Exercise 8 -->
 
-```
+<!-- Using `summarize()`, create a new variable, `rnorm_values`. `rnorm_values` should be equal to the result of an `rnorm()` statement. The `rnorm()` statement should have `n` equal to `num_classes`, `mean` equal to `mean_hours`, and `sd` equal to `sd_hours` (in other words, we are generating `n` completely random numbers, but the numbers should have the same mean and standard deviation as the actual Harvard classes do). -->
 
-```{r qscores8-hint, eval=FALSE}
-qsubset <- q_subset %>%
-  summarize(rnorm_values = rnorm(...))
-```
+<!-- ```{r qscores8-setup} -->
+<!-- q_subset <- qscores %>% -->
+<!--   select(department, hours) %>% -->
+<!--   group_by(department) %>% -->
+<!--   summarize(num_classes = n(), mean_hours = mean(hours), sd_hours = sd(hours)) %>% -->
+<!--   arrange(desc(num_classes)) %>% -->
+<!--   slice(1:3) %>% -->
+<!--   group_by(department) -->
+<!-- ``` -->
 
-### Exercise 9
+<!-- ```{r qscores8, exercise = TRUE} -->
 
-Great work! Our next goal will be to create a new column with the homework values of the *actual* Harvard classes. To do so, start a new pipe at the very beginning of your code. Use the pipe to `filter()` qscores to the "ECON," "MATH," and "GOV" departments (which we have already discovered are the 3 largest departments in our data set). Call this `q_subset_2`. 
+<!-- ``` -->
 
-```{r qscores9, exercise = TRUE}
+<!-- ```{r qscores8-hint, eval=FALSE} -->
+<!-- qsubset <- q_subset %>% -->
+<!--   summarize(rnorm_values = rnorm(...)) -->
+<!-- ``` -->
 
-```
+<!-- ### Exercise 9 -->
 
-```{r qscores9-hint, eval=FALSE}
-# Remember to use the %in% operator.
-```
+<!-- Great work! Our next goal will be to create a new column with the homework values of the *actual* Harvard classes. To do so, start a new pipe at the very beginning of your code. Use the pipe to `filter()` qscores to the "ECON," "MATH," and "GOV" departments (which we have already discovered are the 3 largest departments in our data set). Call this `q_subset_2`.  -->
 
-### Exercise 10
+<!-- ```{r qscores9, exercise = TRUE} -->
 
-`arrange()` both `q_subset` and `q_subset_2` by `department`. (because `department` is a character variable, this will arrange them in alphabetical order).
+<!-- ``` -->
 
-```{r qscores10-setup}
-q_subset <- qscores %>%
-  select(department, hours) %>%
-  group_by(department) %>%
-  summarize(num_classes = n(), mean_hours = mean(hours), sd_hours = sd(hours)) %>%
-  arrange(desc(num_classes)) %>%
-  slice(1:3) %>%
-  group_by(department) %>%
-  summarize(rnorm_values = rnorm(n = num_classes, mean = mean_hours, sd = sd_hours))
+<!-- ```{r qscores9-hint, eval=FALSE} -->
+<!-- # Remember to use the %in% operator. -->
+<!-- ``` -->
 
-q_subset_2 <- qscores %>%
-  filter(department %in% c("ECON", "MATH", "GOV"))
-```
+<!-- ### Exercise 10 -->
 
-```{r qscores10, exercise = TRUE}
+<!-- `arrange()` both `q_subset` and `q_subset_2` by `department`. (because `department` is a character variable, this will arrange them in alphabetical order). -->
 
-```
+<!-- ```{r qscores10-setup} -->
+<!-- q_subset <- qscores %>% -->
+<!--   select(department, hours) %>% -->
+<!--   group_by(department) %>% -->
+<!--   summarize(num_classes = n(), mean_hours = mean(hours), sd_hours = sd(hours)) %>% -->
+<!--   arrange(desc(num_classes)) %>% -->
+<!--   slice(1:3) %>% -->
+<!--   group_by(department) %>% -->
+<!--   summarize(rnorm_values = rnorm(n = num_classes, mean = mean_hours, sd = sd_hours)) -->
 
-### Exercise 11
+<!-- q_subset_2 <- qscores %>% -->
+<!--   filter(department %in% c("ECON", "MATH", "GOV")) -->
+<!-- ``` -->
 
-`select()` only the `hours` variable from `q_subset_2`.
-```{r qscores11-setup}
-q_subset_2 <- qscores %>%
-  filter(department %in% c("ECON", "MATH", "GOV")) %>%
-  arrange(department)
+<!-- ```{r qscores10, exercise = TRUE} -->
 
-q_subset <- qscores %>%
-  select(department, hours) %>%
-  group_by(department) %>%
-  summarize(num_classes = n(), mean_hours = mean(hours), sd_hours = sd(hours)) %>%
-  arrange(desc(num_classes)) %>%
-  slice(1:3) %>%
-  group_by(department) %>%
-  summarize(rnorm_values = rnorm(n = num_classes, mean = mean_hours, sd = sd_hours)) %>%
-  arrange(department)
+<!-- ``` -->
 
-```
+<!-- ### Exercise 11 -->
 
-```{r qscores11, exercise = TRUE}
+<!-- `select()` only the `hours` variable from `q_subset_2`. -->
+<!-- ```{r qscores11-setup} -->
+<!-- q_subset_2 <- qscores %>% -->
+<!--   filter(department %in% c("ECON", "MATH", "GOV")) %>% -->
+<!--   arrange(department) -->
 
-```
+<!-- q_subset <- qscores %>% -->
+<!--   select(department, hours) %>% -->
+<!--   group_by(department) %>% -->
+<!--   summarize(num_classes = n(), mean_hours = mean(hours), sd_hours = sd(hours)) %>% -->
+<!--   arrange(desc(num_classes)) %>% -->
+<!--   slice(1:3) %>% -->
+<!--   group_by(department) %>% -->
+<!--   summarize(rnorm_values = rnorm(n = num_classes, mean = mean_hours, sd = sd_hours)) %>% -->
+<!--   arrange(department) -->
 
-### Exercise 12 
+<!-- ``` -->
 
-Finally, use `bind_cols()` to bind the columns in `q_subset_2` to the columns in `q_subset`.
-Call this `q_bind`.
+<!-- ```{r qscores11, exercise = TRUE} -->
 
-Notice how careful we were to `arrange()` both pipes by the same variable before we conducted our column bind. This is really important because the rows **must** be in the same order before you column bind. Otherwise, values will be bound to the wrong rows (for example, some `hours` from ECON classes might end up paired with some `rnorm_values` from MATH classes, which we certainly don't want).
+<!-- ``` -->
 
-```{r qscores12-setup}
-q_subset_2 <- qscores %>%
-  filter(department %in% c("ECON", "MATH", "GOV")) %>%
-  arrange(department) %>%
-  select(hours)
+<!-- ### Exercise 12  -->
 
-q_subset <- qscores %>%
-  select(department, hours) %>%
-  group_by(department) %>%
-  summarize(num_classes = n(), mean_hours = mean(hours), sd_hours = sd(hours)) %>%
-  arrange(desc(num_classes)) %>%
-  slice(1:3) %>%
-  group_by(department) %>%
-  summarize(rnorm_values = rnorm(n = num_classes, mean = mean_hours, sd = sd_hours)) %>%
-  arrange(department)
-```
+<!-- Finally, use `bind_cols()` to bind the columns in `q_subset_2` to the columns in `q_subset`. -->
+<!-- Call this `q_bind`. -->
 
-```{r qscores12, exercise = TRUE}
+<!-- Notice how careful we were to `arrange()` both pipes by the same variable before we conducted our column bind. This is really important because the rows **must** be in the same order before you column bind. Otherwise, values will be bound to the wrong rows (for example, some `hours` from ECON classes might end up paired with some `rnorm_values` from MATH classes, which we certainly don't want). -->
 
-```
+<!-- ```{r qscores12-setup} -->
+<!-- q_subset_2 <- qscores %>% -->
+<!--   filter(department %in% c("ECON", "MATH", "GOV")) %>% -->
+<!--   arrange(department) %>% -->
+<!--   select(hours) -->
 
-### Exercise 13
+<!-- q_subset <- qscores %>% -->
+<!--   select(department, hours) %>% -->
+<!--   group_by(department) %>% -->
+<!--   summarize(num_classes = n(), mean_hours = mean(hours), sd_hours = sd(hours)) %>% -->
+<!--   arrange(desc(num_classes)) %>% -->
+<!--   slice(1:3) %>% -->
+<!--   group_by(department) %>% -->
+<!--   summarize(rnorm_values = rnorm(n = num_classes, mean = mean_hours, sd = sd_hours)) %>% -->
+<!--   arrange(department) -->
+<!-- ``` -->
 
-Before we make our `ggplot()`, use `pivot_longer()` to transform the `rnorm_values` and `hours` columns into two new columns: "type," equal to either `rnorm_values` or `hours`, and "value," equal to the value currently contained in one of those two columns.
+<!-- ```{r qscores12, exercise = TRUE} -->
 
-```{r qscores13-setup}
-q_subset_2 <- qscores %>%
-  filter(department %in% c("ECON", "MATH", "GOV")) %>%
-  arrange(department) %>%
-  select(hours)
+<!-- ``` -->
 
-q_subset <- qscores %>%
-  select(department, hours) %>%
-  group_by(department) %>%
-  summarize(num_classes = n(), mean_hours = mean(hours), sd_hours = sd(hours)) %>%
-  arrange(desc(num_classes)) %>%
-  slice(1:3) %>%
-  group_by(department) %>%
-  summarize(rnorm_values = rnorm(n = num_classes, mean = mean_hours, sd = sd_hours)) %>%
-  arrange(department)
+<!-- ### Exercise 13 -->
 
-q_bind <- bind_cols(q_subset, q_subset_2)
-```
+<!-- Before we make our `ggplot()`, use `pivot_longer()` to transform the `rnorm_values` and `hours` columns into two new columns: "type," equal to either `rnorm_values` or `hours`, and "value," equal to the value currently contained in one of those two columns. -->
 
-```{r qscores13, exercise = TRUE}
+<!-- ```{r qscores13-setup} -->
+<!-- q_subset_2 <- qscores %>% -->
+<!--   filter(department %in% c("ECON", "MATH", "GOV")) %>% -->
+<!--   arrange(department) %>% -->
+<!--   select(hours) -->
 
-```
+<!-- q_subset <- qscores %>% -->
+<!--   select(department, hours) %>% -->
+<!--   group_by(department) %>% -->
+<!--   summarize(num_classes = n(), mean_hours = mean(hours), sd_hours = sd(hours)) %>% -->
+<!--   arrange(desc(num_classes)) %>% -->
+<!--   slice(1:3) %>% -->
+<!--   group_by(department) %>% -->
+<!--   summarize(rnorm_values = rnorm(n = num_classes, mean = mean_hours, sd = sd_hours)) %>% -->
+<!--   arrange(department) -->
 
-```{r qscores13-hint, eval = FALSE}
+<!-- q_bind <- bind_cols(q_subset, q_subset_2) -->
+<!-- ``` -->
 
-```
+<!-- ```{r qscores13, exercise = TRUE} -->
 
-### Exercise 14
+<!-- ``` -->
 
-Use `ggplot()` to make a histogram that maps `value` to the x-axis. Give the histogram a `binwidth` of 2. Call this histogram `q_plot`. 
-```{r qscores14-setup}
-q_subset_2 <- qscores %>%
-  filter(department %in% c("ECON", "MATH", "GOV")) %>%
-  arrange(department) %>%
-  select(hours)
+<!-- ```{r qscores13-hint, eval = FALSE} -->
 
-q_subset <- qscores %>%
-  select(department, hours) %>%
-  group_by(department) %>%
-  summarize(num_classes = n(), mean_hours = mean(hours), sd_hours = sd(hours)) %>%
-  arrange(desc(num_classes)) %>%
-  slice(1:3) %>%
-  group_by(department) %>%
-  summarize(rnorm_values = rnorm(n = num_classes, mean = mean_hours, sd = sd_hours)) %>%
-  arrange(department)
+<!-- ``` -->
 
-q_bind <- bind_cols(q_subset, q_subset_2) %>%
-  pivot_longer(cols = c(rnorm_values, hours), names_to = "type", values_to = "value")
-```
+<!-- ### Exercise 14 -->
 
-```{r qscores14, exercise = TRUE}
+<!-- Use `ggplot()` to make a histogram that maps `value` to the x-axis. Give the histogram a `binwidth` of 2. Call this histogram `q_plot`.  -->
+<!-- ```{r qscores14-setup} -->
+<!-- q_subset_2 <- qscores %>% -->
+<!--   filter(department %in% c("ECON", "MATH", "GOV")) %>% -->
+<!--   arrange(department) %>% -->
+<!--   select(hours) -->
 
-```
+<!-- q_subset <- qscores %>% -->
+<!--   select(department, hours) %>% -->
+<!--   group_by(department) %>% -->
+<!--   summarize(num_classes = n(), mean_hours = mean(hours), sd_hours = sd(hours)) %>% -->
+<!--   arrange(desc(num_classes)) %>% -->
+<!--   slice(1:3) %>% -->
+<!--   group_by(department) %>% -->
+<!--   summarize(rnorm_values = rnorm(n = num_classes, mean = mean_hours, sd = sd_hours)) %>% -->
+<!--   arrange(department) -->
 
-### Exercise 15
+<!-- q_bind <- bind_cols(q_subset, q_subset_2) %>% -->
+<!--   pivot_longer(cols = c(rnorm_values, hours), names_to = "type", values_to = "value") -->
+<!-- ``` -->
 
-Use `facet_grid()` to facet our histogram into rows by `type` and columns by `department`.
-```{r qscores15-setup}
-q_subset_2 <- qscores %>%
-  filter(department %in% c("ECON", "MATH", "GOV")) %>%
-  arrange(department) %>%
-  select(hours)
+<!-- ```{r qscores14, exercise = TRUE} -->
 
-q_subset <- qscores %>%
-  select(department, hours) %>%
-  group_by(department) %>%
-  summarize(num_classes = n(), mean_hours = mean(hours), sd_hours = sd(hours)) %>%
-  arrange(desc(num_classes)) %>%
-  slice(1:3) %>%
-  group_by(department) %>%
-  summarize(rnorm_values = rnorm(n = num_classes, mean = mean_hours, sd = sd_hours)) %>%
-  arrange(department)
+<!-- ``` -->
 
-q_bind <- bind_cols(q_subset, q_subset_2) %>%
-  pivot_longer(cols = c(rnorm_values, hours), names_to = "type", values_to = "value")
+<!-- ### Exercise 15 -->
 
-q_plot <- ggplot(data = q_bind, mapping = aes(x = value)) +
-    geom_histogram(binwidth = 2)
-```
+<!-- Use `facet_grid()` to facet our histogram into rows by `type` and columns by `department`. -->
+<!-- ```{r qscores15-setup} -->
+<!-- q_subset_2 <- qscores %>% -->
+<!--   filter(department %in% c("ECON", "MATH", "GOV")) %>% -->
+<!--   arrange(department) %>% -->
+<!--   select(hours) -->
 
-```{r qscores15, exercise = TRUE, exercise.lines = 19}
+<!-- q_subset <- qscores %>% -->
+<!--   select(department, hours) %>% -->
+<!--   group_by(department) %>% -->
+<!--   summarize(num_classes = n(), mean_hours = mean(hours), sd_hours = sd(hours)) %>% -->
+<!--   arrange(desc(num_classes)) %>% -->
+<!--   slice(1:3) %>% -->
+<!--   group_by(department) %>% -->
+<!--   summarize(rnorm_values = rnorm(n = num_classes, mean = mean_hours, sd = sd_hours)) %>% -->
+<!--   arrange(department) -->
 
-```
+<!-- q_bind <- bind_cols(q_subset, q_subset_2) %>% -->
+<!--   pivot_longer(cols = c(rnorm_values, hours), names_to = "type", values_to = "value") -->
 
-```{r qscores15-hint, eval=FALSE}
-# Remember that when using facet_grid(), the variable to the left of the "~" is the variable that will be used to facet the graph into rows.
-```
+<!-- q_plot <- ggplot(data = q_bind, mapping = aes(x = value)) + -->
+<!--     geom_histogram(binwidth = 2) -->
+<!-- ``` -->
 
-### Exercise 16
+<!-- ```{r qscores15, exercise = TRUE, exercise.lines = 19} -->
 
-Awesome work! This graph gives the actual homework times for Harvard classes on the top row and an imitation on the bottom row by utilizing a normal distribution. The first thing to notice is that the MATH department has a significantly higher mean homework amount than the ECON and GOV departments (this is most easily seen on the bottom row of graphs). Furthermore, the graphs on the top tend to skew left compared to the normal distributions on the bottom, implying that professors are less willing to give substantially more homework than the typical class in that department.
+<!-- ``` -->
 
-To finish your plot, use `labs()` to give the graph a title and subtitle of your choice.
+<!-- ```{r qscores15-hint, eval=FALSE} -->
+<!-- # Remember that when using facet_grid(), the variable to the left of the "~" is the variable that will be used to facet the graph into rows. -->
+<!-- ``` -->
 
-```{r qscores16-setup}
-q_subset_2 <- qscores %>%
-  filter(department %in% c("ECON", "MATH", "GOV")) %>%
-  arrange(department) %>%
-  select(hours)
+<!-- ### Exercise 16 -->
 
-q_subset <- qscores %>%
-  select(department, hours) %>%
-  group_by(department) %>%
-  summarize(num_classes = n(), mean_hours = mean(hours), sd_hours = sd(hours)) %>%
-  arrange(desc(num_classes)) %>%
-  slice(1:3) %>%
-  group_by(department) %>%
-  summarize(rnorm_values = rnorm(n = num_classes, mean = mean_hours, sd = sd_hours)) %>%
-  arrange(department)
+<!-- Awesome work! This graph gives the actual homework times for Harvard classes on the top row and an imitation on the bottom row by utilizing a normal distribution. The first thing to notice is that the MATH department has a significantly higher mean homework amount than the ECON and GOV departments (this is most easily seen on the bottom row of graphs). Furthermore, the graphs on the top tend to skew left compared to the normal distributions on the bottom, implying that professors are less willing to give substantially more homework than the typical class in that department. -->
 
-q_bind <- bind_cols(q_subset, q_subset_2) %>%
-  pivot_longer(cols = c(rnorm_values, hours), names_to = "type", values_to = "value")
+<!-- To finish your plot, use `labs()` to give the graph a title and subtitle of your choice. -->
 
-q_plot <- ggplot(data = q_bind, mapping = aes(x = value)) +
-    geom_histogram(binwidth = 2) +
-     facet_grid(type ~ department)
-```
+<!-- ```{r qscores16-setup} -->
+<!-- q_subset_2 <- qscores %>% -->
+<!--   filter(department %in% c("ECON", "MATH", "GOV")) %>% -->
+<!--   arrange(department) %>% -->
+<!--   select(hours) -->
 
-```{r qscores16, exercise = TRUE, exercise.lines = 20}
+<!-- q_subset <- qscores %>% -->
+<!--   select(department, hours) %>% -->
+<!--   group_by(department) %>% -->
+<!--   summarize(num_classes = n(), mean_hours = mean(hours), sd_hours = sd(hours)) %>% -->
+<!--   arrange(desc(num_classes)) %>% -->
+<!--   slice(1:3) %>% -->
+<!--   group_by(department) %>% -->
+<!--   summarize(rnorm_values = rnorm(n = num_classes, mean = mean_hours, sd = sd_hours)) %>% -->
+<!--   arrange(department) -->
 
-```
+<!-- q_bind <- bind_cols(q_subset, q_subset_2) %>% -->
+<!--   pivot_longer(cols = c(rnorm_values, hours), names_to = "type", values_to = "value") -->
 
-```{r qscores16-hint, eval = FALSE}
+<!-- q_plot <- ggplot(data = q_bind, mapping = aes(x = value)) + -->
+<!--     geom_histogram(binwidth = 2) + -->
+<!--      facet_grid(type ~ department) -->
+<!-- ``` -->
 
-```
+<!-- ```{r qscores16, exercise = TRUE, exercise.lines = 20} -->
+
+<!-- ``` -->
+
+
 
 ## National Election Studies
 ###
 
 `nes`, short for "National Election Studies," contains the personal and political
-information of almost 40,000 American voters, as well as whether or not they voted
-in that year's presidential election.The goal of this exercise is to replicate this plot:
+information of almost 40,000 American voters, as well as whether or not they voted in that year's presidential election. The goal of this exercise is to replicate this plot:
 
 ```{r, echo=FALSE}
-nes %>%
+nes_plot <- nes %>%
   select(year, education, pres_appr, ideology, voted) %>%
   filter(education %in% c("Some Highschool", "Highschool", 
                           "Some College", "Adv. Degree")) %>%
@@ -2581,7 +2578,11 @@ nes %>%
   scale_color_brewer(palette = "Spectral", name = "education") +
   scale_linetype(name = "education") +
   labs(title = "Turnout and Opinions Over Time",
-       subtitle = "People with opinions are more likely to vote")
+       subtitle = "People with opinions are more likely to vote",
+       x = "Turnout Percentage",
+       y = "Year")
+
+nes_plot
 ```
 
 Good luck!
@@ -2843,35 +2844,10 @@ Our graph is looking good, but the very long legend title takes up a lot of spac
 
 Amazing work! From this graph, we see that Americans with a higher level of education tend to vote more often. Furthermore, Americans with an opinion of the president generally have higher voter turnout than Americans without an opinion of the president. Finally, pretty much 100% of Americans with an advanced degree are able to form an opinion of the president (this is why there is no Advanced Degree line in the no_opinion graph: there are too few data points in the table).
 
-To finish your plot, use `labs()` to give the graph a title and subtitle of your choosing. Here is our answer. It is OK if your answer looks somewhat different from ours. Something sure seems fishy about that perfectly flat red line on the right . . .
+To finish your plot, use `labs()` to give the graph a title and subtitle of your choosing, along with some axis labels. Here is our answer. It is OK if your answer looks somewhat different from ours. Something sure seems fishy about that perfectly flat red line on the right . . . Indeed, there are a couple of things about our plot which could be improved . . . Why not improve them?
 
 ```{r, echo=FALSE}
-nes %>%
-  select(year, education, pres_appr, ideology, voted) %>%
-  filter(education %in% c("Some Highschool", "Highschool", 
-                          "Some College", "Adv. Degree")) %>%
-  droplevels() %>%
-  mutate(opinion = as.factor(if_else(condition = str_detect(pres_appr, "prove"),
-                                     true = "has_opinion",
-                                     false = "no_opinion"))) %>%
-  drop_na() %>%
-  group_by(year, voted, opinion, education) %>%
-  summarize(count = n()) %>%
-  pivot_wider(names_from = voted, values_from = count) %>%
-  mutate(turnout = Yes / (Yes + No)) %>%
-  drop_na() %>%
-  ggplot(mapping = aes(x = year,
-                       y = turnout,
-                       color = fct_reorder2(education, year,
-                                            turnout, .fun = first2),
-                       linetype = fct_reorder2(education, year, turnout,
-                                               .fun = first2))) +
-  geom_line() +
-  facet_wrap(~ opinion) +
-  scale_color_brewer(palette = "Spectral", name = "education") +
-  scale_linetype(name = "education") +
-  labs(title = "Turnout and Opinions Over Time",
-       subtitle = "People with opinions are more likely to vote")
+nes_plot
 ```
 
 ```{r nes17, exercise = TRUE, exercise.lines = 20}
@@ -2885,7 +2861,7 @@ nes %>%
 We will be focusing on the data set `airline_saftey` from the `fivethirtyeight` package. We will recreate this plot step-by-step.
 
 ```{r as-answer, echo=FALSE}
- airline_safety %>%
+as_plot <- airline_safety %>%
   pivot_longer(c(incidents_85_99, incidents_00_14, fatal_accidents_00_14,
                  fatal_accidents_85_99, fatalities_00_14, fatalities_85_99),
                names_to = "type_date",
@@ -2901,6 +2877,8 @@ We will be focusing on the data set `airline_saftey` from the `fivethirtyeight` 
          subtitle = "Airlines with more long-haul routes are safer",
          x = "Airline",
          y = "Distance per Incident")
+
+as_plot
 ```
 
 
@@ -2998,25 +2976,10 @@ Awesome! As you can see, the airline names on the y axis are crowded and basical
 
 ### Exercise 9
 
-Great! Now add some labels to finish our plot off! Here is our version. As always, it is OK if yours looks different.
+Great! Now add some labels to finish our plot off! Here is our version. As always, it is OK if yours looks different. Try to make it better!
 
-```{r as-9-answer, echo=FALSE}
- airline_safety %>%
-  pivot_longer(c(incidents_85_99, incidents_00_14, fatal_accidents_00_14,
-                 fatal_accidents_85_99, fatalities_00_14, fatalities_85_99),
-               names_to = "type_date",
-               values_to = "count") %>%
-  separate(type_date, c("type", "date"), sep = "s_") %>%
-  filter(date == "00_14", count > 0) %>%
-  mutate(safety_value = avail_seat_km_per_week / count) %>%
-  arrange(safety_value) %>%
-  ggplot(aes(x = airline, y = safety_value)) +
-    geom_col() +
-    theme(axis.text = element_text(size = 5, angle = 90)) +
-    labs(title = "Airline Safety",
-         subtitle = "Airlines with more long-haul routes are safer",
-         x = "Airline",
-         y = "Distance per Incident")
+```{r as-9-answer}
+as_plot
 ```
 
 ```{r as-9, exercise=TRUE, exercise.lines=20}
