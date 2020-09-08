@@ -5,7 +5,7 @@ output: html_document
 
 <!-- TO-DO: -->
 
-<!-- Figure out a way to create a plot once and then show it twice, once at start of group and once at end.  -->
+<!-- Figure out a way to create a plot once and then show it twice, once at start of a group and once at end.  -->
 
 <!-- We need tutorials about using Git, using the command line and other non-R stuff. -->
 
