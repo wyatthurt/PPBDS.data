@@ -1862,10 +1862,41 @@ sps_plot_2 <- ggplot(data = sps_subset, mapping = aes(x = fct_reorder(education,
 ```
 
 ## Shaming 
+###
+
+The `shaming` data set chronicles a study that attempted to measure the impact of social pressure on voting. Nearly 350,000 people in Michigan were randomly assigned to 1 of 5 treatment groups before the 2006 Michigan primary. All 5 groups were sent mail before the primary: the "Civic Duty" group had an extra reminder that voting was a civic responsibility, the "Hawthorne" group was told that whether or not they voted would be in the public record, the "Self" group was actually *sent* the public record of whether or not they voted in 2004, and the "Neighbors" group was sent both their voting record and their neighbors' voting record from 2004. We will reproduce this plot.
+
+```{r sh_goal}
+shaming_plot <- shaming %>%
+  select(primary_04, primary_06, treatment) %>%
+  mutate(primary_04 = if_else(condition = 
+                                str_detect(primary_04, "Yes"),
+                                true = 1L,
+                                false = 0L)) %>%
+  pivot_longer(cols = c(primary_04, primary_06), 
+               names_to = "year", values_to = "voted") %>%
+  group_by(treatment, year, voted) %>%
+  summarize(num_voters = n(), .groups = "drop") %>%
+  mutate(voted = if_else(condition = voted == 1,
+                         true = "did_vote",
+                         false = "did_not_vote")) %>%
+  pivot_wider(names_from = voted, values_from = num_voters)  %>%
+  mutate(pct_voted = did_vote / (did_vote + did_not_vote)) %>% 
+  ggplot(mapping = aes(x = fct_reorder(treatment, pct_voted), 
+                       y = pct_voted, fill = year)) +
+    geom_col(position = position_dodge(preserve = "single")) +
+    coord_cartesian(ylim = c(0.2, 0.45)) +
+    labs(x = "Treatment",
+         y = "Voting Percentage",
+         title = "Voting Rates Based on Mailings",
+         subtitle = "Shaming people makes them more likely to vote",
+         caption = "Source: Gerber, Green, and Larimer (2008).") +
+    theme_fivethirtyeight()
+
+shaming_plot
+```
 
 ### Exercise 1
-
-The `shaming` data set chronicles a study that attempted to measure the impact of social pressure on voting. Nearly 350,000 people in Michigan were randomly assigned to 1 of 5 treatment groups before the 2006 Michigan primary. All 5 groups were sent mail before the primary: the "Civic Duty" group had an extra reminder that voting was a civic responsibility, the "Hawthorne" group was told that whether or not they voted would be in the public record, the "Self" group was actually *sent* the public record of whether or not they voted in 2004, and the "Neighbors" group was sent both their voting record and their neighbors' voting record from 2004.
 
 Start by running `skim()` on `shaming`. See if you can find out how many of the participants voted in `general_04`. Also, pay close attention to the data types of each of the variables.
 
@@ -1875,7 +1906,7 @@ Start by running `skim()` on `shaming`. See if you can find out how many of the 
 
 ### Exercise 2
 
-Make the data set easier to visualize by limiting the columns to `treatment`, `primary_04`, and `primary_06`. Call this new dataset `shaming_subset`.
+Make the data set easier to visualize by limiting the columns to `treatment`, `primary_04`, and `primary_06`. 
 
 ```{r shaming2, exercise = TRUE}
 
@@ -1889,17 +1920,13 @@ Make the data set easier to visualize by limiting the columns to `treatment`, `p
 
 Use `pivot_longer()` to map the *names* of the `primary_04` and `primary_06` columns to a new column, "year," and the *values* of those two columns to a new column, "voted." What goes wrong?
 
-```{r shaming3-setup}
-shaming_subset <- shaming %>%
-  select(primary_04, primary_06, treatment)
-```
 
 ```{r shaming3, exercise = TRUE}
 
 ```
 
 ```{r shaming3-hint, eval = FALSE}
-shaming_subset %>%
+...  %>%
   pivot_longer(cols = ..., names_to = ..., values_to = ...)
 ```
 
@@ -1921,10 +1948,6 @@ shaming %>%
 
 Now, use `if_else()` before the `pivot_longer()` statement to `mutate()` the `primary_04` column. The condition should should be a `str_detect()` of the string "Yes" in `primary_04`. If the condition is true, return 1 **as an integer**, and if the condition is false, return 0 **as an integer**. Don't forget to `pivot_longer()` once again. 
 
-```{r shaming5-setup}
-shaming_subset <- shaming %>%
-  select(primary_04, primary_06, treatment) 
-```
 
 ```{r shaming5, exercise = TRUE, eval = FALSE, exercise.lines = 5}
 
@@ -1942,14 +1965,6 @@ shaming_subset <- shaming %>%
 
 Great job! To continue, group the data by `treatment`, `year`, and `voted`.
 
-```{r shaming6-setup}
-shaming_subset <- shaming %>%
-  select(primary_04, primary_06, treatment) %>%
-  mutate(primary_04 = if_else(condition = str_detect(primary_04, "Yes"),
-                              true = 1L,
-                              false = 0L)) %>%
-  pivot_longer(cols = c(primary_04, primary_06), names_to = "year", values_to = "voted")
-```
 
 ```{r shaming6, exercise = TRUE}
 
@@ -1963,16 +1978,6 @@ shaming_subset <- shaming %>%
 
 Using `summarize()`, create the variable `num_voters` that simply counts the number of rows in each group.
 
-```{r shaming7-setup}
-shaming_subset <- shaming %>%
-  select(primary_04, primary_06, treatment) %>%
-  mutate(primary_04 = if_else(condition = str_detect(primary_04, "Yes"),
-                              true = 1L,
-                              false = 0L)) %>%
-  pivot_longer(cols = c(primary_04, primary_06), names_to = "year", values_to = "voted") %>%
-  group_by(treatment, year, voted)
-```
-
 ```{r shaming7, exercise = TRUE}
 
 ```
@@ -1985,70 +1990,50 @@ shaming_subset <- shaming %>%
 
 The `voted` column is a bit difficult to understand, as a numerical value (0 or 1) is used to represent an idea (the person did or did not vote). Use another `if_else()` statement to `mutate()` the `voted` column. Condition your `if_else()` on whether `voted` is equal to 1: true should return "did_vote," and false should return "did_not_vote."
 
-```{r shaming8-setup}
-shaming_subset <- shaming %>%
-  select(primary_04, primary_06, treatment) %>%
-  mutate(primary_04 = if_else(condition = str_detect(primary_04, "Yes"),
-                              true = 1L,
-                              false = 0L)) %>%
-  pivot_longer(cols = c(primary_04, primary_06), names_to = "year", values_to = "voted") %>%
-  group_by(treatment, year, voted) %>%
-  summarize(num_voters = n())
-```
 
 ```{r shaming8, exercise = TRUE}
 
 ```
 
-```{r shaming8-hint, eval=FALSE}
+```{r shaming8-hint-1, eval=FALSE}
 # The condition of the if_else() should be voted == 1.
+```
+
+```{r shaming8-hint-2, eval=FALSE}
+# Your pipe should look something like this:
+
+shaming %>%
+  select(primary_04, primary_06, treatment) %>%
+  mutate(primary_04 = if_else(condition = 
+                                str_detect(primary_04, "Yes"),
+                                true = 1L,
+                                false = 0L)) %>%
+  pivot_longer(cols = c(primary_04, primary_06), 
+               names_to = "year", values_to = "voted") %>%
+  group_by(treatment, year, voted) %>%
+  summarize(num_voters = n(), .groups = "drop") %>%
+  mutate(voted = if_else(condition = voted == 1,
+                         true = "did_vote",
+                         false = "did_not_vote"))
 ```
 
 ### Exercise 9
 
 Now, we want `did_vote` and `did_not_vote` to be their own columns. Call a `pivot_wider()` function that gets its column names from `voted` and its values from `num_voters`.
 
-```{r shaming9-setup}
-shaming_subset <- shaming %>%
-  select(primary_04, primary_06, treatment) %>%
-  mutate(primary_04 = if_else(condition = str_detect(primary_04, "Yes"),
-                              true = 1L,
-                              false = 0L)) %>%
-  pivot_longer(cols = c(primary_04, primary_06), names_to = "year", values_to = "voted") %>%
-  group_by(treatment, year, voted) %>%
-  summarize(num_voters = n()) %>%
-  mutate(voted = if_else(condition = voted == 1,
-                         true = "did_vote",
-                         false = "did_not_vote"))
-```
 
 ```{r shaming9, exercise = TRUE}
 
 ```
 
 ```{r shaming9-hint, eval = FALSE}
-shaming_subset <- shaming_subset %>%
+...  %>%
   pivot_wider(names_from = ..., values_from = ...)
 ```
 
 ### Exercise 10
 
 `mutate()` a new variable, `pct_voted`, equal to the number of people who `did_vote` divided by the total number of people.
-
-```{r shaming10-setup}
-shaming_subset <- shaming %>%
-  select(primary_04, primary_06, treatment) %>%
-  mutate(primary_04 = if_else(condition = str_detect(primary_04, "Yes"),
-                              true = 1L,
-                              false = 0L)) %>%
-  pivot_longer(cols = c(primary_04, primary_06), names_to = "year", values_to = "voted") %>%
-  group_by(treatment, year, voted) %>%
-  summarize(num_voters = n()) %>%
-  mutate(voted = if_else(condition = voted == 1,
-                         true = "did_vote",
-                         false = "did_not_vote")) %>%
-  pivot_wider(names_from = voted, values_from = num_voters)
-```
 
 ```{r shaming10, exercise = TRUE}
 
@@ -2060,54 +2045,23 @@ shaming_subset <- shaming %>%
 
 ### Exercise 11
 
-Call `ggplot()` to make a bar chart that maps `treatment` to the x-axis, `pct_voted` to the y-axis, and `year` to the fill aesthetic. Call this plot `shaming_plot`.
+Call `ggplot()` to make a bar chart that maps `treatment` to the x-axis, `pct_voted` to the y-axis, and `year` to the fill aesthetic. 
 
-```{r shaming11-setup}
-shaming_subset <- shaming %>%
-  select(primary_04, primary_06, treatment) %>%
-  mutate(primary_04 = if_else(condition = str_detect(primary_04, "Yes"),
-                              true = 1L,
-                              false = 0L)) %>%
-  pivot_longer(cols = c(primary_04, primary_06), names_to = "year", values_to = "voted") %>%
-  group_by(treatment, year, voted) %>%
-  summarize(num_voters = n()) %>%
-  mutate(voted = if_else(condition = voted == 1,
-                         true = "did_vote",
-                         false = "did_not_vote")) %>%
-  pivot_wider(names_from = voted, values_from = num_voters) %>%
-  mutate(pct_voted = did_vote / (did_vote + did_not_vote))
-```
 
 ```{r shaming11, exercise = TRUE, exercise.lines = 14}
 
 ```
 
 ```{r shaming11-hint, eval=FALSE}
-# Remember to use geom_col() instead of geom_bar() when you map something to the y-axis.
+# Remember to use geom_col() instead of geom_bar() when you map something to the
+# y-axis.
 ```
 
 ### Exercise 12
 
 A stacked barplot is very hard to analyze here. Use the `position_dodge()` function with `preserve` set to "single" to make the graph a dodged barplot.
 
-```{r shaming12-setup}
-shaming_subset <- shaming %>%
-  select(primary_04, primary_06, treatment) %>%
-  mutate(primary_04 = if_else(condition = str_detect(primary_04, "Yes"),
-                              true = 1L,
-                              false = 0L)) %>%
-  pivot_longer(cols = c(primary_04, primary_06), names_to = "year", values_to = "voted") %>%
-  group_by(treatment, year, voted) %>%
-  summarize(num_voters = n()) %>%
-  mutate(voted = if_else(condition = voted == 1,
-                         true = "did_vote",
-                         false = "did_not_vote")) %>%
-  pivot_wider(names_from = voted, values_from = num_voters)  %>%
-  mutate(pct_voted = did_vote / (did_vote + did_not_vote))
 
-shaming_plot <- ggplot(data = shaming_subset, mapping = aes(x = treatment, y = pct_voted, fill = year)) +
-    geom_col()
-```
 
 ```{r shaming12, exercise = TRUE}
 
@@ -2119,23 +2073,7 @@ shaming_plot <- ggplot(data = shaming_subset, mapping = aes(x = treatment, y = p
 
 ### Exercise 13
 
-Use `fct_reorder()` to reorder the five different `treatment`s by `pct_voted`. Call this new plot `shaming_plot_2`.
-
-```{r shaming13-setup}
-shaming_subset <- shaming %>%
-  select(primary_04, primary_06, treatment) %>%
-  mutate(primary_04 = if_else(condition = str_detect(primary_04, "Yes"),
-                              true = 1L,
-                              false = 0L)) %>%
-  pivot_longer(cols = c(primary_04, primary_06), names_to = "year", values_to = "voted") %>%
-  group_by(treatment, year, voted) %>%
-  summarize(num_voters = n()) %>%
-  mutate(voted = if_else(condition = voted == 1,
-                         true = "did_vote",
-                         false = "did_not_vote")) %>%
-  pivot_wider(names_from = voted, values_from = num_voters)  %>%
-  mutate(pct_voted = did_vote / (did_vote + did_not_vote))
-```
+Use `fct_reorder()` to reorder the five different `treatment`s by `pct_voted`. In other words, you need to change the value of `y` within `aes()`.
 
 ```{r shaming13, exercise = TRUE}
 
@@ -2145,54 +2083,18 @@ shaming_subset <- shaming %>%
 
 Finally, use the `coord_cartesian` function to adjust the graph's zoom by setting `ylim` to the vector `(0.2, 0.45)`.
 
-```{r shaming14-setup}
-shaming_subset <- shaming %>%
-  select(primary_04, primary_06, treatment) %>%
-  mutate(primary_04 = if_else(condition = str_detect(primary_04, "Yes"),
-                              true = 1L,
-                              false = 0L)) %>%
-  pivot_longer(cols = c(primary_04, primary_06), names_to = "year", values_to = "voted") %>%
-  group_by(treatment, year, voted) %>%
-  summarize(num_voters = n()) %>%
-  mutate(voted = if_else(condition = voted == 1,
-                         true = "did_vote",
-                         false = "did_not_vote")) %>%
-  pivot_wider(names_from = voted, values_from = num_voters)  %>%
-  mutate(pct_voted = did_vote / (did_vote + did_not_vote))
-
-shaming_plot_2 <- ggplot(data = shaming_subset, mapping = aes(x = fct_reorder(treatment, pct_voted), y = pct_voted, fill = year)) +
-    geom_col(position = position_dodge(preserve = "single"))
-```
 
 ```{r shaming14, exercise = TRUE}
-
 ```
 
 ### Exercise 15
 
 From this graph, the first thing to notice is that all five of the treatment categories had approximately the same average voter turnout in 2004. We can also see that turnout decreased across the board in 2006. However, each additional level of social shaming led to a substantial increase in voter turnout, with the "Neighbors" treatment particularly effective.
 
-To finish your plot, use `labs()` to change the x-axis label to "treatment." In addition, give the graph a title and subtitle of your choice.
+Clean up your graph with some sensible labels. Again, here is our version.
 
-```{r shaming15-setup}
-shaming_subset <- shaming %>%
-  select(primary_04, primary_06, treatment) %>%
-  mutate(primary_04 = if_else(condition = str_detect(primary_04, "Yes"),
-                              true = 1L,
-                              false = 0L)) %>%
-  pivot_longer(cols = c(primary_04, primary_06), names_to = "year", values_to = "voted") %>%
-  group_by(treatment, year, voted) %>%
-  summarize(num_voters = n()) %>%
-  mutate(voted = if_else(condition = voted == 1,
-                         true = "did_vote",
-                         false = "did_not_vote")) %>%
-  pivot_wider(names_from = voted, values_from = num_voters) %>%
-  mutate(pct_voted = did_vote / (did_vote + did_not_vote))
-
-shaming_plot_2 <- ggplot(data = shaming_subset, 
-                         mapping = aes(x = fct_reorder(treatment, pct_voted), y = pct_voted, fill = year)) +
-    geom_col(position = position_dodge(preserve = "single")) +
-    coord_cartesian(ylim = c(0.2, 0.45))
+```{r shaming15-answer}
+shaming_plot
 ```
 
 ```{r shaming15, exercise = TRUE}
