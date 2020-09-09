@@ -1180,20 +1180,20 @@ nhanes %>%
 
 ### Exercise 3
 
-`select()` the `gender`, `weight`, `height`, and `bmi` columns from the `nhanes_imperial` tibble. 
+`select()` the `gender`, `weight`, `height`, and `bmi` columns. 
 
 ```{r nhanes3, exercise = TRUE}
 
 ```
 
 ```{r nhanes3-hint, eval=FALSE}
-hanes_imperial %>%
+... %>%
   select(..., ..., ..., ...)
 ```
 
 ### Exercise 4
 
-Use tidyr's `drop_na()` to remove all rows with a value of `NA` in either the `weight` or `height` columns. Reassign this as `nhanes_imperial`, so it will be saved. 
+Use tidyr's `drop_na()` to remove all rows with a value of `NA` in either the `weight` or `height` columns.
 
 
 ```{r nhanes4, exercise = TRUE, exercise.lines = 4}
@@ -1244,7 +1244,7 @@ Add a trend line layer to your plot with `geom_smooth()`. Set the `se` argument 
 
 ### Exercise 7
 
-Use `facet_wrap()` to facet the `nhanes_plot` graph by `gender`.
+Use `facet_wrap()` to facet the graph by `gender`.
 
 
 ```{r nhanes7, exercise = TRUE}
@@ -1314,7 +1314,7 @@ kenya_plot
 
 ### Exercise 1
 
-Start by `glimpse()`ing the `kenya` data set.
+Start by `glimpse()`'ing the `kenya` data set.
 
 
 ```{r kenya1, exercise = TRUE}
@@ -2617,7 +2617,7 @@ nes_plot
 ## Airline Safety 
 ###
 
-We will be focusing on the data set `airline_saftey` from the `fivethirtyeight` package. We will recreate this plot step-by-step.
+We will be focusing on the data set `airline_saftey` from the **fivethirtyeight** package. We will recreate this plot step-by-step.
 
 ```{r as-answer, echo=FALSE}
 as_plot <- airline_safety %>%
