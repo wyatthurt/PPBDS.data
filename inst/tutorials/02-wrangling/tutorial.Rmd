@@ -1131,10 +1131,32 @@ babynames_wider <- babynames %>%
 ```
 
 ## National Health and Nutrition Survey
+###
 
 `nhanes` is a dataset included in the **PPBDS.data** package. It includes data from the "National Health and Nutrition Examination Survey," which contains the personal and physical information of 10,000 Americans from two surveys in 2009 and 2011. The goal of this series of exercises is to build, line-by-line, the code needed to recreate this plot.
 
+```{r}
+nhanes_plot <- nhanes %>%
+  mutate(weight = weight * 2.2, height = height / 30.48) %>%
+  select(gender, weight, height, bmi) %>%
+  drop_na(weight, height) %>% 
+  ggplot(mapping = aes(x = weight, y = height, color = bmi)) +
+    geom_jitter() +
+    geom_smooth(se = FALSE, color = "dodgerblue") +
+    facet_wrap(~ gender) + 
+    theme_clean() + 
+    labs(y = "Height (feet)",
+         x = "Weight (pounds)",
+         title = "Height Versus Weight in the US",
+         subtitle = "Relation between weight and height more positive for heavy men",
+         caption = "Source: NHANES")
+
+nhanes_plot
+```
+
+
 ### Exercise 1
+
 Begin by running `summary()` on `nhanes`. Based on the results, try to guess what the units of measurement are for the `weight` and `height` variables.
 
 ```{r nhanes1, exercise = TRUE}
@@ -1143,33 +1165,27 @@ Begin by running `summary()` on `nhanes`. Based on the results, try to guess wha
 
 ### Exercise 2
 
-In the original tibble, `weight` is measured in kg and `height` in cm. Using `mutate()`, multiply `weight` by 2.2 and divide `height` by 30.48 to convert units into pounds and feet. Use this assignment operator to name this mutated tibble `nhanes_imperial`. 
+In the original tibble, `weight` is measured in kg and `height` in cm. Using `mutate()`, multiply `weight` by 2.2 and divide `height` by 30.48 to convert units into pounds and feet. 
 
 ```{r nhanes2, exercise = TRUE}
 
 ```
 
 ```{r nhanes2-hint, eval = FALSE}
-nhanes_imperial <- nhanes %>%
+nhanes %>%
   mutate(weight = ..., height = ...)
 ```
 
 ### Exercise 3
 
-`select()` the `gender`, `weight`, `height`, and `bmi` columns from the `nhanes_imperial` tibble. Reassign this as `nhanes_imperial`. 
-
-```{r nhanes3-setup}
-nhanes_imperial <- nhanes %>%
-  mutate(weight = weight * 2.2, height = height / 30.48)
-
-```
+`select()` the `gender`, `weight`, `height`, and `bmi` columns from the `nhanes_imperial` tibble. 
 
 ```{r nhanes3, exercise = TRUE}
 
 ```
 
 ```{r nhanes3-hint, eval=FALSE}
-nhanes_imperial <- nhanes_imperial %>%
+hanes_imperial %>%
   select(..., ..., ..., ...)
 ```
 
@@ -1177,31 +1193,19 @@ nhanes_imperial <- nhanes_imperial %>%
 
 Use tidyr's `drop_na()` to remove all rows with a value of `NA` in either the `weight` or `height` columns. Reassign this as `nhanes_imperial`, so it will be saved. 
 
-```{r nhanes4-setup}
-nhanes_imperial <- nhanes %>%
-  mutate(weight = weight * 2.2, height = height / 30.48) %>%
-  select(gender, weight, height, bmi)
-```
 
 ```{r nhanes4, exercise = TRUE, exercise.lines = 4}
 
 ```
 
 ```{r nhanes4-hint, eval = FALSE}
-nhanes_imperial <- nhanes_imperial %>%
+... %>%
   drop_na(..., ...)
 ```
 
 ### Exercise 5
 
-Call `ggplot()` to make a jittered scatterplot that maps `weight` to the x-axis, `height` to the y-axis, and `bmi` to the color aesthetic. Names this plot `nhanes_plot`. 
-
-```{r nhanes5-setup}
-nhanes_imperial <- nhanes %>%
-  mutate(weight = weight * 2.2, height = height / 30.48) %>%
-  select(gender, weight, height, bmi) %>%
-  drop_na(weight, height)
-```
+Call `ggplot()` to make a jittered scatterplot that maps `weight` to the x-axis, `height` to the y-axis, and `bmi` to the color aesthetic. 
 
 ```{r nhanes5, exercise = TRUE}
 
@@ -1209,26 +1213,18 @@ nhanes_imperial <- nhanes %>%
 
 
 ```{r nhanes5-hint-1, eval = FALSE}
-# Remember to use geom_jitter().
+# Use geom_jitter().
 ```
 
 ```{r nhanes5-hint-2, eval=FALSE}
-nhanes_plot <- ggplot(data = ..., aes(x = ..., y = ..., color = ...))
+... %>% 
+  gplot(data = ..., aes(x = ..., y = ..., color = ...))
 ```
 
 ### Exercise 6
 
-Add a trend line layer to your plot with `geom_smooth()`. Change the `se` argument of `geom_smooth()` to remove the confidence interval, and change the `color` of the line to "dodgerblue." Be sure to reassign this changed plot to the object name `nhanes_plot`. 
+Add a trend line layer to your plot with `geom_smooth()`. Set the `se` argument of `geom_smooth()` to FALSE in order to remove the confidence interval, and change the `color` of the line to "dodgerblue." 
 
-```{r nhanes6-setup}
-nhanes_imperial <- nhanes %>%
-  mutate(weight = weight * 2.2, height = height / 30.48) %>%
-  select(gender, weight, height, bmi) %>%
-  drop_na(weight, height) 
-nhanes_plot <- ggplot(data = nhanes_imperial, 
-                      mapping = aes(x = weight, y = height, color = bmi)) +
-    geom_jitter()
-```
 
 ```{r nhanes6, exercise = TRUE}
 
@@ -1240,7 +1236,7 @@ nhanes_plot <- ggplot(data = nhanes_imperial,
 ```
 
 ```{r nhanes6-hint-2, eval=FALSE}
-nhanes_plot <- nhanes_plot + 
+... + 
   geom_smooth(se = ..., color = ...)
 ```
 
@@ -1248,81 +1244,43 @@ nhanes_plot <- nhanes_plot +
 
 Use `facet_wrap()` to facet the `nhanes_plot` graph by `gender`.
 
-```{r nhanes7-setup}
-nhanes_imperial <- nhanes %>%
-  mutate(weight = weight * 2.2, height = height / 30.48) %>%
-  select(gender, weight, height, bmi) %>%
-  drop_na(weight, height) 
-nhanes_plot <- ggplot(data = nhanes_imperial, 
-                      mapping = aes(x = weight, y = height, color = bmi)) +
-    geom_jitter() +
-    geom_smooth(se = FALSE, color = "dodgerblue")
-```
 
 ```{r nhanes7, exercise = TRUE}
 
 ```
 
 ```{r nhanes7-hint, eval=FALSE}
-nhanes_plot <- nhanes_plot +
+... +
   facet_wrap(...)
 ```
 
 
 ### Exercise 8
 
-Finally, adjust the feel of the graph with `theme_clean()` from the **ggthemes** package. Make sure you have this package loaded, or you will be unable to run the code chunk. 
+Finally, adjust the feel of the graph with `theme_clean()` from the **ggthemes** package. 
 
-```{r nhanes8-setup}
-nhanes_imperial <- nhanes %>%
-  mutate(weight = weight * 2.2, height = height / 30.48) %>%
-  select(gender, weight, height, bmi) %>%
-  drop_na(weight, height) 
 
-nhanes_plot <- ggplot(data = nhanes_imperial, 
-                      mapping = aes(x = weight, y = height, color = bmi)) +
-    geom_jitter() +
-    geom_smooth(se = FALSE, color = "dodgerblue") +
-    facet_wrap(~ gender)
-```
 
 ```{r nhanes8, exercise = TRUE}
 
 ```
 
-```{r nhanes8-hint, eval=FALSE}
-nhanes_plot <- nhanes_plot +
-  ...
-```
 
 ### Exercise 9
 
 Great work! From this graph, we can see that children of both genders tend to grow very quickly without gaining much weight (this is the very steep slope at the beginning of the two graphs). However, after people reach between 100-120 pounds, weight gain becomes coupled with a substantially smaller increase in height. Additionally, both weight and height seem to be higher for males than for females on average. Finally, we can infer from looking at the color gradient that a high `bmi` (i.e. brighter colors) corresponds with higher weight and lower height.
 
-To finish your plot, use `labs()` to give the graph a title and subtitle of your choice.
+To finish your plot, use `labs()` to give the graph a title and subtitle of your choice. Here, again, is our version.
 
-```{r nhanes9-setup}
-nhanes_imperial <- nhanes %>%
-  mutate(weight = weight * 2.2, height = height / 30.48) %>%
-  select(gender, weight, height, bmi) %>%
-  drop_na(weight, height)
-
-nhanes_plot <- ggplot(data = nhanes_imperial, 
-                      mapping = aes(x = weight, y = height, color = bmi)) +
-  geom_jitter() +
-  geom_smooth(se = FALSE, color = "dodgerblue") +
-  facet_wrap(~ gender) + 
-  theme_clean()
+```{r nhanes9-answer}
+nhanes_plot
 ```
 
 ```{r nhanes9, exercise = TRUE}
 
 ```
 
-```{r nhanes9-hint, eval = FALSE}
-nhanes_plot +
-  labs(title = ..., subtitle = ...)
-```
+
 
 ## Kenya Dataset
 ###
