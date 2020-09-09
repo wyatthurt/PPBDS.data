@@ -67,8 +67,8 @@ If you are new to R/RStudio/Markdown, then read [this intro book](https://ismayc
 ````
 ```{r, eval=FALSE}
 qscores %>% 
-  ggplot(aes(...)) %>% 
-    geom_hist()
+  ggplot(aes(...)) + 
+    geom_histogram()
 ```
 ````
 
@@ -84,13 +84,14 @@ The question would tell the student to replace ... with `hours` in order to cons
 
 ### Organization
 
+
 * Use `## Title` to break up your tutorial into smaller pieces. We don't want one giant set of 200 questions. We want 25 chapters/panels/tabs/whatever-we-call-them, with 20 or so questions each.  There should be a direct mapping of these headers to the subpart (or sub-subpart) of the portion of the chapter which they cover. It is OK if you have two panels with the same name. This might be necessary of a given subpart needs lots and lots of questions. But, obviously, it is better if there is a one-to-one mapping between chapter subparts and tutorial panels. Also, there will often be chapter subparts with no corresponding tutorial Groups. And there will be tutorial Groups which do not correspond to specific book sections. Indeed, this will be true of many Groups, like all our worked examples which start with a tibble and finish with a plot.
 
 In other words, if there is a subpart of your chapter called "Barplot", then the header for the section of the tutorial which covers that should be `## Barplot`. If you have too many questions from this subpart of your chapter to fit nicely in a single panel, then split them up by sub-subpart and change the section headings accordingly.
 
 * Use `### Sub Title` to set of a collection of questions which go together. This will not be visible in the side panel but can still be helpful to students.
 
-* Use `###` with no words to cause a "Continue" button to appear, which is termed "progressive," so that students are not overwhelmed with all the questions they need to do. This will cause R not to show students the next set of questions until they have finished the current set and hit Continue.
+* Use `###` with no words to cause a "Continue" button to appear, which is termed "progressive," so that students are not overwhelmed with all the questions they need to do. This will cause R not to show students the next set of questions until they have finished the current set and hit Continue. If you want a "Continue" button to appear after the first question in a given section, you must place `###` below AND above the question (for all other questions, just put it below).
 
 ### Question Series
 
@@ -208,7 +209,7 @@ qscores %>%
   arrange(desc(avg_hours))
 ```  
 
-Does every sequence need to have every element here? No! But there is a lot of room for variation in this simple set up.  We night also show what we want the final tibble to look like (like we often do with plots) and then ask the student to replicate it.
+Does every sequence need to have every element here? No! But there is a lot of room for variation in this simple set up.  We might also show what we want the final tibble to look like (like we often do with plots) and then ask the student to replicate it.
 
 #### Variable Creation
 
@@ -259,7 +260,7 @@ Example series of questions for writing a function:
   + Fifth question asks you to set any appropriate checks and `stopifnot()`s.
   + Sixth question is a multiple choice question that asks what you get when you run the function with a certain argument.
   
-* There is nothing wrong with individual questions, of course. But these groupings are much more natural, especially since they require students, by the end, to actual combining a bunch of differenty things.  
+* There is nothing wrong with individual questions, of course. But these groupings are much more natural, especially since they require students, by the end, to actual combining a bunch of different things.  
 
 
 ### Other Topics
@@ -272,13 +273,13 @@ Example series of questions for writing a function:
 
 How do you know if your tutorial will work when other people use it?
 
-First, trying knitting it by hitting Run Document. This (completely?) mimics the experience that users will have. I think (!) that a better test might be to "Install and Restart" and then hit "Start Tutorial" from tjhe Tutorial pane. Again, I am not sure what are the differences between these two approaches. The key point, however, is that neither of these is a full test.
+First, trying knitting it by hitting Run Document. This (completely?) mimics the experience that users will have. I think (!) that a better test might be to "Install and Restart" and then hit "Start Tutorial" from the Tutorial pane. Again, I am not sure what are the differences between these two approaches. The key point, however, is that neither of these is a full test.
 
-Second, to do a full test, you need to run R CMD check. You do that by hitting the "Check" button (with the green check mark) under the Build pane. If this passes, you are done. So, you should always run this before submitting a pull request.
+Second, to do a full test, you need to run R CMD check. You do that by hitting the "Check" button (with the green check mark) under the Build pane. Alternatively, you can run `devtools::check()` in the console. If this passes, you are done. So, you should always run this before submitting a pull request.
 
 What do you do if Check fails?
 
-First, read the error message at the bottom of the Build pane. You want to see "R CMD check succeeded." If not, there is a problem. The error message will often provide a clue as to where in your code the error occured.
+First, read the error message at the bottom of the Build pane. You want to see "R CMD check succeeded." If not, there is a problem. The error message will often provide a clue as to where in your code the error occurred.
 
 Second, if that error message is not detailed enough, go to the PPBDS.data.rcheck folder. This is a folder created by the R CMD check process, and delete if the process succeeds. If the process fails, the .rcheck folder stays around so that you can examine it. The key file in there is testthat.Rout.fail, which should be in the tests directory. It has more details.
 

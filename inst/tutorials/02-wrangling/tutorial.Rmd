@@ -156,63 +156,67 @@ If you have not installed these packages, you will like encounter issues when at
 
 
 ## Characters 
+###
+
 
 ### Exercise 1
-Use `str_detect()` on `states` to create a vector which will be TRUE for `states` which contain the pattern "ana" and FALSE otherwise.
+
+The first few exercises focus on various functions that can be used to manipulate strings. The `states` character vector comes installed with R and contains the names of all US states and the District of Columbia. Have a look at it by printing it to the console.
 
 ```{r exercise-2-1, exercise=TRUE}
 
 ```
 
 ```{r exercise-2-1-hint, eval=FALSE}
-str_detect(..., pattern = ...)
+# Type `state` and run it in the console
 ```
+
 
 ### Exercise 2
 
-Use `str_subset()` on `states` to create a vector of the names of the states that contain the pattern "ana".
+Use `str_detect()` on `states` to create a vector which will be TRUE for `states` which contain the pattern "ana" and FALSE otherwise.
 
 ```{r exercise-2-2, exercise=TRUE}
 
 ```
 
 ```{r exercise-2-2-hint, eval=FALSE}
-str_subset(..., pattern = ...)
+str_detect(..., pattern = ...)
 ```
+
 
 ### Exercise 3
 
-Use `str_subset()` on `states` to create a vector of states that have two a's with a single intervening character in their name:
+Use `str_subset()` on `states` to create a vector of the names of the states that contain the pattern "ana".
 
 ```{r exercise-2-3, exercise=TRUE}
 
 ```
 
-```{r exercise-2-3-hint-1, eval=FALSE}
-# Considering use the regex "."
-```
-
-```{r exercise-2-3-hint-2, eval=FALSE}
+```{r exercise-2-3-hint, eval=FALSE}
 str_subset(..., pattern = ...)
 ```
 
 ### Exercise 4
 
-Use `str_split()` `states` in order to help identify states which involve two or more words in their names. Set `simply` argument to TRUE. Te result will be a character matrix with 51 rows and three columns.
+Use `str_split()` on `states` in order to help identify states which involve two or more words in their names. Set `simplify` argument to TRUE. The result will be a character matrix with 51 rows and three columns.
 
 ```{r exercise-2-4, exercise=TRUE}
 
 ```
 
-```{r exercise-2-4-hint, eval=FALSE}
+```{r exercise-2-4-hint-1, eval=FALSE}
 # A " " is the simple version of a pattern which identifies words spaces.
+````
 
+```{r exercise-2-4-hint-2, eval=FALSE}
 str_split(..., pattern = ..., simply = TRUE)
 ```
 
+
 ### Exercise 5
 
-Use `str_split_fixed()` on `states` while setting the `n` argument to 2. THis should split items up into two pieces. Note what happens to `District of Columbia`.
+Try again to identify states whose names consist of two or more words, this time using `str_split_fixed()`.  Set the `n` argument to 2, which should split elements into two parts. Observe what happens to `District of Columbia`.
 
 ```{r exercise-2-5, exercise=TRUE}
 
@@ -222,176 +226,281 @@ Use `str_split_fixed()` on `states` while setting the `n` argument to 2. THis sh
 str_split_fixed(..., pattern = ..., n = ...)
 ```
 
+
 ### Exercise 6
-Collapse `states` using `str_c()`, and separate them with a comma. This should create a single character object with all the states.
+
+Using `str_sub`, create a character vector that contains only the first three letters of each state.
 
 ```{r exercise-2-6, exercise=TRUE}
 
 ```
 
 ```{r exercise-2-6-hint, eval=FALSE}
-str_c(states, collapse = ",")
+str_sub(states, 1, 3)
 ```
+
 
 ### Exercise 7
 
-Use `str_c` to collapse states into the form `state1 & state2`. Combine the first 1-25 states with states 26-50. Note that we have to exclude the 51st state.
+Collapse `states` using `str_c()`. Separate them with a comma that is followed by a whitespace. This should create a single character object with all the states.
 
 ```{r exercise-2-7, exercise=TRUE}
 
 ```
 
 ```{r exercise-2-7-hint, eval=FALSE}
-str_c(..., ..., sep = ...)
+str_c(states, collapse = ", ")
 ```
+
 
 ### Exercise 8
 
-Use `str_replace()` to replace the pattern `North` with `N.`. For example, transform North Carolina into N. Carolina.
+Use `str_c` to collapse states into the form `state1 & state2`. Combine the first 1-25 states with states 26-50. Note that we are excluding the 51st state.
+
 ```{r exercise-2-8, exercise=TRUE}
 
 ```
 
 ```{r exercise-2-8-hint, eval=FALSE}
-str_replace(..., pattern = ..., replacement = ...)
+str_c(..., ..., sep = ...)
 ```
 
+
 ### Exercise 9
-Use `str_subset()` to find `states` that contain the letter a and then one or more characters and another a.
+
+Use `str_replace()` to replace the pattern `North` with `N.`. For example, transform North Carolina into N. Carolina.
+
 ```{r exercise-2-9, exercise=TRUE}
 
 ```
 
-```{r exercise-2-9-hint-1, eval=FALSE}
-# Consider using the pattern "a.*a"
+```{r exercise-2-9-hint, eval=FALSE}
+str_replace(..., pattern = ..., replacement = ...)
 ```
 
-```{r exercise-2-9-hint-2, eval=FALSE}
-str_subset(..., pattern = ...)
-```
+###
 
 ### Exercise 10
-Does capitalization matter? Repeat the previous question but replace the first letter with a capital "A". 
+
+Next, let's see how the above functions can be combined with regular expressions. Use `str_subset()` on `states` to create a vector of states that have two a's with a single intervening character in their name:
+
 ```{r exercise-2-10, exercise=TRUE}
 
 ```
 
-```{r exercise-2-10-hint, eval=FALSE}
+```{r exercise-2-10-hint-1, eval=FALSE}
+# Consider using the regex "."
+```
+
+```{r exercise-2-10-hint-2, eval=FALSE}
 str_subset(..., pattern = ...)
 ```
 
+
 ### Exercise 11
-`glimpse()` the `states2` tibble. 
+
+Use `str_subset()` to identify the same pattern as in the previous question, including now only those states where the pattern occurs at the end of their name.
+
 ```{r exercise-2-11, exercise=TRUE}
 
 ```
 
-```{r exercise-2-11-hint, eval=FALSE}
-glimpse(states2)
+```{r exercise-2-11-hint-1, eval=FALSE}
+# Consider using the pattern "a.a$"
 ```
 
+```{r exercise-2-11-hint-2, eval=FALSE}
+str_subset(..., pattern = ...)
+```
+
+
 ### Exercise 12
-`mutate()` the `states2` dataset so that it contains a column `state_length` that takes the `str_length()` of each `state`. Then, `arrange()` the dataset from the state with the shortest name to that with the longest.
+
+Use `str_subset()` to find `states` that contain the letter a and then one or more characters and another a.
+
 ```{r exercise-2-12, exercise=TRUE}
 
 ```
 
-```{r exercise-2-12-hint, eval=FALSE}
-states2 %>% 
-  mutate(... = str_length(...)) %>%
-  arrange(desc(...))
+```{r exercise-2-12-hint-1, eval=FALSE}
+# Consider using the pattern "a.+a"
 ```
 
+```{r exercise-2-12-hint-2, eval=FALSE}
+str_subset(..., pattern = ...)
+```
+
+
 ### Exercise 13
-Now compare the previous question by the `states2` dataset arranged by `desc(state)`. How does this arrangement differ from the previous one?
+
+Does capitalization matter? Repeat the previous question but replace the first letter with a capital "A". 
+
 ```{r exercise-2-13, exercise=TRUE}
 
 ```
 
 ```{r exercise-2-13-hint, eval=FALSE}
-... %>% 
-  arrange(desc(...))
+str_subset(..., pattern = ...)
 ```
 
+###
+
 ### Exercise 14
-`mutate()` the `state` column of `states2` to only contain the first two letters of each state name. Reassign this as `states2`.
+
+The remaining exercises in this section contain a few tasks that should improve your understanding of the above concepts. First, `glimpse()` the `states2` tibble. 
+
 ```{r exercise-2-14, exercise=TRUE}
 
 ```
 
-```{r exercise-2-14-hint-1, eval=FALSE}
-... <- states2 %>% mutate(... = str_sub(...))
+```{r exercise-2-14-hint, eval=FALSE}
+glimpse(states2)
 ```
 
-```{r exercise-2-15-setup}
-states2 <- states2 %>%
-  mutate(state = str_sub(state, 1, 2))
-```
 
 ### Exercise 15
-Now use `str_to_upper()` and `mutate()` to make both of the first two letters of the states capital letters. Reassign this as `states2`.
+
+`mutate()` the `states2` data set so that it contains a column `state_length` that takes the `str_length()` of each `state`.
+
 ```{r exercise-2-15, exercise=TRUE}
 
 ```
 
 ```{r exercise-2-15-hint, eval=FALSE}
-... <- states2 %>% mutate(... = str_to_upper(...))
+states2 %>% 
+  mutate(... = str_length(...))
 ```
 
-```{r exercise-2-16-setup}
-states2 <- states2 %>% 
-  mutate(state = str_sub(state, 1, 2)) %>% 
-  mutate(state = str_to_upper(state))
-```
 
 ### Exercise 16
-`mutate()` a new column called `match` that creates a TRUE or FALSE value if the first two letters of the state name (the `state` column) and the `abb` column match.
+
+Using the data set you got in the previous exercise, `arrange()` from the state with the shortest name to that with the longest (that is, in `desc`ending order).
+
 ```{r exercise-2-16, exercise=TRUE}
 
 ```
 
 ```{r exercise-2-16-hint, eval=FALSE}
-states2 %>% mutate(match = (... == ...))
+states2 %>% 
+  mutate(... = str_length(...)) %>%
+  arrange(desc(...))
 ```
 
+
 ### Exercise 17
-```{r exercise-2-17-setup}
-states2 <- states2 %>%
-  mutate(state = str_sub(state, 1, 2)) %>% 
-  mutate(state = str_to_upper(state)) %>%
-  mutate(match = (state == abb))
-```
-`count()` the `match` column.
+
+Use the `state2` data set again and simply arrange it by `desc(state)`. How does this arrangement differ from the one you got in exercise 15?
+
 ```{r exercise-2-17, exercise=TRUE}
 
 ```
 
 ```{r exercise-2-17-hint, eval=FALSE}
-states2 %>% count(...)
+... %>% 
+  arrange(desc(...))
 ```
 
-```{r exercise-2-17-quiz}
+
+### Exercise 18
+
+`mutate()` the `state` column of `states2` to only contain the first two letters of each state name. Reassign this as `states2`.
+
+```{r exercise-2-18, exercise=TRUE}
+
+```
+
+```{r exercise-2-18-hint, eval=FALSE}
+states2 <- states2 %>%
+  mutate(state = str_sub(state, 1, 2))
+```
+
+```{r exercise-2-18-setup, eval=FALSE}
+... <- states2 %>% 
+  mutate(... = str_sub(...))
+```
+
+
+### Exercise 19
+
+Add another line by using `str_to_upper()` and `mutate()` to make both of the first two letters of the states capital letters. Reassign this as `states2`.
+
+Remark: The function `str_to_upper()` has not yet been introduced in the Primer. Can you still guess what it does? Have a look the help page by running `?str_to_upper`. Alternatively, you may use a hint.
+
+```{r exercise-2-19, exercise=TRUE}
+states2 <- states2 %>% 
+  mutate(state = str_sub(state, 1, 2)) 
+```
+
+```{r exercise-2-19-hint, eval=FALSE}
+states2 <- states2 %>% 
+  mutate(state = str_sub(state, 1, 2)) %>% 
+  mutate(state = str_to_upper(state))
+```
+
+
+### Exercise 20
+
+`mutate()` a new column called `match` that creates a TRUE or FALSE value if the first two letters of the state name (the `state` column) and the `abb` column match.
+
+```{r exercise-2-20, exercise=TRUE}
+
+```
+
+```{r exercise-2-20-hint-1, eval=FALSE}
+# You can use ifelse() to tests for conditions and assign values.
+```
+
+```{r exercise-2-20-hint-2, eval=FALSE}
+states2 %>% 
+  mutate(match = ifelse(state == abb, TRUE, FALSE))
+```
+
+
+### Exercise 21
+
+Add a line of code to `count()` the `match` column.
+
+```{r exercise-2-21, exercise=TRUE}
+states2 <- states2 %>%
+  mutate(state = str_sub(state, 1, 2)) %>% 
+  mutate(state = str_to_upper(state)) %>%
+  mutate(match = ifelse(state == abb, TRUE, FALSE))
+```
+
+```{r exercise-2-21-hint, eval=FALSE}
+states2 <- states2 %>%
+  mutate(state = str_sub(state, 1, 2)) %>% 
+  mutate(state = str_to_upper(state)) %>%
+  mutate(match = ifelse(state == abb, TRUE, FALSE)) %>% 
+  count(match)
+```
+
+```{r exercise-2-21-quiz}
 quiz(
   question("How many state abbreviations match the first two letters of the state's name?",
     answer("15"),
     answer("42"),
     answer("23"),
-    answer("32", correct = TRUE),
-    allow_retry = TRUE
-  )
-)
+    answer("19", correct = TRUE),
+    allow_retry = FALSE))
 ```
+
 
 ## Factors 
 
 ### Exercise 1
-Let's use a dataset in the `fueleconomy` package to better understand factors. First, `glimpse()` the `vehicles` dataset. 
+
+Let's use a data set in the `fueleconomy` package to better understand factors. First, `glimpse()` the `vehicles` data set. 
+
 ```{r factors-1, exercise=TRUE}
 
 ```
 
+
 ### Exercise 2 
+
 Make the `class` column in the `vehicles` dataframe a factor instead of a character `chr` variable. Do this by using the `mutate()` and `as.factor()` functions. Reassign this changed dataframe as `vehicles_fct`. 
+
 ```{r factors-2, exercise = TRUE}
 
 ```
@@ -401,7 +510,9 @@ Make the `class` column in the `vehicles` dataframe a factor instead of a charac
   mutate(... = as.factor(...))
 ```
 
+
 ### Exercise 3
+
 Now use the `group_by()` function to group by the `class` variable. Reassign this to `vehicles_fct`.
 
 ```{r factors-3-setup}
@@ -413,8 +524,11 @@ vehicles_fct <- vehicles %>%
 
 ```
 
+
 ### Exercise 4
+
 Create a `mean_cty` variable using the `mutate()` and `mean()` functions on the `cty` column for the `vehicles_fct` dataframe. Reassign this mutated dataframe as `vehicles_fct`.
+
 ```{r factors-4-setup}
 vehicles_fct <- vehicles %>%
   mutate(class = as.factor(class)) %>%
@@ -425,7 +539,9 @@ vehicles_fct <- vehicles %>%
 
 ```
 
+
 ### Exercise 5
+
 Create a ggplot with the independent variable as `class`, the dependent variable as `mean_cty`, and the `geom_point()` function. Names this plot `vehicles_plot`.
 
 ```{r factors-5-setup}
@@ -450,7 +566,9 @@ vehicles_plot <- ggplot(data = ..., mapping = aes(x = ..., y = ...)) +
 ```
 
 ### Exercise 6
+
 Flip the coordinates of the`vehicles_plot` graphic. Reassign the flipped graphic as `vehicles_plot`.
+
 ```{r factors-6-setup}
 vehicles_fct <- vehicles %>%
   mutate(class = as.factor(class)) %>%
@@ -493,7 +611,9 @@ vehicles_plot_2 <- ggplot(data = ..., mapping = aes(x = fct_reorder(..., ...),
   ...
 ```
 
+
 ### Exercise 8
+
 Apply the classic theme `theme_classic()` and add a title and axis titles to `vehicles_plot_2`. 
 
 ```{r factors-8-setup}
@@ -513,7 +633,9 @@ vehicles_plot_2 <- ggplot(data = vehicles_fct, mapping = aes(x = fct_reorder(cla
 
 ```
 
+
 ## Lists
+
 ### Exercise 1
 
 Now, let's move on to lists. This is section 2.4 in the textbook. First, we'd like you to create a list. Call this list `mylist` and let it have three items `a`, `b`, and `c`. Then, let `a` be a vector containing 1, 2, and 3. Let `b` be a vector containing 4, 5, and 6, and let `c` be a vector containing 7, 8, and 9
@@ -529,6 +651,7 @@ Now, let's move on to lists. This is section 2.4 in the textbook. First, we'd li
 # You could also use the : operator 
 ```
 
+
 ### Exercise 2
 
 Now, call `str()` on `mylist`. 
@@ -541,6 +664,7 @@ mylist <- list(a = c(1, 2, 3), b = c(4, 5, 6), c = c(7, 8, 9))
 
 ```
 
+
 ### Exercise 3
 
 Extract the sub-list containing b and c using `[`. 
@@ -552,6 +676,7 @@ mylist <- list(a = c(1, 2, 3), b = c(4, 5, 6), c = c(7, 8, 9))
 ```{r lists-3, exercise = TRUE}
 
 ```
+
 
 ### Exercise 4
 
@@ -573,6 +698,7 @@ mylist <- list(a = c(1, 2, 3), b = c(4, 5, 6), c = c(7, 8, 9))
 # Within the brackets, you can either put the index of a or "a"
 ```
 
+
 ### Exercise 5
 
 Now, extract the number 5 from `mylist`.
@@ -585,13 +711,17 @@ mylist <- list(a = c(1, 2, 3), b = c(4, 5, 6), c = c(7, 8, 9))
 
 ```
 
+
 ## Date-Times 
+
 ### Exercise 1
 
 Run the `today()` and `now()` functions.
+
 ```{r dttm-1, exercise=TRUE}
 
 ```
+
 
 ### Exercise 2
 
@@ -608,6 +738,7 @@ date_4 <- "2/29/2020 16:00:00 UTC"
 
 ```
 
+
 ### Exercise 3
 
 Use the `make_datetime()` function to create a date-time for the first moment of the year 2000. 
@@ -619,6 +750,7 @@ Use the `make_datetime()` function to create a date-time for the first moment of
 ```{r dttm-3-hint, eval=FALSE}
 # The ideal output should be "2000-01-01 UTC"
 ```
+
 
 ## Combining Data
 
@@ -635,9 +767,11 @@ Run `lexus_2000` in this code chunk:
 lexus_2000
 ```
 
+
 ### Exercise 2
 
 Run `lexus_1999` in the code chunk: 
+
 ```{r exercise-combining-2, exercise=TRUE}
 
 ```
@@ -659,7 +793,9 @@ quiz(
   )
 )
 ```
+
 Think about what will happen when we try to bind the rows of these two tibbles together.
+
 
 ### Exercise 3
 
@@ -674,6 +810,7 @@ What happens to the `trans` column?
 bind_rows(..., ...)
 ```
 
+
 ### Exercise 4 
 
 Run `lexus_1998` in the following code chunk:
@@ -683,6 +820,7 @@ Run `lexus_1998` in the following code chunk:
 ```
 
 Consider the discrepancy between the columns of `lexus_1998` and `lexus_1999`. Predict, in your head, what will happen when binding the rows of the two tibbles.
+
 
 ### Exercise 5
 
@@ -695,6 +833,7 @@ Bind the two dataframes `lexus_1998` and `lexus_1999`:
 ```{r question-combining-5-hint, eval=FALSE}
 bind_rows(..., ...)
 ```
+
 
 ### Exercise 6
 
@@ -709,6 +848,7 @@ Use the `rename()` function to change the `type` variable to `class` in the `lex
   rename(...)
 ```
 
+
 ### Exercise 7
 
 Use `bind_rows` to bind `lexus_1998` and `lexus_1999` again. Name this new tibble `lexus_two_year`: 
@@ -720,6 +860,7 @@ Use `bind_rows` to bind `lexus_1998` and `lexus_1999` again. Name this new tibbl
 ```{r question-combining-7-hint, eval=FALSE}
 ... <- bind_rows(..., ...)
 ```
+
 
 ### Exercise 8
 
@@ -738,6 +879,7 @@ Now bind the rows of `lexus_two_year` with `lexus_2000`. Use the assignment oper
 ```{r question-combining-8-hint, eval=FALSE}
 ... <- bind_rows(..., ...)
 ```
+
 
 ### Exercise 9
 
@@ -762,6 +904,7 @@ lexus %>%
   unite("vehicle", ..., ..., sep = " ")
 ```
 
+
 ### joins in dplyr
 
 ### Exercise 10 
@@ -777,6 +920,7 @@ glimpse(... )
 
 glimpse(...)
 ```
+
 
 ### Exercise 11
 
@@ -800,25 +944,24 @@ quiz(
     answer("15920, 15801", correct = TRUE),
     answer("15801, 15920, 15921"),
     answer("15685, 16039"),
-    allow_retry = TRUE
-  )
-)
+    allow_retry = FALSE))
 ```
 
+
 ### Exercise 12
+
 ```{r question-combining-12-quiz}
 quiz(
-  question("Which id(s) will be excluded when you full_join() both datasets?",
+  question("Which id(s) will be excluded when you full_join() both data sets?",
     answer("None", correct = TRUE),
     answer("16365, 16366"),
     answer("15920, 15801"),
     answer("15801, 15922"),
-    allow_retry = TRUE
-  )
-)
+    allow_retry = FALSE))
 ```
 
 `full_join()` the `lexus_2000` and `lexus_mileage` dataframes by the `id` columns. Visually confirm your answer to the question above.
+
 ```{r question-combining-12, exercise=TRUE}
 
 ```
@@ -827,19 +970,21 @@ quiz(
 full_join(..., ..., by = ...)
 ```
 
+
 ### Exercise 13 
+
 ```{r question-combining-13-quiz}
 quiz(
-  question("Which id(s) will be excluded when you inner_join() both datasets?",
+  question("Which id(s) will be excluded when you inner_join() both data sets?",
     answer("None"),
     answer("16365, 16366"),
     answer("15920, 15801", correct = TRUE),
     answer("15801, 15922"),
-    allow_retry = TRUE
-  )
-)
+    allow_retry = FALSE))
 ```
+
 `inner_join()` the `lexus_2000` and `lexus_mileage` dataframes by the `id` columns. Visually confirm your answer to the question above.
+
 ```{r question-combining-13, exercise=TRUE}
 
 ```
@@ -848,7 +993,9 @@ quiz(
 inner_join(..., ..., by = ...)
 ```
 
+
 ### Exercise 14
+
 ```{r question-combining-14-1-quiz}
 quiz(
   question("Which id(s) will be excluded when you run left_join(lexus_2000, lexus_mileage, by = 'id')?",
@@ -856,12 +1003,9 @@ quiz(
     answer("All"),
     answer("15920, 15801"),
     answer("15801, 15922"),
-    allow_retry = TRUE
-  )
-)
+    allow_retry = FALSE))
 
 ```
-
 
 ```{r question-combining-14-3-quiz}
 quiz(
@@ -870,9 +1014,7 @@ quiz(
     answer("All"),
     answer("15920, 15801", correct = TRUE),
     answer("15801, 15922"),
-    allow_retry = TRUE
-  )
-)
+    allow_retry = FALSE))
 ```
 
 ```{r question-combining-14-4-quiz}
@@ -882,9 +1024,7 @@ quiz(
     answer("All"),
     answer("15920, 15801", correct = TRUE),
     answer("15801, 15922"),
-    allow_retry = TRUE
-  )
-)
+    allow_retry = FALSE))
 ```
 
 ```{r question-combining-14-5-quiz}
@@ -894,9 +1034,7 @@ quiz(
     answer("All"),
     answer("15920, 15801"),
     answer("15801, 15922"),
-    allow_retry = TRUE
-  )
-)
+    allow_retry = FALSE))
 ```
 
 ```{r question-combining-14-6-quiz}
@@ -906,9 +1044,7 @@ quiz(
     answer("All", correct = TRUE),
     answer("15920, 15801"),
     answer("15801, 15922"),
-    allow_retry = TRUE
-  )
-)
+    allow_retry = FALSE))
 ```
 
 ```{r question-combining-14-7-quiz}
@@ -918,9 +1054,7 @@ quiz(
     answer("All"),
     answer("15920, 15801", correct = TRUE),
     answer("15801, 15922"),
-    allow_retry = TRUE
-  )
-)
+    allow_retry = FALSE))
 ```
 
 ```{r question-combining-14-8-quiz}
@@ -930,9 +1064,7 @@ quiz(
     answer("hwy, cty", correct = TRUE),
     answer("id, class, drive"),
     answer("id, make, model, class, drive"),
-    allow_retry = TRUE
-  )
-)
+    allow_retry = FALSE))
 ```
 
 ```{r question-combining-14-9-quiz}
@@ -942,25 +1074,29 @@ quiz(
     answer("hwy, cty"),
     answer("id, class, drive"),
     answer("make, model, class, drive", correct = TRUE),
-    allow_retry = TRUE
-  )
-)
+    allow_retry = FALSE))
 ```
 
+
 ## Tidying Data
+
 ### Exercise 1 
 
 Run `table1` and `table2` in the code chunk below. 
+
 ```{r tidy-1, exercise=TRUE}
 
 ```
 
 ```{r q2, echo = FALSE}
-question("Do the two data datasets above contain the variables **country**, **year**, **cases**, and **population**?",
-         answer("Yes", correct = TRUE, message = "If you look closely, you will see that this is the same data set as before, but organized in a new way."),
-         answer("No", message = "Don't be mislead by the two new column names: a variable and a column name are not necessarily the same thing."),
-         allow_retry = TRUE
-)
+question("Do the two data data sets above contain the variables **country**, 
+         **year**, **cases**, and **population**?",
+         answer("Yes", correct = TRUE, message = "If you look closely, you 
+                will see that this is the same data set as before, but organized 
+                in a new way."),
+         answer("No", message = "Don't be mislead by the two new column names: 
+                a variable and a column name are not necessarily the same thing."),
+         allow_retry = FALSE)
 ```
 
 These data sets reveal something important: _you can reorganize the same set of variables, values, and observations in many different ways._
@@ -983,6 +1119,7 @@ Among our tables above, only `table1` is tidy.
 
 The tidy data format works so well for R because it aligns the structure of your data with the mechanics of R, so let's try to tidy a tibble. 
 
+
 ### Exercise 2
 
 Run `cases` in the code chunk below. 
@@ -1002,7 +1139,9 @@ quiz(
 )
 ```
 
+
 ### Exercise 3
+
 You can use the `pivot_longer()` function in the **tidyr** package to convert wide data to long data. Let's use the `pivot_longer` function to tidy the data, pivoting all of the columns except for the Country column, and setting the new name to "year" and the new values to "cases".
 
 ```{r tidy-7, exercise=TRUE}
@@ -1018,16 +1157,19 @@ cases %>%
   pivot_longer(cols = ..., names_to = ..., values_to = ...)
 ```
 
+
 ### Exercise 4
+
 Try this again with `cases2`. Make sure to only include the three year columns that you want to pivot. 
 
 ```{r tidy-8, exercise=TRUE}
 
 ```
 
+
 ### Exercise 5
 
-The `pollution` dataset below displays the amount of small and large particulate in the air of three cities. It illustrates another common type of untidy data. **Narrow data** uses a literal key column and a literal value column to store multiple variables. Can you tell here which is which? Run the code chunk below. 
+The `pollution` data set below displays the amount of small and large particulate in the air of three cities. It illustrates another common type of untidy data. **Narrow data** uses a literal key column and a literal value column to store multiple variables. Can you tell here which is which? Run the code chunk below. 
 
 ```{r tidy-9, exercise = TRUE}
 pollution
@@ -1057,10 +1199,11 @@ You can "spread" the keys in a key column across their own set of columns with t
 ... %>% pivot_wider(names_from = ..., values_from = ..., names_prefix = ...)
 ```
 
+
 ### Exercise 7
 
 Let's apply `pivot_wider()` to a real world inquiry. The ratio of girls to boys in `babynames` is not constant across time. To explore this phenomenaon we can directly plot a ratio of boys to girls over time. To make such a plot, you would need to compute the ratio of boys to girls for each year from 1880 to 2015
-Call `babynames` first to see the dataset.
+Call `babynames` first to see the data set.
 
 ```{r tidy-13, exercise=TRUE}
 
@@ -1068,11 +1211,13 @@ Call `babynames` first to see the dataset.
 
 
 ### Exercise 8 
+
 First, create a variable called `babynames_wider`. And `group_by()` the `year` and `sex` variables.
 
 ```{r tidy-14, exercise=TRUE}
 
 ```
+
 
 ### Exercise 9
 
@@ -1087,9 +1232,11 @@ babynames_wider <- babynames %>%
 
 ```
 
+
 ### Exercise 10
 
 But how can we plot this data? Our current iteration of `babynames` places the total number of boys and girls for each year in the same column, which makes it hard to use both totals in the same calculation. Use `pivot_wider()` to pivot the `sex` and `total` columns. Choos which should be the key/name and which should be the value. Be sure to reassign this to `babynames_wider`. 
+
 ```{r tidy-16-setup}
  babynames_wider <- babynames %>%
   group_by(year, sex) %>%
@@ -1105,8 +1252,11 @@ babynames_wider <- babynames_wider %>%
   pivot_wider()
 ```
 
+
 ### Exercise 11
+
 Now, mutate a column `ratio` that divides `M/F`.
+
 ```{r tidy-17-setup}
  babynames_wider <- babynames %>%
   group_by(year, sex) %>%
@@ -1118,8 +1268,11 @@ Now, mutate a column `ratio` that divides `M/F`.
 
 ```
 
+
 ### Exercise 12
+
 Now create a `ggplot` line plot that takes `year` on the x-axis and `ratio` on the y-axis. 
+
 ```{r tidy-18-setup}
 babynames_wider <- babynames %>%
   group_by(year, sex) %>%
@@ -1132,10 +1285,11 @@ babynames_wider <- babynames %>%
 
 ```
 
+
 ## National Health and Nutrition Survey
 ###
 
-`nhanes` is a dataset included in the **PPBDS.data** package. It includes data from the "National Health and Nutrition Examination Survey," which contains the personal and physical information of 10,000 Americans from two surveys in 2009 and 2011. The goal of this series of exercises is to build, line-by-line, the code needed to recreate this plot.
+`nhanes` is a data set included in the **PPBDS.data** package. It includes data from the "National Health and Nutrition Examination Survey," which contains the personal and physical information of 10,000 Americans from two surveys in 2009 and 2011. The goal of this series of exercises is to build, line-by-line, the code needed to recreate this plot.
 
 ```{r}
 nhanes_plot <- nhanes %>%
