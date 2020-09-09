@@ -1588,15 +1588,39 @@ kenya %>%
 
 
 ## Seguro Popular
-### Exercise 1 
+###
 
-The `sps` data set from the PPBDS.data package contains information about a study done on a popular Mexican health insurance program, Seguro Popular. In the study, some Mexican health clusters were randomly "treated." The treatment consisted of encouragement for people in that health cluster to enroll in the health insurance program, as well as funds to improve health facilities in the cluster.
+The `sps` data set from the **PPBDS.data** package contains information about a study done on a popular Mexican health insurance program, Seguro Popular. In the study, some Mexican health clusters were randomly "treated." The treatment consisted of encouragement for people in that health cluster to enroll in the health insurance program, as well as funds to improve health facilities in that cluster. We will create this plot:
+
+```{r sps_plot}
+sps_plot <- sps %>%
+  filter(education %in% c("preschool", "secondary", 
+                          "high school", "college")) %>%
+  select(-c(health_exp_1m, t2_health_exp_1m)) %>%
+  mutate(change_in_expenses = t2_health_exp_3m - health_exp_3m) %>%
+  group_by(treatment, education) %>%
+  summarize(mean_change_in_expenses = mean(change_in_expenses)) %>%
+  mutate(treatment = as.factor(treatment)) %>% 
+  ggplot(mapping = aes(x = fct_reorder(education, mean_change_in_expenses), 
+                       y = mean_change_in_expenses, fill = treatment)) +
+    geom_col(position = position_dodge(preserve = "single")) + 
+    scale_fill_brewer(palette = "Paired", labels = c("No", "Yes")) +
+    theme_minimal() +
+    labs(x = "Education",
+         y = "Average Change in Expenses",
+         title = "Spending Changes and Seguro Popular",
+         subtitle = "Honestly, not sure what is going on here . . .",
+         caption = "Source: King et al. (2009)")
+
+sps_plot
+```
+
+
+
+### Exercise 1 
 
 Start by calling `glimpse()` on `sps`.
 
-```{r sps1-setup}
-PPBDS.data::sps
-```
 
 ```{r sps1, exercise = TRUE}
 
@@ -1608,34 +1632,27 @@ glimpse(...)
 
 ### Exercise 2
 
-Using a pipe and the `%in%` operator, `filter()` `sps` to the observations with an `education` of "preschool," "secondary," "high school," or "college." Save this new dataset as `sps_subset`.
+Using a pipe and the `%in%` operator, `filter()` `sps` to the observations with an `education` of "preschool," "secondary," "high school," or "college." 
 
-```{r sps2-setup}
-PPBDS.data::sps
-```
 
 ```{r sps2, exercise = TRUE}
 
 ```
 
 ```{r sps2-hint-1, eval=FALSE}
-... <- sps %>%
+sps %>%
   filter(education %in% ...)
 ```
 
 ```{r sps2-hint-2, eval=FALSE}
-... <- sps %>% 
+sps %>% 
   filter(education %in% c(...))
 ```
 
 ### Exercise 3
 
-Use `select()` to remove the columns `health_exp_1m` and `t2_health_exp_1m` (these measure health expenses over the past month, whereas `health_exp_3m` and `t2_health_exp_3m` measure health expenses over the past 3 months). Resave this as `sps_subset`.
+Use `select()` to remove the columns `health_exp_1m` and `t2_health_exp_1m` (these measure health expenses over the past month, whereas `health_exp_3m` and `t2_health_exp_3m` measure health expenses over the past 3 months). 
 
-```{r sps3-setup}
-sps_subset <- sps %>%
-  filter(education %in% c("preschool", "secondary", "high school", "college"))
-```
 
 ```{r sps3, exercise = TRUE}
 
@@ -1652,13 +1669,8 @@ sps_subset <- sps %>%
 
 ### Exercise 4 
 
-`mutate()` a new variable, `change_in_expenses`, equal to `health_exp_3m` subtracted from `t2_health_exp_3m` (this measures the change in expenses after the treatment period). Resave this as `sps_subset`.
+Use `mutate()` to create a new variable, `change_in_expenses`, equal to `health_exp_3m` subtracted from `t2_health_exp_3m` (this measures the change in expenses after the treatment period). 
 
-```{r sps4-setup}
-sps_subset <- sps %>%
-  filter(education %in% c("preschool", "secondary", "high school", "college")) %>%
-  select(-c(health_exp_1m, t2_health_exp_1m))
-```
 
 ```{r sps4, exercise = TRUE}
 
@@ -1668,12 +1680,7 @@ sps_subset <- sps %>%
 
 Group the data by `treatment` and `education`.
 
-```{r sps5-setup}
-sps_subset <- sps %>%
-  filter(education %in% c("preschool", "secondary", "high school", "college")) %>%
-  select(-c(health_exp_1m, t2_health_exp_1m)) %>% 
-  mutate(change_in_expenses = t2_health_exp_3m - health_exp_3m)
-```
+
 
 ```{r sps5, exercise = TRUE}
 
@@ -1687,57 +1694,41 @@ sps_subset <- sps %>%
 
 Using `summarize()`, calculate `mean_change_in_expenses`, the average of the `change_in_expenses` for each group.
 
-```{r sps6-setup}
-sps_subset <- sps %>%
-  filter(education %in% c("preschool", "secondary", "high school", "college")) %>%
-  select(-c(health_exp_1m, t2_health_exp_1m)) %>% 
-  mutate(change_in_expenses = t2_health_exp_3m - health_exp_3m) %>%
-  group_by(treatment, education)
-```
 
 ```{r sps6, exercise = TRUE}
   
 ```
 
 ```{r sps6-hint, eval = FALSE}
-# Use the summarize() function and the helper function mean()
-```
+# Use the summarize() function and the helper function mean(). Your pipe should
+# look like:
 
-### Exercise 7
-
-Call `ggplot()` to make a bar graph that maps `education` to the x-axis, `mean_change_in_expenses` to the y-axis, and `treatment` to the fill aesthetic. Call this plot `sps_plot`. 
-
-```{r sps7-setup}
-sps_subset <- sps %>%
+sps %>%
   filter(education %in% c("preschool", "secondary", "high school", "college")) %>%
   select(-c(health_exp_1m, t2_health_exp_1m)) %>%
   mutate(change_in_expenses = t2_health_exp_3m - health_exp_3m) %>%
   group_by(treatment, education) %>%
   summarize(mean_change_in_expenses = mean(change_in_expenses))
 ```
+
+### Exercise 7
+
+use `ggplot()` to make a bar graph that maps `education` to the x-axis, `mean_change_in_expenses` to the y-axis, and `treatment` to the fill aesthetic.
+
 
 ```{r sps7, exercise = TRUE}
 
 ```
 
 ```{r sps7-hint, eval=FALSE}
-# Remember to use geom_col() instead of geom_bar() when mapping a variable to the y-axis.
+# Remember to use geom_col() instead of geom_bar() when mapping a variable to
+# the y-axis.
 ```
 
 ### Exercise 8 
 
-Use the `position_dodge` function with `preserve` equal to "single" to create a dodged barplot. Does it work? Note, we have taken the liberty of removing the `geom_col()` layer, so you can accomplish this. Simply add it back to the `sps_plot`. 
+Use the `position_dodge` function with `preserve` equal to "single" to create a dodged barplot. It does not work well! Don't worry, we will fix in in the next exercise.
 
-```{r sps8-setup}
-sps_subset <- sps %>%
-  filter(education %in% c("preschool", "secondary", "high school", "college")) %>%
-  select(-c(health_exp_1m, t2_health_exp_1m)) %>%
-  mutate(change_in_expenses = t2_health_exp_3m - health_exp_3m) %>%
-  group_by(treatment, education) %>%
-  summarize(mean_change_in_expenses = mean(change_in_expenses))
-
-sps_plot <- ggplot(data = sps_subset, mapping = aes(x = education, y = mean_change_in_expenses, fill = treatment))
-```
 
 ```{r sps8, exercise = TRUE}
 
@@ -1749,89 +1740,40 @@ sps_plot <- ggplot(data = sps_subset, mapping = aes(x = education, y = mean_chan
 
 ### Exercise 9
 
-Because `treatment` column of `sps_subset` is an integer and not a factor, we can't group our data by it. To fix this problem, use `mutate()` and `as.factor()`. 
-
-```{r sps9-setup}
-sps_subset <- sps %>%
-  filter(education %in% c("preschool", "secondary", "high school", "college")) %>%
-  select(-c(health_exp_1m, t2_health_exp_1m)) %>%
-  mutate(change_in_expenses = t2_health_exp_3m - health_exp_3m) %>%
-  group_by(treatment, education) %>%
-  summarize(mean_change_in_expenses = mean(change_in_expenses))
-```
+Because `treatment` column is an integer and not a factor, we can't group our data by it. To fix this problem, use `mutate()` and `as.factor()` to change `treatment` to a factor. 
 
 ```{r sps9, exercise = TRUE}
 
 ```
 
-```{r sps9-hint, eval=FALSE}
-# We want to set our new variable to as.factor(treatment)
-```
 
 ### Exercise 10
 
-Make a new graph `sps_plot_2` and use `fct_reorder()` to reorder the four educations by `mean_change_in_expenses`.
+Use `fct_reorder()` to reorder the four educations by `mean_change_in_expenses`.
 
-```{r sps10-setup}
-sps_subset <- sps %>%
-  filter(education %in% c("preschool", "secondary", "high school", "college")) %>%
-  select(-c(health_exp_1m, t2_health_exp_1m)) %>%
-  mutate(change_in_expenses = t2_health_exp_3m - health_exp_3m) %>%
-  group_by(treatment, education) %>%
-  summarize(mean_change_in_expenses = mean(change_in_expenses)) %>%
-  mutate(treatment = as.factor(treatment))
-```
 
 ```{r sps10, exercise = TRUE}
 
 ```
 
-```{r sps10-hint, eval=FALSE}
-# Look at Question 13 of the Data Wrangling: Kenya section if you are confused 
-# about the fct_reorder() function 
-```
 
 ### Exercise 11
 
 Change the aesthetics of the plot by using `scale_fill_brewer()` with the "Paired" palette. In addition, adjust the `labels` argument of `scale_fill_brewer()` so that the legend's labels are equal to the vector ("No", "Yes").
-
-```{r sps11-setup}
-sps_subset <- sps %>%
-  filter(education %in% c("preschool", "secondary", "high school", "college")) %>%
-  select(-c(health_exp_1m, t2_health_exp_1m)) %>%
-  mutate(change_in_expenses = t2_health_exp_3m - health_exp_3m) %>%
-  group_by(treatment, education) %>%
-  summarize(mean_change_in_expenses = mean(change_in_expenses)) %>%
-  mutate(treatment = as.factor(treatment))
-sps_plot_2 <- ggplot(data = sps_subset, mapping = aes(x = fct_reorder(education, mean_change_in_expenses), y = mean_change_in_expenses, fill = treatment)) +
-    geom_col(position = position_dodge(preserve = "single"))
-```
 
 ```{r sps11, exercise = TRUE}
 
 ```
 
 ```{r sps11-hint, eval=FALSE}
-sps_plot_2 <- sps_plot_2 + 
+...  + 
     scale_fill_brewer(palette = ..., labels = ...)
 ```
 
 ### Exercise 12
 
-Finally, add `theme_minimal()` to change the style of the graph.
+Add `theme_minimal()` to change the style of the graph.
 
-```{r sps12-setup}
-sps_subset <- sps %>%
-  filter(education %in% c("preschool", "secondary", "high school", "college")) %>%
-  select(-c(health_exp_1m, t2_health_exp_1m)) %>%
-  mutate(change_in_expenses = t2_health_exp_3m - health_exp_3m) %>%
-  group_by(treatment, education) %>%
-  summarize(mean_change_in_expenses = mean(change_in_expenses)) %>%
-  mutate(treatment = as.factor(treatment))
-sps_plot_2 <- ggplot(data = sps_subset, mapping = aes(x = fct_reorder(education, mean_change_in_expenses), y = mean_change_in_expenses, fill = treatment)) +
-    geom_col(position = position_dodge(preserve = "single")) + 
-  scale_fill_brewer(palette = "Paired", labels = c("No", "Yes"))
-```
 
 ```{r sps12, exercise = TRUE}
 
@@ -1839,22 +1781,13 @@ sps_plot_2 <- ggplot(data = sps_subset, mapping = aes(x = fct_reorder(education,
 
 ### Exercise 13
 
-Great work! The first thing to notice from our graph is that all of the bars are positive, implying that all medical costs (regardless of treatment) went up over time. However, it is also clear that the treatment significantly lowered costs for all education groups. Finally, it is worth noting that the education category `preschool` is the only category that the treatment did not significantly affect. Since the treatment was designed to help less educated people the most, this is definitely a fact worth investigating.
+Great work! The first thing to notice from our graph is that all of the bars are positive, implying that all medical costs (regardless of treatment) went up over time. However, it is also clear that the treatment caused costs to rise less for all education groups. Finally, it is worth noting that the education category `preschool` is the only category that the treatment did not significantly affect costs. Since the treatment was designed to help less educated people the most, this is definitely a fact worth investigating.
 
-To finish your plot, use `labs()` to change the x-axis label to "education." Also, give the graph a title and subtitle of your choice.
+To finish your plot, use `labs()` to change the x-axis label to "education." Also, give the graph a title and subtitle of your choice. Here, again, is our version:
 
-```{r sps13-setup}
-sps_subset <- sps %>%
-  filter(education %in% c("preschool", "secondary", "high school", "college")) %>%
-  select(-c(health_exp_1m, t2_health_exp_1m)) %>%
-  mutate(change_in_expenses = t2_health_exp_3m - health_exp_3m) %>%
-  group_by(treatment, education) %>%
-  summarize(mean_change_in_expenses = mean(change_in_expenses)) %>%
-  mutate(treatment = as.factor(treatment))
-sps_plot_2 <- ggplot(data = sps_subset, mapping = aes(x = fct_reorder(education, mean_change_in_expenses), y = mean_change_in_expenses, fill = treatment)) +
-    geom_col(position = position_dodge(preserve = "single")) + 
-  scale_fill_brewer(palette = "Paired", labels = c("No", "Yes")) +
-    theme_minimal()
+
+```{r sps13-answer}
+sps_plot
 ```
 
 ```{r sps13, exercise = TRUE}
