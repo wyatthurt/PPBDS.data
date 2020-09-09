@@ -21,7 +21,7 @@ description: "Chapter 2 tutorial"
 <!-- lexus_1998 <- lexus_1998 %>% -->
 <!--   rename("class" = type) -->
 
-<!-- Even if you need a special object called lexus_1998, just create once. -->
+<!-- Even if you need a special object called lexus_1998, just create it once. -->
 
 ```{r setup, include=FALSE}
 library(tidyverse)
@@ -107,7 +107,7 @@ Confirm that you have the correct version of PPBDS.data installed by putting `pa
 
 ```
 
-The answer should be ‘0.3.2.9003’, or a higher number. If it is not, you should upgrade your installation by issuing these commands:
+The answer should be ‘0.3.2.9004’, or a higher number. If it is not, you should upgrade your installation by issuing these commands:
 
 
 ```{r confirm-advice, echo=TRUE, eval=FALSE}
@@ -150,7 +150,7 @@ This tutorial uses the following libraries:
 
 `library(ggthemes)`
 
-If you have not installed these packages, you will like encounter issues when attempting the tutorial, so make sure to do so. If you don't remember how to do so, reference the `install.packages()` function introduced earlier in the course. 
+If you have not installed these packages, you will like encounter issues when attempting the tutorial, so make sure to do so. If you don't remember how to do so, reference the `install.packages()` function discussed in *The Primer*. 
 
 
 ## Characters 
