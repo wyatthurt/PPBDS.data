@@ -23,6 +23,8 @@ description: "Chapter 2 tutorial"
 
 <!-- Even if you need a special object called lexus_1998, just create it once. -->
 
+<!-- Each group (at least for things like characters and factors) should be introduced with a few sentences, ideally with references to the appropriate section of the book. -->
+
 ```{r setup, include=FALSE}
 library(tidyverse)
 library(lubridate)
