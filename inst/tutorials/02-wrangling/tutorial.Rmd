@@ -103,10 +103,10 @@ library(ggthemes)
 ## Confirm Correct Package Version
 ###
 
-Confirm that you have the correct version of PPBDS.data installed by putting `packageVersion('PPBDS.data')` here and pressing "Run Code."
+Confirm that you have the correct version of PPBDS.data installed by pressing "Run Code."
 
 ```{r confirm, exercise=TRUE}
-
+packageVersion('PPBDS.data')
 ```
 
 The answer should be ‘0.3.2.9004’, or a higher number. If it is not, you should upgrade your installation by issuing these commands:
