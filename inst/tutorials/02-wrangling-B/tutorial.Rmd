@@ -883,6 +883,7 @@ Finally, use the `coord_cartesian` function to adjust the graph's zoom by settin
 
 
 ```{r shaming14, exercise = TRUE}
+
 ```
 
 ### Exercise 15

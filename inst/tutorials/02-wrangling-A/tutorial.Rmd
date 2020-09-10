@@ -432,6 +432,7 @@ Use `str_to_upper()` and `mutate()` to transform `state_12` so that both of the 
 Remark: The function `str_to_upper()` has not yet been introduced in the Primer. Can you still guess what it does? Have a look the help page by running `?str_to_upper`. 
 
 ```{r exercise-2-19, exercise=TRUE}
+
 ```
 
 ```{r exercise-2-19-hint, eval=FALSE}
