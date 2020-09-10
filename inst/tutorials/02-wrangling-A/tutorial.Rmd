@@ -173,7 +173,7 @@ The first few exercises focus on various functions that can be used to manipulat
 ```
 
 ```{r exercise-2-1-hint, eval=FALSE}
-# Type `state` and run it in the console
+# Type `state` and press Run Code
 ```
 
 
@@ -215,7 +215,7 @@ Use `str_split()` on `states` in order to help identify states which involve two
 ````
 
 ```{r exercise-2-4-hint-2, eval=FALSE}
-str_split(..., pattern = ..., simply = TRUE)
+str_split(..., pattern = ..., simplify = TRUE)
 ```
 
 
@@ -254,7 +254,7 @@ Collapse `states` using `str_c()`. Separate them with a comma that is followed b
 ```
 
 ```{r exercise-2-7-hint, eval=FALSE}
-str_c(states, collapse = ", ")
+str_c(..., collapse = ", ")
 ```
 
 
@@ -270,6 +270,10 @@ Use `str_c` to collapse states into the form `state1 & state2`. Combine the firs
 str_c(..., ..., sep = ...)
 ```
 
+```{r exercise-2-8-hint-2, eval=FALSE}
+# One approach is to use brackets ([]) to subscript out the elements of `states`
+# which you want to them combine.
+```
 
 ### Exercise 9
 
@@ -321,7 +325,7 @@ str_subset(..., pattern = ...)
 
 ### Exercise 12
 
-Use `str_subset()` to find `states` that contain the letter a and then one or more characters and another a.
+Use `str_subset()` to find `states` that contain the letter "a" and then one or more characters and another a.
 
 ```{r exercise-2-12, exercise=TRUE}
 
@@ -352,7 +356,7 @@ str_subset(..., pattern = ...)
 
 ### Exercise 14
 
-The remaining exercises in this section contain a few tasks that should improve your understanding of the above concepts. First, `glimpse()` the `states2` tibble. 
+The remaining exercises in this section contain a few tasks that should improve your understanding of the above concepts. First, `glimpse()` the `states2` tibble. We will be building some pipes which always start with `states2`. 
 
 ```{r exercise-2-14, exercise=TRUE}
 
@@ -365,7 +369,7 @@ glimpse(states2)
 
 ### Exercise 15
 
-`mutate()` the `states2` data set so that it contains a column `state_length` that takes the `str_length()` of each `state`.
+Start a pipe with `states2` data set. Add a column `state_length` that takes the `str_length()` of each `state`.
 
 ```{r exercise-2-15, exercise=TRUE}
 
@@ -379,7 +383,7 @@ states2 %>%
 
 ### Exercise 16
 
-Using the data set you got in the previous exercise, `arrange()` from the state with the shortest name to that with the longest (that is, in `desc`ending order).
+Add `arrange()` to the previous pipe so that the state with the shortest name is first -- that is, in `desc`ending order.
 
 ```{r exercise-2-16, exercise=TRUE}
 
@@ -394,7 +398,7 @@ states2 %>%
 
 ### Exercise 17
 
-Use the `state2` data set again and simply arrange it by `desc(state)`. How does this arrangement differ from the one you got in exercise 15?
+Change the last line of the pipe so it is by `desc(state)`. Note how this arrangement differ from the one you got in exercise 15.
 
 ```{r exercise-2-17, exercise=TRUE}
 
@@ -408,44 +412,38 @@ Use the `state2` data set again and simply arrange it by `desc(state)`. How does
 
 ### Exercise 18
 
-`mutate()` the `state` column of `states2` to only contain the first two letters of each state name. Reassign this as `states2`.
+Create a new column --- called `state_12` --- in the pipe which only contains the first two letters of each state name. 
 
 ```{r exercise-2-18, exercise=TRUE}
 
 ```
 
 ```{r exercise-2-18-hint, eval=FALSE}
-states2 <- states2 %>%
-  mutate(state = str_sub(state, 1, 2))
+... %>% 
+  mutate(state_12 = str_sub(state, 1, 2))
 ```
 
-```{r exercise-2-18-setup, eval=FALSE}
-... <- states2 %>% 
-  mutate(... = str_sub(...))
-```
 
 
 ### Exercise 19
 
-Add another line by using `str_to_upper()` and `mutate()` to make both of the first two letters of the states capital letters. Reassign this as `states2`.
+Use `str_to_upper()` and `mutate()` to transform `state_12` so that both of the letters are capital. 
 
-Remark: The function `str_to_upper()` has not yet been introduced in the Primer. Can you still guess what it does? Have a look the help page by running `?str_to_upper`. Alternatively, you may use a hint.
+Remark: The function `str_to_upper()` has not yet been introduced in the Primer. Can you still guess what it does? Have a look the help page by running `?str_to_upper`. 
 
 ```{r exercise-2-19, exercise=TRUE}
-states2 <- states2 %>% 
-  mutate(state = str_sub(state, 1, 2)) 
 ```
 
 ```{r exercise-2-19-hint, eval=FALSE}
-states2 <- states2 %>% 
-  mutate(state = str_sub(state, 1, 2)) %>% 
-  mutate(state = str_to_upper(state))
+... %>% 
+  mutate(state_12 = str_sub(state, 1, 2)) %>% 
+  mutate(state_12 = str_to_upper(state_12))
 ```
 
 
 ### Exercise 20
 
-`mutate()` a new column called `match` that creates a TRUE or FALSE value if the first two letters of the state name (the `state` column) and the `abb` column match.
+`mutate()` a new column called `matches` that creates a TRUE or FALSE value if the first two letters of the state name (the `state_12` column) and the `abb` column match.
 
 ```{r exercise-2-20, exercise=TRUE}
 
@@ -456,28 +454,22 @@ states2 <- states2 %>%
 ```
 
 ```{r exercise-2-20-hint-2, eval=FALSE}
-states2 %>% 
-  mutate(match = ifelse(state == abb, TRUE, FALSE))
+... %>% 
+  mutate(matches = ifelse(state_12 == abb, TRUE, FALSE))
 ```
 
 
 ### Exercise 21
 
-Add a line of code to `count()` the `match` column.
+Add  `count()` to the end of the pipe to count the number of TRUE values in `matches` column.
 
 ```{r exercise-2-21, exercise=TRUE}
-states2 <- states2 %>%
-  mutate(state = str_sub(state, 1, 2)) %>% 
-  mutate(state = str_to_upper(state)) %>%
-  mutate(match = ifelse(state == abb, TRUE, FALSE))
+
 ```
 
 ```{r exercise-2-21-hint, eval=FALSE}
-states2 <- states2 %>%
-  mutate(state = str_sub(state, 1, 2)) %>% 
-  mutate(state = str_to_upper(state)) %>%
-  mutate(match = ifelse(state == abb, TRUE, FALSE)) %>% 
-  count(match)
+... %>% 
+  count(matches)
 ```
 
 ```{r exercise-2-21-quiz}
