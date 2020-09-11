@@ -59,19 +59,30 @@ Once the library is loaded and you have confirmed that it can be accessed in you
 
 library(ggplot2)
 
-qscores %>%
-  filter(department == "GOV") %>%
-  ggplot(aes(y = workload, x = enrollment)) + 
-  geom_point(aes(color = term)) + 
-  labs(
-    title = "Rudimentary Graphic to Test Function",
-    subtitle = "Better graphic, potentially from 1005 work coming",
-    caption = "Never forget to cite")
+qscores %>% 
+  filter(department == "GOV") %>% 
+  ggplot(aes(hours, rating, color = term)) +
+    geom_point(aes(size = enrollment), alpha = 0.4) +
+    geom_smooth(method = "lm", formula = y ~ x, se = FALSE) +
+    facet_wrap(~term) +
+    labs(
+      title = "Student Course Evaluations at Harvard",
+      subtitle = "Department of Government",
+      caption = "Data provided by Aurash Vatan '23",
+      x = "Weekly workload, hours",
+      y = "Rating, 1 (worst) to 5 (best)",
+      size = "Enrollment") +
+    theme_linedraw() +
+    theme(
+        text = element_text(family = "Palatino"),
+        axis.text.x = element_text(size = 10),
+        axis.text.y = element_text(size = 10)) +
+    scale_color_discrete(guide = "none")
 ```
 
 <!-- DK: We need some comments explaining what this is doing and how we can replace it. Specifically, why place the figure in man/ rather than inst/? -->
 
-<img src= "man/figures/README-quick.plot-1.png" align="center" width="600">
+<img src= "man/figures/README-plot-1.png" align="center" width="600">
 
 
 ## Citing PPBDS.data
