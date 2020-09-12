@@ -1623,7 +1623,7 @@ Nice! Do you see what our next step has to be? In our `type_date` column, we hav
 
 ### Exercise 4
 
-Fantastic! Now that our data is tidy, we can get to work. Add a `filter()` to teh pipe so that we narrow down our data set to data where date is "00_14", type is "incident", and count is greater than 0.
+Fantastic! Now that our data is tidy, we can get to work. Add a `filter()` to the pipe so that we narrow down our data set to data where date is "00_14", type is "incident", and count is greater than 0.
 
 ```{r as-4, exercise=TRUE, exercise.lines=10}
 

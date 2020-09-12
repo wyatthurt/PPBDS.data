@@ -25,6 +25,8 @@ description: "Chapter 2 Tutorial -- Part A"
 
 <!-- Each group (at least for things like characters and factors) should be introduced with a few sentences, ideally with references to the appropriate section of the book. -->
 
+<!-- We need a section devoted to read_*. We need to create, by hand, a bunch of files which are messy in various ways. We store those files in this repo. We then ask questions which require reading in those files and fixing the problems. Not sure if the files should be read in from the package itself or from the web. -->
+
 ```{r setup, include=FALSE}
 library(tidyverse)
 library(lubridate)
@@ -383,7 +385,7 @@ states2 %>%
 
 ### Exercise 16
 
-Add `arrange()` to the previous pipe so that the state with the shortest name is first -- that is, in `desc`ending order.
+Add `arrange()` to the previous pipe so that the state with the shortest name is first.
 
 ```{r exercise-2-16, exercise=TRUE}
 
@@ -392,7 +394,7 @@ Add `arrange()` to the previous pipe so that the state with the shortest name is
 ```{r exercise-2-16-hint, eval=FALSE}
 states2 %>% 
   mutate(... = str_length(...)) %>%
-  arrange(desc(...))
+  arrange(...)
 ```
 
 

@@ -64,6 +64,8 @@ If you are new to R/RStudio/Markdown, then read [this intro book](https://ismayc
 
 * No spaces around "=" in R code chunk options. That is, write `eval=FALSE`, not `eval = FALSE`.
 
+* The exercise code chunk not have zero lines. It can be blank, but it must have at least one empty line.
+
 * Do not use multiple choice too often. When you do, don't allow multiple submissions. If you do, students will just try all of them until they get the right answer.
 
 * If you want to provide an example code chunk, either in the answer block or in the hint, use "..." to indicate a spot which students need to fill in with a variable name or argument value or whatever. Example:

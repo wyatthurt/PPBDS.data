@@ -7,7 +7,7 @@ output:
       progressive: true
       allow_skip: true
 runtime: shiny_prerendered
-description: "Chapter 3 tutorial"
+description: "Chapter 3 Tutorial"
 ---
 
 <!-- # MB: Cannot add white space to paragraph answers -->
@@ -23,10 +23,31 @@ library(shiny)
 library(gt)
 library(PPBDS.data)
 knitr::opts_chunk$set(echo = FALSE, message = FALSE)
-options(tutorial.exercise.timelimit = 60, tutorial.storage="local")  
+options(tutorial.exercise.timelimit = 60, tutorial.storage="local")
 ```
 
-## Introduction
+## Confirm Correct Package Version
+###
+
+Confirm that you have the correct version of PPBDS.data installed by pressing "Run Code."
+
+```{r confirm, exercise=TRUE}
+packageVersion('PPBDS.data')
+```
+
+The answer should be ‘0.3.2.9004’, or a higher number. If it is not, you should upgrade your installation by issuing these commands:
+
+
+```{r confirm-advice, echo=TRUE, eval=FALSE}
+remove.packages('PPBDS.data')  
+library(remotes)  
+remotes::install_github('davidkane9/PPBDS.data')  
+```
+
+Strictly speaking, it should not be necessary to remove a package. Just installing it again should overwrite the current version. But weird things sometimes happen, so removing first is the safest approach. 
+
+## Name 
+###
 
 ``` {r name, echo=FALSE}
 question_text(
@@ -44,7 +65,7 @@ quiz(
 question_text(
     "Give a one sentence definition of a Preceptor Table.",
     allow_retry = TRUE,
-    answer(NULL, correct = T),
+    answer(NULL, correct = TRUE),
     incorrect = "Ok"
   )
 )
@@ -66,27 +87,27 @@ question("What is the Fundamental Problem of Causal Inference?",
   ),
 question_text(
     "Explain a 'counterfactual' in a brief phrase. 'Potential outcome' might be helpful to use in your answer.",
-    allow_retry = F,
-    answer(NULL, correct = T),
+    allow_retry = FALSE,
+    answer(NULL, correct = TRUE),
     incorrect = "Ok"
   ),
 question_text(
   "In one sentence, explain what causal effect is according to the RCM?",
-  allow_retry = F,
-  answer(NULL, correct = T),
+  allow_retry = FALSE,
+  answer(NULL, correct = TRUE),
   incorrect = "Ok"
   ),
 question("Choose the response variable.",
          answer("$t$"),
          answer("$u$"),
-         answer("$Y$", correct = T),
+         answer("$Y$", correct = TRUE),
          answer("$c$"), 
          random_answer_order = T
          ),
 question_text(
   "Why do we need more than one response variable if we are trying to understand a causal effect? How are the two response variables different? (Two short sentences/phrases)",
-  allow_retry = F,
-  answer(NULL, correct = T),
+  allow_retry = FALSE,
+  answer(NULL, correct = TRUE),
   incorrect = "Ok",
   trim = F
   )
@@ -98,14 +119,14 @@ question_text(
 ```{r question-potential-outcomes}
 quiz(
 question_text("In two sentences, what makes a Preceptor Table ideal, and why is this generally impossible to observe? (You should use the phrase 'potential outcomes' in your answer)",
-    allow_retry = F,
-    answer(NULL, correct = T),
-    trim = F,
+    allow_retry = FALSE,
+    answer(NULL, correct = TRUE),
+    trim = FALSE,
     incorrect = "Ok"
   ),
 question(
   "If we did not have an ideal Preceptor Table, could we directly calculate the causal effect for an individual like Yao?",
-  answer("No", correct = T),
+  answer("No", correct = TRUE),
   answer("Yes"),
   allow_retry = F
 )
@@ -117,19 +138,19 @@ question(
 ```{r question-estimands}
 quiz(
 question_text("In one sentence, define what an estimand is, and give an example.",
-    allow_retry = F,
-    answer(NULL, correct = T),
-    trim = F,
+    allow_retry = FALSE,
+    answer(NULL, correct = TRUE),
+    trim = FALSE,
     incorrect = "Ok"
   ),
 question_checkbox(
   "Which of the following are examples of estimands?",
-  answer("average treatment effect", correct = T),
-  answer("percent change", correct = T),
+  answer("average treatment effect", correct = TRUE),
+  answer("percent change", correct = TRUE),
   answer("44%", correct = F),
-  answer("most positive causal effect", correct = T),
+  answer("most positive causal effect", correct = TRUE),
   answer("+2", correct = F),
-  allow_retry = F, 
+  allow_retry = FALSE, 
   random_answer_order = T
 )
 )
@@ -161,7 +182,7 @@ tibble(subject = c("Yao", "Emma", "Cassidy", "Tahmid", "Diego"),
 ```{r question-estimands2-quiz}
 quiz(
 question("What is the casual effect of the treatment on Yao (answer as +/-X)?",
-    answer("+2", correct = T),
+    answer("+2", correct = TRUE),
     allow_retry = T
   ),
 question("For how many of the five is the casual effect of the treatment positive?",
@@ -173,7 +194,7 @@ question("For how many of the five is the casual effect of the treatment positiv
     allow_retry = F
   ),
 question("On whom did the treatment have the most negative causal effect?",
-    answer("Tahmid", correct = T),
+    answer("Tahmid", correct = TRUE),
     allow_retry = TRUE
   ),
 question("What was the treatment effect percentage on Diego? (answer as +/-X%)",
@@ -181,9 +202,9 @@ question("What was the treatment effect percentage on Diego? (answer as +/-X%)",
     allow_retry = TRUE
   ),
 question_text("What are the estimands you just calculated in the four previous questions? (You should have a list of 4 different estimands).",
-    allow_retry = F,
-    answer(NULL, correct = T),
-    trim = F,
+    allow_retry = FALSE,
+    answer(NULL, correct = TRUE),
+    trim = FALSE,
     incorrect = "Ok")
 )
 ```
@@ -193,26 +214,26 @@ question_text("What are the estimands you just calculated in the four previous q
 ```{r question-preceptortable2}
 quiz(
 question_text("In one sentence, describe the difference between an actual and ideal Preceptor Table.",
-    allow_retry = F,
-    answer(NULL, correct = T),
-    trim = F,
+    allow_retry = FALSE,
+    answer(NULL, correct = TRUE),
+    trim = FALSE,
     incorrect = "Ok"
   ),
 question_checkbox(
   "Which of the following are types of columns you might expect to see in a Preceptor Table",
-  answer("ID", correct = T),
-  answer("Outcomes", correct = T),
-  answer("Covariates", correct = T),
-  answer("Estimands", correct = T),
+  answer("ID", correct = TRUE),
+  answer("Outcomes", correct = TRUE),
+  answer("Covariates", correct = TRUE),
+  answer("Estimands", correct = TRUE),
   answer("Predictions", correct = F),
   answer("Observations", correct = F),
-  allow_retry = F, 
+  allow_retry = FALSE, 
   random_answer_order = T
 ),
 question_text("What is the correct order of columns in a Preceptor Table following the ID column? (list in order from left to right starting with the ID column).",
-    allow_retry = F,
-    answer(NULL, correct = T),
-    trim = F,
+    allow_retry = FALSE,
+    answer(NULL, correct = TRUE),
+    trim = FALSE,
     incorrect = "Ok"
   )
 )
@@ -223,9 +244,9 @@ question_text("What is the correct order of columns in a Preceptor Table followi
 ```{r question-simplemodels}
 quiz(
 question_text("In a very short sentence or phrase, why do we need a models?",
-    allow_retry = F,
-    answer(NULL, correct = T),
-    trim = F,
+    allow_retry = FALSE,
+    answer(NULL, correct = TRUE),
+    trim = FALSE,
     incorrect = "Ok"
   )
 )
@@ -236,9 +257,9 @@ question_text("In a very short sentence or phrase, why do we need a models?",
 ```{r question-singletau}
 quiz(
 question_text("In one sentence, what is the big assumption we are making about casual effect by only using one value for tau?",
-    allow_retry = F,
-    answer(NULL, correct = T),
-    trim = F,
+    allow_retry = FALSE,
+    answer(NULL, correct = TRUE),
+    trim = FALSE,
     incorrect = "Ok"
   )
 )
@@ -292,21 +313,21 @@ glimpse(actualPT)
 ```{r question-singletau2}
 quiz(
   question_text("Describe in one sentence/equation how you would estimate Yao's $Y_c(u)$. (Do not use actual numbers, use tau in your explanation).",
-    allow_retry = F,
-    answer(NULL, correct = T),
-    trim = F,
+    allow_retry = FALSE,
+    answer(NULL, correct = TRUE),
+    trim = FALSE,
     incorrect = "Ok"
   ),
   question_text("Describe in one sentence/equation how you would estimate Tahmids's $Y_t(u)$. (Do not use actual numbers, use tau in your explanation).",
-    allow_retry = F,
-    answer(NULL, correct = T),
-    trim = F,
+    allow_retry = FALSE,
+    answer(NULL, correct = TRUE),
+    trim = FALSE,
     incorrect = "Ok"
   ),
   question_text("Describe in one sentence/equation how you would estimate a single value for tau.",
-    allow_retry = F,
-    answer(NULL, correct = T),
-    trim = F,
+    allow_retry = FALSE,
+    answer(NULL, correct = TRUE),
+    trim = FALSE,
     incorrect = "Ok"
   )
 )
@@ -420,9 +441,9 @@ glimpse(actualPT)
 ```{r question-two-tau}
 quiz(
   question_text("How would you calculate $tau_F$? Use only words and no numbers.",
-    allow_retry = F,
-    answer(NULL, correct = T),
-    trim = F,
+    allow_retry = FALSE,
+    answer(NULL, correct = TRUE),
+    trim = FALSE,
     incorrect = "Ok"
   ),
   question_text("What is $tau_M$? (Answer as +/-X)",
@@ -434,9 +455,9 @@ quiz(
     allow_retry = TRUE
   ),
   question_text("In a couple of sentences, explain how we have two different estimates for Emma depending on assumptions we make.",
-    allow_retry = F,
-    answer(NULL, correct = T),
-    trim = F,
+    allow_retry = FALSE,
+    answer(NULL, correct = TRUE),
+    trim = FALSE,
     incorrect = "Ok"
   )
 )
@@ -512,39 +533,39 @@ question("Calculate the ATE based on the data given to you in this Preceptor Tab
   ),
 question_text("Before assigning any number to our causal effect, let's work using a single causal effect for everyone called $\\tau$. What would be Yao's $Y_c(u)$ using $\\tau$ in your answer. You can write tau for $\\tau$. Don't put spaces in your answer.$",
     allow_retry = T,
-    answer("13-tau", correct = T)
+    answer("13-tau", correct = TRUE)
   ),
 question_text("Using the same format, what would be Cassidy's $Y_t(u)$.",
     allow_retry = T,
-    answer("10+tau", correct = T)
+    answer("10+tau", correct = TRUE)
   ),
 question_text("What is Cassidy's outcome under treatment if we assume tau to be the ATE we calculated?",
     allow_retry = T,
-    answer("10.5", correct = T)
+    answer("10.5", correct = TRUE)
   ),
 question_text("What is Tahmid's outcome under treatment if we assume tau to be the ATE we calculated?",
     allow_retry = T,
-    answer("9.5", correct = T)
+    answer("9.5", correct = TRUE)
   ),
 question_text(
     "What is the treatment effect for the males in the sample?",
     allow_retry = T,
-    answer("-1.5", correct = T)
+    answer("-1.5", correct = TRUE)
   ),
 question_text(
     "What is the treatment effect for the females in the sample?",
     allow_retry = T,
-    answer("+2", correct = T)
+    answer("+2", correct = TRUE)
   ),
 question_text(
     "What is Diego's $Y_c(u)$ if we assume his causal effect to be the treatment effect for males",
     allow_retry = T,
-    answer("7.5", correct = T)
+    answer("7.5", correct = TRUE)
   ),
 question_text(
     "What is Emma's $Y_t(u)$ if we assume her causal effect to be the treatment effect for females",
     allow_retry = T,
-    answer("13", correct = T)
+    answer("13", correct = TRUE)
   )
 )
 
@@ -564,17 +585,17 @@ question("Which of the following is NOT a reason why ATE-hat a useful estimand?"
   ),
 question_text("What is the difference between ATE-hat and ATE.", #MB: $\widehat{ATE}$ is throwing an error every time
     allow_retry = T,
-    answer(NULL, correct = T),
+    answer(NULL, correct = TRUE),
     incorrect = "Ok"
   ),
 question_text("Describe the heterogeneous treatment effect for the variation between individuals.",
     allow_retry = T,
-    answer(NULL, correct = T),
+    answer(NULL, correct = TRUE),
     incorrect = "Ok"
   ),
 question_text("Describe heterogeneous treatment effect for the variation between different sub-groups or variables.",
     allow_retry = T,
-    answer(NULL, correct = T),
+    answer(NULL, correct = TRUE),
     incorrect = "Ok"
   )
 )
@@ -590,36 +611,36 @@ Answer the following questions on missing data.
 quiz(
 question_text("In addition to not being able to observe counterfactal outcomes, what is another source of missing data in Preceptor Tables?",
     allow_retry = T,
-    answer(NULL, correct = T),
+    answer(NULL, correct = TRUE),
     incorrect = "Ok"
   ),
 question_text("In order to apply the causal effect of a sample to the general population, our samaple must be ______ of the population.",
     allow_retry = T,
-    answer("representative", correct = T)
+    answer("representative", correct = TRUE)
   ),
 question_text("Explain representativeness as a concept in sampling.",
     allow_retry = T,
-    answer(NULL, correct = T),
+    answer(NULL, correct = TRUE),
     incorrect = "Ok"
   ),
 question_text("Describe an Infinite Preceptor Table in a few sentences. Use the word 'assumption' in your answer.",
     allow_retry = T,
-    answer(NULL, correct = T),
+    answer(NULL, correct = TRUE),
     incorrect = "Ok"
   ),
 question_text("Is it fair to assume that the causal effect on Sam for now would be the same as the causal effect if we treated him in some amount of time? Explain why or why not.",
     allow_retry = T,
-    answer(NULL, correct = T),
+    answer(NULL, correct = TRUE),
     incorrect = "Ok"
   ),
 question_text("Why might Infinite Preceptor Tables include additional treatment columns?",
     allow_retry = T,
-    answer(NULL, correct = T),
+    answer(NULL, correct = TRUE),
     incorrect = "Ok"
   ),
 question_text("When you begin working on a causal question, one begins with the idea of an Infinite Preceptor Table. What three assumptions do you make to narrow this idea down to a Preceptor Table you can work with?",
     allow_retry = T,
-    answer(NULL, correct = T)
+    answer(NULL, correct = TRUE)
   )
 )
 
@@ -638,7 +659,7 @@ Answer the following questions on uncertainty and confounding.
 quiz(
 question_text("Describe the two main forms of uncertainty with using ATE as a uniform measure of causal effect.",
     allow_retry = T,
-    answer(NULL, correct = T),
+    answer(NULL, correct = TRUE),
     incorrect = "Ok"
   ),
 question("Which of the following is NOT a good reason to doubt the certainty of your ATE?",
@@ -657,12 +678,12 @@ question("Which of the following would make the ATE-hat of a sample closer to th
   ),
 question_text("Explain what 'confounding' means in the context of an assignment mechanism.",
     allow_retry = T,
-    answer(NULL, correct = T),
+    answer(NULL, correct = TRUE),
     incorrect = "Ok"
   ),
 question_text("The trains experiment is redone so that everyone in a certain region of the train platform is treated and another region is not. Is this a confounding element? Why?",
     allow_retry = T,
-    answer(NULL, correct = T),
+    answer(NULL, correct = TRUE),
     incorrect = "Ok"
   ),
 question("In the context of the trains dataset, which of the following describes selection bias, a key problem to avoid when establishing an assignment mechanism?",
@@ -682,17 +703,17 @@ Answer the following questions about block randomized assignment.
 quiz(
 question_text("You are told to redo the train experiment using block randomized assignment. You have 150 commuters and the ability to sort them into 3 different platforms. How many commuters do you put on each of the 3 platforms and how many recieve the treatment?",
     allow_retry = T,
-    answer(NULL, correct = T),
+    answer(NULL, correct = TRUE),
     incorrect = "Ok"
   ),
 question_text("Explain in a few sentences why a researcher may want to use block randomized assignment.",
     allow_retry = T,
-    answer(NULL, correct = T),
+    answer(NULL, correct = TRUE),
     incorrect = "Ok"
   ),
 question_text("A few of the platforms in the station are too loud for the Spanish-speakers to be heard by those around them. How might this jeopardize randomization and serve as a confounding factor?",
     allow_retry = T,
-    answer(NULL, correct = T),
+    answer(NULL, correct = TRUE),
     incorrect = "Ok"
   )
 )
@@ -743,22 +764,22 @@ tibble(Permutation = c("#1", "#2", "#3", "#4", "#5", "#6"),
 quiz(
 question_text("Explain briefly how the row #1 represents the original observations in the table above.",
     allow_retry = T,
-    answer(NULL, correct = T),
+    answer(NULL, correct = TRUE),
     incorrect = "Ok"
   ),
 question_text("What do rows #2 through #6 represent? Why do we need them to perform a permutation test?",
     allow_retry = T,
-    answer(NULL, correct = T),
+    answer(NULL, correct = TRUE),
     incorrect = "Ok"
   ),
 question_text("In one sentence, what is the purpose of a permutation test?",
     allow_retry = T,
-    answer(NULL, correct = T),
+    answer(NULL, correct = TRUE),
     incorrect = "Ok"
   ),
 question_text("What does the variation in the final column tell us about the reliability of our ATE?",
     allow_retry = T,
-    answer(NULL, correct = T),
+    answer(NULL, correct = TRUE),
     incorrect = "Ok"
   )
 )
@@ -783,12 +804,12 @@ quiz(
   ),
 question_text("What is the Hawthorne effect?",
       allow_retry = T,
-      answer(NULL, correct = T),
+      answer(NULL, correct = TRUE),
     incorrect = "Ok"
   ),
 question_text("A drug is being used to test weight loss, however it can only be used on subjects 3, 4, and 5, as subjects 1 and 2 have a disease that keeps the drug from being safe for them. Should all 5 subjects be used to calculate the causal effect of the weight loss drug, or just subjects 3, 4, and 5? Why?", # MB: CASS
       allow_retry = T,
-      answer(NULL, correct = T),
+      answer(NULL, correct = TRUE),
     incorrect = "Ok"
   ),
 question_text("In the train experiment, there were people in the experiement who waited in their cars, therefore didn't hear Spanish speakers before stepping onto the train. Should their results have been measured and included in the data? Compare this situation to the one in the previous question in your answer.", # MB: Cass
@@ -798,7 +819,7 @@ question_text("In the train experiment, there were people in the experiement who
   ),
 question_text("Humility is a key step in modelling and data analysis where we acknowledge all of the things in the real world that may have messed up our experiment or predictions. Use humility and discuss one of these things in a few sentences.", # MB: CASS. examples: headphgones in couldnt hear spanish, etc
       allow_retry = T,
-      answer(NULL, correct = T),
+      answer(NULL, correct = TRUE),
     incorrect = "Ok"
   )
 )
@@ -853,12 +874,12 @@ question("Which of the two went go off the scale after applying the treatment ef
   ),
 question_text("Write a few sentences describing censoring in statistics.",
       allow_retry = T,
-      answer(NULL, correct = T),
+      answer(NULL, correct = TRUE),
     incorrect = "Ok"
   ),
 question_text("If many of the observations were as high as Miro's, is it the problem of the scale in the study? Why?",
       allow_retry = T,
-      answer(NULL, correct = T),
+      answer(NULL, correct = TRUE),
     incorrect = "Ok"
   )
 )
@@ -923,7 +944,7 @@ question("Is this model predictive or causal?",
   ),
 question_text("Explain your answer above.",
     allow_retry = T,
-    answer(NULL, correct = T),
+    answer(NULL, correct = TRUE),
     incorrect = "Ok"
   ),
 question_text("Is the equation for a predictive model different from that of a causal model?",
@@ -944,12 +965,12 @@ Answer the following questions.
 quiz(
 question_text("Give an example of a poor causal study because it violates the the phrase, 'no causation without manipulation'",
     allow_retry = T,
-    answer(NULL, correct = T),
+    answer(NULL, correct = TRUE),
     incorrect = "Ok"
   ),
 question_text("Why is the phrase 'no causation without manipulation' more complicated when dealing with matters of race, sex, and gender?",
     allow_retry = T,
-    answer(NULL, correct = T),
+    answer(NULL, correct = TRUE),
     incorrect = "Ok"
   )
 )
@@ -982,18 +1003,18 @@ tibble(subject = c("Yao"),
 quiz(
 question_text("Describe the stable unit treatment value assumption, or SUTVA.",
     allow_retry = T,
-    answer(NULL, correct = T),
+    answer(NULL, correct = TRUE),
     incorrect = "Ok"
   ),
 
 question_text("What is the causal effect of the treatment on Yao?",
     allow_retry = T,
-    answer("-1", correct = T)
+    answer("-1", correct = TRUE)
   ),
 
 question_text("What is the causal effect of Emma being treated on Yao?",
     allow_retry = T,
-    answer("-3", correct = T)
+    answer("-3", correct = TRUE)
   )
 )
 
