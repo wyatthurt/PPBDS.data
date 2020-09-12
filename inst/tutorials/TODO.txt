@@ -1,0 +1,24 @@
+TODO Items for Tutorials
+
+
+Can question_text provide the user with more empty lines to fill?
+
+Can't we do better than the absurd   incorrect = "Ok" hack in all the text questions?
+
+We need the full answer as the last question, at least. That is: Make this plot.
+
+Make them build step by step, one line after the other. Setting up interim results is confusing. Set up chunks are a bad idea. Get rid of all of them!
+
+Fix the two exercises which I had to comment out.
+
+Best way to allow students to ctach up is, every few questions, have a "hint" which shows all the code up yill now, and then also a part of the current step. Don't forget eval=FALSE if there are ... in the hint.
+
+I like the way Jake did this:
+
+## The "virtual shovel"
+###
+
+
+Add search function to tutorials.
+
+

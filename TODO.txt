@@ -2,27 +2,10 @@
 
 # Priorities
 
-I think that Exercise N titles are annoying and a paid to maintain.
-
-We need the full answer as the last question, at least. That is: Make this plot.
-
-Make them build step by step, one line after the other. Setting up interim results is confusing. Set up chunks are a bad idea. Get rid of all of them!
-
-Fix the two exercises which I had to comment out.
-
-Best way to allow students to ctach up is, every few questions, have a "hint" which shows all the code up yill now, and then also a part of the current step. Don't forget eval=FALSE if there are ... in the hint.
-
-I like the way Jake did this:
-
-## The "virtual shovel"
-###
 
 Talk about Open Policing. Maybe San Antonia?
 
 No more variable name changes. Need to steady state for the creation of tutorials. OK to add more variables.
-
-Add search function to tutorials.
-
 
 
 * Clean up `sps`. Which variables do we need? What do they show? What should they be called?
@@ -54,6 +37,8 @@ Provide instruction in the lower part of this document about the release cycle. 
 
 
 ## Other
+
+* Don't mess with datasets until the tutorials are over.
 
 * Add gender column to qscores, created by using names, which will probably involve creating a first name column, which we will not keep.
 
