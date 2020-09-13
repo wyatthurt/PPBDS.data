@@ -892,7 +892,7 @@ lexus <- bind_rows(lexus_two_year, lexus_2000)
 
 Now, `unite()` the `make` and `model` columns of the `lexus` dataframe. Name this united column `vehicle`, and make the separator between the previous columns a space.
 
-```{r question-combining-1, exercise=TRUE}
+```{r question-combining-9, exercise=TRUE}
 
 ```
 
