@@ -233,7 +233,8 @@ The `kenya` data set from the **PPBDS.data** package records the data from a stu
 
 ```{r kenya-answer}
 kenya_plot <- kenya %>%
-  filter(treatment %in% c("control", "local", "SMS", "canvass")) %>%
+  filter(treatment %in% c("control", "local", 
+                          "SMS", "canvass")) %>%
   droplevels() %>%
   select(treatment, mean_age, reg_byrv13) %>%
   drop_na(mean_age) %>%
@@ -1259,21 +1260,22 @@ nes_plot <- nes %>%
   filter(education %in% c("Some Highschool", "Highschool", 
                           "Some College", "Adv. Degree")) %>%
   droplevels() %>%
-  mutate(opinion = as.factor(if_else(condition = str_detect(pres_appr, "prove"),
-                                     true = "has_opinion",
-                                     false = "no_opinion"))) %>%
+  mutate(opinion = as.factor(if_else(
+    condition = str_detect(pres_appr, "prove"),
+    true = "has_opinion",
+    false = "no_opinion"))) %>%
   drop_na() %>%
   group_by(year, voted, opinion, education) %>%
   summarize(count = n()) %>%
   pivot_wider(names_from = voted, values_from = count) %>%
   mutate(turnout = Yes / (Yes + No)) %>%
   drop_na() %>%
-  ggplot(mapping = aes(x = year,
-                       y = turnout,
-                       color = fct_reorder2(education, year,
-                                            turnout, .fun = first2),
-                       linetype = fct_reorder2(education, year, turnout,
-                                               .fun = first2))) +
+  ggplot(aes(x = year,
+             y = turnout,
+             color = fct_reorder2(education, year,
+                                  turnout, .fun = first2),
+             linetype = fct_reorder2(education, year, 
+                                     turnout, .fun = first2))) +
   geom_line() +
   facet_wrap(~ opinion) +
   scale_color_brewer(palette = "Spectral", name = "education") +
@@ -1495,6 +1497,8 @@ Use `facet_wrap` to facet the graph by opinion.
 
 ### Exercise 14
 
+<!-- DK: This question ordering is weird and confusing. It is rarely a good idea to guide students to the "wrong" answer and then fix it in the next question. -->
+
 This graph is starting to look pretty good, but the ordering of the legend is a bit confusing. Try using an `fct_` function to reorder the legend (both the color *and* linetype aesthetics) so that Adv. Degree is first, Some College is second, and so on. Something goes wrong with this first attempt, but we will fix it in the next exercise.
 
 ```{r nes14, exercise = TRUE, exercise.lines = 15}
@@ -1508,7 +1512,7 @@ This graph is starting to look pretty good, but the ordering of the legend is a 
 
 ### Exercise 15
 
-Although 3 of the 4 `education` statuses are reordered successfully, Adv. Degree is left on the bottom because it doesn't appear in the second graph. To fix this problem, change the `.fun` argument of both `fct_reorder2()` calls to first2 (the default is last2).
+Although 3 of the 4 `education` statuses are reordered successfully, Adv. Degree is left on the bottom because it doesn't appear in the second graph. To fix this problem, change the `.fun` argument of both `fct_reorder2()` calls to `first2` (the default is `last2`).
 
 ```{r nes15, exercise = TRUE, exercise.lines = 15}
 
@@ -1516,12 +1520,12 @@ Although 3 of the 4 `education` statuses are reordered successfully, Adv. Degree
 
 ```{r nes15-hint, eval = FALSE}
 ... %>%
-  ggplot(data = nes_subset,
-         mapping = aes(x = year, y = turnout,
-                       color = fct_reorder2(education, year, turnout,
-                                            .fun = ...),
-                       linetype = fct_reorder2(education, year,
-                                               turnout, .fun = ...))) +
+  ggplot(aes(x = year, 
+             y = turnout,
+             color = fct_reorder2(education, year, 
+                                  turnout, .fun = ...),
+             linetype = fct_reorder2(education, year,
+                                     turnout, .fun = ...))) +
   geom_line() +
   facet_wrap(~ opinion)
 ```
@@ -1556,7 +1560,7 @@ nes_plot
 ```
 
 
-## Airline Safety 
+xx`## Airline Safety 
 ###
 
 We will be focusing on the data set `airline_saftey` from the **fivethirtyeight** package. We will recreate this plot step-by-step.

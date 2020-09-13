@@ -3,7 +3,15 @@ TODO Items for Tutorials
 
 Can question_text provide the user with more empty lines to fill?
 
+How do we automate the checking of package version? Should we?
+
+How can we automate the testing of hints? Or maybe make all hints eval=FALSE?
+
+How test for exercise chunks with no lines, which causes a weird error?
+
 Can't we do better than the absurd   incorrect = "Ok" hack in all the text questions?
+
+Never instructor a student to replace an object with a different one with the same name. This only causes trouble, mainly since a student might end up running this line of code twice, and it won't work the second time!
 
 We need the full answer as the last question, at least. That is: Make this plot.
 
