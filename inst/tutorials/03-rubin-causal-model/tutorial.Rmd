@@ -764,103 +764,110 @@ question_text("A few of the platforms in the station are too loud for the Spanis
 
 ```
 
-Answer the following questions based on this table of a permutation test.
+<!-- DK: Should probably just delete this permutation question since the chapter does not explain permutation tests. But I do hope to get this back in at some point. -->
 
-```{r question-4-3-setup, echo = FALSE}
+<!-- Answer the following questions based on this table of a permutation test. -->
 
-tibble(subject = c("Yao", "Emma", "Cassidy", "Tahmid"),
-       ytreat = c("13", "11", "?", "?"),
-       ycontrol = c("?", "?", "10", "12"),
-       ydiff = c("?", "?", "?", "?")) %>%
-  gt() %>%
-  cols_label(subject = md("$$\\mathbf{Subject}$$"),
-                ytreat = md("$$Y_t(u)$$"),
-                ycontrol = md("$$Y_c(u)$$"),
-                ydiff = md("$$Y_t(u) - Y_c(u)$$")) %>%
-  tab_style(cell_borders(sides = "right"),
-            location = cells_body(columns = vars(subject))) %>%
-  tab_style(cell_text(weight = "bold"),
-            location = cells_body(columns = vars(subject))) %>%
-  cols_align(align = "center", columns = TRUE) %>%
-  fmt_markdown(columns = TRUE)
+<!-- ```{r question-4-3-setup, echo = FALSE} -->
 
-tibble(Permutation = c("#1", "#2", "#3", "#4", "#5", "#6"),
-       `13` = c("T", "T", "T", "C", "C", "C"),
-       `11` = c("T", "C", "C", "T", "T", "C"),
-       `10` = c("C", "T", "C", "T", "C", "T"),
-       `12 ` = c("C", "C", "T", "C", "T", "T"),
-       ATE = c("+1", "0", "+2", "-2", "0", "-1")) %>%
-       
-  # Then, we use the gt function to make it pretty
-  
-  gt() %>%
-  cols_label(Permutation = md("**Permutation**")) %>%
-  tab_style(cell_borders(sides = "right"),
-            location = cells_body(columns = vars(Permutation))) %>%
-  tab_style(cell_text(weight = "bold"),
-            location = cells_body(columns = vars(Permutation))) %>%
-  cols_align(align = "center", columns = TRUE)
+<!-- tibble(subject = c("Yao", "Emma", "Cassidy", "Tahmid"), -->
+<!--        ytreat = c("13", "11", "?", "?"), -->
+<!--        ycontrol = c("?", "?", "10", "12"), -->
+<!--        ydiff = c("?", "?", "?", "?")) %>% -->
+<!--   gt() %>% -->
+<!--   cols_label(subject = md("$$\\mathbf{Subject}$$"), -->
+<!--                 ytreat = md("$$Y_t(u)$$"), -->
+<!--                 ycontrol = md("$$Y_c(u)$$"), -->
+<!--                 ydiff = md("$$Y_t(u) - Y_c(u)$$")) %>% -->
+<!--   tab_style(cell_borders(sides = "right"), -->
+<!--             location = cells_body(columns = vars(subject))) %>% -->
+<!--   tab_style(cell_text(weight = "bold"), -->
+<!--             location = cells_body(columns = vars(subject))) %>% -->
+<!--   cols_align(align = "center", columns = TRUE) %>% -->
+<!--   fmt_markdown(columns = TRUE) -->
 
-```
+<!-- tibble(Permutation = c("#1", "#2", "#3", "#4", "#5", "#6"), -->
+<!--        `13` = c("T", "T", "T", "C", "C", "C"), -->
+<!--        `11` = c("T", "C", "C", "T", "T", "C"), -->
+<!--        `10` = c("C", "T", "C", "T", "C", "T"), -->
+<!--        `12 ` = c("C", "C", "T", "C", "T", "T"), -->
+<!--        ATE = c("+1", "0", "+2", "-2", "0", "-1")) %>% -->
 
-```{r question-4-3-quiz}
+<!--   # Then, we use the gt function to make it pretty -->
 
-quiz(
-question_text("Explain briefly how the row #1 represents the original observations in the table above.",
-    allow_retry = TRUE,
-    answer(NULL, correct = TRUE),
-    incorrect = "Ok"
-  ),
-question_text("What do rows #2 through #6 represent? Why do we need them to perform a permutation test?",
-    allow_retry = TRUE,
-    answer(NULL, correct = TRUE),
-    incorrect = "Ok"
-  ),
-question_text("In one sentence, what is the purpose of a permutation test?",
-    allow_retry = TRUE,
-    answer(NULL, correct = TRUE),
-    incorrect = "Ok"
-  ),
-question_text("What does the variation in the final column tell us about the reliability of our ATE?",
-    allow_retry = TRUE,
-    answer(NULL, correct = TRUE),
-    incorrect = "Ok"
-  )
-)
+<!--   gt() %>% -->
+<!--   cols_label(Permutation = md("**Permutation**")) %>% -->
+<!--   tab_style(cell_borders(sides = "right"), -->
+<!--             location = cells_body(columns = vars(Permutation))) %>% -->
+<!--   tab_style(cell_text(weight = "bold"), -->
+<!--             location = cells_body(columns = vars(Permutation))) %>% -->
+<!--   cols_align(align = "center", columns = TRUE) -->
 
-```
+<!-- ``` -->
 
-Answer the following questions on validity, scale, and humility.
+<!-- ```{r question-4-3-quiz} -->
+
+<!-- quiz( -->
+<!-- question_text("Explain briefly how the row #1 represents the original observations in the table above.", -->
+<!--     allow_retry = TRUE, -->
+<!--     answer(NULL, correct = TRUE), -->
+<!--     incorrect = "Ok" -->
+<!--   ), -->
+<!-- question_text("What do rows #2 through #6 represent? Why do we need them to perform a permutation test?", -->
+<!--     allow_retry = TRUE, -->
+<!--     answer(NULL, correct = TRUE), -->
+<!--     incorrect = "Ok" -->
+<!--   ), -->
+<!-- question_text("In one sentence, what is the purpose of a permutation test?", -->
+<!--     allow_retry = TRUE, -->
+<!--     answer(NULL, correct = TRUE), -->
+<!--     incorrect = "Ok" -->
+<!--   ), -->
+<!-- question_text("What does the variation in the final column tell us about the reliability of our ATE?", -->
+<!--     allow_retry = TRUE, -->
+<!--     answer(NULL, correct = TRUE), -->
+<!--     incorrect = "Ok" -->
+<!--   ) -->
+<!-- ) -->
+<!-- ``` -->
+
+### Exercise 3
 
 ```{r question-4-4-quiz}
 
 quiz(
-  question_text("Describe validity in a few sentences. Give an example of a mistake the researchers could make that would call the validity of the model into question.", #MB: Cass
+  
+question_text("Describe validity in a few sentences. Give an example of a mistake the researchers could make that would call the validity of the model into question.",
     answer(NULL, correct = TRUE),
     allow_retry = TRUE,
     incorrect = "Ok"
   ),
-  question("What is external validity?",
+  
+question("What is external validity?",
     answer("The data we are collecting is a legitimate measure of what we are trying to observe"),
     answer("The population used in the study is representative of the population we hope to generalize the findings to", correct = TRUE),
     answer("It is when the findings of a study affirm what is already known in exisiting literature"),
     allow_retry = TRUE
   ),
+
 question_text("What is the Hawthorne effect?",
       allow_retry = TRUE,
       answer(NULL, correct = TRUE),
     incorrect = "Ok"
   ),
-question_text("A drug is being used to test weight loss, however it can only be used on subjects 3, 4, and 5, as subjects 1 and 2 have a disease that keeps the drug from being safe for them. Should all 5 subjects be used to calculate the causal effect of the weight loss drug, or just subjects 3, 4, and 5? Why?", # MB: CASS
+
+question_text("A drug is being used to test weight loss, however it can only be used on subjects 3, 4, and 5, as subjects 1 and 2 have a disease that keeps the drug from being safe for them. Should all 5 subjects be used to calculate the causal effect of the weight loss drug, or just subjects 3, 4, and 5? Why?", 
       allow_retry = TRUE,
       answer(NULL, correct = TRUE),
     incorrect = "Ok"
   ),
+
 question_text("In the train experiment, there were people in the experiement who waited in their cars, therefore didn't hear Spanish speakers before stepping onto the train. Should their results have been measured and included in the data? Compare this situation to the one in the previous question in your answer.", # MB: Cass
     answer(NULL, correct = TRUE),
     allow_retry = TRUE,
     incorrect = "Ok"
   ),
+
 question_text("Humility is a key step in modelling and data analysis where we acknowledge all of the things in the real world that may have messed up our experiment or predictions. Use humility and discuss one of these things in a few sentences.", # MB: CASS. examples: headphgones in couldnt hear spanish, etc
       allow_retry = TRUE,
       answer(NULL, correct = TRUE),
@@ -870,7 +877,7 @@ question_text("Humility is a key step in modelling and data analysis where we ac
 
 ```
 
-<!-- MB: Reworked so that the out of bounds number is possible rather. The OOB being impossible is another matter.-->
+<!-- Reworked so that the out of bounds number is possible rather. The OOB being impossible is another matter.-->
 
 Miro and Jessica are two mice being given a weight-increasing drug with a causal effect of +2 oz. Miro weighs 13 oz and Jessica weighs 4 oz prior to treatment. However, their scale only goes up to 14 oz. 
 
@@ -894,33 +901,38 @@ tibble(subject = c("Jessica", "Miro"),
 
 ```
 
-Leave out units in all answers.
+### Exercise 4
 
 ```{r question-4-5-quiz}
 
 quiz(
-  question_text("What is Jessica's $Y_t(u)$ assuming $Y_t(u) - Y_c(u)$ to be his treatment effect?",
+  question_text("What is Jessica's $Y_t(u)$ assuming $Y_t(u) - Y_c(u)$ to be his treatment effect? Leave out units in all answers for this section. Just provide the number.",
     answer("6", correct = TRUE),
     allow_retry = TRUE
   ),
+  
 question_text("What is Miro's $Y_t(u)$ assuming $Y_t(u) - Y_c(u)$ to be his treatment effect?",
     answer("15", correct = TRUE),
     allow_retry = TRUE
   ),
+
 question_text("What does Miro's scale say at the end of the experiment, assuming $Y_t(u) - Y_c(u)$ to be his treatment effect?",
     answer("14", correct = TRUE),
     allow_retry = TRUE
   ),
+
 question("Which of the two went go off the scale after applying the treatment effect?",
     answer("Miro", correct = TRUE),
     answer("Jessica"),
     allow_retry = TRUE
   ),
+
 question_text("Write a few sentences describing censoring in statistics.",
       allow_retry = TRUE,
       answer(NULL, correct = TRUE),
     incorrect = "Ok"
   ),
+
 question_text("If many of the observations were as high as Miro's, is it the problem of the scale in the study? Why?",
       allow_retry = TRUE,
       answer(NULL, correct = TRUE),
@@ -930,9 +942,6 @@ question_text("If many of the observations were as high as Miro's, is it the pro
 
 ```
 
-<!-- Copied set up from Jessica -->
-<!-- Ch. 3 tutorial questions written by Cassidy Bargell  -->
-<!-- Also taken from rstudio/learnr and rstudio-education/primers GitHub repos -->
 
 ## What is a causal effect?
 
@@ -978,7 +987,7 @@ tibble(subject = c("1", "2", "...", "55", "...", "204", "205", "...", "1,627", "
 
 ```{r question-4-6-quiz}
 
-# MB: Cass. Talk about the math at this point. Any mathmathical thing stops at the first eq. Redo formnula to annotate. FORMULA IS THE SAME. use equation, then replace variables with words
+# MB: Cass. Talk about the math at this point. Any mathematical thing stops at the first eq. Redo formnula to annotate. FORMULA IS THE SAME. use equation, then replace variables with words
 
 quiz(
 question("Is this model predictive or causal?",
@@ -1012,6 +1021,7 @@ question_text("Give an example of a poor causal study because it violates the th
     answer(NULL, correct = TRUE),
     incorrect = "Ok"
   ),
+
 question_text("Why is the phrase 'no causation without manipulation' more complicated when dealing with matters of race, sex, and gender?",
     allow_retry = TRUE,
     answer(NULL, correct = TRUE),
