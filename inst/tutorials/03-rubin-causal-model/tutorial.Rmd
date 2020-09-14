@@ -29,7 +29,7 @@ Confirm that you have the correct version of PPBDS.data installed by pressing "R
 packageVersion('PPBDS.data')
 ```
 
-The answer should be ‘0.3.2.9004’, or a higher number. If it is not, you should upgrade your installation by issuing these commands:
+The answer should be ‘0.3.2.9005’, or a higher number. If it is not, you should upgrade your installation by issuing these commands:
 
 
 ```{r confirm-advice, echo=TRUE, eval=FALSE}
@@ -53,7 +53,6 @@ question_text(
 ```
 
 ## Preceptor Tables
-###
 
 ```{r question-preceptor-tables}
 quiz(
@@ -64,51 +63,70 @@ question_text(
     incorrect = "Ok"
   )
 )
-
-# CB: Maybe move this section to later in the chapter once all components of a Preceptor Table are introduced. 
 ```
 
 ## Causal effect
 ###
 
-<!-- Potential Outcomes, Estimands  -->
 Retrys are not allowed on multiple choice questions, so read and answer carefully!
 
-```{r question-causal-effect}
+### Exercise 1
+
+```{r ce-1}
 quiz(
 question("What is the Fundamental Problem of Causal Inference?",
     answer("It is impossible to observe multiple potential outcomes at once.", correct = TRUE, message = "Nice!"),
     answer("We don't know the potential outcomes for people not surveyed.", message = "Go read the section on Causal Effects"), 
     allow_retry = FALSE
-  ),
-question_text(
-    "Explain a 'counterfactual' in a brief phrase. 'Potential outcome' might be helpful to use in your answer.",
+  ))
+```
+
+### Exercise 2
+
+```{r ce-2}
+quiz(question_text("Explain a 'counterfactual' in a brief phrase. 'Potential outcome' might be helpful to use in your answer.",
     allow_retry = FALSE,
     answer(NULL, correct = TRUE),
-    incorrect = "Ok"
-  ),
-question_text(
-  "In one sentence, explain what causal effect is according to the RCM?",
+    incorrect = "Ok")
+)
+```
+
+### Exercise 3
+
+```{r ce-3}
+quiz(
+  question_text("In one sentence, explain what a causal effect is according to the RCM?",
   allow_retry = FALSE,
   answer(NULL, correct = TRUE),
-  incorrect = "Ok"
-  ),
-question("Choose the response variable.",
+  incorrect = "Ok")
+  )
+```
+
+### Exercise 4
+
+```{r ce-4}
+quiz(question("Choose the response variable.",
          answer("$t$"),
          answer("$u$"),
          answer("$Y$", correct = TRUE),
          answer("$c$"), 
-         random_answer_order = T
-         ),
-question_text(
-  "Why do we need more than one response variable if we are trying to understand a causal effect? How are the two response variables different? (Two short sentences/phrases)",
-  allow_retry = FALSE,
-  answer(NULL, correct = TRUE),
-  incorrect = "Ok",
-  trim = F
-  )
-)
+         random_answer_order = TRUE)
+     )
 ```
+
+<!-- DK: This question is interesting, but not clear enough for this draft. -->
+
+<!-- ### Exercise 5 -->
+
+<!-- ```{r ce-5} -->
+<!-- quiz( -->
+<!--   question_text("Why do we need more than one response variable if we are trying to understand a causal effect? How are the two response variables different? (Two short sentences/phrases)", -->
+<!--   allow_retry = FALSE, -->
+<!--   answer(NULL, correct = TRUE), -->
+<!--   incorrect = "Ok", -->
+<!--   trim = FALSE) -->
+<!--   ) -->
+<!-- ``` -->
 
 ## Potential outcomes
 ###
@@ -1011,8 +1029,8 @@ question_text("If many of the observations were as high as Miro's, is it the pro
 
 <!-- ``` -->
 
-## SUTVA
-###
+<!-- ## SUTVA -->
+<!-- ### -->
 
 <!-- Answer the following questions.  -->
 
@@ -1034,48 +1052,48 @@ question_text("If many of the observations were as high as Miro's, is it the pro
 
 <!-- ``` -->
 
-```{r question-5-2-setup}
+<!-- ```{r question-5-2-setup} -->
 
-tibble(subject = c("Yao"),
-       ct = "10",
-       tt = "9",
-       cc = "13",
-       tc = "12") %>%
-  gt() %>%
-  cols_label(subject = md("**Subject**"),
-             ct = md("Yao = c,<br />Emma = t"),
-             tt = md("Yao = t,<br />Emma = t"),
-             cc = md("Yao = c,<br />Emma = c"),
-             tc = md("Yao = t,<br />Emma = c")) %>%
-  tab_style(cell_borders(sides = "right"),
-            location = cells_body(columns = vars(subject))) %>%
-  tab_style(cell_text(weight = "bold"),
-            location = cells_body(columns = vars(subject))) %>%
-  cols_align(align = "center", columns = TRUE)
+<!-- tibble(subject = c("Yao"), -->
+<!--        ct = "10", -->
+<!--        tt = "9", -->
+<!--        cc = "13", -->
+<!--        tc = "12") %>% -->
+<!--   gt() %>% -->
+<!--   cols_label(subject = md("**Subject**"), -->
+<!--              ct = md("Yao = c,<br />Emma = t"), -->
+<!--              tt = md("Yao = t,<br />Emma = t"), -->
+<!--              cc = md("Yao = c,<br />Emma = c"), -->
+<!--              tc = md("Yao = t,<br />Emma = c")) %>% -->
+<!--   tab_style(cell_borders(sides = "right"), -->
+<!--             location = cells_body(columns = vars(subject))) %>% -->
+<!--   tab_style(cell_text(weight = "bold"), -->
+<!--             location = cells_body(columns = vars(subject))) %>% -->
+<!--   cols_align(align = "center", columns = TRUE) -->
 
-```
+<!-- ``` -->
 
-```{r question-5-2-quiz}
+<!-- ```{r question-5-2-quiz} -->
 
-quiz(
-question_text("Describe the stable unit treatment value assumption, or SUTVA.",
-    allow_retry = TRUE,
-    answer(NULL, correct = TRUE),
-    incorrect = "Ok"
-  ),
+<!-- quiz( -->
+<!-- question_text("Describe the stable unit treatment value assumption, or SUTVA.", -->
+<!--     allow_retry = TRUE, -->
+<!--     answer(NULL, correct = TRUE), -->
+<!--     incorrect = "Ok" -->
+<!--   ), -->
 
-question_text("What is the causal effect of the treatment on Yao?",
-    allow_retry = TRUE,
-    answer("-1", correct = TRUE)
-  ),
+<!-- question_text("What is the causal effect of the treatment on Yao?", -->
+<!--     allow_retry = TRUE, -->
+<!--     answer("-1", correct = TRUE) -->
+<!--   ), -->
 
-question_text("What is the causal effect of Emma being treated on Yao?",
-    allow_retry = TRUE,
-    answer("-3", correct = TRUE)
-  )
-)
+<!-- question_text("What is the causal effect of Emma being treated on Yao?", -->
+<!--     allow_retry = TRUE, -->
+<!--     answer("-3", correct = TRUE) -->
+<!--   ) -->
+<!-- ) -->
 
-```
+<!-- ``` -->
 
 <!-- Correlation w potential outcomes questions and natural experiments questions-->
 
