@@ -874,7 +874,7 @@ A stacked barplot is very hard to analyze here. Use the `position_dodge()` funct
 
 ### Exercise 13
 
-Use `fct_reorder()` to reorder the five different `treatment`s by `pct_voted`. In other words, you need to change the value of `y` within `aes()`.
+Use `fct_reorder()` to reorder the five different `treatment`s by `pct_voted`. In other words, you need to change the value of `x`, probably using `fct_reorder()`, within the call to `aes()`.
 
 ```{r shaming13, exercise = TRUE}
 
