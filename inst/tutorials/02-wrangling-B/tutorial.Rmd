@@ -733,7 +733,9 @@ Use `pivot_longer()` to map the *names* of the `primary_04` and `primary_06` col
 
 `pivot_longer()` won't let us combine one column of `<chr>` data with one column of `<int>` data. Therefore, we're going to have to change the data type of one of the columns.
 
-Before we do that, though, we need to understand the dplyr `if_else()` function. `if_else()` is used alongside `mutate()` to create 2 different values depending on whether a `condition` is `TRUE` or `FALSE`. Run the following code to see how we can categorize the `birth_year` column into 2 groups based on whether the person was born before 1950.
+Before we do that, though, we need to understand the dplyr `if_else()` function. `if_else()` is used alongside `mutate()` to create 2 different values depending on whether a `condition` is `TRUE` or `FALSE`. `if_else()` is a more modern, and somewhat safer, version of `ifelse()`.
+
+Run the following code to see how we can categorize the `birth_year` column into 2 groups based on whether the person was born before 1950.
 
 ```{r shaming4, exercise = TRUE, exercise.lines = 6}
 shaming %>%
@@ -1560,7 +1562,7 @@ nes_plot
 ```
 
 
-xx`## Airline Safety 
+## Airline Safety 
 ###
 
 We will be focusing on the data set `airline_saftey` from the **fivethirtyeight** package. We will recreate this plot step-by-step.
@@ -1572,7 +1574,7 @@ as_plot <- airline_safety %>%
                names_to = "type_date",
                values_to = "count") %>%
   separate(type_date, c("type", "date"), sep = "s_") %>%
-  filter(date == "00_14", count > 0) %>%
+  filter(date == "00_14", count > 0, type == "incident") %>%
   mutate(safety_value = avail_seat_km_per_week / count) %>%
   arrange(safety_value) %>%
   ggplot(aes(x = airline, y = safety_value)) +

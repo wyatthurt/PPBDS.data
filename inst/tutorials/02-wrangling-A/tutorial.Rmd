@@ -453,7 +453,9 @@ Remark: The function `str_to_upper()` has not yet been introduced in the Primer.
 ```
 
 ```{r exercise-2-20-hint-1, eval=FALSE}
-# You can use ifelse() to tests for conditions and assign values.
+# You can use ifelse() to tests for conditions and assign values. There is also
+# a very similar function, if_else(), which does the same thing but more
+# carefully. See The Primer for details.
 ```
 
 ```{r exercise-2-20-hint-2, eval=FALSE}
