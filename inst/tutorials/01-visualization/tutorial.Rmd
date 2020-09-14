@@ -11,7 +11,7 @@ description: "Chapter 1 Tutorial"
 ---
 
 
-<!-- New comment for testing. -->
+<!-- jenkins needs to be cooler. -->
 <!-- Ch. 1 tutorial questions written by Jessica Edwards, Connor Rust and Liam Rust  -->
 <!-- Also includes questions from rstudio/learnr and rstudio-education/primers GitHub repos -->
 
