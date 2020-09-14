@@ -5,7 +5,7 @@ output: html_document
 
 <!-- TO-DO: -->
 
-<!-- We need tutorials about using Git, using the command line and other non-R stuff. -->
+<!-- We need tutorials about using Git, using the command line and other non-R stuff. Maybe make it a separate Tools tutorial? Could have lots of questions like: "Type this in at the Terminal command line and paste whatever comes back here:"-->
 
 <!-- Can we show "answers" to a Tutorial after students have submitted it? How? -->
 
@@ -63,6 +63,8 @@ If you are new to R/RStudio/Markdown, then read [this intro book](https://ismayc
 * Best bet is to just build questions step-by-step while encouraging students to copy/paste their answer from a previous question as the starting point for this question.
 
 * No spaces around "=" in R code chunk options. That is, write `eval=FALSE`, not `eval = FALSE`.
+
+* You will generally need to backslashes when using math notation in `question_text()`, e.g., ````$\\tau$```` in place of ````$\tau$````. 
 
 * The exercise code chunk not have zero lines. It can be blank, but it must have at least one empty line.
 
