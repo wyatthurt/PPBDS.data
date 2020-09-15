@@ -1253,6 +1253,8 @@ shaming_plot
 ## National Election Studies
 ###
 
+<!-- DK: Lots of questions about .fun = first2. This either needs to be explained more slowly or left out. I am not even sure what it does, or what last2 does. -->
+
 `nes`, short for "National Election Studies," contains the personal and political
 information of almost 40,000 American voters, as well as whether or not they voted in that year's presidential election. The goal of this exercise is to replicate this plot:
 
