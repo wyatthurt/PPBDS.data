@@ -12,12 +12,15 @@ description: "Chapter 1 Tutorial"
 
 <!-- 0) All summary comments from student feedback at top. -->
 
+<<<<<<< HEAD
+=======
 <!-- 1) Go through this Rmd and add lots of comments/questions with your initials. -->
 
 <!-- 2) Think about big picture questions of design. -->
 
 <!-- 3) Tuesday night, submit pull request using pr_push(). Don't forget to run pr_pull_upstream(). -->
 
+>>>>>>> master
 <!-- jenkins needs to be cooler. -->
 <!-- Ch. 1 tutorial questions written by Jessica Edwards, Connor Rust and Liam Rust  -->
 <!-- Also includes questions from rstudio/learnr and rstudio-education/primers GitHub repos -->
@@ -152,6 +155,8 @@ copy <- data
 #### Data sets
 
 Objects provide an easy way to store data sets in R. In fact, R comes with many toy data sets pre-loaded. Examine the contents of `iris` to see a classic toy data set. Hint: how could you learn more about the `iris` object?
+
+<!-- BG: hint here is a little vague/ not really needed -->
 
 ```{r objects-4, exercise = TRUE}
 
@@ -305,6 +310,7 @@ question('Which data structure(s) could you use to store these pieces of data in
 
 Make a list that contains the elements `1001`, `TRUE`, and `"stories"`. Give each element a name.
 
+<!-- BG: This is an example of something that wasn't in the primer. A potential description of what one is and the function ("list()") may be helpful before the vectors section. -->
 ```{r lists2, exercise = TRUE}
 
 ```
@@ -408,7 +414,7 @@ quiz(caption = "Quiz - `qscores` data set",
   )
 )
 ```
-
+<!-- BG: nothing in the primer mentions "identification variable"  -->
 ## Grammar of graphics
 
 ```{r quiz-6, echo = FALSE}
@@ -1084,6 +1090,8 @@ quiz(
 
 Using the `trains` data set, create a boxplot with `party` on the x-axis and `att_start` on the y-axis.
 
+<!-- BG: I think this can be taken out for repetition sake. There are three consecutive examples with three different data sets doing the same thing and this question has no follow up questions, unlike the one following it.  -->
+
 ```{r box-I-2, exercise=TRUE, exercise.lines = 10}
 
 ```
@@ -1128,6 +1136,8 @@ ggplot(data = mpg, mapping = aes(x = ... , y = ... )) +
 ###
 
 Great! Now let's make the outliers a little bit easier to see. Set `outlier.size` to 4, and `outlier.color` to "red".
+
+<!-- BG: These outlier arguments are not mentioned in the primer. I think the question should include the function it is placed in directly in the question rather than the hint. -->
 
 ```{r gb-1-3, exercise=TRUE, exercise.lines = 5}
 
@@ -1207,6 +1217,7 @@ draw_quantiles = c(..., ..., ...)
 
 Great! Now try doubling the bandwidth using the `adjust` argument in `geom_violin()`.
 
+<!-- BG: The adjust argument is not mentioned in primer. I had to look up that you set adjust=2 online.  -->
 ```{r viol-I-3, exercise=TRUE, exercise.lines=8}
 
 ```
@@ -1218,6 +1229,8 @@ adjust = 2
 ###
 
 Nice! Now try setting the `kernel` argument in `geom_violin()` to "epanechnikov".
+
+<!-- BG: the 'kernel' argument is not mentioned in the primer. Brief explanation of its purpose in the question may be helpful.  -->
 
 ```{r viol-I-4, exercise=TRUE, exercise.lines=8}
 
@@ -1623,6 +1636,8 @@ ggplot(data = mpg, mapping = aes(x = displ, y = cty)) +
 
 Nice. Now, let's make the gray confidence interval bar disappear by setting `se` to `FALSE`.
 
+<!-- BG: may be helpful to add "in geom_smooth()"at the end. -->
+
 ```{r gs-1-2, exercise=TRUE, exercise.lines = 5}
 
 ```
@@ -1797,6 +1812,8 @@ Set the alpha argument inside of geom_point() and the color inside of aes().
 ###
 
 Now change the scale to square root (`sqrt`)
+
+<!-- BG: The scale_y_sqrt() function was never mentioned in the primer. I think it deserves to be directly in the question rather than the hint part becasue its a new concept.  -->
 ```{r point-II-3, exercise=TRUE, exercise.lines=8}
 
 
@@ -1927,6 +1944,8 @@ Use facet_wrap() to facet and set ncol to 1.
 ###
 
 Nice! Now set the x-axis labels at a 45 degree angle using theme()
+
+<!-- BG: This concept is not in the primer. Instead of placing the function used in the hint, may be helpful to put it directly in the question. -->
 ```{r jit-II-5, exercise=TRUE, exercise.lines=6}
 
 ```
@@ -2014,6 +2033,8 @@ Use scale_y_log10()
 
 Nice! Now add commas to the y-axis.
 
+<!-- BG: Adding commas to the y-axis is not mentioned in the primer. Further explanation or guidance may be helpful here. -->
+
 ```{r line-II-2, exercise=TRUE, exercise.lines=10}
 
 ```
@@ -2025,6 +2046,8 @@ Use the scales library and set labels=scales::comma inside of the scale function
 ###
 
 Great! Now set the theme to minimalist using theme_minimal().
+
+<!-- BG: Could be helpful to mention you are adding a layer here. -->
 
 ```{r line-II-3, exercise=TRUE, exercise.lines=10}
 
@@ -2100,6 +2123,7 @@ population %>%
 
 Cool. Now, let's modify our graph with some different countries: "Japan", "China", and "India". While we're at it, let's use `labs()` to add some labels. Title the plot "Population Trends in Selected Asian Countries", and label our x and y axis "Year" and "Population".
 
+<!-- BG: This is an example where a labs() example could be cut out for repetition sake. There has already been several practice questions already with labs(), and the graph recreation question that follows uses labs() too. -->
 ```{r gl-1-4-hint, eval=FALSE}
 Use labs(title = ... +
            x = ... +
@@ -2169,6 +2193,7 @@ Use the variables `unemploy` and `pop` to find the proportion of the population 
 
 Nice! Now, let's add some labels. Title the plot "Unemployment by Year", our x-axis "Year", and our y-axis "Percentage of Population Unemployed".
 
+ <!-- BG: This is an example where a labs() example could be cut out for repetition sake. There has already been several practice questions already with labs(), and the graph recreation question that follows uses labs() too -->
 ```{r gl-2-4, exercise=TRUE, exercise.lines = 5}
 
 ```
@@ -2300,6 +2325,8 @@ Great work, now, let's try changing the color scheme of our plot to the `brewer`
 
 Nice. Now, let's set `position` to "fill", to get a better sense of the types of cars at each fuel economy value, not just the quantity. While we're at it, let's add some labels with labs(). Title our plot "Fuel Economy by Class of Car", our x-axis  "City Fuel Efficiency (Miles Per Gallon)", and our y-axis "Distribution of Car Models"
 
+<!-- BG: Labs() part of this question could be taken out. -->
+
 ```{r gh-2-4, exercise=TRUE, exercise.lines = 5}
 
 ```
@@ -2350,6 +2377,8 @@ Use the scale_y_log10() function
 
 Nice job! For now, I have set the scale on the y axis back to continuous. In our first diamonds boxplot, R automatically set labels on the tick marks at 0, 5000, 10000 and 15000. Try changing this so that we have labels at 0, 9000 and 18000. After this, add dollar signs to your labels. Note, this is different from and does not use labs()!
 
+
+
 ```{r box-II-3, exercise=TRUE, exercise.lines=10}
 diamonds %>%
   ggplot(aes(x = clarity, y = price))+
@@ -2361,6 +2390,7 @@ diamonds %>%
 Add breaks in the scale function to change label location. Also in the scale function, use the scales library to add dollars signs
 ```
 
+<!-- BG: The scale function is not mentioned in the primer. The hint here doesn't help that well. It might be helpful to mentions you have to include the 'breaks' argument. -->
 ###
 
 Now facet the plot by `cut` and set the number of columns to 2
@@ -2591,6 +2621,7 @@ To facet, use facet_wrap() and inside, set ncol to 2.
 
 Nice! Now make the theme of the plot minimalist and add a title of your choice.
 
+<!-- BG: This is an example of a repetitive question that can be taken out.  -->
 ```{r bar-II-5, exercise=TRUE, exercise.lines=7}
 
 
@@ -2620,6 +2651,8 @@ Great. Now, add some labels with `labs()`, let's title our plot "Attitudes Towar
 ###
 
 Nicely done. Let's change the aesthetics of our graph to make it a little more appealing. Let's change our theme using `theme_bw()`, and change our color scheme using `scale_color_brewer()`, and set our `palette` to `"Purples"`.
+
+<!-- BG: 'palette' is not mentioned in the primer. I believe more information here is necessary such as what function the argument goes in. -->
 
 ```{r gbr-2-3, exercise=TRUE, exercise.lines = 5}
 
@@ -2783,6 +2816,8 @@ toyota_mpg <- mpg %>%
 
 Well done. Now, let's use `labs()` to make some labels for the rest of our plot. Let's call our plot "Highway and City Fuel Economy in Toyota Cars", our x-axis "Miles Per Gallon (Highway)", and our y-axis "Miles Per Gallon (City)". Let's also change the theme of our plot to 'theme_classic()'. 
 
+<!-- BG: This is an example of a labs() question that can be taken out for repetition sake. -->
+
 ```{r gc-2-4, exercise=TRUE, exercise.lines = 7}
 toyota_mpg <- mpg %>% 
   filter(manufacturer == "toyota")
@@ -2843,6 +2878,8 @@ Because color is an aesthetic, set it inside of aes(). Set alpha inside of geom_
 ###
 
 Great! Now move the legend to the top of the graph using `theme()`.
+
+<!-- BG: Moving the legend is a new concept not mentioned in the primer. The information provided in the hint should be incldued in the question. -->
 
 ```{r smooth-II-3, exercise=TRUE, exercise.lines=7}
 
