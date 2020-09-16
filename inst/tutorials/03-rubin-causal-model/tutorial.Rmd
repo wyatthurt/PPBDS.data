@@ -424,8 +424,8 @@ quiz(
     answer("12.33", correct = TRUE),
     allow_retry = TRUE
   ),
-question_text("What is your estimate for $Y_t(u)$ for Cassidy? (answer as XX.XX)",
-  answer("10.67", correct = TRUE),
+question_text("What is your estimate for $Y_t(u)$ for Cassidy? (answer as X.XX)",
+  answer("8.67", correct = TRUE),
   allow_retry = TRUE
   )
 )
