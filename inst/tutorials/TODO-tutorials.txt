@@ -1,5 +1,8 @@
 TODO Items for Tutorials
 
+1) Write a tools tutorial. Almost all questions are instructions to do X at your Terminal and then copy/paste the results of X as your answer. Note that there is a git command to show email and other settings.
+
+2) Split out visualization into two parts. Make both parts look more like wrangling. Exercise numbering. Closer connection to the book.
 
 Can question_text provide the user with more empty lines to fill?
 
