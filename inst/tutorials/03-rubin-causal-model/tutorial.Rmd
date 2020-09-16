@@ -509,30 +509,8 @@ quiz(
 
 We will no longer make any assumptions about $\tau$. Instead, we are interested in estimating the average treatment effect, both for the entire sample and for subsets of it.
 
+
 ### Exercise 1
-
-```{r question-2-1}
-
-quiz(
-question("Which of the following equations is incorrect?",
-    answer("$Y_t(u) - Y_c(u) = \\tau$"), 
-    answer("$Y_c(u) = Y_t(u) - \\tau$"),
-    answer("$Y_t(u) = Y_c(u) + \\tau$", correct = TRUE, message = "Nice!"),
-    answer("$Y_c(u) - Y_t(u) = \\tau$"),
-    allow_retry = TRUE
-  )
-)
-```
-
-<div id="question-2-1-hint">
-**Hint:** Outcome when treated minus outcome when control equals the causal effect.
-</div>
-
-```{r question-2-1-hint, eval=FALSE}
-
-```
-
-### Exercise 2
 
 ```{r question-setup, echo = FALSE}
 
@@ -571,7 +549,7 @@ question("Estimate the ATE based on the data given to you in the above Preceptor
 
 <!-- DK: Shouldn't all of these be split into separate Exercises? That would mean putting each of them in their own R code chunk, which seems preferable. -->
 
-### Exercise 3
+### Exercise 2
 
 ```{r question-2-3-a--quiz}
 quiz(
@@ -622,7 +600,7 @@ question_text(
 
 ```
 
-### Exercise 4
+### Exercise 3
 
 ```{r question-2-4-quiz}
 
