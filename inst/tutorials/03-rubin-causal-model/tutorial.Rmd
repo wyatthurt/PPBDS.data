@@ -555,7 +555,7 @@ question("Estimate the ATE based on the data given to you in the above Preceptor
 quiz(
 question_text("Before assigning any number to our causal effect, let's work using a single causal effect for everyone called $\\tau$. What would be Yao's $Y_c(u)$. You can write tau for $\\tau$. Don't put spaces in your answer. Your answer should look like 13+tau or 10-tau.",
     allow_retry = TRUE,
-    answer("13-tau", correct = TRUE)
+    answer("11-tau", correct = TRUE)
   ),
 
 question_text("Using the same format, write Cassidy's $Y_t(u)$ in terms of $\\tau$ and the known value for Cassidy's $Y_c(u)$.",
