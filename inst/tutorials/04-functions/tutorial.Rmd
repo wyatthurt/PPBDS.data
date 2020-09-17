@@ -41,10 +41,11 @@ question_text(
 
 ```{r firstquiz}
 quiz(caption = "Concept Check: Function Basics",
-  question("Select all that apply: Which of the following operations requires running a function in R?",
+  question("Select all that apply: Which of the following operations can be achieved by running a function in R?",
            answer("Taking a log value", correct = TRUE),
            answer("Fitting a linear model", correct = TRUE),
-           answer("Adding two numbers", correct = TRUE)),
+           answer("Averaging two numbers", correct = TRUE),
+           allow_retry = TRUE),
   question("Which of the following is not a part of a function?",
          allow_retry = TRUE,
          random_answer_order = TRUE,
@@ -83,15 +84,18 @@ quiz(caption = "Concept Check: Map functions and list-columns",
            allow_retry = TRUE
   ),
   question("How are map_* functions different than mutate()?",
+           allow_retry = TRUE,
            answer("They can take list inputs and iterate over each element of a list", correct = TRUE),
            answer("They are the same, except you can specify what output data type you'd like to have"),
            answer("They can apply functions to their inputs, whereas mutate() cannot"),
            answer("They can apply custom and anonymous functions to their inputs, whereas mutate() can only apply built-in functions to their inputs")),
    question("Which of the following is correct about map_* functions?",
+            allow_retry = TRUE,
            answer("You do not need the parentheses when specifying a function for the map_* function to apply. Ex: map(data, mean)", correct = TRUE),
            answer("You do need the parentheses when specifying a function for the map_* function to apply. Ex: map(data, mean())"),
            answer("You cannot have a list with NAs, or else using the map_* function will return an error", message = "This is not necessarily true. Hint: What does the \"...\" mean in map_*? Refer to the next question!")),
   question("What does the \"...\" argument mean in a map_* function?",
+           allow_retry = TRUE,
            answer("Nothing. R functions commonly have an auxiliary \"...\" argument"),
            answer("It means that the map_* function will take in its default arguments"),
            answer("It means that you can specify additional arguments to be passed into the given function", correct = TRUE))
@@ -139,7 +143,7 @@ Explore the `ChickWeight` dataset using `skim()`.
 skim(...)
 ```
 
-Create a list-column of `weight`s using `mutate()`called `weight_groups`, grouping by `Diet` and `Time`.
+Great! Now that we've oriented ourselves to the dataset, create a list-column of `weight`s using `mutate()`called `weight_groups`, grouping by `Diet` and `Time`.
 
 ```{r exercise-2, exercise=TRUE, eval=FALSE}
 ChickWeight %>%
@@ -190,6 +194,7 @@ Note that this answer is probably overkill. Although you can use `map_dbl()`, yo
 ```{r quiz-2}
 quiz(caption = "",
   question("What would have happened if we had used map() instead of map_dbl() above?",
+           allow_retry = TRUE,
            answer("The input would have looked for a list, rather than data of type double"),
            answer("Nothing. Map() is just the general function for all map functions"),
            answer("The output would have been a list, not a vector of type double", correct = TRUE, message = "Exactly! Try it out for yourself. This is why the world of map_* functions is so convenient. Functions such as unnest() can extract from list-columns, but there is no need to do so in this case."))
@@ -267,7 +272,6 @@ gapminder %>%
 ```{r wealthmin}
 quiz(caption = "",
   question("What was the lowest GDP for a South American country in 1992?",
-         answer("Choose a name, then type <- function(){", message = "You shouldn't type function() until you have code that works with a real test case."),
          answer("$8,719,537,248", correct = TRUE),
          answer("$4,353,422,616"),
          answer("$6,567,086,330"),
@@ -379,10 +383,6 @@ Create an object named `x` that contains the vector `c(100, 100, 100, 100, 100, 
 
 ```
 
-```{r obj-solution}
-x <- c(100, 100, 100, 100, 100, 100, 100, 100, 100, 90)
-```
-
 ###  
 
 Use `sum()`, `min()`, `/`, `9` and parentheses to calculate the final grade for student `x`.
@@ -398,6 +398,9 @@ x <- c(100, 100, 100, 100, 100, 100, 100, 100, 100, 90)
 ###  
 
 Save the code below as a function named `grade`.
+```{r grade-setup}
+x <- c(100, 100, 100, 100, 100, 100, 100, 100, 100, 90)
+```
 
 ```{r grade, exercise=TRUE}
 (sum(x) - min(x)) / 9
@@ -573,10 +576,6 @@ replicate(20, ...)
 
 ```{r quiz-3b}
 quiz(caption = "",
-  question("Select all that apply: Which of the following operations requires running a function in R?",
-           answer("Taking a log value", correct = TRUE),
-           answer("Fitting a linear model", correct = TRUE),
-           answer("Adding two numbers", correct = TRUE)),
   question("Which of the following statements is NOT true about providing values for formal arguments in functions?",
            allow_retry= TRUE,
            random_answer_order = TRUE,
@@ -1186,7 +1185,7 @@ question("What will `clean(c(-99, 0, 1))` return?",
          allow_retry = TRUE)
 ```
 
-## List-columns and`map_*` functions with custom and anonymous functions
+## List-columns and `map_*` functions with custom and anonymous functions
 
 ### Monthly temperatures
 
@@ -1459,7 +1458,7 @@ x %>%
 
 ###
 
-### Last Exercise
+### Random Variables, Pt. 2
 
 Remember when you wrote a function called `add_rvs()` that added two random variables together?
 
@@ -1584,6 +1583,20 @@ Let's put our visualization skills to the test.
 
 Create a tibble with column "games" and run `crooked_craps()` 100 times.
 
+```{r crooked-1-setup}
+crooked_dice <- function(n = 1){
+  stopifnot(is.numeric(n))
+  stopifnot(n >= 0)
+  roll <- sum(sample(1:6, n, replace = TRUE))
+  ifelse((roll == 7 | roll == 11) && runif(1) >= 0.5, 2, roll)
+}
+
+crooked_craps <- function(n = 1){
+  stopifnot(is.numeric(n))
+  map_dbl(rep(2, n), crooked_dice)
+}
+```
+
 ```{r crooked-1, exercise=TRUE}
 
 ```
@@ -1594,7 +1607,21 @@ tibble(games = crooked_craps(...))
 
 ###
 
-Using `geom_bar()` and the `games` variable as the `x` aesthetic, create a bar plot.
+Create a barplot with `games` on the `x` axis.
+
+```{r crooked-2-setup}
+crooked_dice <- function(n = 1){
+  stopifnot(is.numeric(n))
+  stopifnot(n >= 0)
+  roll <- sum(sample(1:6, n, replace = TRUE))
+  ifelse((roll == 7 | roll == 11) && runif(1) >= 0.5, 2, roll)
+}
+
+crooked_craps <- function(n = 1){
+  stopifnot(is.numeric(n))
+  map_dbl(rep(2, n), crooked_dice)
+}
+```
 
 ```{r crooked-2, exercise=TRUE, eval=FALSE}
 tibble(games = crooked_craps(100))
@@ -1602,7 +1629,21 @@ tibble(games = crooked_craps(100))
 
 ###
 
-Now, use `scale_x_continuous()` to make the the x-axis go from 2 to 12 by integers.
+Now, change the `x` axis scale to increment by integers from 2 to 12.
+
+```{r crooked-3-setup}
+crooked_dice <- function(n = 1){
+  stopifnot(is.numeric(n))
+  stopifnot(n >= 0)
+  roll <- sum(sample(1:6, n, replace = TRUE))
+  ifelse((roll == 7 | roll == 11) && runif(1) >= 0.5, 2, roll)
+}
+
+crooked_craps <- function(n = 1){
+  stopifnot(is.numeric(n))
+  map_dbl(rep(2, n), crooked_dice)
+}
+```
 
 ```{r crooked-3, exercise=TRUE, eval=FALSE}
 tibble(games = crooked_craps(100)) %>%
@@ -1619,6 +1660,20 @@ tibble(games = crooked_craps(100)) %>%
 
 Great! Hmm... we're not entirely sure this plot is representative. It does look like what we'd expect, but running `crooked_craps()` 10 times feels safer than running it just once. Use an appropriate `map_*` function and `rep()` to call `crooked_craps(100)` 10 times. Create a tibble named `x` with a column named `games`.
 
+```{r crooked-4-setup}
+crooked_dice <- function(n = 1){
+  stopifnot(is.numeric(n))
+  stopifnot(n >= 0)
+  roll <- sum(sample(1:6, n, replace = TRUE))
+  ifelse((roll == 7 | roll == 11) && runif(1) >= 0.5, 2, roll)
+}
+
+crooked_craps <- function(n = 1){
+  stopifnot(is.numeric(n))
+  map_dbl(rep(2, n), crooked_dice)
+}
+```
+
 ```{r crooked-4, exercise=TRUE, eval=FALSE}
 
 ```
@@ -1630,6 +1685,20 @@ x <- tibble(games = map(rep(100, 10), ...))
 Inside each of these iterations of 100 rolls, we want to count the number of 3's and 11's. Technically, with a fair die one would expect as many 11's to appear as 3's. 11's can be obtained in two different ways: by adding 5 + 6 and 6 + 5. The same goes for 3's: by adding 1 + 2 and 2 + 1.
 
 First, count the number of 3's. You can do so by using a the appropriate `map_*` function and an anonymous function defined as `sum(. == 3)`.
+
+```{r crooked-5-setup}
+crooked_dice <- function(n = 1){
+  stopifnot(is.numeric(n))
+  stopifnot(n >= 0)
+  roll <- sum(sample(1:6, n, replace = TRUE))
+  ifelse((roll == 7 | roll == 11) && runif(1) >= 0.5, 2, roll)
+}
+
+crooked_craps <- function(n = 1){
+  stopifnot(is.numeric(n))
+  map_dbl(rep(2, n), crooked_dice)
+}
+```
 
 ```{r crooked-5, exercise=TRUE, eval=FALSE}
 x <- tibble(games = map(rep(100, 10), crooked_craps)) %>%
@@ -1645,6 +1714,19 @@ x <- tibble(games = map(rep(100, 10), crooked_craps)) %>%
 
 Now, modify `counts` so that it is a list-column of 2 elements per list: The number of 3's, then the number of 11's.
 
+```{r crooked-6-setup}
+crooked_dice <- function(n = 1){
+  stopifnot(is.numeric(n))
+  stopifnot(n >= 0)
+  roll <- sum(sample(1:6, n, replace = TRUE))
+  ifelse((roll == 7 | roll == 11) && runif(1) >= 0.5, 2, roll)
+}
+
+crooked_craps <- function(n = 1){
+  stopifnot(is.numeric(n))
+  map_dbl(rep(2, n), crooked_dice)
+}
+```
 
 ```{r crooked-6, exercise = TRUE}
 x <- tibble(games = map(rep(100, 10), crooked_craps)) %>%
@@ -1660,6 +1742,20 @@ x <- tibble(games = map(rep(100, 10), crooked_craps)) %>%
 
 Finally, view the tibble with `str()`.
 
+```{r crooked-7-setup}
+crooked_dice <- function(n = 1){
+  stopifnot(is.numeric(n))
+  stopifnot(n >= 0)
+  roll <- sum(sample(1:6, n, replace = TRUE))
+  ifelse((roll == 7 | roll == 11) && runif(1) >= 0.5, 2, roll)
+}
+
+crooked_craps <- function(n = 1){
+  stopifnot(is.numeric(n))
+  map_dbl(rep(2, n), crooked_dice)
+}
+```
+
 ```{r crooked-7, exercise = TRUE}
 x <- tibble(games = map(rep(100, 10), crooked_craps)) %>%
   mutate(counts = map(games, ~list(sum(. == 3), sum(. == 11))))
@@ -1670,10 +1766,8 @@ quiz(caption = "",
      question("Based off of your observations and prior knowledge, is our crooked_craps() function truly crooked (compared to what we'd expect from a game of craps with two fair dice)?",
      allow_retry = TRUE,
      random_answer_order = TRUE,
-     answer("Yes, because the number of 3's rolled seems to generally be higher than the number of 7's rolled.", correct = TRUE, message = "Exactly! This might've been a different story if we didn't know the contents of the crooked_craps() function, since the difference between the number of 3's and the number of 11's rolled could be chalked up to natural variation. However, we wrote the function to be crooked."),
-     answer("Yes, because there will always be more 3's than 11's rolled in 100 rolls", message = "While that could have been the case for your 10 different trials, imagine if you ran 1000 or 1 million trials. Could you say with absolute confidence that not a single trial would yield more 11's than 3's?"),
-     answer("No, because there are not necessarily always more 3's rolled than 11's out of 100 rolls"),
-     answer("No, because it's possible to get such a lower number of 7's and 11's and high number of 2's even with fair dice", message = "While it is certainly correct that natural variation and randomness could lead to a lower-than-expected number of 7's and 11's and a higher-than-expected number of 2's, this doesn't mean that our function isn't crooked. You wrote the function to be crooked, right! If it were fair, we would have left the function at simply adding two dice. Instead, we added an ifelse to check whether the roll waw a 7 or 11. Therefore, it was our tampering that made crooked_craps() crooked!")))
+     answer("Yes, because the number of 3's rolled seems to generally be higher than the number of 11's rolled.", correct = TRUE, message = "Exactly! This might've been a different story if we didn't know the contents of the crooked_craps() function, since the difference between the number of 3's and the number of 11's rolled could be chalked up to natural variation. However, we wrote the function to be crooked. Additionally, as we increase the number of simulations, the more confident we can be that the data reflects a real difference in the frequency of 3's and 11's rolled."),
+     answer("Yes, because there will always be more 3's than 11's rolled in 100 rolls", message = "While that could have been the case for your 10 different trials, imagine if you ran 1000 or 1 million trials. Could you say with absolute confidence that not a single trial would yield more 11's than 3's?")))
 ```
 
 ## Submit
