@@ -684,7 +684,8 @@ question_text("Why might Infinite Preceptor Tables include additional treatment 
 
 question_text("When you begin working on a causal question, one begins with the idea of an Infinite Preceptor Table. What three assumptions do you make to narrow this idea down to a Preceptor Table you can work with?",
     allow_retry = TRUE,
-    answer(NULL, correct = TRUE)
+    answer(NULL, correct = TRUE),
+    incorrect = "Ok"
   )
 )
 
