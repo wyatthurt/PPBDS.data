@@ -480,13 +480,13 @@ actualPT
 
 ```{r question-two-tau}
 quiz(
-  question_text("How would you calculate $\tau_F$? Use only words and no numbers.",
+  question_text("How would you calculate $\\tau_F$? Use only words and no numbers.",
     allow_retry = FALSE,
     answer(NULL, correct = TRUE),
     trim = FALSE,
     incorrect = "Ok"
   ),
-  question_text("What is $\tau_M$? (Answer as +/-X)",
+  question_text("What is $\\tau_M$? (Answer as +/-X)",
     answer("-3", correct = TRUE),
     allow_retry = TRUE
   ),
