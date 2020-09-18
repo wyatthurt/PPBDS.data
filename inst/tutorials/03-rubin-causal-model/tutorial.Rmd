@@ -555,6 +555,8 @@ question("Estimate the ATE based on the data given to you in the above Preceptor
 
 <!-- DK: Is there a way to ensure that the answers are correct by, for example, calculating them directly from the data which makes the table? -->
 
+<!-- DK: Cut half of these as being too repetitive. -->
+
 ### Exercise 2
 
 ```{r question-2-3-a--quiz}
