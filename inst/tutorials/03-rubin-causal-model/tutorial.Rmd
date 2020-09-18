@@ -10,6 +10,8 @@ runtime: shiny_prerendered
 description: "Chapter 3 Tutorial"
 ---
 
+<!-- DK: Why not add a hint to every question with a pointer to the relevant portion of the textbook? -->
+
 ```{r setup, include=FALSE}
 library(tidyverse)
 library(learnr)
@@ -549,6 +551,10 @@ question("Estimate the ATE based on the data given to you in the above Preceptor
 
 <!-- DK: Shouldn't all of these be split into separate Exercises? That would mean putting each of them in their own R code chunk, which seems preferable. -->
 
+<!-- DK: Make the math easy to do in your head! Integers only. -->
+
+<!-- DK: Is there a way to ensure that the answers are correct by, for example, calculating them directly from the data which makes the table? -->
+
 ### Exercise 2
 
 ```{r question-2-3-a--quiz}
@@ -560,7 +566,7 @@ question_text("Before assigning any number to our causal effect, let's work usin
 
 question_text("Using the same format, write Cassidy's $Y_t(u)$ in terms of $\\tau$ and the known value for Cassidy's $Y_c(u)$.",
     allow_retry = TRUE,
-    answer("10+tau", correct = TRUE)
+    answer("11+tau", correct = TRUE)
   ),
 
 question_text("What is Cassidy's outcome under treatment if we assume tau to be the ATE we calculated above, which was -0.5? Note that this answer will just be a number, without any symbol.",
@@ -582,19 +588,19 @@ question_text(
 question_text(
     "What is the treatment effect for the females in the sample?",
     allow_retry = TRUE,
-    answer("+2", correct = TRUE)
+    answer("2", correct = TRUE)
   ),
 
 question_text(
-    "What is Diego's $Y_c(u)$ if we assume his causal effect to be the treatment effect for males",
+    "What is Diego's $Y_c(u)$ if we assume his causal effect to be the estimated ATE for males",
     allow_retry = TRUE,
     answer("7.5", correct = TRUE)
   ),
 
 question_text(
-    "What is Emma's $Y_t(u)$ if we assume her causal effect to be the treatment effect for females",
+    "What is Emma's $Y_c(u)$ if we assume her causal effect is the estimated ATE for females",
     allow_retry = TRUE,
-    answer("13", correct = TRUE)
+    answer("11", correct = TRUE)
   )
 )
 
