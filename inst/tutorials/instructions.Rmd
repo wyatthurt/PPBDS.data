@@ -5,7 +5,7 @@ output: html_document
 
 <!-- TO-DO: -->
 
-<!-- We need tutorials about using Git, using the command line and other non-R stuff. Maybe make it a separate Tools tutorial? Could have lots of questions like: "Type this in at the Terminal command line and paste whatever comes back here:"-->
+<!-- We need tutorials about using Git, using the command line and other non-R stuff. Maybe make it a separate Tools tutorial? Could have lots of questions like: ":"-->
 
 <!-- Can we show "answers" to a Tutorial after students have submitted it? How? -->
 

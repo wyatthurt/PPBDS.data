@@ -208,6 +208,8 @@ str_subset(..., pattern = ...)
 
 Use `str_split()` on `states` in order to help identify states which involve two or more words in their names. Set `simplify` argument to TRUE. The result will be a character matrix with 51 rows and three columns.
 
+<!-- BG: The "simplify" argument was never mentioned in the primer.  -->
+
 ```{r exercise-2-4, exercise=TRUE}
 
 ```
@@ -503,6 +505,8 @@ Let's use a data set in the `fueleconomy` package to better understand factors. 
 
 Make the `class` column in the `vehicles` dataframe a factor instead of a character `chr` variable. Do this by using the `mutate()` and `as.factor()` functions. Reassign this changed dataframe as `vehicles_fct`. 
 
+
+<!-- BG: This is the first time 'as.factor' has shown up. Clarification on where it goes may be helpful directly in the question and not the hint. -->
 ```{r factors-2, exercise = TRUE}
 
 ```
@@ -595,6 +599,8 @@ vehicles_plot <- ggplot(data = vehicles_fct, mapping = aes(x = class,
 
 Now use `fct_reorder()` to rearrange the levels of `class` variable according to the `mean_cty` variable. You will need to do this within the `ggplot()` function, so create a new plot here, and call it `vehicles_plot_2`. Once again, flip the coordinates for this new graphic. 
 
+<!-- BG: 'fct_reorder' hasn't been seen before.  -->
+
 ```{r factors-7-setup}
 vehicles_fct <- vehicles %>%
   mutate(class = as.factor(class)) %>%
@@ -641,6 +647,8 @@ vehicles_plot_2 <- ggplot(data = vehicles_fct, mapping = aes(x = fct_reorder(cla
 ### Exercise 1
 
 Now, let's move on to lists. This is section 2.4 in the textbook. First, we'd like you to create a list. Call this list `mylist` and let it have three items `a`, `b`, and `c`. Then, let `a` be a vector containing 1, 2, and 3. Let `b` be a vector containing 4, 5, and 6, and let `c` be a vector containing 7, 8, and 9
+
+<!-- BG: I couldn't get this part to give any output for some reason.  -->
 
 ```{r lists-1, exercise=TRUE}
 
