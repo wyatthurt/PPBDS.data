@@ -166,12 +166,14 @@ quiz(
 
 ```{r question-estimands}
 quiz(
+
 question_text("In one sentence, define what an estimand is, and give an example.",
     allow_retry = FALSE,
     answer(NULL, correct = TRUE),
     trim = FALSE,
     incorrect = "Ok"
   ),
+
 question_checkbox(
   "Which of the following are examples of estimands?",
   answer("average treatment effect", correct = TRUE),
@@ -208,12 +210,15 @@ tibble(subject = c("Yao", "Emma", "Cassidy", "Tahmid", "Diego"),
   tab_spanner(label = "$$Estimands$$", vars(ydiff))
 ```
 
+<!-- DK: Need to standardize on whether or not we need the + in the answer is positive. Here we require it, elsewhere we do not. -->
+
 ```{r question-estimands2-quiz}
 quiz(
-question("What is the casual effect of the treatment on Yao (answer as +/-X)?",
+question_text("What is the casual effect of the treatment on Yao (answer as +/-X)?",
     answer("+2", correct = TRUE),
-    allow_retry = T
+    allow_retry = TRUE
   ),
+
 question("For how many of the five is the casual effect of the treatment positive?",
     answer("1"),
     answer("2"),
@@ -222,20 +227,17 @@ question("For how many of the five is the casual effect of the treatment positiv
     answer("5"),
     allow_retry = F
   ),
-question("On whom did the treatment have the most negative causal effect?",
+
+question_text("On whom did the treatment have the most negative causal effect?",
     answer("Tahmid", correct = TRUE),
     allow_retry = TRUE
   ),
-question("What was the treatment effect percentage on Diego? (answer as +/-X%)",
+
+question_text("What was the treatment effect percentage on Diego? (answer as +/-X%)",
     answer("+50%", correct = TRUE),
     allow_retry = TRUE
   ),
-question_text("What are the estimands you just calculated in the four previous questions? (You should have a list of 4 different estimands).",
-    allow_retry = FALSE,
-    answer(NULL, correct = TRUE),
-    trim = FALSE,
-    incorrect = "Ok")
-)
+
 ```
 
 ## Preceptor Table structure
@@ -243,12 +245,14 @@ question_text("What are the estimands you just calculated in the four previous q
 
 ```{r question-preceptortable2}
 quiz(
+  
 question_text("In one sentence, describe the difference between an actual and ideal Preceptor Table.",
     allow_retry = FALSE,
     answer(NULL, correct = TRUE),
     trim = FALSE,
     incorrect = "Ok"
   ),
+
 question_checkbox(
   "Which of the following are types of columns you might expect to see in a Preceptor Table",
   answer("ID", correct = TRUE),
@@ -260,6 +264,7 @@ question_checkbox(
   allow_retry = FALSE, 
   random_answer_order = T
 ),
+
 question_text("What is the correct order of columns in a Preceptor Table following the ID column? (list in order from left to right starting with the ID column).",
     allow_retry = FALSE,
     answer(NULL, correct = TRUE),
