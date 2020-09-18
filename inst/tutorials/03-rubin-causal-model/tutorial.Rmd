@@ -655,7 +655,8 @@ question_text("In addition to not being able to observe counterfactal outcomes, 
 
 question_text("In order to apply the causal effect of a sample to the general population, our samaple must be ______ of the population.",
     allow_retry = TRUE,
-    answer("representative", correct = TRUE)
+    answer(NULL, correct = TRUE),
+    incorrect = "Ok"
   ),
 
 question_text("Explain representativeness as a concept in sampling.",
@@ -670,11 +671,13 @@ question_text("Describe an Infinite Preceptor Table in a few sentences. Use the 
     incorrect = "Ok"
   ),
 
-question_text("Is it fair to assume that the causal effect on Sam for now would be the same as the causal effect if we treated him in some amount of time? Explain why or why not.",
+question_text("Is it fair to assume that the causal effect on Sam at this moment in time is the same as the causal effect would be a year from now? Explain why or why not.",
     allow_retry = TRUE,
     answer(NULL, correct = TRUE),
     incorrect = "Ok"
   ),
+
+# DK: Not sure I like this question. What is the answer?
 
 question_text("Why might Infinite Preceptor Tables include additional treatment columns?",
     allow_retry = TRUE,
@@ -682,7 +685,9 @@ question_text("Why might Infinite Preceptor Tables include additional treatment 
     incorrect = "Ok"
   ),
 
-question_text("When you begin working on a causal question, one begins with the idea of an Infinite Preceptor Table. What three assumptions do you make to narrow this idea down to a Preceptor Table you can work with?",
+# DK: How closely connected are these to the book?
+
+question_text("When you begin working on a causal question, you begin with the idea of an Infinite Preceptor Table. What three assumptions do you make to narrow this idea down to a Preceptor Table which you can work with?",
     allow_retry = TRUE,
     answer(NULL, correct = TRUE),
     incorrect = "Ok"
