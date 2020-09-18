@@ -165,10 +165,11 @@ If you have not installed these packages, you will like encounter issues when at
 ## Characters 
 ###
 
+The first few exercises focus on various functions that can be used to manipulate strings. 
 
 ### Exercise 1
 
-The first few exercises focus on various functions that can be used to manipulate strings. The `states` character vector comes installed with R and contains the names of all US states and the District of Columbia. Have a look at it by printing it to the console.
+The `states` character vector comes installed with R and contains the names of all US states and the District of Columbia. Have a look at it by printing it to the console.
 
 ```{r exercise-2-1, exercise=TRUE}
 

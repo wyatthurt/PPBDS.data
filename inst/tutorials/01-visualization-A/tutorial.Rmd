@@ -1181,9 +1181,11 @@ ggplot(data = mpg,
 ```
 
 ## `geom_violin()` 
-
-
 ###
+
+<!-- DK: Some words about violin plots and why we use them. -->
+
+### 
 
 Let's use `geom_violin()` to make a plot with the `diamonds` tibble, which contains information about cut diamonds. Hit 'Run Code' to continue.
 
