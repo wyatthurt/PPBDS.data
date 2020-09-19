@@ -849,9 +849,13 @@ quiz(caption = "",
          allow_retry = TRUE))
 ```
 
-## Formal Testing
+## Unit tests with `testthat`
+###
 
-### Unit tests with `testthat`
+Let's learn about testing.
+
+
+### Exercise 1
 
 ```{r is-1, echo=TRUE, eval=FALSE}
 impatient_square <- function(x){
@@ -859,6 +863,7 @@ impatient_square <- function(x){
   x^2
 }
 ```
+
 
 ```{r return-quiz, echo = FALSE}
 quiz(caption = "",
@@ -872,7 +877,7 @@ quiz(caption = "",
            allow_retry = TRUE))
 ```
 
-###
+### Exercise 2
 
 ```{r is-2, eval=FALSE, echo=TRUE}
 immovable_square <- function(x){
@@ -889,7 +894,7 @@ quiz(caption = "",
          allow_retry = TRUE))
 ```
 
-###
+### Exercise 3
 
 This function is called `angry()`. Add a line of code that throws the message "Wrong! I am angry!" using `stop()`.
 
@@ -905,6 +910,8 @@ angry <- function(x){
   x
 }
 ```
+
+### Exercise 4
 
 Nice, now we have an appropriately angry function that always yells at us. This isn't particularly useful. Make it so that `angry()` only yells at us if the x input is not a character. Also change the error message to something more useful: "x must be a character." This method is also known as the "if then stop".
 
@@ -923,7 +930,7 @@ angry <- function(x){
 }
 ```
 
-###
+### Exercise 5
 
 What if we wanted to incorporate `testthat`? Use the `showfailure()` function to see what happens when we plug in `x = 1` to `angry()`.
 
@@ -944,6 +951,8 @@ show_failure(...)
 ```{r showfailure-hint, eval=FALSE}
 show_failure(angry(x=...))
 ```
+
+### Exercise 6
 
 Run the following function, which we've pre-defined behind the scenes.
 
@@ -976,6 +985,8 @@ quiz(
            answer("When you run mystery(\"a\"), you get an error that says: \"x must be a number.\"", correct = TRUE),
            allow_retry = TRUE))
 ```
+
+### Exercise 7
 
 ```{r mysteryfunc2-setup}
 library(testthat)
@@ -1011,7 +1022,10 @@ quiz(
            random_answer_order = TRUE))
 ```
 
-### Handling NAs
+## Handling NAs
+###
+
+### Exercise 1
 
 ```{r if-quiz, echo = FALSE}
 question("Which describes `if`'s behavior? (Check all that apply).",
@@ -1021,6 +1035,8 @@ question("Which describes `if`'s behavior? (Check all that apply).",
          answer("`if` always executes all of the code that follows it.", message = "`if` will always execute the logical test that appears in parentheses behind `if`. However, `if` will only execute the code that appears after the logical test if the logical test returns TRUE."),
          allow_retry = TRUE)
 ```
+
+### Exercise 2
 
 Many data sets use their own symbols to represent missing values. For example, NOAA will often use -99 to represent missing values in weather data sets. Let's write a function that checks whether a value is -99, and if so replaces the value with NA, like this:
 
@@ -1036,7 +1052,7 @@ clean(1)
 clean(-99)
 ```
 
-###  
+### Exercise 3
 
 Add an `if` statement to the beginning of `clean()`. Your statement should assign NA to x if x equals -99.
 
@@ -1058,6 +1074,8 @@ clean <- function(x){
 }
 ```
 
+### Exercise 4
+
 ```{r else-quiz, echo = FALSE}
 question("Which describes `else`? (Check all that apply).",
          answer("R interprets `else` as a continuation of the `if` statement that immediately precedes it.", correct = TRUE, message = "`else` always follows an `if` statement (if not, `else` returns an error), and R always sees the combined `if` and `else` statements as a single statement."),
@@ -1068,7 +1086,10 @@ question("Which describes `else`? (Check all that apply).",
          allow_retry = TRUE)
 ```
 
-### Combining `stopifnot()` and  conditional statements
+## stopifnot()`
+###
+
+### Exercise 1
 
 Use `if` and `is.null()` to add a `stop()` call at the beginning of `clean()`. The command should return the error message `"x is NULL"` whenever x is NULL. 
 
@@ -1105,7 +1126,7 @@ quiz(
            answer("stopifnot() cannot take logical arguments")))
 ```
 
-###  
+### Exercise 2
 
 Replace the `if` + `stop()` statement in `clean()` with `stopifnot()`. 
 
@@ -1129,7 +1150,7 @@ clean <- function(x){
 }
 ```
 
-###
+### Exercise 3
 
 Rewrite the below function using `case_when()`.
 
@@ -1173,7 +1194,7 @@ foo2 <- function(x){
 }
 ```
 
-###
+### Exercise 4
 
 Rewrite the multi-part version of `clean()` to use `case_when()`, which will allow `clean()` to handle vectors. Retain each case. Assume where necessary that `clean()` will only work with real numbers.
 
@@ -1199,7 +1220,7 @@ clean <- function(x){
 }
 ```
 
-###
+### Exercise 5
 
 ```{r foo-10, eval=FALSE, echo=TRUE}
 foo <- function(x){
@@ -1220,7 +1241,7 @@ quiz(
          allow_retry = TRUE))
 ```
 
-###
+### Exercise 6
 
 ```{r missing_code_chunk_name, eval=FALSE, echo=TRUE}
 clean <- function(x){
@@ -1240,6 +1261,7 @@ quiz(
          allow_retry = TRUE))
 ```
 
+### Exercise 7
 
 Replace the two `if` statements below with a single statement that tests whether x is `-99` or `"."` without throwing error messages.
 
@@ -1260,7 +1282,7 @@ clean <- function(x){
 }
 ```
 
-###  
+### Exercise 8
 
 ```{r clean-5, eval=FALSE, echo= TRUE}
 clean <- function(x){
