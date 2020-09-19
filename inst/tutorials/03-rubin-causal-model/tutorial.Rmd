@@ -237,7 +237,7 @@ question_text("What was the treatment effect percentage on Diego? (answer as +/-
     answer("+50%", correct = TRUE),
     allow_retry = TRUE
   ),
-
+)
 ```
 
 ## Preceptor Table structure
