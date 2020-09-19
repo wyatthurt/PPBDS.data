@@ -346,12 +346,17 @@ You may also include other packages which your tutorial makes use of, but the fi
 * The first question should require that students give us their name. This way, when we generate a hash of a student's responses, their name is included in the hash and copy-pasting another student's hash is made impractical.
 
 ````rmarkdown
-``` {r name, echo=FALSE}
-question_text("Student Name:",
-              answer(NULL, correct = TRUE),
-              incorrect = "Ok",
-              try_again_button = "Modify your answer",
-              allow_retry = TRUE)
+## Name 
+###
+
+``` {r name}
+question_text(
+  "Student Name:",
+  answer(NULL, correct = TRUE),
+  allow_retry = TRUE,
+  try_again_button = "Modify your answer",
+  incorrect = "Ok"
+)
 ```
 ````
 
