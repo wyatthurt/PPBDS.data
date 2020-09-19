@@ -1713,21 +1713,9 @@ tibble(games = crooked_craps(100)) %>%
   scale_x_continuous(breaks = seq(...))
 ```
 
+### Exercise 4
+
 Great! Hmm... we're not entirely sure this plot is representative. It does look like what we'd expect, but running `crooked_craps()` 10 times feels safer than running it just once. Use an appropriate `map_*` function and `rep()` to call `crooked_craps(100)` 10 times. Create a tibble named `x` with a column named `games`.
-
-```{r crooked-4-setup}
-crooked_dice <- function(n = 1){
-  stopifnot(is.numeric(n))
-  stopifnot(n >= 0)
-  roll <- sum(sample(1:6, n, replace = TRUE))
-  ifelse((roll == 7 | roll == 11) && runif(1) >= 0.5, 2, roll)
-}
-
-crooked_craps <- function(n = 1){
-  stopifnot(is.numeric(n))
-  map_dbl(rep(2, n), crooked_dice)
-}
-```
 
 ```{r crooked-4, exercise=TRUE, eval=FALSE}
 
@@ -1737,23 +1725,12 @@ crooked_craps <- function(n = 1){
 x <- tibble(games = map(rep(100, 10), ...))
 ```
 
+### Exercise 5
+
 Inside each of these iterations of 100 rolls, we want to count the number of 3's and 11's. Technically, with a fair die one would expect as many 11's to appear as 3's. 11's can be obtained in two different ways: by adding 5 + 6 and 6 + 5. The same goes for 3's: by adding 1 + 2 and 2 + 1.
 
 First, count the number of 3's. You can do so by using a the appropriate `map_*` function and an anonymous function defined as `sum(. == 3)`.
 
-```{r crooked-5-setup}
-crooked_dice <- function(n = 1){
-  stopifnot(is.numeric(n))
-  stopifnot(n >= 0)
-  roll <- sum(sample(1:6, n, replace = TRUE))
-  ifelse((roll == 7 | roll == 11) && runif(1) >= 0.5, 2, roll)
-}
-
-crooked_craps <- function(n = 1){
-  stopifnot(is.numeric(n))
-  map_dbl(rep(2, n), crooked_dice)
-}
-```
 
 ```{r crooked-5, exercise=TRUE, eval=FALSE}
 x <- tibble(games = map(rep(100, 10), crooked_craps)) %>%
@@ -1765,23 +1742,10 @@ x <- tibble(games = map(rep(100, 10), crooked_craps)) %>%
   mutate(counts = map_int(games, ~(...)))
 ```
 
-###
+### Exercise 6
 
 Now, modify `counts` so that it is a list-column of 2 elements per list: The number of 3's, then the number of 11's.
 
-```{r crooked-6-setup}
-crooked_dice <- function(n = 1){
-  stopifnot(is.numeric(n))
-  stopifnot(n >= 0)
-  roll <- sum(sample(1:6, n, replace = TRUE))
-  ifelse((roll == 7 | roll == 11) && runif(1) >= 0.5, 2, roll)
-}
-
-crooked_craps <- function(n = 1){
-  stopifnot(is.numeric(n))
-  map_dbl(rep(2, n), crooked_dice)
-}
-```
 
 ```{r crooked-6, exercise = TRUE}
 x <- tibble(games = map(rep(100, 10), crooked_craps)) %>%
@@ -1793,32 +1757,20 @@ x <- tibble(games = map(rep(100, 10), crooked_craps)) %>%
   mutate(counts = map(games, ~list(sum(. == 3), ...)))
 ```
 
-###
+### Exercise 7
 
-Finally, view the tibble with `str()`.
+View the tibble with `str()`.
 
-```{r crooked-7-setup}
-crooked_dice <- function(n = 1){
-  stopifnot(is.numeric(n))
-  stopifnot(n >= 0)
-  roll <- sum(sample(1:6, n, replace = TRUE))
-  ifelse((roll == 7 | roll == 11) && runif(1) >= 0.5, 2, roll)
-}
-
-crooked_craps <- function(n = 1){
-  stopifnot(is.numeric(n))
-  map_dbl(rep(2, n), crooked_dice)
-}
-```
 
 ```{r crooked-7, exercise = TRUE}
 x <- tibble(games = map(rep(100, 10), crooked_craps)) %>%
   mutate(counts = map(games, ~list(sum(. == 3), sum(. == 11))))
 ```
 
+### Exercise 8
+
 ```{r finalquiz}
-quiz(caption = "",
-     question("Based off of your observations and prior knowledge, is our crooked_craps() function truly crooked (compared to what we'd expect from a game of craps with two fair dice)?",
+quiz(question("Based off of your observations and prior knowledge, is our crooked_craps() function truly crooked (compared to what we'd expect from a game of craps with two fair dice)?",
      allow_retry = TRUE,
      random_answer_order = TRUE,
      answer("Yes, because the number of 3's rolled seems to generally be higher than the number of 11's rolled.", correct = TRUE, message = "Exactly! This might've been a different story if we didn't know the contents of the crooked_craps() function, since the difference between the number of 3's and the number of 11's rolled could be chalked up to natural variation. However, we wrote the function to be crooked. Additionally, as we increase the number of simulations, the more confident we can be that the data reflects a real difference in the frequency of 3's and 11's rolled."),
