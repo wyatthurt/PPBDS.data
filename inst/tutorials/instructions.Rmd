@@ -5,21 +5,15 @@ output: html_document
 
 <!-- TO-DO: -->
 
-<!-- We need tutorials about using Git, using the command line and other non-R stuff. Maybe make it a separate Tools tutorial? Could have lots of questions like: ":"-->
-
-<!-- Can we show "answers" to a Tutorial after students have submitted it? How? -->
+<!-- Can we show "answers" to a Tutorial after students have submitted it? How? Maybe all we need is a script which pulls out the code for all the major examples and puts it in a single RMD which we could knit and distribute? -->
 
 <!-- Can we give students a search box in the tutorial so that they can find answers to questions they have already done? -->
 
-<!-- Any easy way to break tutorials into 2 or 3 subparts, so students aren't overwhelmed? -->
-
-<!-- Improve this guide to show actual questions and actual solutions. -->
-
-<!-- Individual tutorials should not be too long. In particular, Visualization and Wrangling should each be split into several parts, maybe 3 or so. -->
+<!-- There is a lot of redundent text in tutorials: Write your name, submit, et cetera. Any way to avoid copying/pasting that each time? -->
 
 <!-- Any ideas why students are losing work? -->
 
-<!-- Code for processing a bunch of answers. -->
+<!-- Simple way to process student answers.  -->
 
 
 
