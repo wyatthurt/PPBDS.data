@@ -171,8 +171,7 @@ question_text("In one sentence, define what an estimand is, and give an example.
     allow_retry = FALSE,
     answer(NULL, correct = TRUE),
     trim = FALSE,
-    incorrect = "Ok"
-  ),
+    incorrect = "Ok"),
 
 question_checkbox(
   "Which of the following are examples of estimands?",
@@ -182,8 +181,7 @@ question_checkbox(
   answer("most positive causal effect", correct = TRUE),
   answer("+2", correct = FALSE),
   allow_retry = FALSE, 
-  random_answer_order = T
-)
+  random_answer_order = TRUE)
 )
 ```
 
@@ -213,31 +211,31 @@ tibble(subject = c("Yao", "Emma", "Cassidy", "Tahmid", "Diego"),
 <!-- DK: Need to standardize on whether or not we need the + in the answer is positive. Here we require it, elsewhere we do not. -->
 
 ```{r question-estimands2-quiz}
-quiz(
-question_text("What is the casual effect of the treatment on Yao (answer as +/-X)?",
-    answer("+2", correct = TRUE),
-    allow_retry = TRUE
-  ),
-
-question("For how many of the five is the casual effect of the treatment positive?",
-    answer("1"),
-    answer("2"),
-    answer("3", correct = TRUE),
-    answer("4"),
-    answer("5"),
-    allow_retry = F
-  ),
-
-question_text("On whom did the treatment have the most negative causal effect?",
-    answer("Tahmid", correct = TRUE),
-    allow_retry = TRUE
-  ),
-
-question_text("What was the treatment effect percentage on Diego? (answer as +/-X%)",
-    answer("+50%", correct = TRUE),
-    allow_retry = TRUE
-  ),
-)
+# quiz(
+# question_text("What is the casual effect of the treatment on Yao (answer as +/-X)?",
+#     answer("+2", correct = TRUE),
+#     allow_retry = TRUE
+#   ),
+# 
+# question("For how many of the five is the casual effect of the treatment positive?",
+#     answer("1"),
+#     answer("2"),
+#     answer("3", correct = TRUE),
+#     answer("4"),
+#     answer("5"),
+#     allow_retry = F
+#   ),
+# 
+# question_text("On whom did the treatment have the most negative causal effect?",
+#     answer("Tahmid", correct = TRUE),
+#     allow_retry = TRUE
+#   ),
+# 
+# question_text("What was the treatment effect percentage on Diego? (answer as +/-X%)",
+#     answer("+50%", correct = TRUE),
+#     allow_retry = TRUE
+#   ),
+# )
 ```
 
 ## Preceptor Table structure
