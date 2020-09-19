@@ -62,7 +62,7 @@ question_text(
 
 
 
-## Introduction to Functions
+## Introduction
 ###
 
 Some of these exercise were taken from the collection of [RStudio Primers](https://rstudio.cloud/learn/primers), a great resource for practicing your skills.
@@ -208,7 +208,7 @@ tibble(col_1 = c("Government and Data Science", "Preceptor and Primer")) %>%
   str()
 ```
 
-## Example: Baby chick weights
+## Exercise: Baby chick weights
 ###
 
 
@@ -287,7 +287,7 @@ quiz(caption = "",
 ```
 
 
-## Example: Annual GDP by country
+## Exercise: Annual GDP by country
 ###
 
 Let's use the `gapminder` dataset. 
@@ -1279,9 +1279,10 @@ question("What will `clean(c(-99, 0, 1))` return?",
          allow_retry = TRUE)
 ```
 
-## List-columns and `map_*` functions with custom and anonymous functions
+## Exercise: Monthly temperatures
+###
 
-### Monthly temperatures
+### Exercise 1
 
 Explore the `airquality` dataset using `skim()`.
 
@@ -1292,6 +1293,8 @@ Explore the `airquality` dataset using `skim()`.
 ```{r exercise-1a-hint, eval=FALSE}
 skim(...)
 ```
+
+### Exercise 2
 
 Create a list-column of monthly temperatures called `monthly_temp`, grouping by `Month`.
 
@@ -1305,7 +1308,7 @@ airquality %>%
    mutate(monthly_temp = list(...))
 ```
 
-###
+### Exercise 3
 
 ```{r quiz-4}
 quiz(caption = "",
@@ -1317,7 +1320,7 @@ quiz(caption = "",
 )
 ```
 
-###
+### Exercise 4
 
 Use a `map_*` function to convert all of the temperatures in `monthly_temp` from Fahrenheit to Celsius, creating a new variable `temp_celsius`. Hint: Use the formula from the quiz above!
 
@@ -1335,6 +1338,8 @@ airquality %>%
   mutate(temp_celsius = map(monthly_temp, ...))
 ```
 
+### Exercise 5
+
 Oops! The scientists made a mistake in which all of the temperatures were mis-recorded. For temperatures recorded at or below 20 degrees Celsius, the true temperature is actually 1 degree Celsius lower. For temperatures recorded as higher than 20 degrees Celsius, the true temperature is actually 3 degrees Celsius higher.
 
 Write an anonymous function that rectifies the scientists' mistake by using `case_when()`.
@@ -1350,7 +1355,7 @@ function(x)
             x > 20 ~ x + 3)
 ```
 
-###
+### Exercise 6
 
 Now use this function along with `map()`, swapping out the function code after the `~` in the `map()` argument.
 
@@ -1370,7 +1375,7 @@ airquality %>%
   mutate(temp_celsius = map(temp_celsius, ~ case_when(...)))
 ```
 
-###
+### Exercise 7
 
 Now let's get a sense of the "corrected" data. Sort the temperatures from coldest to hottest each month.
 
@@ -1392,6 +1397,8 @@ airquality %>%
             . > 20 ~ . + 3))))
 ```
 
+### Exercise 8
+
 ```{r quiz-5}
 quiz(
   question("What is the coldest temperature in July?",
@@ -1402,9 +1409,12 @@ quiz(
 )
 ```
 
-### Coin Flipping
+## Exercise: Coin Flipping
+###
 
 Let's say you are trying to create a function, `coin_flip()`, that takes an input `n` of the number of times to flip a coin and adds up the number of Tails.
+
+### Exercise 1
 
 Let's start by creating a minimally viable function called `starter_coin()` that flips one coin once and prints out `H` or `T`. Remember: You can paste vectors as an argument into `sample()`!
 
@@ -1416,7 +1426,7 @@ Let's start by creating a minimally viable function called `starter_coin()` that
 starter_coin <- function() sample(c("H", "T"), ...)
 ```
 
-###
+### Exercise 2
 
 Now let's take it up a notch and add in a formal argument `n` that specifies the number of times to flip the coin.
 
@@ -1428,7 +1438,7 @@ Now let's take it up a notch and add in a formal argument `n` that specifies the
 starter_coin <- function(n) sample(c("H", "T"), n, replace = ...)
 ```
 
-###
+### Exercise 3
 
 Add in a sensible `stopifnot()` to your function that checks whether the input `n` is numeric.
 
@@ -1443,7 +1453,7 @@ starter_coin <- function(n){
 }
 ```
 
-###
+### Exercise 4
 
 Great! Now we should be able to create `coin_flip()`, which counts the number of Tails for `n` flips. Set the default value of `n` to 1.
 
@@ -1454,7 +1464,7 @@ coin_flip <- function(n = 1){
 ```
 
 ```{r coin4-hint-1, eval=FALSE}
-# Use the code from starter_coin() and sum().
+Use the code from starter_coin() and sum().
 ```
 
 ```{r coin4-hint-2, eval=FALSE}
@@ -1464,7 +1474,7 @@ coin_flip <- function(n = 1){
 }
 ```
 
-###
+### Exercise 5
 
 Now let's create a function called `five_flips` that counts how many Tails occur in five coin flips, or the equivalent of `coin_flip(5)`, but calls it `n` times.
 * Set the default value of `n` separate flips to 1.
@@ -1476,11 +1486,11 @@ five_flips <- function(n = 1){
 ```
 
 ```{r coin5-hint-1, eval=FALSE}
-# The map function you are looking for is map_int().
+The map function you are looking for is map_int().
 ```
 
 ```{r coin5-hint-2, eval=FALSE}
-# rep(x,n) means that you are flipping x coins n times.
+rep(x,n) means that you are flipping x coins n times.
 ```
 
 ```{r coin5-hint-3, eval=FALSE}
@@ -1490,7 +1500,7 @@ five_flips <- function(n = 1){
 }
 ```
 
-###
+### Exercise 6
 
 Create a tibble named `x` with one variable: `flips`. `flips` is a list column of 10 observations, each element of which is result of flipping 5 coins 10 times. 
 
@@ -1504,6 +1514,8 @@ quiz(
            random_answer_order = TRUE))
 ```
 
+### Exercise 7
+
 Create `x` as specified above. Make sure to use the correct `map_*` function.
 
 ```{r coin7, exercise=TRUE, eval=FALSE}
@@ -1514,7 +1526,7 @@ x <- tibble(flips = ...)
 x <- tibble(flips = map(rep(10, 10), ...))
 ```
 
-###
+### Exercise 8
 
 Now we are interested in finding the `mean()`, `min()`, and `max()` of each row. Use the appropriate `map_*` functions to create new columns named `average`, `minimum`, and `maximum`, using the aforementioned functions respectively.
 
@@ -1526,7 +1538,7 @@ x %>%
          maximum = map_dbl(...))
 ```
 
-###
+### Exercise 9
 
 That seems kind of clunky to create three new columns. What if I wanted to return a single new list-column named `descriptive_stats` that contained a list of the mean, minimum, and maximum values? Time to write a function!
 
@@ -1550,11 +1562,14 @@ x %>%
    mutate(descriptive_stats = map(flips, ...))
 ```
 
+
+
+## Excercise: Random Variables Again
 ###
 
-### Random Variables, Pt. 2
-
 Remember when you wrote a function called `add_rvs()` that added two random variables together?
+
+### Exercise 1
 
 Let's create `biggest()`, which takes the larger of two random variables. Use `n = 1` for both random variables.
 
@@ -1571,6 +1586,8 @@ biggest <- function(){
 }
 
 ```
+
+### Exercise 2
 
 We're curious as to whether the uniformly distributed random variable or the normally distributed random variable is larger. 
 Modify `biggest()` so that it prints out "Uniform" if the larger variable is the uniformally distributed random variable, and "Normal" if otherwise.
@@ -1602,7 +1619,7 @@ biggest <- function(){
 }
 ```
 
-###
+### Exercise 3
 
 We'd like for `biggest()` to return a vector of two elements: The name of the distribution of the larger random variable and its value. If the two values are identical, we'd like for the function to return "Tie" and the value of one of the variables (since they are identical).
 
@@ -1626,7 +1643,7 @@ biggest <- function(){
 }
 ```
 
-###
+### Exercise 4
 
 Now we want to run `biggest()` to be run multiple times. Let's create a new function named `repeat_biggest()` that does so by calling `biggest()` `n` number of times.
 * Use `replicate()` to call the function multiple times.
@@ -1643,6 +1660,8 @@ repeat_biggest <- function(n = 1){
 }
 ```
 
+### Exercise 5
+
 Create a tibble named `rvs` with one variable: `trials`. `trials` is a list column of 25 observations, each element of which is a result of calling `repeat_biggest(3)`.
 
 ```{r lastq, exercise=TRUE, eval=FALSE}
@@ -1655,6 +1674,8 @@ rvs <- tibble(trials = map(rep(3, 25), ...))
 
 ## The Crooked Casino
 ###
+
+<!-- DK: Show the plot at the start. Discuss its meaning. Hint at what we will discuss in chapter 5. Then, walk through the step-by-step creation of it. -->
 
 Recall the function we wrote in the chapter to model a crooked game of craps. `crooked_craps()` is expected to return a winning 7 or 11 only *half* of the time the sum is actually 7 or 11. It returns a 2 much more often than it should. Code:
 
