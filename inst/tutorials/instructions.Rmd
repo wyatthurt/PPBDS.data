@@ -5,6 +5,17 @@ output: html_document
 
 <!-- TO-DO: -->
 
+
+<!-- We need tutorials about using Git, using the command line and other non-R stuff. Maybe make it a separate Tools tutorial? Could have lots of questions like::"Type this in at the Terminal command line and paste whatever comes back here:"-->
+
+<!-- Can we show "answers" to a Tutorial after students have submitted it? How? -->
+
+<!-- Can we show "answers" to a Tutorial after students have submitted it? How? Maybe all we need is a script which pulls out the code for all the major examples and puts it in a single RMD which we could knit and distribute? -->
+
+
+<!-- Can we show "answers" to a Tutorial after students have submitted it? How? Maybe all we need is a script which pulls out the code for all the major examples and puts it in a single RMD which we could knit and distribute? -->
+
+
 <!-- Can we show "answers" to a Tutorial after students have submitted it? How? Maybe all we need is a script which pulls out the code for all the major examples and puts it in a single RMD which we could knit and distribute? -->
 
 <!-- Can we give students a search box in the tutorial so that they can find answers to questions they have already done? -->

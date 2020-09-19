@@ -153,9 +153,9 @@ copy <- data
 
 #### Data sets
 
-Objects provide an easy way to store data sets in R. In fact, R comes with many toy data sets pre-loaded. Examine the contents of `iris` to see a classic toy data set. Hint: how could you learn more about the `iris` object?
+Objects provide an easy way to store data sets in R. In fact, R comes with many toy data sets pre-loaded. Examine the contents of `iris` to see a classic toy data set. Hint: use '?iris' to learn more.
 
-<!-- BG: hint here is a little vague/ not really needed -->
+
 
 ```{r objects-4, exercise = TRUE}
 
@@ -305,11 +305,7 @@ question('Which data structure(s) could you use to store these pieces of data in
          allow_retry = TRUE)
 ```
 
-#### Make a list
 
-Make a list that contains the elements `1001`, `TRUE`, and `"stories"`. Give each element a name.
-
-<!-- BG: This is an example of something that wasn't in the primer. A potential description of what one is and the function ("list()") may be helpful before the vectors section. -->
 ```{r lists2, exercise = TRUE}
 
 ```
@@ -402,18 +398,8 @@ Look at the `qscores` data set using `glimpse()`. We have loaded the `PPBDS.data
 
 ```
 
-```{r quiz-5, echo = FALSE}
-quiz(caption = "Quiz - `qscores` data set",
-  question("Which of the following is an identification variable?",
-           answer("`name`", correct = TRUE),
-           answer("`department`"),
-           answer("`term`"),
-           answer("`instructor`"),
-           allow_retry = TRUE
-  )
-)
-```
-<!-- BG: nothing in the primer mentions "identification variable"  -->
+
+
 ## Grammar of graphics
 
 ```{r quiz-6, echo = FALSE}
@@ -1083,18 +1069,6 @@ quiz(
 )
 ```
 
-<!-- ## `geom_boxplot()` II -->
-
-###
-
-Using the `trains` data set, create a boxplot with `party` on the x-axis and `att_start` on the y-axis.
-
-<!-- BG: I think this can be taken out for repetition sake. There are three consecutive examples with three different data sets doing the same thing and this question has no follow up questions, unlike the one following it.  -->
-
-```{r box-I-2, exercise=TRUE, exercise.lines = 10}
-
-```
-
 ###
 
 Using the data set `governors`, create a boxplot where `party` is on the x-axis and `win_margin` is on the y-axis.
@@ -1125,29 +1099,11 @@ Let's make a boxplot using the `mpg` tibble, which shows the fuel efficiency for
 ```
 
 
+
 ```{r gb-1-2-hint, eval=FALSE}
 ggplot(data = mpg, mapping = aes(x = ... , y = ... )) +
   geom_boxplot()
 ```
-
-
-
-###
-
-Great! Now let's make the outliers a little bit easier to see. Set `outlier.size` to 4, and `outlier.color` to "red".
-
-<!-- BG: These outlier arguments are not mentioned in the primer. I think the question should include the function it is placed in directly in the question rather than the hint. -->
-
-```{r gb-1-3, exercise=TRUE, exercise.lines = 5}
-
-```
-
-```{r gb-1-3-hint, eval=FALSE}
-Put `outlier.size` and `outlier.color` inside of geom_boxplot().
-```
-
-
-
 ###
 
 Nice! Now let's add some labels using the `labs()` function. Title the plot "Highway Fuel Efficiency in Different Types of Cars". Set x = "Type of Car" and y = "Miles Per Gallon (Highway)".
@@ -1211,29 +1167,6 @@ draw_quantiles = c(..., ..., ...)
 ```
 
 ```{r gv-1-4, exercise=TRUE, exercise.lines = 5}
-
-```
-
-###
-
-Great! Now try doubling the bandwidth using the `adjust` argument in `geom_violin()`.
-
-<!-- BG: The adjust argument is not mentioned in primer. I had to look up that you set adjust=2 online.  -->
-```{r viol-I-3, exercise=TRUE, exercise.lines=8}
-
-```
-
-```{r viol-I-3-hint, eval=FALSE}
-adjust = 2
-```
-
-###
-
-Nice! Now try setting the `kernel` argument in `geom_violin()` to "epanechnikov".
-
-<!-- BG: the 'kernel' argument is not mentioned in the primer. Brief explanation of its purpose in the question may be helpful.  -->
-
-```{r viol-I-4, exercise=TRUE, exercise.lines=8}
 
 ```
 
@@ -1635,9 +1568,9 @@ ggplot(data = mpg, mapping = aes(x = displ, y = cty)) +
 
 ###
 
-Nice. Now, let's make the gray confidence interval bar disappear by setting `se` to `FALSE`.
+Nice. Now, let's make the gray confidence interval bar disappear by setting `se` to `FALSE`in the geom_smooth() function.
 
-<!-- BG: may be helpful to add "in geom_smooth()"at the end. -->
+
 
 ```{r gs-1-2, exercise=TRUE, exercise.lines = 5}
 
