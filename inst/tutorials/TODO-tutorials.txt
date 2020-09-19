@@ -32,4 +32,11 @@ I like the way Jake did this:
 
 Add search function to tutorials.
 
+Interesting discussion and some plausible claims: http://laderast.github.io/2020/09/15/getting-learnr-tutorials-to-run-on-mybinder-org/. Claims that "the .Rmd file containing the tutorial should be named the same as the directory it is in." But why? Also: "I personally like to have individual data/ folders in each tutorial, as it makes making them a little easier to deploy." Interesting! Would be nice to make each tutorial more self-contained., perhaps.
+
+
+
+
+
+
 
