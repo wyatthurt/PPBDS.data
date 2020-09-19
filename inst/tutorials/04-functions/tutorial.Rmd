@@ -1654,8 +1654,9 @@ rvs <- tibble(trials = map(rep(3, 25), ...))
 ```
 
 ## The Crooked Casino
+###
 
-Recall the function we wrote in the chapter to model a crooked game of craps. `crooked_craps()` is expected to return a winning 7 or 11 only *half* of the time the sum is actually 7 or 11. Instead, the other half of the time, it is supposed to return a 2.
+Recall the function we wrote in the chapter to model a crooked game of craps. `crooked_craps()` is expected to return a winning 7 or 11 only *half* of the time the sum is actually 7 or 11. It returns a 2 much more often than it should. Code:
 
 ```{r crooks, echo=TRUE}
 crooked_dice <- function(n = 1){
@@ -1673,23 +1674,10 @@ crooked_craps <- function(n = 1){
 
 Let's put our visualization skills to the test.
 
-###
+### Exercise 1
 
 Create a tibble with column "games" and run `crooked_craps()` 100 times.
 
-```{r crooked-1-setup}
-crooked_dice <- function(n = 1){
-  stopifnot(is.numeric(n))
-  stopifnot(n >= 0)
-  roll <- sum(sample(1:6, n, replace = TRUE))
-  ifelse((roll == 7 | roll == 11) && runif(1) >= 0.5, 2, roll)
-}
-
-crooked_craps <- function(n = 1){
-  stopifnot(is.numeric(n))
-  map_dbl(rep(2, n), crooked_dice)
-}
-```
 
 ```{r crooked-1, exercise=TRUE}
 
@@ -1699,45 +1687,18 @@ crooked_craps <- function(n = 1){
 tibble(games = crooked_craps(...))
 ```
 
-###
+### Exercise 2
 
 Create a barplot with `games` on the `x` axis.
 
-```{r crooked-2-setup}
-crooked_dice <- function(n = 1){
-  stopifnot(is.numeric(n))
-  stopifnot(n >= 0)
-  roll <- sum(sample(1:6, n, replace = TRUE))
-  ifelse((roll == 7 | roll == 11) && runif(1) >= 0.5, 2, roll)
-}
-
-crooked_craps <- function(n = 1){
-  stopifnot(is.numeric(n))
-  map_dbl(rep(2, n), crooked_dice)
-}
-```
 
 ```{r crooked-2, exercise=TRUE, eval=FALSE}
 tibble(games = crooked_craps(100))
 ```
 
-###
+### Exercise 3
 
 Now, change the `x` axis scale to increment by integers from 2 to 12.
-
-```{r crooked-3-setup}
-crooked_dice <- function(n = 1){
-  stopifnot(is.numeric(n))
-  stopifnot(n >= 0)
-  roll <- sum(sample(1:6, n, replace = TRUE))
-  ifelse((roll == 7 | roll == 11) && runif(1) >= 0.5, 2, roll)
-}
-
-crooked_craps <- function(n = 1){
-  stopifnot(is.numeric(n))
-  map_dbl(rep(2, n), crooked_dice)
-}
-```
 
 ```{r crooked-3, exercise=TRUE, eval=FALSE}
 tibble(games = crooked_craps(100)) %>%
