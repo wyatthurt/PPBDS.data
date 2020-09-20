@@ -10,11 +10,7 @@ runtime: shiny_prerendered
 description: "Chapter 4 Tutorial"
 ---
 
-<!-- Ch. 4 tutorial questions taken from rstudio-education/primers GitHub repo and list-column/mapping questions written by Evelyn Cai -->
 
-<!-- Issues: -->
-
-<!-- Does it make sense for exercise set-up chunks to ever have eval=FALSE? That seems weird to me. What is the point of a set-up chunk if it is not run? -->
 
 ```{r setup, include=FALSE}
 library(tidyverse)
