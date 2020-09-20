@@ -11,7 +11,7 @@ description: "Chapter 1 Tutorial Part A"
 ---
 
 
-<!-- 0) All summary comments from student feedback at top. -->
+<!-- 0) All summary comments from student feedback at top. --> 
 
 <!-- 1) Go through this Rmd and add lots of comments/questions with your initials. -->
 
@@ -42,6 +42,7 @@ options(tutorial.exercise.timelimit = 60, tutorial.storage="local")
 Welcome to your first Gov 50 tutorial on Chapter 1: Visualization! We hope that this tutorial will be a great opportunity for you to learn and dive deeper into the course material. Most of these tutorial questions will be exercises in which you can put your coding skills to the test to practice all of the cool visualization techniques you read about in Chapter 1, but you will also test your knowledge in multiple choice and short answer questions. Let's get started!!
 
 ## How do I code in R?
+
 
 R is easiest to use when you know how the R language works. Some of the basic programming topics in R include the following:
 
@@ -101,7 +102,7 @@ lm
 
 ### Help pages
 
-Wow! `lm()` runs a lot of code. What does it do? Open the help page for `lm()` in the chunk below and find out.
+Wow! `lm()` runs a lot of code. What does it do? Open the help page for `lm()` by using `?lm()` in the chunk below to find out.
 
 ```{r functions-4, exercise = TRUE}
 
@@ -452,10 +453,13 @@ quiz(
 )
 ```
 
-## `geom_point()` 
-<!-- I -->
+## `geom_point()`
 
 ###
+
+### Exercise 1
+<!-- I -->
+
 
 Let's make a scatterplot using the `iris` data set. Hit the 'Run Code' button.
 
@@ -463,8 +467,6 @@ Let's make a scatterplot using the `iris` data set. Hit the 'Run Code' button.
 ggplot(data = iris, mapping = aes(x = Petal.Length, y = Petal.Width)) + 
   geom_point()
 ```
-
-###
 
 Great! Now try making a scatterplot with x = `Sepal.Length` and y = `Sepal.Width`.
 
@@ -488,6 +490,7 @@ Excellent work! Now let's make a scatterplot with `Sepal.Length` on the x-axis, 
 ```
 
 ###
+### Exercise 2
 
 Wonderful. Now use what you've learned to recreate the plot below.
 
@@ -508,8 +511,7 @@ To create a title, use labs(title = ...).
 ```
 
 <!-- ## `geom_point()` II -->
-
-### Scatterplot with the `qscores` data set
+### Exercise 3
 
 Now let's make a scatterplot using the `qscores` data set. Load the `PPBDS.data` package and look at the `qscores` data set by simply typing the name of the data set.
 
@@ -555,7 +557,7 @@ ggplot(data = qscores, mapping = aes(x = rating, y = hours, size = ...)) +
 <!-- ## `geom_point()` III -->
 
 ###
-
+### Exercise 4
 For the data set `sps`, make a scatterplot with `age` on the x-axis and `health_exp_3m` on the y-axis.
 
 ```{r point-I-2, exercise=TRUE, exercise.lines=5}
@@ -596,8 +598,9 @@ ggplot(aes(x = age, y = health_exp_3m, color = ...))
 ```
 
 <!-- ## `geom_point()` IV -->
+### Exercise 5
 
-### Overplotting
+**Overplotting**
 
 While this plot created using the `mpg` data set only displays 126 points, it visualizes a data set that contains 234 points.
 
@@ -608,7 +611,7 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 
 The missing points are hidden behind other points, a phenomenon known as _overplotting_. Overplotting is a problem because it provides an incomplete picture of the data set. You cannot determine where the *mass* of the points fall, which makes it difficult to spot relationships in the data. 
 
-### Causes of overplotting
+**Causes of overplotting**
 
 Overplotting usually occurs for two different reasons:
 
@@ -617,12 +620,13 @@ Overplotting usually occurs for two different reasons:
 
 How you deal with overplotting will depend on the cause. 
 
-### Changing the transparency
+**Changing the transparency**
 
 If your overplotting is due to rounding, you can obtain a better picture of the data by making each point semi-transparent. For example you could _set_ the alpha aesthetic of the plot below to a _value_ less than one, which will make the points transparent. 
 
 Try this now. Set the points to an alpha of 0.2, which will make each point 20% opaque (i.e. five points staked on top of each other will create a solid black).
 
+### Exercise 6
 Change the transparency of the points by setting `alpha = 0.2` within `geom_point()`.
 
 ```{r exercise-9, exercise = TRUE, exercise.lines = 5}
@@ -635,7 +639,7 @@ ggplot(data = qscores, mapping = aes(x = rating, y = hours, size = enrollment)) 
   geom_point(alpha = ...)
 ```
 
-## `geom_jitter()` 
+##`geom_jitter()` 
 <!-- I -->
 
 A second strategy for dealing with overplotting due to rounding is to adjust the position of each point. `geom_jitter()` plots a scatterplot and then adds a small amount of random noise to each point in the plot. It is a shortcut for adding a "jitter" position adjustment to a points plot (i.e, `geom_point(position = "jitter")`). Since the noise is random, it is unlikely that two points rounded to the same location will also be jittered to the same location. The result is a jittered plot that displays more of the data and provides a simple way to inspect patterns that occur in heavily gridded or overlapping data. 
@@ -647,7 +651,7 @@ ggplot(data = qscores, mapping = aes(x = rating, y = hours)) +
   geom_point()
 ```
 
-### Strategies for large data
+**Strategies for large data**
 
 Alpha and jittering are less useful for large data. Jittering will not separate the points, and a mass of transparent points can still look black.
 
@@ -719,7 +723,7 @@ ggplot(data = diamonds, mapping = aes(x = carat, y = price)) +
 ```
 
 ###
-
+### Exercise 1
 Nice. Now, use what you've learned to recreate the plot below. The `alpha` of the plot is 0.2, and the `width` of the jitter distribution is 5.
 
 ```{r}
@@ -751,7 +755,7 @@ The `cces` data set in the `PPBDS.data` package has been changed to show the ave
 ```{r, echo = TRUE}
 cces_data
 ```
-
+### Exercise 1
 Use the `ggplot()` function to create a linegraph with the data set called `cces_data` with `year` on the x-axis, `avg_age` on the y-axis, and `approval_ch` as the color aesthetic.
 
 ```{r exercise-11-setup, include = FALSE}
@@ -772,7 +776,6 @@ ggplot(data = cces_data, mapping = aes(x = ..., y = ..., color = ...)) +
 
 ###
 
-### Test your knowledge
 
 ```{r quiz-8, echo = FALSE}
 quiz(
@@ -790,7 +793,7 @@ quiz(
 <!-- ## `geom_line()` II -->
 
 ###
-
+### Exercise 2
 Run the following line graph, then try changing the y axis variable to `unemploy`.
 
 ```{r line-I-2, exercise=TRUE, exercise.lines=6, eval=FALSE}
@@ -852,7 +855,7 @@ Use labs()
 ## `geom_histogram()` 
 <!-- I -->
 
-### Test your knowledge
+
 
 ```{r quiz-9, echo = FALSE}
 quiz(
@@ -865,7 +868,7 @@ quiz(
 ```
 
 ###
-
+### Exercise 1
 Using the `qscores` data set and `ggplot()`, make a histogram where `rating` is on the x-axis to see the distribution of Harvard course ratings.
 
 ```{r exercise-12, exercise = TRUE, exercise.lines = 5}
@@ -926,7 +929,7 @@ ggplot(data = qscores, mapping = aes(x = rating)) +
 <!-- ## `geom_histogram()` II -->
 
 ###
-
+### Exercise 2
 Let's make a histogram using geom_histogram() and the `mpg` tibble, which contains data on the fuel efficiency of different types of cars. Press 'Run Code' to continue.
 
 ```{r gh-1-1, exercise=TRUE, exercise.lines = 5}
@@ -965,7 +968,7 @@ ggplot(data = mpg, mapping = aes(x = ...)) +
 ```
 
 ###
-
+### Exercise 3
 Very nice. Now, use what you've learned to recreate this graph.
 
 ```{r}
@@ -1020,7 +1023,7 @@ top_five_qscores <- qscores %>% filter(department %in% top_five_enrolled[0:5])
 ```{r, echo = TRUE}
 top_five_qscores
 ```
-
+### Exercise 1
 Using the `top_five_qscores` data set and `ggplot()`, make a boxplot where `department` is on the x-axis and `rating` is on the y-axis.
 
 ```{r exercise-16-setup, include = FALSE}
@@ -1070,7 +1073,7 @@ quiz(
 ```
 
 ###
-
+### Exercise 2
 Using the data set `governors`, create a boxplot where `party` is on the x-axis and `win_margin` is on the y-axis.
 
 ```{r box-I-3, exercise=TRUE, exercise.lines=10}
@@ -1091,7 +1094,7 @@ Use the color argument and remember to put "blue" in quotes.
 
 
 ###
-
+### Exercise 3
 Let's make a boxplot using the `mpg` tibble, which shows the fuel efficiency for different types of cars. Set x = `class`, and y = `hwy`.
 
 ```{r gb-1-2, exercise=TRUE, exercise.lines = 5}
@@ -1120,7 +1123,7 @@ labs(title = ...,
 
 
 ###
-
+### Exercise 4
 Awesome! Now, use what you've learned to recreate this plot.
 
 ```{r}
@@ -1138,11 +1141,12 @@ ggplot(data = mpg,
 
 ## `geom_violin()` 
 ###
+A violin plot is a compact display of a continuous distribution which blends geom_boxplot() and geom_density()...these two come later don't worry. It is a mirrored density plot, and it is displayed in the same way as a boxplot. The mirrored density distribution in geom_violin() replaces the box and whiskers in boxplot.
 
 <!-- DK: Some words about violin plots and why we use them. -->
 
 ### 
-
+### Exercise 1
 Let's use `geom_violin()` to make a plot with the `diamonds` tibble, which contains information about cut diamonds. Hit 'Run Code' to continue.
 
 ```{r gv-1-1, exercise=TRUE, exercise.lines = 5}
@@ -1171,7 +1175,7 @@ draw_quantiles = c(..., ..., ...)
 ```
 
 ###
-
+### Exercise 2
 Well done. Now, use what you've learned about `geom_violin()` to recreate this plot:
 
 ```{r}
@@ -1224,7 +1228,7 @@ top_five_qscores <- qscores %>% filter(department %in% top_five_enrolled[0:5])
 ```{r barplot-top-five-qscores, echo = TRUE}
 top_five_qscores
 ```
-
+### Exercise 1
 Use `ggplot()` and `geom_bar()` to plot `department` on the x-axis to see the number of classes in each department.
 
 ```{r exercise-17-setup, include = FALSE}
@@ -1247,7 +1251,7 @@ ggplot(data = ..., mapping = aes(x = ...)) +
 ```
 
 ###
-
+### Exercise 2
 Let's go back to the `trains` data set in the `PPBDS.data` package. Use `ggplot()` and `geom_bar()` to plot `treatment` on the x-axis.
 
 ```{r exercise-19, exercise = TRUE, exercise.lines = 5}
@@ -1309,7 +1313,7 @@ ggplot(data = trains, mapping = aes(x = treatment)) + geom_bar() + ...
 ```
 
 ###
-
+### Exercise 3
 Wonderful! Now, use what you've learned to recreate the plot below.
 
 ```{r gbr-1-5, exercise=TRUE, exercise.lines = 5}
@@ -1329,7 +1333,7 @@ ggplot(data = trains, mapping = aes(x = party, fill = liberal)) +
 ```
 
 ###
-
+### Exercise 4
 Let's now look at the data set `diamonds`, one you should already be familiar with. Press "Run Code".
 
 ```{r bar-I-1, exercise=TRUE, exercise.lines=7}
@@ -1378,7 +1382,7 @@ Set position inside geom_bar() and remember to put "dodge" in quotes.
 ```
 
 ###
-
+### Exercise 5
 ```{r}
 ggplot(data = cces, mapping = aes(x = ideology, fill = gender)) +
   geom_bar(position = "dodge")
@@ -1407,7 +1411,7 @@ top_five_qscores_counted <- top_five_qscores %>%
 ```{r avg-workload, echo = TRUE}
 top_five_qscores_counted
 ```
-
+### Exercise 1
 Use `ggplot()` and `geom_col()` to plot `department` on the x-axis and `count` on the y-axis to see the number of classes in each department.
 
 ```{r exercise-18-setup, include = FALSE}
@@ -1447,7 +1451,7 @@ quiz(
 ```
 
 ###
-
+### Exercise 2
 Let's keep working with the `qscores` data set. Press "Run Code" to check out the graph:
 
 ```{r col-I-1, exercise=TRUE, exercise.lines=7}
@@ -1477,7 +1481,7 @@ ggplot(data = aframer_qscores, mapping = aes(x = number, y = enrollment, color =
 ```
 
 ###
-
+### Exercise 3
 This final question is for all you Star Wars fans out there. These are the droids you're looking for. Recreate the plot below using the data set `droid`, which was created from filtering the `starwars` data set to only characters who are droids.
 
 ```{r}
@@ -1498,7 +1502,7 @@ droid <- starwars %>%
 ## `geom_smooth()` 
 
 ###
-
+### Exercise 1
 Let's start by creating a scatterplot from `nhanes`, which includes data from a national health and nutrition survey. Press "Run Code":
 
 ```{r smooth-I-1, exercise=TRUE, exercise.lines=7}
@@ -1558,7 +1562,7 @@ Use labs() to add the title and labels.
 ```
 
 ###
-
+### Exercise 2
 Let's make a plot with `geom_smooth()`, and the `mpg` tibble, which records the fuel efficiency of different car models. Hit 'Run Code' to continue.
 
 ```{r gs-1-1, exercise=TRUE, exercise.lines = 5}
@@ -1593,7 +1597,7 @@ Nicely done. Now, let's try dividing up our trendline by mapping `color` to `cla
 ```
 
 ###
-
+### Exercise 3
 Great! Now, use what you've learned about `geom_smooth()` to recreate the plot below.
 
 ```{r}
@@ -1611,7 +1615,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
 ## `geom_density()`
 
 ###
-
+### Exercise 1
 Just like histograms, density plots give us a sense of the distribution of a data set for a given variable.  Let's start by looking at this density plot from data set `nhanes`. Press "Run Code":
 
 ```{r den1D-I-1, exercise=TRUE, exercise.lines=6}
@@ -1656,7 +1660,7 @@ Because fill is an aesthetic, set it inside of aes().
 ```
 
 ###
-
+### Exercise 2
 Now we'll look at the data set `cces`. Use `cces` to make a density plot with `age` on the x axis and `ideology` set to the aesthetics `color` and `fill`.
 
 ```{r den1D-II-1, exercise=TRUE, exercise.lines=6}
@@ -1696,7 +1700,7 @@ Use xlim() to add a limit on the x axis
 ```
 
 ###
-
+### Exercise 3
 For your final challenge of `geom_density()`, recreate the graph below made with data set `trains`.
 
 ```{r}
@@ -1723,7 +1727,7 @@ Look at all of the awesome plots you created!! Now it's time to learn more about
 * **mutate()** its existing columns/variables to create new ones. 
 
 ###
-
+### Exercise 1
 Before we get started, load the `tidyverse` collection of packages and the package `PPBDS.data`.
 
 ```{r data-I-1, exercise=TRUE, exercise.lines=3}
@@ -1731,7 +1735,7 @@ Before we get started, load the `tidyverse` collection of packages and the packa
 ```
 
 ###
-
+### Exercise 2
 Let's take a `glimpse()` at the data set `cces`. Press "Run Code".
 
 ```{r data-I-2, exercise=TRUE, exercise.lines=3}
@@ -1784,8 +1788,8 @@ Great! Now use `summarize()` to find the mean and median ages from our filtered 
 ```
 
 ###
-
-Awesome! So let's recap what we just did. We first selected specific variables to focus on and then filtered to narrow down our search. We then arranged by descending order of age. Then, from that data, we found the mean and median age with `summarize()`. Through these steps, we found the mean and median ages of women from Massachusetts in the survey. With these next couple questions, you will be doing this yourself. Find the mean age of liberal men from California:
+### Exercise 3
+Let's recap what we just did. We first selected specific variables to focus on and then filtered to narrow down our search. We then arranged by descending order of age. From that data, we found the mean and median age with `summarize()`. Through these steps, we found the mean and median ages of women from Massachusetts in the survey. With these next couple questions, you will be doing this yourself. Find the mean age of liberal men from California:
 
 ```{r data-I-7, exercise=TRUE, exercise.lines=10}
 
@@ -1808,7 +1812,7 @@ Did you get 47.2? If so, awesome job! If not, look back at your code. For this n
 The correct answer is 56. If you got something different, look back at your code. Great job!
 
 ###
-
+### Exercise 4
 For this section, we will be focusing on the data set `nhanes`. `nhanes` is a really big data set and there are many things we can do with its data, but let's say we wanted to make a graph using data on `height` and `weight` from the 200 youngest black males. How would we go about doing this? Well first, we would `select()` the variables we want to focus on, in this case `height`, `weight`, `age`, `race`, and `gender`. Try doing this below:
 
 ```{r data-II-1, exercise=TRUE, exercise.lines=10}
@@ -1870,7 +1874,7 @@ Awesome! We now have our tibble! Now use `geom_smooth()` to create a graph with 
 ```
 
 ###
-
+### Exercise 5
 Now we are going to be focusing on the data set `qscores`, which includes data on Harvard courses from the 2018-19 school year. Let's start by grouping `qscores` by `department`.
 
 ```{r data-III-1, exercise=TRUE, exercise.lines=3}
@@ -1896,7 +1900,7 @@ Nice! Now use `arrange()` to order our data by `desc`ending mean rating.
 
 ###
 
-Great! As you can see, the tibble we have just created lists the different departments at Harvard included in `qscores` and their average rating. There's a lot of different things we can do this with this data, but let's say we wanted to make a plot with only the top 10 average rated departments. We would need to make a tibble to do this right? Use `slice()` to create this tibble.
+Great! As you can see, the tibble we have just created lists the different departments at Harvard included in `qscores` and their average rating. Let's say we wanted to make a plot with only the top 10 average rated departments. We would need to make a tibble to do this right? Use `slice()` to create this tibble.
 
 ```{r data-III-4, exercise=TRUE, exercise.lines=6}
 
@@ -1936,7 +1940,7 @@ new_qscores %>%
 ```
 
 ###
-
+### Exercise 6
 Great! Now let's play around with the `airquality` data set, which measures different atmospheric measurements in New York. Select `Month`, `Day`, and `Temp` from the data set.
 
 ```{r da-1-2, exercise=TRUE, exercise.lines = 5}
@@ -1975,7 +1979,7 @@ airquality %>%
 ```
 
 ###
-
+### Exercise 7
 Let's do some data wrangling with the `mpg` tibble, which contains fuel efficiency data on different types of cars. Let's start by loading the data set, and using `select()` to pick out the `cty` and `class` variables.
 
 ```{r da-2-1, exercise=TRUE, exercise.lines = 5}
@@ -2054,7 +2058,7 @@ We could calculate the predicted City MPG with this new fuel using `mutate()`. U
 <!-- ``` -->
 
 ###
-
+### Exercise 8
 Let's do some data wrangling with the `qscores` tibble, which contains data from student course evaluations at Harvard.
 
 Begin by using `select()` to pick out the `term`, `rating`, and `enrollment` variables.
