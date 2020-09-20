@@ -49,7 +49,7 @@ R is easiest to use when you know how the R language works. Some of the basic pr
 * **functions** and their **arguments**
 * **objects**
 * R's basic **data types** 
-* R's basic data structures including **vectors** and **lists**
+* R's basic data structures like **vectors**
 * R's **package system**
 
 ### Load a package
@@ -81,6 +81,7 @@ Load the `ggplot2` package using `library()`.
 ```
 
 ### Functions 
+Functions are the commands that perform tasks in R. They take in inputs called arguments and return outputs. 
 
 Can you use the `sqrt()` function in the chunk below to compute the square root of 962?
 
@@ -110,7 +111,7 @@ Wow! `lm()` runs a lot of code. What does it do? Open the help page for `lm()` b
 
 ### Code comments
 
-What do you think the chunk below will return? Run it and see. The result should be nothing. R will not run anything on a line after a `#` symbol. This is useful because it lets you write human readable comments in your code: just place the comments after a `#`. Now delete the `#` and re-run the chunk. You should see a result.
+ R will not run anything on a line after a `#` symbol. This is useful because it lets you write human readable comments in your code: just place the comments after a `#`. Now delete the `#` and re-run the chunk. You should see a result.
 
 ```{r functions-5, exercise = TRUE}
 # sqrt(961)
@@ -174,8 +175,18 @@ question('What does this common error message suggest? `object _____ does not ex
 
 ### Vectors
 
-#### Create a vector
+A vector is a series of values. These are created using the c() function. 
 
+```{r types5, echo = FALSE}
+question('How many types of data can you put into a single vector?',
+         answer("1", correct = TRUE),
+         answer("6"),
+         answer("As many as you like"),
+         allow_retry = TRUE)
+```
+
+
+##### Create a vector
 In the chunk below, create a vector that contains the integers from one to ten.
 
 ```{r vectors-1, exercise = TRUE}
@@ -186,7 +197,7 @@ In the chunk below, create a vector that contains the integers from one to ten.
 c(...)
 ```
 
-#### `:`
+`:`
 
 If your vector contains a sequence of contiguous integers, you can create it with the `:` shortcut. Run `1:10` in the chunk below. What do you get? What do you suppose `1:20` would return?
 
@@ -194,7 +205,7 @@ If your vector contains a sequence of contiguous integers, you can create it wit
 
 ```
 
-#### `[]`
+`[]`
 
 You can extract any element of a vector by placing a pair of brackets behind the vector. Inside the brackets place the number of the element that you'd like to extract. For example, `vec[3]` would return the third element of the vector named `vec`.
 
@@ -204,7 +215,7 @@ Use the chunk below to extract the fourth element of `vec`.
 vec <- c(1, 2, 4, 8, 16)
 ```
 
-#### More `[]`
+
 
 You can also use `[]` to extract multiple elements of a vector. Place the vector `c(1,2,5)` between the brackets below. What does R return?
 
@@ -239,9 +250,7 @@ Predict what the code below will return. Then look at the result.
 1 + c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 ```
 
-### Types
-
-#### Data types
+### Data types
  
 ```{r flights3, echo = FALSE}
 flights
@@ -268,15 +277,7 @@ There are three other common types of variables that aren't used in this data se
 
 This row of data types is unique to tibbles and is one of the ways that tibbles try to be more user-friendly than data frames.
 
-#### Vectors
 
-```{r types5, echo = FALSE}
-question('How many types of data can you put into a single vector?',
-         answer("1", correct = TRUE),
-         answer("6"),
-         answer("As many as you like"),
-         allow_retry = TRUE)
-```
 
 #### Character or object?
 
@@ -294,55 +295,30 @@ question('Which of these are object names? What is the difference between object
          correct = "Character strings are surrounded by quotation marks, object names are not.")
 ```
 
-### Lists 
-
-#### Lists vs. vectors
-
-```{r lists1, echo = FALSE}
-question('Which data structure(s) could you use to store these pieces of data in the same object? `1001`, `TRUE`, `"stories"`.',
-         answer("a vector"),
-         answer("a list", correct = TRUE),
-         answer("neither"),
-         allow_retry = TRUE)
-```
 
 
-```{r lists2, exercise = TRUE}
+## Data Frames
+Data frames are “spreadsheet”-type datasets.You can make a data frame with the `data.frame()` function, which works similar to `c()`.
 
-```
-
-#### Extract an element
-
-Extract the number 1001 from the list below.
-
-```{r lists3, exercise = TRUE}
-things <- list(number = 1001, logical = TRUE, string = "stories")
-```
-
-#### Data Frames
-
-You can make a data frame with the `data.frame()` function, which works similar to `c()`, and `list()`. Assemble the vectors below into a data frame with the column names `numbers`, `logicals`, `strings`.
+Assemble the vectors below into a data frame with the column names `numbers`, `logicals`, `strings`.
 
 ```{r lists4, exercise = TRUE}
 nums <- c(1, 2, 3, 4)
 logs <- c(TRUE, TRUE, FALSE, TRUE)
 strs <- c("apple", "banana", "carrot", "duck")
 ```
+### Extract a column
 
-#### Extract a column
-
-Given that a data frame is a type of list (with named elements), how could you extract the strings column of the `df` data frame below? Do it.
-
+Extract the strings column of the `df` data frame below.
 ```{r lists5, exercise = TRUE}
 nums <- c(1, 2, 3, 4)
 logs <- c(TRUE, TRUE, FALSE, TRUE)
 strs <- c("apple", "banana", "carrot", "duck")
 df <- data.frame(numbers = nums, logicals = logs, strings = strs)
 ```
+### Exploring dataframes
 
-## Exploring dataframes
-
-### `trains` data set
+#### `trains` data set
 
 Load the `PPBDS.data` package to look at the `trains` data set.
 
@@ -391,13 +367,16 @@ Extract the `income` variable in the `trains` data set using the `$` operator.
 
 ```
 
-### `qscores` data set
+#### `qscores` data set
 
 Look at the `qscores` data set using `glimpse()`. We have loaded the `PPBDS.data` and the `tidyverse` packages.
 
 ```{r qscores, exercise = TRUE, exercise.lines = 5}
 
 ```
+
+
+
 
 
 
@@ -453,7 +432,7 @@ quiz(
 )
 ```
 
-## `geom_point()`
+## ` geom_point` 
 
 ###
 
@@ -852,7 +831,7 @@ Use labs()
 
 ```
 
-## `geom_histogram()` 
+## ` geom_histogram()` 
 <!-- I -->
 
 
@@ -1143,7 +1122,7 @@ ggplot(data = mpg,
 ###
 A violin plot is a compact display of a continuous distribution which blends geom_boxplot() and geom_density()...these two come later don't worry. It is a mirrored density plot, and it is displayed in the same way as a boxplot. The mirrored density distribution in geom_violin() replaces the box and whiskers in boxplot.
 
-<!-- DK: Some words about violin plots and why we use them. -->
+
 
 ### 
 ### Exercise 1
@@ -1813,7 +1792,7 @@ The correct answer is 56. If you got something different, look back at your code
 
 ###
 ### Exercise 4
-For this section, we will be focusing on the data set `nhanes`. `nhanes` is a really big data set and there are many things we can do with its data, but let's say we wanted to make a graph using data on `height` and `weight` from the 200 youngest black males. How would we go about doing this? Well first, we would `select()` the variables we want to focus on, in this case `height`, `weight`, `age`, `race`, and `gender`. Try doing this below:
+For this section, we will be focusing on a really big data set called `nhanes`. let's say we wanted to make a graph using data on `height` and `weight` from the 200 youngest black males. We first would `select()` the variables we want to focus on, in this case `height`, `weight`, `age`, `race`, and `gender`. Try doing this below:
 
 ```{r data-II-1, exercise=TRUE, exercise.lines=10}
 
