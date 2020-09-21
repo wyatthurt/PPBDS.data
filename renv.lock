@@ -128,6 +128,13 @@
       "Repository": "CRAN",
       "Hash": "9addc7e2c5954eca5719928131fed98c"
     },
+    "brew": {
+      "Package": "brew",
+      "Version": "1.0-6",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "92a5f887f9ae3035ac7afde22ba73ee9"
+    },
     "brio": {
       "Package": "brio",
       "Version": "1.0.0",
@@ -761,6 +768,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "202260e1b2c410edc086d5b8f1ed946e"
+    },
+    "roxygen2": {
+      "Package": "roxygen2",
+      "Version": "7.1.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "fcd94e00cc409b25d07ca50f7bf339f5"
     },
     "rprojroot": {
       "Package": "rprojroot",

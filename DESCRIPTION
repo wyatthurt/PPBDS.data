@@ -42,4 +42,5 @@ Imports:
     rmarkdown
 BugReports: https://github.com/davidkane9/PPBDS.data/issues
 Suggests: 
-    fs
+    fs,
+    roxygen2
