@@ -11,6 +11,10 @@ output: html_document
 
 <!-- Reorganize visualization-A so that it looks more like other tutorials, with clear groups, and then exercises. -->
 
+<!-- Read: https://rstudio.github.io/renv/articles/renv.html Make sure this works for you. -->
+
+<!-- Shea: Do, and then fix, tutorial 4. Read the chapter as well, of course. -->
+
 
 <!-- Long Term:  -->
 
