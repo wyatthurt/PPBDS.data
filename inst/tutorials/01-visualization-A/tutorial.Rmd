@@ -24,6 +24,8 @@ description: "Chapter 1 Tutorial Part A"
 
 <!-- Also includes questions from rstudio/learnr and rstudio-education/primers GitHub repos -->
 
+<!-- is this working  -->
+
 ```{r setup, include=FALSE}
 library(tidyverse)
 library(PPBDS.data)
