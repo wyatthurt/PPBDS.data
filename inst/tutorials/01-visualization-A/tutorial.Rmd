@@ -971,8 +971,11 @@ Use labs(title = ..., x = ..., y = ...) to add the labels.
 ```
 
 ## `geom_boxplot()` 
-
 ###
+
+Pick the one or two sentences from the book which best introduce this topic. Give the plot we will build.
+
+### Exercise 1
 
 ```{r quiz-11, echo = FALSE}
 quiz(
@@ -987,36 +990,10 @@ quiz(
 )
 ```
 
-###
 
-Let's keep playing with the `qscores` data set in the `PPBDS.data` package. We have filtered the data set using the `tidyverse` package based on the five departments with the classes with the most enrollment: ECON, COMPSCI, STAT, GOV, and MATH. The filtered data set is called `top_five_qscores`.
+### Exercise 2
 
-```{r, include = FALSE}
-top_five_enrolled <- qscores %>%
-  group_by(department) %>%
-  summarize(enrollment = sum(enrollment)) %>%
-  arrange(desc(enrollment)) %>%
-  pull(department)
-
-top_five_qscores <- qscores %>% filter(department %in% top_five_enrolled[0:5])
-```
-
-```{r, echo = TRUE}
-top_five_qscores
-```
-### Exercise 1
-Using the `top_five_qscores` data set and `ggplot()`, make a boxplot where `department` is on the x-axis and `rating` is on the y-axis.
-
-```{r exercise-16-setup, include = FALSE}
-top_five_enrolled <- qscores %>%
-  group_by(department) %>%
-  summarize(enrollment = sum(enrollment)) %>%
-  arrange(desc(enrollment)) %>%
-  pull(department)
-
-top_five_qscores <- qscores %>% filter(department %in% top_five_enrolled[0:5])
-```
-
+Create a boxplot using the trains data in which party is on the x-axis and age is on the y-axis.
 
 ```{r exercise-16, exercise = TRUE, exercise.lines = 5}
 
@@ -1027,55 +1004,12 @@ ggplot(data = ..., mapping = aes(x = ..., y = ...)) +
   ...
 ```
 
-```{r quiz-12, echo = FALSE}
-quiz(
-  question("Which department has the highest median course rating?",
-           answer("COMPSCI"),
-           answer("ECON"),
-           answer("GOV"),
-           answer("MATH", correct = TRUE),
-           answer("STAT")
-  ),
-  question("Which department has outliers?",
-           answer("COMPSCI"),
-           answer("ECON"),
-           answer("GOV"),
-           answer("MATH", correct = TRUE),
-           answer("STAT")
-  ),
-  question("Which department has the largest range of course ratings?",
-           answer("COMPSCI"),
-           answer("ECON"),
-           answer("GOV", correct = TRUE),
-           answer("MATH"),
-           answer("STAT")
-  )
-)
-```
-
-###
-### Exercise 2
-Using the data set `governors`, create a boxplot where `party` is on the x-axis and `win_margin` is on the y-axis.
-
-```{r box-I-3, exercise=TRUE, exercise.lines=10}
-
-```
-
-###
-
-Let's add some color! Change your previous boxplot so that it is outlined in blue
-
-```{r box-I-4, exercise=TRUE, xercise.lines=10}
-
-```
-
-```{r box-I-4-hint, eval=FALSE}
-Use the color argument and remember to put "blue" in quotes.
-```
 
 
-###
+
+
 ### Exercise 3
+
 Let's make a boxplot using the `mpg` tibble, which shows the fuel efficiency for different types of cars. Set x = `class`, and y = `hwy`.
 
 ```{r gb-1-2, exercise=TRUE, exercise.lines = 5}
