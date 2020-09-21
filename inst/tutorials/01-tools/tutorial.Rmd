@@ -11,8 +11,16 @@ description: "Tools tutorial"
 ```{r setup, include=FALSE}
 library(learnr)
 knitr::opts_chunk$set(echo = FALSE)
+options(tutorial.exercise.timelimit = 60, tutorial.storage = "local")
 ```
 
+<!-- 1) Seems weird that the set up chunk only has to include learnr. Does it really work without at least library(shiny)?  -->
+
+<!-- 2) We need some commands related to git. Mainly just, issue the git commands we told you to, then type "git config user.name" and paste what comes back. Then, type "git config user.email" and paste what comes back. When you paste, give us both the line on which you typed the command and the line(s) below it. -->
+
+<!-- 3) Let's make this more like the other tutorials. There are two groups: The Terminal and Git. Each group has a collection of exercises. -->
+
+<!-- 4) Should we do more, something with Github? Something with a PDF file? That would certainly get students going to the first set of Study Halls! -->
 
 ## Welcome!
 

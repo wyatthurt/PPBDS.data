@@ -5,15 +5,15 @@ output: html_document
 
 <!-- TO-DO: -->
 
+<!-- Short Term: -->
 
-<!-- We need tutorials about using Git, using the command line and other non-R stuff. Maybe make it a separate Tools tutorial? Could have lots of questions like::"Type this in at the Terminal command line and paste whatever comes back here:"-->
+<!-- Expand the questions in the tools tutorial to cover more of the topics in the Tools Appendix. But, at the some time, we don't need to cover everything because much of the material is used in the Recitations. -->
 
-<!-- Can we show "answers" to a Tutorial after students have submitted it? How? -->
-
-<!-- Can we show "answers" to a Tutorial after students have submitted it? How? Maybe all we need is a script which pulls out the code for all the major examples and puts it in a single RMD which we could knit and distribute? -->
+<!-- Reorganize visualization-A so that it looks more like other tutorials, with clear groups, and then exercises. -->
 
 
-<!-- Can we show "answers" to a Tutorial after students have submitted it? How? Maybe all we need is a script which pulls out the code for all the major examples and puts it in a single RMD which we could knit and distribute? -->
+<!-- Long Term:  -->
+
 
 
 <!-- Can we show "answers" to a Tutorial after students have submitted it? How? Maybe all we need is a script which pulls out the code for all the major examples and puts it in a single RMD which we could knit and distribute? -->
@@ -24,9 +24,6 @@ output: html_document
 
 <!-- Any ideas why students are losing work? -->
 
-<!-- Simple way to process student answers.  -->
-
-<!-- Testing! -->
 
 
 ```{r not-setup, include=FALSE}
