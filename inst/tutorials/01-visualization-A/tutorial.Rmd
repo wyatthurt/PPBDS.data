@@ -10,7 +10,7 @@ runtime: shiny_prerendered
 description: "Chapter 1 Tutorial Part A"
 ---
 
-
+<!-- SJ: first commit -->
 <!-- 0) All summary comments from student feedback at top. --> 
 
 <!-- 1) Go through this Rmd and add lots of comments/questions with your initials. -->
