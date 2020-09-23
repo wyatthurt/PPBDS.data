@@ -182,10 +182,11 @@ tibble(col_1 = c("Government and Data Science", "Preceptor and Primer")) %>%
   str()
 ```
 
-###
-### Creating list-columns using map_*
 
-#### Exercise 1 
+## Creating list-columns using map_*
+###
+
+### Exercise 1 
 
 Explore the `ChickWeight` dataset using `skim()`.
 
@@ -197,7 +198,7 @@ Explore the `ChickWeight` dataset using `skim()`.
 skim(...)
 ```
 
-#### Exercise 2
+### Exercise 2
 
 Great! Now create a list-column of `weight`s using `mutate()`called `weight_groups`, grouping by `Diet` and `Time`.
 
@@ -213,7 +214,7 @@ ChickWeight %>%
   mutate(weight_groups = list(...))
 ```
 
-#### Exercise 3
+### Exercise 3
 
 Use the `map_dbl` function  and `mutate()` to add a new column, `mean_weight`, which is the mean weight per row. Recall that each row corresponds to a unique combination of `Diet` and `Time`. As always, you should start by copy-pasting from the last answer.
 
@@ -228,7 +229,7 @@ ChickWeight %>%
   mutate(mean_weight = map_dbl(weight_groups, ...))
 ```
 
-#### Exercise 4
+### Exercise 4
 
 Now let's use `map_dbl()` to round each `mean_weight` to the nearest integer. Name this new column `rounded_mean`. 
 
@@ -246,7 +247,7 @@ ChickWeight %>%
 
 Note that this answer is probably overkill. Although you can use `map_dbl()`, you don't need to. You could have just done `round(mean_weight)`.
 
-#### Exercise 5
+### Exercise 5
 
 ```{r quiz-2}
 quiz(caption = "",
@@ -264,7 +265,7 @@ quiz(caption = "",
 
 
 
-#### Exercise 6
+### Exercise 6
 
 Now let's use the `gapminder` dataset. Create a list-column named `gdpPercap_yearly` that lists the `gdpPercap` per year grouping by continent.
 
@@ -278,7 +279,7 @@ gapminder %>%
   mutate(gdpPercap_yearly = list(...))
 ```
 
-#### Exercise 7
+### Exercise 7
 
 Now, let's build upon the previous question's code. Instead of taking the `gdpPercap`, calculate the *annual GDP of the country* in a new variable called `annual_gdp`.
 
@@ -294,7 +295,7 @@ gapminder %>%
   mutate(annual_gdp = list(gdpPercap * ...))
 ```
 
-#### Exercise 8
+### Exercise 8
 
 What was the lowest GDP in each `year` x `continent` category? Create a new column named `lowest` of data type "double" that contains the lowest GDP per year/continent. Pay attention to the `map_*` function you use.
 
@@ -316,11 +317,10 @@ gapminder %>%
 
 
 
-## Functions
+## Custom Functions 
 ###
-### Custom Functions 
 
-#### Exercise 1
+### Exercise 1
 
 ```{r builtinfunctions}
 quiz(caption = "",
@@ -332,7 +332,7 @@ quiz(caption = "",
          allow_retry = TRUE))
 ```
 
-#### Exercise 2
+### Exercise 2
 
 Here is a custom function we will call `foo`:
 
@@ -365,7 +365,7 @@ quiz(
   )
 ```
 
-#### Exercise 3
+### Exercise 3
 
 Put yourself in the shoes of a teacher: You've given your students 10 homework assignments and announced that you will drop their lowest homework score. Their final grade will be the average score of the remaining homeworks.
 
@@ -378,7 +378,7 @@ Create an object named `x` that contains the vector `c(100, 100, 100, 100, 100, 
 
 ```
 
-#### Exercise 4
+### Exercise 4
 
 Use `sum()`, `min()`, `/`, `9` and parentheses to calculate the final grade for student `x`.
 
@@ -390,7 +390,7 @@ x <- c(100, 100, 100, 100, 100, 100, 100, 100, 100, 90)
 (sum(x) - min(x)) / ...
 ```
 
-#### Exercise 5
+### Exercise 5
 
 Save the code below as a function named `grade`.
 ```{r grade-setup}
@@ -407,7 +407,7 @@ grade <- function(){
 }
 ```
 
-#### Exercise 6
+### Exercise 6
 
 Each time you call `grade()` it computes the final grade of the vector `x` that contains `c(100, 100, 100, 100, 100, 100, 100, 100, 100, 90)`. We'd like to use `grade()` with new vectors that have new values.
 
@@ -425,7 +425,7 @@ grade <- function(...){
 }
 ```
 
-#### Exercise 7
+### Exercise 7
 
 Calculate the final grade of the vector `c(100, 90, 90, 90, 90, 90, 90, 90, 90, 80)`. 
 
@@ -443,7 +443,7 @@ grade <- function(x){
 Use the provided vector!
 ```
 
-#### Exercise 8
+### Exercise 8
 
 ```{r recap}
 quiz(
@@ -458,7 +458,7 @@ quiz(
 ```
 
 
-#### Exercise 9
+### Exercise 9
 
 Let's write a function that grades by counting a student's highest score twice and then taking an average of the 11 scores.
 
@@ -471,7 +471,7 @@ question("Do you have a test vector that you can use?",
          random_answer_order = TRUE)
 ```
 
-#### Exercise 11
+### Exercise 11
 
 Write a piece of code that uses `max()` to double count the highest score in `x` and then takes the average of the 11 results.
 
@@ -483,7 +483,7 @@ x <- c(100, 100, 100, 100, 100, 100, 100, 100, 100, 90)
 (sum(x) + max(x)) / ...
 ```
 
-#### Exercise 12
+### Exercise 12
 
 Wrap your code in `function()` and save it to the name `grade2`. Then define the argument(s) for the function.
 
@@ -497,7 +497,7 @@ grade2 <- function(x){
 }
 ```
 
-#### Exercise 13
+### Exercise 13
 
 ```{r gradingquiz}
 quiz(caption = "",
@@ -888,10 +888,11 @@ clean <- function(x){
 ```
 
 
-## Practice with functions
+
+## Monthly temperatures exercise
 ###
-### Monthly temperatures exercise
-#### Exercise 1
+
+### Exercise 1
 
 Explore the `airquality` dataset using `skim()`.
 
@@ -903,7 +904,7 @@ Explore the `airquality` dataset using `skim()`.
 skim(...)
 ```
 
-#### Exercise 2
+### Exercise 2
 
 Create a list-column of monthly temperatures called `monthly_temp`, grouping by `Month`.
 
@@ -917,7 +918,7 @@ airquality %>%
    mutate(monthly_temp = list(...))
 ```
 
-#### Exercise 3
+### Exercise 3
 
 ```{r quiz-4}
 quiz(caption = "",
@@ -929,7 +930,7 @@ quiz(caption = "",
 )
 ```
 
-#### Exercise 4
+### Exercise 4
 
 Use a `map_*` function to convert all of the temperatures in `monthly_temp` from Fahrenheit to Celsius, creating a new variable `temp_celsius`. Hint: Use the formula from the quiz above!
 
@@ -947,7 +948,7 @@ airquality %>%
   mutate(temp_celsius = map(monthly_temp, ...))
 ```
 
-#### Exercise 5
+### Exercise 5
 
 Oops! The scientists made a mistake in which all of the temperatures were mis-recorded. For temperatures recorded at or below 20 degrees Celsius, the true temperature is actually 1 degree Celsius lower. For temperatures recorded as higher than 20 degrees Celsius, the true temperature is actually 3 degrees Celsius higher.
 
@@ -964,7 +965,7 @@ function(x)
             x > 20 ~ x + 3)
 ```
 
-#### Exercise 6
+### Exercise 6
 
 Now use this function along with `map()`, swapping out the function code after the `~` in the `map()` argument.
 
@@ -984,7 +985,7 @@ airquality %>%
   mutate(temp_celsius = map(temp_celsius, ~ case_when(...)))
 ```
 
-#### Exercise 7
+### Exercise 7
 
 Now let's get a sense of the "corrected" data. Sort the temperatures from coldest to hottest each month.
 
@@ -1007,7 +1008,7 @@ airquality %>%
 ```
 
 
-### Coin Flipping exercise
+## Coin Flipping exercise
 ###
 
 Let's create a function, `coin_flip()`, that takes an input `n` of the number of times to flip a coin and adds up the number of Tails.
@@ -1157,7 +1158,7 @@ x %>%
 
 
 
-### Random Variables exercise
+## Random variables
 ###
 
 ### Exercise 1
