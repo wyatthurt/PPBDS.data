@@ -1592,6 +1592,14 @@ x %>%
 That seems kind of clunky to create three new columns. What if I wanted to return a single new list-column named `descriptive_stats` that contained a list of the mean, minimum, and maximum values? Time to write a function!
 
 ```{r coin9-setup}
+coin_flip <- function(n = 1){
+  stopifnot(is.numeric(n))
+  sum(sample(c("H", "T"), n, replace = TRUE) == "T")
+}
+five_flips <- function(n = 1){
+  stopifnot(is.numeric(n))
+  map_int(rep(5, n), coin_flip)
+}
 x <- tibble(flips = map(rep(10, 10), five_flips))
 stat_ops <- function(x){
   a <- mean(x)
