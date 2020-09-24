@@ -106,12 +106,6 @@ question("Which of these will run the `Sys.time` function?",
 ## Lists and list-columns
 ###
 
-
-
-
-
-
-
 ### Exercise 1
 
 
@@ -120,9 +114,9 @@ We use map_* functions to create list
 quiz(
 question("What does map_dbl() mean?",
            answer("The input to the map_dbl() function must be numeric"),
-           answer("The output of the map_dbl() function will be numeric", correct = TRUE),
-           allow_retry = TRUE
-  )
+           answer("The output of the map_dbl() function will be numeric", 
+                  correct = TRUE),
+           allow_retry = TRUE)
 )
 ```
 
@@ -172,7 +166,7 @@ tibble(col_1 = c("Government and Data Science", "Preceptor and Primer")) %>%
 
 ### Exercise 5
 
-Now append `str()` to the end of the pipe in order to read the tibble contents. 
+Now add `str()` to the end of the pipe in order to examine the tibble contents. 
 
 ```{r exercise-1b, exercise=TRUE}
 tibble(col_1 = c("Government and Data Science", "Preceptor and Primer")) %>%
@@ -186,7 +180,6 @@ tibble(col_1 = c("Government and Data Science", "Preceptor and Primer")) %>%
 ```
 
 ## Creating columns using map_*
-
 ###
 
 ### Exercise 1
@@ -202,7 +195,6 @@ skim(...)
 ```
 
 ### Exercise 2
-
 
 Great! Now create a list-column of `weight`s using `mutate()`called `weight_groups`, grouping by `Diet` and `Time`.
 
@@ -500,145 +492,6 @@ Remember to use the parentheses when calling a function from inside replicate()!
   # BG: better hint here
 ```
 
-### Exercise 4
-
-What will the following code return?
-
-
-```{r test-1, eval=FALSE, echo=TRUE}
-f <- function(a, b, c){
-  a
-  b
-  c
-}
-f(1, 2, 3)
-```
-
-```{r quiz-2b}
-question("",
-         answer("1"),
-         answer("2"),
-         answer("3", correct =TRUE, message = "A function will return the result of its *last* line."),
-         answer("A vector that contains 1, 2, and 3"),
-         answer("An error"),
-         allow_retry = TRUE)
-```
-
-### Exercise 5
-
-Consider this brilliant function:
-
-```{r foo-more, echo=TRUE}
-foo <- function(aaa, abb, abc){
-  c(aaa, abb, abc)
-}
-```
-
-```{r no-args, echo = FALSE}
-question("What will `foo()` return?",
-         answer('[1] "aaa" "abb" "abc"'),
-         answer("An error", correct = TRUE, message = "`foo` will not be able to find a value for `aaa` (or the rest)."),
-         allow_retry = TRUE)
-```
-
-### Exercise 6
-
-Let's make `foo` even more brilliant:
-
-
-
-```{r, echo=TRUE}
-foo <- function(aaa = 1, abb = 2, abc = 3){
-  c(aaa, abb, abc)
-}
-```
-
-```{r default-args}
-quiz(caption = "",
-  question("Now what will `foo()` return?",
-         answer('[1] "aaa" "abb" "abc"'),
-         answer('[1] 1 2 3', correct = TRUE, message = "An argument with a default value is optional, R will use the default value if you do not provide one."),
-         answer("An error"),
-         allow_retry = TRUE),
-question("What will `foo(0)` return?",
-         answer("[1] 1 2 3"),
-         answer("[1] 0 2 3", correct = TRUE, message = "If you do not provide an argument name in your call, R will match your value to the first unmatched argument name."),
-         answer("[1] 1 0 3"),
-         answer("[1] 1 2 0"),
-         answer("[1] 0 0 0"),
-         answer("An error"),
-         allow_retry = TRUE),
-question("What will `foo(0, 5)` return?",
-         answer("[1] 1 2 3"),
-         answer("[1] 0 5 3", correct = TRUE, message = "I think you have the hang of position matching."),
-         answer("[1] 0 5 0"),
-         answer("[1] 0 5 5"),
-         answer("An error"),
-         allow_retry = TRUE),
-question("What will `foo(aaa = 0, abc = 5)` return?",
-         answer("[1] 1 2 3"),
-         answer("[1] 0 5 3"),
-         answer("[1] 0 5 0"),
-         answer("[1] 0 2 5", correct = TRUE, message = "Using complete argument names is the easiest way to avoid an error (and to write comprehensible code). But what if you use a partial argument name?"),
-         answer("An error"),
-         allow_retry = TRUE),
-question("What will `foo(aa = 0)` return?",
-         answer("[1] 1 2 3"),
-         answer("[1] 0 2 3", correct = TRUE, message = "You do not need to spell out the full argument name, so long as you provide enough of the name to uniquely identify the argument. Here `aa` could only be the beginning of the `aaa` argument."),
-         answer("[1] 0 0 0"),
-         answer("An error"),
-         allow_retry = TRUE),
-question("What will `foo(a = 0)` return?",
-         answer("[1] 1 2 3"),
-         answer("[1] 0 2 3"),
-         answer("[1] 0 0 0"),
-         answer("An error", correct = TRUE, message = "Here `a` does not uniquely match an argument name: it is the beginning of all three argument names. R isn't psychic, so it won't guess which argument you meant. Instead R returns an error. It's the right thing to do because it lets you fix your code."),
-         allow_retry = TRUE))
-```
-
-### Exercise 7
-
-Now for some dark magic `. . .`
-
-```{r foo-more-1, echo=TRUE}
-foodoo <- function(...){
-  c(...)
-}
-```
-
-```{r dots-1, echo = FALSE}
-quiz(caption = "",
-  question("What will `foodoo(1, 2, 3)` return?",
-         answer("[1] 1 2 3", correct = TRUE, message = "`...` is a special mechanism for passing arguments. `...` will match any argument not otherwise matched and pass those arguments on as a group. This is a convenient way to pass a set of arguments through to a function in the function body."),
-         answer("An error."),
-         answer("Oh my goodness! You've broken R!"),
-         allow_retry = TRUE),
-question("What will `foodoo(a = 1, b = 2, c = 3)` return?",
-         answer("[1] 1 2 3"),
-         answer("[1] 1 2 3 _but with the names a b c above the values_", correct = TRUE, message = "If you provide names to your values, `...` will capture those as well and pass them on. So here, our code essentially runs `c(a = 1, b = 2, c = 3)`."),
-         answer("An error."),
-         allow_retry = TRUE))
-```
-
-### Exercise 8
-
-Here is one last wrinkle. Suppose we rewrite `foodoo` slightly:
-
-```{r foo-more-2, echo=TRUE}
-foodoo <- function(a, ...){
-  c(...)
-}
-```
-
-```{r dots-3, echo = FALSE}
-quiz(caption = "",
-  question("What will `foodoo(a = 1, b = 2, c = 3)` return?",
-         answer("[1] 1 2 3 with the names a b c above the values"),
-          answer("[1] 2 3 with the names b c above the values", correct = TRUE, message = "Remember that `...` only captures _unmatched_ values. Now that `a` is a formal argument, `a = 1` will be matched to it, leaving `b = 2` and `c = 3` to be captured and passed on."),
-         answer("An error."),
-         allow_retry = TRUE))
-```
-
 
 
 ## Testing
@@ -770,6 +623,8 @@ clean <- function(x){
 }
 ```
 
+<!-- DK: Given that we never use `stopifnot()`, we are they here? Why are they in the chapter? -->
+
 ## Using `stopifnot()`
 ###
 
@@ -879,8 +734,6 @@ quiz(
 
 
 ## Practice: Monthly Temperatures 
-
-
 ###
 
 
@@ -905,8 +758,7 @@ airquality %>%
 
 
 ```{r quiz-4}
-quiz(caption = "",
-  question("Which of the following possibilities for filling in the blank is syntactically correct and converts from Fahrenheit to Celsius?",
+quiz(question("Which of the following possibilities for filling in the blank is syntactically correct and converts from Fahrenheit to Celsius?",
            answer("(. - 32) * 5/9)"),
            answer("(- 32 * 5/9)"),
            answer("~ (. - 32) * 5/9)", correct = TRUE),
@@ -974,33 +826,9 @@ airquality %>%
   mutate(temp_celsius = map(temp_celsius, ~ case_when(...)))
 ```
 
-#### Exercise 6
-
-
-Now let's get a sense of the "corrected" data. Sort the temperatures from coldest to hottest each month.
-
-```{r exercise-6a, exercise=TRUE, eval=FALSE}
-airquality %>%
-  group_by(Month) %>%
-  mutate(monthly_temp = list(Temp)) %>%
-  mutate(temp_celsius = map(monthly_temp, ~ (. - 32)* 5/9)) %>%
-  mutate(temp_celsius = map(temp_celsius, ~ case_when(. <= 20 ~ . - 1,
-            . > 20 ~ . + 3)))
-```
-
-```{r exercise-6a-solution}
-airquality %>%
-  group_by(Month) %>%
-  mutate(monthly_temp = list(Temp)) %>%
-  mutate(temp_celsius = map(monthly_temp, ~ (. - 32)* 5/9)) %>%
-  mutate(temp_celsius = map(temp_celsius, ~ sort(case_when(. <= 20 ~ . - 1,
-            . > 20 ~ . + 3))))
-```
-
 
 
 ## Coin Flipping exercise
-
 ###
 
 Let's create a function, `coin_flip()`, that takes an input `n` of the number of times to flip a coin and adds up the number of Tails.
