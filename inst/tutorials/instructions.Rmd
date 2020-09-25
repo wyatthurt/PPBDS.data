@@ -4,6 +4,10 @@ output: html_document
 ---
 
 
+<!-- 1) Please clean this up. -->
+
+<!-- 2) Add chunk requesting email address. Explain here and place in all 8 tutorials. (Specify college email address.) -->
+
 
 
 
