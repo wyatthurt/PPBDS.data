@@ -15,6 +15,7 @@ description: "Chapter 6 tutorial"
 <!-- 0) Find all the DK comments and address them -->
 <!-- 1) Do not use map2. It is too much for this tutorial. Just fix one of the numbers and only allow the other one to change. Save map2 for the problem set. -->
 <!-- 2) Each section finishes with a nice plot. The student is show the plot in the last step and told to, approximately, replicate it. Of course, this will just involve adding a couple of items to whatever was the version in the second to last question. -->
+<!-- MF: The middle, especially when we get into map2, is far beyond what I think a student will know after reading the chapter once. If we want mapping in the tutorial, I can ammend it to be a simpler explanation. On the other hand, if I have my chapter open, I'm supposed to be able to do the questions easily, right? In which case, mapping should be taken out here or added to my chapter meaningfully. -->
 
 
 ```{r setup, include=FALSE}
@@ -49,11 +50,34 @@ question_text(
 ## The "virtual shovel"
 ###
 
-I have created a virtual urn with some unknown amount of red beads and white beads. Your goal will eventually be to estimate the number of red beads in the urn.
+We have created a virtual urn with some unknown amount of red beads and white beads. Our goal will eventually be to estimate the total number of red beads in the urn. 
+
+<<<<<<< HEAD
+For this portion of the tutorial, we will be replicating the graph below. The goal is to build this graph step-by-step, using the knowledge from The Primer's Chapter 6. 
+
+```{r}
+urn %>%
+  rep_sample_n(size = 20, reps = 50, replace = TRUE) %>%
+  mutate(is_red = (color == "red"), 
+         is_white = (color == "white"), 
+         .groups = "drop") %>%
+  summarize(num_red = sum(is_red), 
+            num_white = sum(is_white)) %>%
+  mutate(prop_red = num_red / (num_red + num_white)) %>%
+  mutate(estimated_red = prop_red * 1500) %>%
+  ggplot(mapping = aes(x = estimated_red)) +
+    geom_histogram(binwidth = 75, color = "white") +
+    scale_y_continuous(breaks = seq(from = 0, to = 20, by = 2)) +
+    scale_x_continuous(breaks = seq(from = 0, to = 1500, by = 100)) +
+  labs(title = "Range of Estimates Using Shovel of Size 20",
+       x = "Estimated number of red beads")
+```
+
 
 ### Exercise 1
 
-View the urn by simply typing `urn` in window below and hitting Run Code.
+To view the urn, simply type `urn` in window below and hit Run Code.
+
 
 ```{r shovel1, exercise = TRUE}
 
@@ -61,7 +85,7 @@ View the urn by simply typing `urn` in window below and hitting Run Code.
 
 ### Exercise 2
 
-It seems that there are 1,500 beads in the urn (i.e. 1,500 rows in our tibble), but is this really the case? Run `nrow()` on `urn` to confirm how many beads are really in the urn.
+It appears that there are 1,500 beads in the urn (i.e. 1,500 rows in our tibble). Is this really the case? Run `nrow()` on `urn` to confirm the number of beads in the urn.
 
 ```{r shovel2, exercise = TRUE}
 
@@ -69,7 +93,7 @@ It seems that there are 1,500 beads in the urn (i.e. 1,500 rows in our tibble), 
 
 ### Exercise 3
 
-To simulate the process of real-world sampling, when we generally won't know exactly how many items are in our population, pipe `urn` into `rep_sample_n()` from the **infer** package, with a shovel `size` of 20 (i.e. the sample should have 20 observations). This simulates drawing a sample of size 20 from our urn one time.
+To simulate the process of real-world sampling, where we generally won't know exactly how many items are in our population, pipe `urn` into `rep_sample_n()` from the **infer** package, with a shovel `size` of 20 (i.e. the sample should have 20 observations). This simulates drawing a sample of size 20 from our urn one time.
 
 ```{r shovel3, exercise = TRUE}
 
@@ -118,17 +142,22 @@ The proportion of red beads is num_red / (num_red + num_white).
 
 ### Exercise 7
 
-Finally, use `mutate()` one more time to create the `estimated_red` variable, our estimate of the number of red beads in the urn. `estimated_red` should be equal to `prop_red` multiplied by 1,500, the total number of beads.
+Finally, use `mutate()` to create the `estimated_red` variable, our estimate of the number of red beads in the urn. `estimated_red` should be equal to `prop_red` multiplied by 1,500, the total number of beads in the urn.
 
 ```{r shovel7, exercise = TRUE}
 
 ```
 
+```{r shovel7-hint, eval=FALSE}
+The estimated_red variable should be equal to (prop_red * 1500).
+```
+
+
 ### Exercise 8
 
-Nice work! Running the code below gives us a way to virtually sample our urn in 20-bead increments. Notice that running the code multiple times gives us different estimates for the number of red beads in the urn. each time we re-run the code, `rep_sample_n()` grabs a different sample from the urn.
+Nice work! Running the code below gives us a way to virtually sample our urn in 20-bead increments. Notice that running the code multiple times gives us different estimates for the number of red beads in the urn. Each time we re-run the code, `rep_sample_n()` grabs a different sample from the urn.
 
-Therefore, our next step will be to use our "virtual shovel" 50 times and create a distribution of the results. Start by settibg the `reps` argument of `rep_sample_n()` to 50. Implictly, up till now it has been 1, which is its default value.  Also, set the `replace` argument to `TRUE` (this is equivalent to sampling with replacement, which is what we want). You will also need to set the `.groups` argument in summarize to something like "drop" to get rid of the annoying warning.
+Our next step will be to use our "virtual shovel" 50 times and create a distribution of our results. Start by setting the `reps` argument of `rep_sample_n()` to 50. Up until now, the default value of `reps` has been 1. By setting `reps` to 50, we are telling our machine to sample 20 beads from the urn fifty times. Set the `replace` argument to `TRUE`. This is equivalent to sampling with replacement, which is what we want. You will also need to set the `.groups` argument in summarize to something like "drop" to get rid of the error message.
 
 ```{r shovel8, exercise = TRUE, exercise.lines = 7}
 urn %>%
@@ -148,6 +177,12 @@ Use `ggplot()` and `geom_histogram()` to create a histogram that maps our 50 val
 
 ```
 
+
+```{r shovel9-hint, eval=FALSE}
+After copying our code from above, add ggplot(mapping = aes(...). Remember that, with ggplot, our next line of code requires a "+" not a pipe.
+```
+
+
 ### Exercise 10
 
 Let's make our graph easier to read by setting the histogram's `binwidth` to 75 and `color` to "white."
@@ -155,6 +190,12 @@ Let's make our graph easier to read by setting the histogram's `binwidth` to 75 
 ```{r shovel10, exercise = TRUE}
 
 ```
+
+
+```{r shovel10-hint, eval=FALSE}
+geom_histogram(binwidth = ..., color = ...)
+```
+
 
 ### Exercise 11
 
@@ -175,23 +216,27 @@ urn %>%
     scale_y_continuous(breaks = seq(from = 0, to = 20, by = 2))
 ```
 
-### Exercise 11
 
-Use `scale_x_continuous()` to reset the tick marks on the x-axis to the multiples of 100 between 0 and 1,500. Copy and paste the code from the previous exercise so you also incorporate the adjustment that we made to the y-axis.
+### Exercise 12
+
+
+Use `scale_x_continuous()` to reset the tick marks on the x-axis to the multiples of 100 between 0 and 1,500. Copy and paste the code from the previous exercise to visualize the adjustment that we made to the y-axis and apply it to this prompt.
 
 ```{r shovel12, exercise = TRUE}
 
 ```
 
-```{r shovel12-hint}
-# The "by" argument of your seq() function should be 100.
+```{r shovel12-hint, eval = FALSE}
+The "by" argument of your seq() function should be 100.
 ```
 
-### Exercise 12
 
-Great job! By running the code below a few times, we can see that the number of red beads in the urn is probably something between 700 and 1,100. We'll learn more about how to refine our estimate in later sections.
+### Exercise 13
 
-To finish this graph, use `labs()` to rename the x-axis label to "Estimated number of red beads". Set reps equal to 500, so thate everything is smoother. In addition, give the graph a suitable title of your choice. Here is our version. Yours should look something like this, but does not need to be exactly the same.
+
+Great job! By running the code below a few times, we see that the number of red beads in the urn is probably somewhere between 700 and 1,100. We'll learn more about how to refine our estimate in later sections.
+
+To finish this graph, use `labs()` to rename the x-axis label to "Estimated number of red beads". Set `reps` equal to 500. Additionally, give the graph a suitable title of your choice. Here is our version. Yours should look something like this, but does not need to be exactly the same.
 
 ```{r shovel-final}
 urn %>%
@@ -217,230 +262,100 @@ urn %>%
 ```
 
 
-## Multiple sample sizes
+## Different sample sizes
 ###
 
-In this section, we're going to analyze the effect of increased sample size and increased number of samples by using the `map()` family of functions from the **purrr** package, which is part of the Tidyverse.
+In this section, imagine we have three choices of shovels to extract a sample of beads with: shovels of size 30, 60, and 120.
 
-Let's start by practicing how to create our own functions. Run the code below to see how we can define a function that rounds a number's square root to the nearest integer.
+Our eventual goal will be to create the graph below. This is showing the standard deviation in results for our three different shovel sizes. Remember: the lower the standard deviation, the more precise our response. 
 
-```{r map1, exercise = TRUE, exercise.lines = 6}
-rounded_sqrt <- function(x) {
-  round(sqrt(x))
-}
-rounded_sqrt(6)
-rounded_sqrt(7)
-```
+### Exercise 1
 
-###
-
-In the code chunk below, write a function `mean_squares()` that calculates the `mean()` of the squares of two numbers, `x` and `y`. Then, use your function to calcuate the mean of $6^2$ and $14^2$. Remember that `mean()` takes in a vector as its input. Your answer when you run `mean_squares(6, 14)` should be 116.
+In the code chunk below, create object `virtual_samples_30` by performing `rep_sample_n` on our object `urn` with a size of 25 and reps of 1000. 
 
 ```{r map2, exercise = TRUE}
 
 ```
 
-```{r map2-hint-1}
-# The vector that you pass into the mean() function should be c(x^2, y^2).
+```{r map2-hint, eval = FALSE}
+virtual_samples_30 <- urn %>%
+  rep_sample_n(size = ..., reps = ...)
 ```
 
-```{r map2-hint-2, eval = FALSE}
-mean_squares <- function(...) {
-  mean(...)
-}
-mean_squares(...)
+
+### Exercise 2
+
+To continue this sequence, we *could* perform the above code three more times, for all of our sample sizes. However, this would be tedious. Instead, let's create a function called `use_shovel` which draws a specified sample size with a specified number of reps. Remember that we want for size and reps to **not** be explicitly declared, so that we may use the function for any shovel size and any number of reps. 
+
+```{r map3, exercise = TRUE}
+
 ```
 
-###
-
-<!-- DK: I don't like the way that this code just assumes that urn is floating around in the global namespace. Didn't we fix this in the chapter? You should be forced to pass in the urn. -->
-
-The code chunk below contains the code that we made in the previous exercise to sample 20 beads 50 times from our urn. To generalize this code for any sample `size` and number of `reps`, wrap the code below in a new function, `sample_urn`. `sample_urn` should have 2 parameters: `size` (equal to the `size` of the `rep_sample_n()`) and `reps` (equal to the number of `reps` in the `rep_sample_n()`).
-
-```{r map3, exercise = TRUE, exercise.lines = 7}
-urn %>%
-  rep_sample_n(size = 20, reps = 50, replace = TRUE) %>%
-  mutate(is_red = (color == "red"), 
-         is_white = (color == "white")) %>%
-  summarize(num_red = sum(is_red), 
-            num_white = sum(is_white), 
-            .groups = "drop") %>%
-  mutate(prop_red = num_red / (num_red + num_white)) %>%
-  mutate(estimated_red = prop_red * 1500)
-```
-
-```{r map3-hint, eval = FALSE}
-sample_urn <- function(...) {
-  urn %>%
-    rep_sample_n(size = ..., reps = ..., replace = TRUE) %>%
-    mutate(is_red = (color == "red"), is_white = (color == "white")) %>%
-    summarize(num_red = sum(is_red), 
-              num_white = sum(is_white), 
-              .groups = "drop") %>%
-    mutate(prop_red = num_red / (num_red + num_white)) %>%
-    mutate(estimated_red = prop_red * 1500)
+```{r map3-hint-1, eval = FALSE}
+use_shovel <- function(x, size, reps){
+  x %>% ...
 }
 ```
 
-###
+```{r map3-hint-2, eval = FALSE}
+use_shovel <- function(x, size, reps){
+  x %>% rep_sample_n(size = size, ...)
+}
+```
 
-Nice work! Next, below the `sample_urn()` function, call `tibble()` to create a new tibble with 2 columns. `sample_size` should be equal to the vector `(20, 20, 100, 100)`, and `num_reps` should be equal to the vector `(50, 100, 50, 100)`. Remember to copy and paste your code from the previous exercise so you have the `sample_urn()` function in your code above the tibble.
+### Exercise 3
+
+To test our function, call use_shovel with (x = urn, size = 30, and reps = 2)
 
 ```{r map4, exercise = TRUE}
 
 ```
 
 ```{r map4-hint, eval = FALSE}
-tibble(sample_size = ..., 
-       num_reps = ...)
+use_shovel(x = urn, ..., ...)
 ```
 
-###
+### Exercise 4
 
-Pipe your tibble into a `mutate()` statement to create the new variable `sample_results`. Although it will produce an error, set `sample_results` equal to the result of a `sample_urn()` called with `size` equal to `sample_size` and `reps` equal to `num_reps`. Try to figure out why you received this error.
+Now that we have a function called `use_shovel`, we need a function that will calculate the proportion of beads that are red. To accomplish this, we will need to use the function `use_shovel` within another function, which we will call `prop_red`. The first line of the function `prop_red` should be `use_shovel` as we have created prior. The next parts should group results by replicate, summarize red for where the color == "red", and use `mutate` to create `prop_red` for the number of red beads divided by size. 
+
+BIG HINT: If this sounds overwhelming, read the "Functions are your friend!" section in Chapter 6. 
 
 ```{r map5, exercise = TRUE}
 
 ```
 
-###
+```{r map5-hint-1, eval = FALSE}
+prop_red <- function(x, size, reps) {
+  use_shovel(x = x, ..., ...) %>% 
+  group_by(...) %>% 
+  summarize(red = sum(...), .groups = ...) %>% 
+  mutate(prop_red = .../size)
+}
+```
 
-<!-- DK: This is too hard! Why use map2? -->
+```{r map5-hint-2, eval = FALSE}
+Seriously, read "Functions are your friend!". The answer can be found there. 
+```
 
-Because we want to apply `sample_urn()` to every row, we need to use a **purrr** `map_*()` function. First, copy and paste your code from the previous exercise. Then, set `sample_results` equal to a `map()` statement with three arguments passed to it: `sample_size`, `num_reps`, and the `sample_urn()` call from the previous exercise. Again, see if you can figure out why you receive an error.
+### Exercise 5
+
+Now, let's test our new function `prop_red` by drawing from our urn with a size of 30 and 2 repetitions. 
 
 ```{r map6, exercise = TRUE}
 
 ```
 
 ```{r map6-hint, eval = FALSE}
-tibble(sample_size = c(20, 20, 100, 100), 
-       num_reps = c(50, 100, 50, 100)) %>%
-  mutate(sample_results = map(..., ..., ...))
+prop_red(x = urn, size = ..., reps = ...)
 ```
 
-###
-
-We're on the right track, but we have to remember the two rules of calling expressions inside `map()` (in this case, our `sample_urn()` expression). First, begin your expression with the `~` character. Second, replace all instances of `sample_size` with `.x` and all instances of `num_reps` with `.y`. After running the function, you should not receive an error, but see if you can figure out why something is still wrong.
-
-```{r map7, exercise = TRUE}
-
-```
-
-```{r map7-hint, eval = FALSE}
-mutate(sample_results = map(sample_size, num_reps, ...))
-```
-
-###
-
-We finally don't get an error when we run our code! Unfortunately, the `sample_results` column is all `NULL`. This is because `map()` only works with one variable, so it can't handle our `sample_urn()` expression that uses *two* variables, `sample_size` and `num_reps`. To fix this final problem, all you need to do is replace `map()` with `map2()`. Then, continue on to the next exercise.
-
-```{r map8, exercise = TRUE}
-
-```
-
-###
-
-Fantastic work! The `sample_results` column of our tibble now contains 4 lists, each of which contains a series of samples with varying sample size and number of reps. Unfortunately, `ggplot()` can't actually graph lists, so we need someway to convert our list column into a normal tibble.
-
-Luckily, tidyr gives us the `unnest()` function, which unnests a list column (also known as nested lists) into a tibble. Pipe the tibble into `unnest()` with the `unnest()` parameter `cols` (the columns we want to unnest) equal to `sample_results`.
-
-```{r map9, exercise = TRUE, exercise.lines = 12}
-sample_urn <- function(size, reps) {
-  urn %>%
-    rep_sample_n(size = size, reps = reps, replace = TRUE) %>%
-    mutate(is_red = (color == "red"), is_white = (color == "white")) %>%
-    summarize(num_red = sum(is_red), 
-              num_white = sum(is_white), 
-              .groups = "drop") %>%
-    mutate(prop_red = num_red / (num_red + num_white)) %>%
-    mutate(estimated_red = prop_red * 1500)
-}
-
-tibble(sample_size = c(20, 20, 100, 100), 
-       num_reps = c(50, 100, 50, 100)) %>%
-  mutate(sample_results = map2(sample_size, num_reps, 
-                               ~ sample_urn(size = .x, reps = .y)))
-```
-
-```{r map9-hint, eval = FALSE}
-tibble(sample_size = c(20, 20, 100, 100), num_reps = c(50, 100, 50, 100)) %>%
-  mutate(sample_results = map2(sample_size, num_reps, 
-                               ~ sample_urn(size = .x, reps = .y))) %>%
-  unnest(...)
-```
-
-###
-
-Pipe the `unnest()`ed tibble into `ggplot()` to make a histogram that maps `estimated_red` to the x-axis.
-
-```{r map10, exercise = TRUE}
-
-```
-
-###
-
-As in the previous section, improve the aesthetics of the histogram by setting `binwidth` to 75 and `color` to "white."
-
-```{r map11, exercise = TRUE}
-
-```
-
-###
-
-The histogram is starting to look good, but we still don't see how sample size and number of samples impact our distribution. Use `facet_grid()` to facet the histogram into *rows* by `num_reps` and into *columns* by `sample_size`.
-
-```{r map12, exercise = TRUE}
-
-```
-
-```{r map12-hint}
-# Always put the variable that you're faceting into rows by before the variable that you're faceting into columns by.
-```
-
-###
-
-It's really hard to tell what exactly the difference is between the two rows and the two columns. Set the `labeller` parameter of `facet_grid()` to "label_both" to clarify the graph's facets.
-
-```{r map13, exercise = TRUE}
-
-```
-
-###
-
-<!-- DK: Show the final graph and then ask the student to replicate it. -->
-
-Great job! This graph tells us a lot about the impact of sample size and number of samples on a distribution. As we go from the graphs on the left to the graphs on the right (an increase in sample size), the distributions become much more concentrated around the mean. Also, as we go from the graphs on the top to the graphs on the bottom (an increase in number of samples), the graphs become substantially more similar to a smooth curve---in other words, there is less variance in the height of the bars.
-
-Finish your graph by using `labs()` to insert a title of your choice.
-
-```{r map14, exercise = TRUE, exercise.lines = 16}
-sample_urn <- function(size, reps) {
-  urn %>%
-    rep_sample_n(size = size, reps = reps, replace = TRUE) %>%
-    mutate(is_red = (color == "red"), is_white = (color == "white")) %>%
-    summarize(num_red = sum(is_red), 
-              num_white = sum(is_white), 
-              .groups = "drop") %>%
-    mutate(prop_red = num_red / (num_red + num_white)) %>%
-    mutate(estimated_red = prop_red * 1500)
-}
-
-tibble(sample_size = c(20, 20, 100, 100), 
-       num_reps = c(50, 100, 50, 100)) %>%
-  mutate(sample_results = map2(sample_size, num_reps, 
-                               ~ sample_urn(size = .x, reps = .y))) %>%
-  unnest(cols = sample_results) %>%
-  ggplot(mapping = aes(x = estimated_red)) +
-    geom_histogram(binwidth = 75, color = "white") +
-    facet_grid(num_reps ~ sample_size, labeller = label_both)
-```
-
+<!-- MF: This is the point where I've stopped for this week. I am going to add in some mapping (decided it was important), but will make it VERY similar to the mapping example in the chapter. I have a feeling this is the best way to ensure the students are reading during the tutorial. -->
 
 ## Standard deviation
 ###
 
-In the last section, we figured out that an increase in sample size leads to greater precision in the sampling distribution. But how can we mathematically measure this increase in precision? The standard deviation of a set of values gives us a mathetmatical framework for measuring precision---reread chapter 2 in the textbook if you don't remember how to use it.
+In the last section, we figured out that an increase in sample size leads to greater precision in the sampling distribution. But how can we mathematically measure this increase in precision? The standard deviation of a set of values gives us a mathetmatical framework for measuring precision---reread chapter 2 in the textbook if you need clarification.
 
 In the code cunk below, run `sd()` (the function that returns standard deviation) on the vector `c(1, 2, 3, 4, 5)`.
 
@@ -452,7 +367,7 @@ In the code cunk below, run `sd()` (the function that returns standard deviation
 # Remember that the vector above is equal to 1:5.
 ```
 
-###
+### Exercise 1
 
 This time, calculate the standard deviation of the vector `c(143, 144, 145, 146, 147)`. See if you can predict what the result will be before you run the code.
 
@@ -464,7 +379,7 @@ This time, calculate the standard deviation of the vector `c(143, 144, 145, 146,
 # Similarly to the previous exercise, the vector above is equal to 143:147.
 ```
 
-###
+### Exercise 2
 
 Calculate the standard deviation of the vector `c(2, 3, 4)` and compare the result to the results from the previous two exercises.
 
@@ -472,7 +387,7 @@ Calculate the standard deviation of the vector `c(2, 3, 4)` and compare the resu
 
 ```
 
-###
+### Exercise 3
 
 Calculate the standard deviation of the vector `c(7, 7, 7, 7, 7)`. See if you can predict the result before you run the code.
 
@@ -484,7 +399,7 @@ Calculate the standard deviation of the vector `c(7, 7, 7, 7, 7)`. See if you ca
 # You can use the rep() function to make this easier (though you don't have to).
 ```
 
-###
+### Exercise 4
 
 Finally, calculate the standard deviation of `c(1, 1, 1, 5, 5)` and compare the result to the result of the first exercise.
 
@@ -496,15 +411,15 @@ Finally, calculate the standard deviation of `c(1, 1, 1, 5, 5)` and compare the 
 sd(c(...))
 ```
 
-###
+### Exercise 5
 
-Finally, since we'll need it in the next exercise, let's recap the `seq()` function. Run the code below to see how we can return all multiples of 3 between 21 and 48.
+Since we'll need it for the next exercise, let's recap the `seq()` function. Run the code below to see how we can return all multiples of 3 between 21 and 48.
 
 ```{r sd5_2, exercise = TRUE}
 seq(from = 21, to = 48, by = 3)
 ```
 
-###
+### Exercise 6
 
 Now that have an intuitive understanding of how standard deviation works, let's apply it to our urn sampling from the previous section. The code below contains our final work from the previous section, excluding our `ggplot()`.
 
@@ -537,7 +452,7 @@ tibble(sample_size = seq(from = ..., to = ..., by = ...),
        num_reps = c(50, 100, 50, 100))
 ```
 
-###
+### Exercise 7
 
 To refine our `sample_size` vector, use the `c()` function to set `sample_size` equal to the first five integers (`1:5`) combined with the `seq()` statement from the previous exercise. Remember to copy and paste your code from the previous exercise, and again, ignore the error for the time being.
 
@@ -550,7 +465,7 @@ tibble(sample_size = c(..., seq(...)),
        num_reps = c(50, 100, 50, 100))
 ```
 
-###
+### Exercise 8
 
 Since we're going to need it in the next exercise, let's quickly recap the `rep()` function. Run the code below to see how we can make a vector with the number 14 repeated 30 times.
 
@@ -558,7 +473,7 @@ Since we're going to need it in the next exercise, let's quickly recap the `rep(
 rep(14, 30)
 ```
 
-###
+### Exercise 9
 
 The reason why we get an error is because our `num_reps` vector is not the same length is our `sample_size` vector. To fix the problem, use `rep()` to set `num_reps` equal to the number 50 repeated 23 times.
 
@@ -587,7 +502,7 @@ tibble(sample_size = c(1:5, seq(from = 6, to = 40, by = 2)),
        num_reps = ...)
 ```
 
-###
+### Exercise 10
 
 Nice work! Let's continue our pipe after the `unnest()` call by using `group_by()` to group the pipe by `sample_size`.
 
@@ -595,7 +510,7 @@ Nice work! Let's continue our pipe after the `unnest()` call by using `group_by(
 
 ```
 
-###
+### Exercise 11
 
 Continue the pipe by using `summarize()` to create the variable `sd_red`. `sd_red` should be equal to the standard deviation of the `estimated_red` variable in each group.
 
@@ -603,7 +518,7 @@ Continue the pipe by using `summarize()` to create the variable `sd_red`. `sd_re
 
 ```
 
-###
+### Exercise 12
 
 Pipe the tibble into `ggplot()` to create a scatterplot that maps `sample_size` to the x-axis and `sd_red` to the y-axis.
 
@@ -611,7 +526,7 @@ Pipe the tibble into `ggplot()` to create a scatterplot that maps `sample_size` 
 
 ```
 
-###
+### Exercise 13
 
 Finally, use `labs()` to set the `x`-axis label to "Sample size," the `y`-axis label to "Standard deviation of the number of red beads," and the graph's `title` to "How sample size affects the standard deviation of the sample."
 
@@ -619,7 +534,7 @@ Finally, use `labs()` to set the `x`-axis label to "Sample size," the `y`-axis l
 
 ```
 
-###
+### Exercise 14
 
 Great job! From this graph, we can see the general trend that standard deviation decreases as sample size increases. However, the natural variation makes it a bit difficult to analyze the shape of the curve.
 
@@ -682,7 +597,7 @@ We're going to start by analyzing a single model: 800 of the 1,500 beads being r
 tibble(color = c(rep(...), rep(...)))
 ```
 
-###
+### Exercise 1
 
 Next, let's take some samples from our table using `rep_sample_n()`. The first parameter of your `rep_sample_n()` statement should be equal to the tibble that you made in the previous exercise (remember to copy and paste!). In addition, set the `size` of `rep_sample_n()` to 45, the `reps` to 1,000 (any reasonably large number works here), and `replace` to "TRUE."
 
@@ -695,7 +610,7 @@ tibble(...) %>%
   rep_sample_n(size = ..., reps = ..., replace = ...)
 ```
 
-###
+### Exercise 2
 
 Pipe what you have into `group_by()` to group the tibble by the `replicate` variable.
 
@@ -703,7 +618,7 @@ Pipe what you have into `group_by()` to group the tibble by the `replicate` vari
 
 ```
 
-###
+### Exercise 3
 
 Using `summarize()`, create the variable `red_in_sample`, which should be equal to the `sum()` of the number of rows in each group with `color` equal to "red."
 
@@ -715,7 +630,9 @@ Using `summarize()`, create the variable `red_in_sample`, which should be equal 
 # The argument of your sum() function should be (color == "red").
 ```
 
-###
+### Exercise 4
+
+<!-- MF: I'm thinking that another function series might be too time consuming if the goal is about three hours to complete. That being said, I am going to re-read the earlier chapters and see if maybe functions have been similified for current students. -->
 
 We now have code that makes 1,000 random samples from our 800-red-bead urn, but we want to generalize it to urns with other amounts of red beads. To do so, wrap the code above in a function named `sample_given_urn` that has one parameter, `red_in_urn`. Replace the 800 in the first `rep()` statement with `red_in_urn` and the 700 in the second `rep()` statement with `red_in_urn` subtracted from 1,500. 
 
@@ -732,7 +649,7 @@ sample_given_urn <- function(...) {
 }
 ```
 
-###
+### Exercise 5
 
 Great job! We now have a function that will randomly generate 1,000 45-bead samples from an urn with any number of red beads.
 
@@ -748,7 +665,7 @@ sample_given_urn <- function(red_in_urn){
 }
 ```
 
-###
+### Exercise 6
 
 Now, below the function definition, call `tibble()` to create a new tibble with one column, `nums`, equal to the vector containing every multiple of 25 `from` 650 `to` 1,150 (feel free to return to the previous section if you need a quick refresher on `seq()`).
 
@@ -768,7 +685,7 @@ sample_given_urn <- function(red_in_urn){
 tibble(nums = seq(...))
 ```
 
-###
+### Exercise 7
 
 Pipe your tibble into a `mutate()` statement to create the new variable `sample_results`. For now, `sample_results` should be equal to the result of a `map()` statement whose first parameter is `nums` and whose second parameter is `sample_given_urn(nums)`. As usual, don't worry about the error for the time being.
 
@@ -776,7 +693,7 @@ Pipe your tibble into a `mutate()` statement to create the new variable `sample_
 
 ```
 
-###
+### Exercise 8
 
 To fix the error from our `map()` statement, remember the two rules of using `map()`: replace `nums` with `.x` in `sample_given_urn()`, and precede `sample_given_urn()` with the `~` symbol.
 
@@ -784,7 +701,7 @@ To fix the error from our `map()` statement, remember the two rules of using `ma
 
 ```
 
-###
+### Exercise 9
 
 Nice job! Unfortunately, we are now left with a list column. Just as we did in the previous sections, pipe the tibble into `unnest()` to convert the list column into a standard tibble. Set the `cols` argument of `unnest()` equal to `sample_results`.
 
@@ -792,7 +709,7 @@ Nice job! Unfortunately, we are now left with a list column. Just as we did in t
 
 ```
 
-###
+### Exercise 10
 
 Continuing your pipe, group the tibble by `nums`.
 
@@ -810,7 +727,7 @@ tibble(nums = seq(from = 650, to = 1150, by = 25)) %>%
   unnest(cols = sample_results)
 ```
 
-###
+### Exercise 11
 
 Use `summarize()` to create the variable `num_samples`. `num_samples` should be equal to the `sum()` of the number of rows in each group with `red_in_sample` equal to 28.
 
@@ -818,7 +735,7 @@ Use `summarize()` to create the variable `num_samples`. `num_samples` should be 
 
 ```
 
-###
+### Exercise 12
 
 Pipe the tibble into `ggplot()` to create a bar graph that maps `nums` to the x-axis and `num_samples` to the y-axis.
 
@@ -830,7 +747,7 @@ Pipe the tibble into `ggplot()` to create a bar graph that maps `nums` to the x-
 # Remember to use geom_col().
 ```
 
-###
+### Exercise 13
 
 Normalize the distribution by changing the y-axis mapping from `num_samples` to `num_samples` divided by the `sum()` of all `num_samples`. In addition, because the probabilities are so small, multiply `num_samples` by 100 before you divide by the `sum()` so we get percents instead of decimal probabilities.
 
@@ -842,7 +759,7 @@ Normalize the distribution by changing the y-axis mapping from `num_samples` to 
 ggplot(mapping = aes(x = nums, y = ... * ... / sum(...)))
 ```
 
-###
+### Exercise 14
 
 Call `scale_x_continuous()` to change the tick marks on the x-axis by setting the `breaks` parameter to the multiples of 50 between 650 and 1,150 (use the `seq()` function like we did in the `tibble()` statement at the beginning of the pipe).
 
@@ -854,7 +771,7 @@ Call `scale_x_continuous()` to change the tick marks on the x-axis by setting th
 scale_x_continuous(breaks = seq(...))
 ```
 
-###
+### Exercise 15
 
 Finally, use `labs()` to set the graph's `title` to "Posterior Probability Distribution of Red Beads in Urn," `subtitle` to "Based on a 45-bead sample with 28 red beads," `x`-axis label to "Number of red beads," and `y`-axis label to "Probability (percent)."
 
@@ -862,7 +779,7 @@ Finally, use `labs()` to set the graph's `title` to "Posterior Probability Distr
 
 ```
 
-###
+### Exercise 16
 
 Fantastic job! From this graph, we can see that the most likely outcome for the number of red beads in the urn is between 900 and 975. Notably, though, there is a *ton* of variance in the outcome: the probability that the number of red beads is between 900 and 950 is only about 30%. The major lesson here is that a single small sample is not very predictive---you need either many samples or a very large sample size to be confident in your estimate.
 
