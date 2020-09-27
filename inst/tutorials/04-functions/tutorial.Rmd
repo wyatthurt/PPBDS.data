@@ -106,6 +106,7 @@ question("Which of these will run the `Sys.time` function?",
 ## Lists and list-columns
 ###
 
+
 ### Exercise 1
 
 
@@ -166,7 +167,9 @@ tibble(col_1 = c("Government and Data Science", "Preceptor and Primer")) %>%
 
 ### Exercise 5
 
-Now add `str()` to the end of the pipe in order to examine the tibble contents. 
+
+Now append `str()` to the end of the pipe in order to read the tibble contents. 
+
 
 ```{r exercise-1b, exercise=TRUE}
 tibble(col_1 = c("Government and Data Science", "Preceptor and Primer")) %>%
@@ -180,6 +183,7 @@ tibble(col_1 = c("Government and Data Science", "Preceptor and Primer")) %>%
 ```
 
 ## Creating columns using map_*
+
 ###
 
 ### Exercise 1
@@ -195,6 +199,7 @@ skim(...)
 ```
 
 ### Exercise 2
+
 
 Great! Now create a list-column of `weight`s using `mutate()`called `weight_groups`, grouping by `Diet` and `Time`.
 
@@ -430,6 +435,7 @@ Use the provided vector!
 
 
 
+
 ## Using `runif()` and `rnorm()`
 ###
 
@@ -480,17 +486,19 @@ add_rvs <- function(n = 1){
 }
 ```
 
-```{r replicate, exercise=TRUE}
-
+```{r replicate, exercise= TRUE}
 
 ```
+
+
 
 ```{r replicate-hint, eval=FALSE}
 replicate(20, ...)
 Remember to use the parentheses when calling a function from inside replicate()!
   
-  # BG: better hint here
+ 
 ```
+<!-- BG: better hint here -->
 
 
 
@@ -733,12 +741,14 @@ quiz(
 
 
 
+
 ## Practice: Monthly Temperatures 
 ###
 
 
 
 #### Exercise 1
+
 
 Using the data set `airquality`, create a list-column of monthly temperatures called `monthly_temp`, grouping by `Month`.
 
@@ -828,7 +838,9 @@ airquality %>%
 
 
 
+
 ## Coin Flipping exercise
+
 ###
 
 Let's create a function, `coin_flip()`, that takes an input `n` of the number of times to flip a coin and adds up the number of Tails.
@@ -918,7 +930,6 @@ five_flips <- function(n = 1){
   map_int(rep(5, n), ...)
 }
 ```
-
 
 
 ### Exercise 6
